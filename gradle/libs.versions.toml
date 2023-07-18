@@ -1,0 +1,10 @@
+[versions]
+ktlint = "0.49.1"
+
+[plugins]
+spotless = "com.diffplug.spotless:6.20.0"
+
+[libraries]
+serialize = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
+codebook = "io.papermc.codebook:codebook:1.0.0-SNAPSHOT"
+coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2"
