@@ -5,6 +5,7 @@ import io.papermc.mache.codebook.RunCodeBookWorker
 import io.papermc.mache.constants.DECOMP_CFG
 import io.papermc.mache.constants.DECOMP_JAR
 import io.papermc.mache.constants.DOWNLOAD_SERVER_JAR
+import io.papermc.mache.constants.FULL_DECOMP_JAR
 import io.papermc.mache.constants.MC_MANIFEST
 import io.papermc.mache.constants.MC_VERSION
 import io.papermc.mache.constants.REMAPPED_JAR
@@ -17,20 +18,24 @@ import io.papermc.mache.lib.data.api.MinecraftManifest
 import io.papermc.mache.lib.data.api.MinecraftVersionManifest
 import io.papermc.mache.lib.json
 import java.nio.file.FileSystems
+import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.io.path.absolute
 import kotlin.io.path.absolutePathString
 import kotlin.io.path.copyTo
+import kotlin.io.path.createDirectories
 import kotlin.io.path.deleteIfExists
 import kotlin.io.path.exists
+import kotlin.io.path.isDirectory
 import kotlin.io.path.name
 import kotlin.io.path.notExists
 import kotlin.io.path.outputStream
+import kotlin.io.path.pathString
 import kotlin.io.path.readLines
 import kotlin.io.path.readText
+import kotlin.io.path.relativeTo
 import kotlin.io.path.useLines
 import kotlin.io.path.writeText
-import kotlin.math.log
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.encodeToString
@@ -94,6 +99,9 @@ object ConfigureVersionProject {
 
         val decompJar = layout.buildDirectory.file(DECOMP_JAR)
         decompileJar(mache, remappedJar, serverHash, decompJar)
+
+        val fullDecompJar = layout.buildDirectory.file(FULL_DECOMP_JAR)
+        copyFullDecompJar(decompJar, serverJar, serverHash, fullDecompJar)
     }
 
     private fun Project.downloadServerFiles(
@@ -299,6 +307,65 @@ object ConfigureVersionProject {
         config.writeText(hashConfig)
     }
 
+    private fun copyFullDecompJar(
+        decompJar: Any,
+        serverJar: Any,
+        serverHash: String,
+        fullDecompJar: Any,
+    ) {
+        val outputJar = fullDecompJar.convertToPath()
+        val (config, match) = outputJar.checkHashConfig(serverHash)
+        if (match) {
+            return
+        }
+
+        outputJar.deleteIfExists()
+        config.deleteIfExists()
+
+        FileSystems.newFileSystem(outputJar, mapOf("create" to true)).use { fs ->
+            val root = fs.getPath("/")
+            copyFiles(root, decompJar.convertToPath(), true)
+            copyFiles(root, serverJar.convertToPath(), false)
+        }
+
+        val fullDecompJarHash = outputJar.hashFile(HashingAlgorithm.SHA256).asHexString()
+        val hashConfig = json.encodeToString(HashConfig(serverHash, fullDecompJarHash))
+        config.writeText(hashConfig)
+    }
+
+    private fun copyFiles(outputRoot: Path, inputJar: Path, copyJava: Boolean) {
+        FileSystems.newFileSystem(inputJar).use { fs ->
+            val javaMatcher = fs.getPathMatcher("glob:**/*.java")
+            val classMatcher = fs.getPathMatcher("glob:**/*.class")
+            val metaInfMatcher = fs.getPathMatcher("glob:/META-INF/**")
+            val mcAssetsRootMatcher = fs.getPathMatcher("glob:**/.mcassetsroot")
+
+            val inputRoot = fs.getPath("/")
+            Files.walk(inputRoot).use {
+                it.forEach { p ->
+                    if (p.isDirectory()) {
+                        return@forEach
+                    }
+                    if (metaInfMatcher.matches(p) || mcAssetsRootMatcher.matches(p)) {
+                        return@forEach
+                    }
+
+                    val javaMatches = javaMatcher.matches(p)
+                    val classMatches = classMatcher.matches(p)
+
+                    if (
+                        (copyJava && javaMatches) || // we are copying java
+                        (!copyJava && !javaMatches && !classMatches) // we are not copying java
+                    ) {
+                        val target = outputRoot.resolve(p.relativeTo(inputRoot).pathString)
+                        target.parent.createDirectories()
+                        p.copyTo(target)
+                    }
+                }
+            }
+        }
+    }
+
     private fun Path.checkHashConfig(serverHash: String): Pair<Path, Boolean> {
         val config = resolveSibling("$name.config.json")
         if (notExists() || config.notExists()) {
@@ -314,6 +381,6 @@ object ConfigureVersionProject {
     }
 
     private fun Project.log(msg: String) {
-        println("$path:$msg")
+        println("$path > $msg")
     }
 }

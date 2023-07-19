@@ -21,6 +21,7 @@ open class MacheExtension(objects: ObjectFactory) {
                 "-ind=    ",
                 "-jvn=true",
                 "-dcc=true",
+                "-sef=true",
             ),
         )
     }

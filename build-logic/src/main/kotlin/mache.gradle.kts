@@ -1,5 +1,8 @@
 import io.papermc.mache.ConfigureVersionProject
-import io.papermc.mache.constants.DECOMP_JAR
+import io.papermc.mache.constants.FULL_DECOMP_JAR
+import io.papermc.mache.constants.PATCHED_JAR
+import io.papermc.mache.tasks.ApplyPatches
+import io.papermc.mache.tasks.RebuildPatches
 import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
@@ -39,18 +42,45 @@ configurations.implementation {
     extendsFrom(constants.get())
 }
 
-val setupSources by tasks.registering(Sync::class) {
+val applyPatches by tasks.registering(ApplyPatches::class) {
+    val patchesDir = layout.projectDirectory.dir("patches")
+    if (patchesDir.asFile.exists()) {
+        patchDir.set(patchesDir)
+    }
+
+    inputFile.set(layout.buildDirectory.file(FULL_DECOMP_JAR))
+    outputFile.set(layout.buildDirectory.file(PATCHED_JAR))
+}
+
+val copySources by tasks.registering(Sync::class) {
+    dependsOn(applyPatches)
     into(layout.projectDirectory.dir("src/main/java"))
-    include("**/*.java")
-    from(zipTree(layout.buildDirectory.file(DECOMP_JAR)))
+    from(zipTree(applyPatches.map { it.outputFile })) {
+        include("**/*.java")
+    }
+    includeEmptyDirs = false
 }
-val setupResources by tasks.registering(Sync::class) {
+
+val copyResources by tasks.registering(Sync::class) {
+    dependsOn(applyPatches)
     into(layout.projectDirectory.dir("src/main/resources"))
-    include("**/*.java")
-    from(zipTree(layout.buildDirectory.file(DECOMP_JAR)))
+    from(zipTree(applyPatches.map { it.outputFile })) {
+        exclude("**/*.java")
+    }
+    includeEmptyDirs = false
 }
+
 tasks.register("setup") {
-    dependsOn(setupSources, setupResources)
+    dependsOn(copySources, copyResources)
+}
+
+tasks.register("rebuildPatches", RebuildPatches::class) {
+    decompJar.set(layout.buildDirectory.file(FULL_DECOMP_JAR))
+
+    sourceDir.set(layout.projectDirectory.dir("src/main/java"))
+    resourcesDir.set(layout.projectDirectory.dir("src/main/resources"))
+
+    patchDir.set(layout.projectDirectory.dir("patches"))
 }
 
 afterEvaluate {

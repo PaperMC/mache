@@ -1,4 +1,9 @@
 pluginManagement {
+    repositories {
+        maven("https://maven.neoforged.net/releases/") {
+            name = "NeoForged"
+        }
+    }
     includeBuild("build-logic")
 }
 

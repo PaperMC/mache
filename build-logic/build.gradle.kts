@@ -6,7 +6,9 @@ plugins {
 }
 
 repositories {
-    mavenCentral()
+    maven("https://maven.neoforged.net/releases/") {
+        name = "NeoForged"
+    }
 }
 
 dependencies {
@@ -14,6 +16,7 @@ dependencies {
 
     implementation(libs.coroutines)
     implementation(libs.serialize)
+    implementation(libs.diffpatch)
 
     implementation(project(":build-logic-lib"))
     implementation(project(":build-logic-codebook-runner"))
@@ -27,10 +30,6 @@ tasks.spotlessApply {
 
 subprojects {
     afterEvaluate {
-        repositories {
-            mavenCentral()
-        }
-
         dependencies {
             implementation(kotlin("stdlib"))
         }
@@ -38,6 +37,10 @@ subprojects {
 }
 
 allprojects {
+    repositories {
+        mavenCentral()
+    }
+
     afterEvaluate {
         java {
             toolchain {
