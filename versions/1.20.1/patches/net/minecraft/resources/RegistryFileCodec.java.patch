@@ -1,0 +1,11 @@
+--- a/net/minecraft/resources/RegistryFileCodec.java
++++ b/net/minecraft/resources/RegistryFileCodec.java
+@@ -66,7 +66,7 @@
+                     return holdergetter.get(resourcekey)
+                         .map(DataResult::success)
+                         .orElseGet(() -> DataResult.error(() -> "Failed to get element " + resourcekey))
+-                        .<Pair<? super Holder.Reference<E>, T>>map(reference -> Pair.of(reference, pair.getSecond()))
++                        .map(reference -> Pair.of((Holder<E>)reference, pair.getSecond()))
+                         .setLifecycle(Lifecycle.stable());
+                 }
+             }

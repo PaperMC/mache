@@ -1,0 +1,109 @@
+--- a/net/minecraft/network/FriendlyByteBuf.java
++++ b/net/minecraft/network/FriendlyByteBuf.java
+@@ -158,7 +158,7 @@
+                 break;
+             case DIRECT:
+                 this.writeVarInt(0);
+-                writer.accept((T)this, entry.value());
++                writer.accept(this, entry.value());
+         }
+     }
+ 
+@@ -171,7 +171,7 @@
+     public <T> Holder<T> readById(IdMap<Holder<T>> registryEntries, FriendlyByteBuf.Reader<T> reader) {
+         int i = this.readVarInt();
+         if (i == 0) {
+-            return Holder.direct(reader.apply((T)this));
++            return Holder.direct(reader.apply(this));
+         } else {
+             Holder<T> holder = registryEntries.byId(i - 1);
+             if (holder == null) {
+@@ -197,7 +197,7 @@
+         C c = collectionFactory.apply(i);
+ 
+         for(int j = 0; j < i; ++j) {
+-            c.add(reader.apply((T)this));
++            c.add(reader.apply(this));
+         }
+ 
+         return c;
+@@ -207,7 +207,7 @@
+         this.writeVarInt(collection.size());
+ 
+         for(T t : collection) {
+-            writer.accept((T)this, t);
++            writer.accept(this, t);
+         }
+     }
+ 
+@@ -236,8 +236,8 @@
+         M m = mapFactory.apply(i);
+ 
+         for(int j = 0; j < i; ++j) {
+-            K k = keyReader.apply((K)this);
+-            V v = valueReader.apply((V)this);
++            K k = keyReader.apply(this);
++            V v = valueReader.apply(this);
+             m.put(k, v);
+         }
+ 
+@@ -251,8 +251,8 @@
+     public <K, V> void writeMap(Map<K, V> map, FriendlyByteBuf.Writer<K> keyWriter, FriendlyByteBuf.Writer<V> valueWriter) {
+         this.writeVarInt(map.size());
+         map.forEach((key, value) -> {
+-            keyWriter.accept((K)this, key);
+-            valueWriter.accept((V)this, value);
++            keyWriter.accept(this, key);
++            valueWriter.accept(this, value);
+         });
+     }
+ 
+@@ -292,25 +292,25 @@
+     public <T> void writeOptional(Optional<T> value, FriendlyByteBuf.Writer<T> writer) {
+         if (value.isPresent()) {
+             this.writeBoolean(true);
+-            writer.accept((T)this, value.get());
++            writer.accept(this, value.get());
+         } else {
+             this.writeBoolean(false);
+         }
+     }
+ 
+     public <T> Optional<T> readOptional(FriendlyByteBuf.Reader<T> reader) {
+-        return this.readBoolean() ? Optional.of(reader.apply((T)this)) : Optional.empty();
++        return this.readBoolean() ? Optional.of(reader.apply(this)) : Optional.empty();
+     }
+ 
+     @Nullable
+     public <T> T readNullable(FriendlyByteBuf.Reader<T> reader) {
+-        return this.readBoolean() ? reader.apply((T)this) : null;
++        return this.readBoolean() ? reader.apply(this) : null;
+     }
+ 
+     public <T> void writeNullable(@Nullable T value, FriendlyByteBuf.Writer<T> writer) {
+         if (value != null) {
+             this.writeBoolean(true);
+-            writer.accept((T)this, value);
++            writer.accept(this, value);
+         } else {
+             this.writeBoolean(false);
+         }
+@@ -319,15 +319,15 @@
+     public <L, R> void writeEither(Either<L, R> either, FriendlyByteBuf.Writer<L> leftWriter, FriendlyByteBuf.Writer<R> rightWriter) {
+         either.ifLeft(object -> {
+             this.writeBoolean(true);
+-            leftWriter.accept((L)this, object);
++            leftWriter.accept(this, object);
+         }).ifRight(object -> {
+             this.writeBoolean(false);
+-            rightWriter.accept((R)this, object);
++            rightWriter.accept(this, object);
+         });
+     }
+ 
+     public <L, R> Either<L, R> readEither(FriendlyByteBuf.Reader<L> leftReader, FriendlyByteBuf.Reader<R> rightReader) {
+-        return this.readBoolean() ? Either.left(leftReader.apply((L)this)) : Either.right(rightReader.apply((R)this));
++        return this.readBoolean() ? Either.left(leftReader.apply(this)) : Either.right(rightReader.apply(this));
+     }
+ 
+     public byte[] readByteArray() {

@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/Mount.java
++++ b/net/minecraft/world/entity/ai/behavior/Mount.java
+@@ -12,7 +12,7 @@
+ 
+     public static BehaviorControl<LivingEntity> create(float speed) {
+         return BehaviorBuilder.create(
+-            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
++            context -> context.group(
+                         context.registered(MemoryModuleType.LOOK_TARGET),
+                         context.absent(MemoryModuleType.WALK_TARGET),
+                         context.present(MemoryModuleType.RIDE_TARGET)

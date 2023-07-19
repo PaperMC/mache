@@ -1,0 +1,11 @@
+--- a/net/minecraft/util/StringRepresentable.java
++++ b/net/minecraft/util/StringRepresentable.java
+@@ -32,7 +32,7 @@
+                 .collect(
+                     Collectors.toMap(
+                         enum_ -> valueNameTransformer.apply(((StringRepresentable)enum_).getSerializedName()),
+-                        (Function<? super Enum, ? extends Enum>)(enum_ -> enum_)
++                        (enum_ -> enum_)
+                     )
+                 );
+             return new StringRepresentable.EnumCodec<>(ae, id -> id == null ? null : map.get(id));
