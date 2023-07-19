@@ -3,6 +3,7 @@ package io.papermc.mache.tasks
 import codechicken.diffpatch.cli.DiffOperation
 import codechicken.diffpatch.util.archiver.ArchiveFormat
 import io.papermc.mache.convertToPath
+import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 import java.lang.Exception
 import java.nio.file.FileSystems
@@ -19,6 +20,7 @@ import kotlin.io.path.outputStream
 import kotlin.io.path.pathString
 import kotlin.io.path.relativeTo
 import kotlin.io.path.walk
+import org.apache.tools.ant.types.CharSet
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.ProjectLayout
@@ -92,6 +94,10 @@ abstract class RebuildPatches : DefaultTask() {
                 if (result.exit == -1) {
                     throw Exception("Failed to rebuild patches. See log file: ${logs.absolutePathString()}")
                 }
+
+                val output = ByteArrayOutputStream()
+                result.summary.print(PrintStream(output, true, Charsets.UTF_8), false)
+                logger.lifecycle(output.toString(Charsets.UTF_8))
             }
         } finally {
             copied.deleteIfExists()
