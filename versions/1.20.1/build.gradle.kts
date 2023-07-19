@@ -12,3 +12,7 @@ dependencies {
     decompiler(vineflower("1.9.1"))
     yarn("1.20.1+build.9")
 }
+
+dependencies {
+    implementation("org.jetbrains:annotations:24.0.1")
+}
