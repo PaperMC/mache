@@ -1,0 +1,38 @@
+--- a/net/minecraft/world/entity/monster/piglin/PiglinAi.java
++++ b/net/minecraft/world/entity/monster/piglin/PiglinAi.java
+@@ -169,7 +169,7 @@
+         brain.addActivityAndRemoveMemoryWhenStopped(
+             Activity.FIGHT,
+             10,
+-            ImmutableList.of(
++            ImmutableList.<BehaviorControl<? super Piglin>>of(
+                 StopAttackingIfTargetInvalid.create(target -> !isNearestValidAttackTarget(piglin, target)),
+                 BehaviorBuilder.triggerIf(PiglinAi::hasCrossbow, BackUpIfTooClose.create(5, 0.75F)),
+                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
+@@ -192,7 +192,7 @@
+                 StartAttacking.<Piglin>create(AbstractPiglin::isAdult, PiglinAi::findNearestValidAttackTarget),
+                 BehaviorBuilder.triggerIf(piglin -> !piglin.isDancing(), GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 2, 1.0F)),
+                 BehaviorBuilder.triggerIf(Piglin::isDancing, GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 4, 0.6F)),
+-                new RunOne<LivingEntity>(
++                new RunOne<>(
+                     ImmutableList.of(
+                         Pair.of(SetEntityLookTarget.create(EntityType.PIGLIN, 8.0F), 1),
+                         Pair.of(RandomStroll.stroll(0.6F, 2, 1), 1),
+@@ -225,7 +225,7 @@
+                 SetWalkTargetAwayFrom.entity(MemoryModuleType.AVOID_TARGET, 1.0F, 12, true),
+                 createIdleLookBehaviors(),
+                 createIdleMovementBehaviors(),
+-                EraseMemoryIf.<PathfinderMob>create(PiglinAi::wantsToStopFleeing, MemoryModuleType.AVOID_TARGET)
++                EraseMemoryIf.create(PiglinAi::wantsToStopFleeing, MemoryModuleType.AVOID_TARGET)
+             ),
+             MemoryModuleType.AVOID_TARGET
+         );
+@@ -247,7 +247,7 @@
+                             .build()
+                     )
+                 ),
+-                DismountOrSkipMounting.<LivingEntity>create(8, PiglinAi::wantsToStopRiding)
++                DismountOrSkipMounting.create(8, PiglinAi::wantsToStopRiding)
+             ),
+             MemoryModuleType.RIDE_TARGET
+         );

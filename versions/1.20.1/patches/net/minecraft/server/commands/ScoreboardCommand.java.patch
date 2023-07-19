@@ -1,0 +1,11 @@
+--- a/net/minecraft/server/commands/ScoreboardCommand.java
++++ b/net/minecraft/server/commands/ScoreboardCommand.java
+@@ -640,7 +640,7 @@
+         } else {
+             scoreboard.addObjective(objective, criteria, displayName, criteria.getDefaultRenderType());
+             Objective objectivex = scoreboard.getObjective(objective);
+-            source.sendSuccess(() -> Component.translatable("commands.scoreboard.objectives.add.success", objective.getFormattedDisplayName()), true);
++            source.sendSuccess(() -> Component.translatable("commands.scoreboard.objectives.add.success", objectivex.getFormattedDisplayName()), true);
+             return scoreboard.getObjectives().size();
+         }
+     }

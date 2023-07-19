@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/ValidateNearbyPoi.java
++++ b/net/minecraft/world/entity/ai/behavior/ValidateNearbyPoi.java
+@@ -20,7 +20,7 @@
+ 
+     public static BehaviorControl<LivingEntity> create(Predicate<Holder<PoiType>> poiTypePredicate, MemoryModuleType<GlobalPos> poiPosModule) {
+         return BehaviorBuilder.create(
+-            context -> context.<MemoryAccessor>group(context.present(poiPosModule)).apply(context, poiPos -> (world, entity, time) -> {
++            context -> context.group(context.present(poiPosModule)).apply(context, poiPos -> (world, entity, time) -> {
+                         GlobalPos globalpos = context.get(poiPos);
+                         BlockPos blockpos = globalpos.pos();
+                         if (world.dimension() == globalpos.dimension() && blockpos.closerToCenterThan(entity.position(), 16.0)) {

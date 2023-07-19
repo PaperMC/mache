@@ -1,0 +1,105 @@
+--- a/net/minecraft/world/level/levelgen/SurfaceRules.java
++++ b/net/minecraft/world/level/levelgen/SurfaceRules.java
+@@ -177,10 +177,10 @@
+         }
+ 
+         @Override
+-        public SurfaceRules.Condition apply(SurfaceRules.Context context) {
++        public SurfaceRules.Condition apply(SurfaceRules.Context contextx) {
+             class BiomeCondition extends SurfaceRules.LazyYCondition {
+                 BiomeCondition() {
+-                    super(context);
++                    super(contextx);
+                 }
+ 
+                 @Override
+@@ -518,12 +518,12 @@
+         }
+ 
+         @Override
+-        public SurfaceRules.Condition apply(SurfaceRules.Context context) {
+-            final NormalNoise normalnoise = context.randomState.getOrCreateNoise(this.noise);
++        public SurfaceRules.Condition apply(SurfaceRules.Context contextx) {
++            final NormalNoise normalnoise = contextx.randomState.getOrCreateNoise(this.noise);
+ 
+             class NoiseThresholdCondition extends SurfaceRules.LazyXZCondition {
+                 NoiseThresholdCondition() {
+-                    super(context);
++                    super(contextx);
+                 }
+ 
+                 @Override
+@@ -659,12 +659,12 @@
+         }
+ 
+         @Override
+-        public SurfaceRules.Condition apply(SurfaceRules.Context context) {
++        public SurfaceRules.Condition apply(SurfaceRules.Context contextx) {
+             final boolean flag = this.surfaceType == CaveSurface.CEILING;
+ 
+             class StoneDepthCondition extends SurfaceRules.LazyYCondition {
+                 StoneDepthCondition() {
+-                    super(context);
++                    super(contextx);
+                 }
+ 
+                 @Override
+@@ -752,25 +752,25 @@
+         }
+ 
+         @Override
+-        public SurfaceRules.Condition apply(SurfaceRules.Context context) {
+-            final int i = this.trueAtAndBelow().resolveY(context.context);
+-            final int j = this.falseAtAndAbove().resolveY(context.context);
+-            final PositionalRandomFactory positionalrandomfactory = context.randomState.getOrCreateRandomFactory(this.randomName());
++        public SurfaceRules.Condition apply(SurfaceRules.Context contextx) {
++            final int iX = this.trueAtAndBelow().resolveY(contextx.context);
++            final int j = this.falseAtAndAbove().resolveY(contextx.context);
++            final PositionalRandomFactory positionalrandomfactory = contextx.randomState.getOrCreateRandomFactory(this.randomName());
+ 
+             class VerticalGradientCondition extends SurfaceRules.LazyYCondition {
+                 VerticalGradientCondition() {
+-                    super(context);
++                    super(contextx);
+                 }
+ 
+                 @Override
+                 protected boolean compute() {
+                     int i = this.context.blockY;
+-                    if (i <= i) {
++                    if (i <= iX) {
+                         return true;
+                     } else if (i >= j) {
+                         return false;
+                     } else {
+-                        double d0 = Mth.map((double)i, (double)i, (double)j, 1.0, 0.0);
++                        double d0 = Mth.map((double)i, (double)iX, (double)j, 1.0, 0.0);
+                         RandomSource randomsource = positionalrandomfactory.at(this.context.blockX, i, this.context.blockZ);
+                         return (double)randomsource.nextFloat() < d0;
+                     }
+@@ -799,10 +799,10 @@
+         }
+ 
+         @Override
+-        public SurfaceRules.Condition apply(SurfaceRules.Context context) {
++        public SurfaceRules.Condition apply(SurfaceRules.Context contextx) {
+             class WaterCondition extends SurfaceRules.LazyYCondition {
+                 WaterCondition() {
+-                    super(context);
++                    super(contextx);
+                 }
+ 
+                 @Override
+@@ -837,10 +837,10 @@
+         }
+ 
+         @Override
+-        public SurfaceRules.Condition apply(SurfaceRules.Context context) {
++        public SurfaceRules.Condition apply(SurfaceRules.Context contextx) {
+             class YCondition extends SurfaceRules.LazyYCondition {
+                 YCondition() {
+-                    super(context);
++                    super(contextx);
+                 }
+ 
+                 @Override

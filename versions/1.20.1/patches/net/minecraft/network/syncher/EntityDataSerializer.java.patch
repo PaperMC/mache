@@ -1,0 +1,17 @@
+--- a/net/minecraft/network/syncher/EntityDataSerializer.java
++++ b/net/minecraft/network/syncher/EntityDataSerializer.java
+@@ -19,12 +19,12 @@
+         return new EntityDataSerializer.ForValueType<T>() {
+             @Override
+             public void write(FriendlyByteBuf buf, T value) {
+-                writer.accept((T)buf, value);
++                writer.accept(buf, value);
+             }
+ 
+             @Override
+             public T read(FriendlyByteBuf buf) {
+-                return reader.apply((T)buf);
++                return reader.apply(buf);
+             }
+         };
+     }

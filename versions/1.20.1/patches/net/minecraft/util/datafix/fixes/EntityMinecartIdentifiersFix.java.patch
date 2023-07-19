@@ -1,0 +1,13 @@
+--- a/net/minecraft/util/datafix/fixes/EntityMinecartIdentifiersFix.java
++++ b/net/minecraft/util/datafix/fixes/EntityMinecartIdentifiersFix.java
+@@ -21,8 +21,8 @@
+ 
+     @Override
+     public TypeRewriteRule makeRule() {
+-        TaggedChoiceType<String> taggedchoicetype = this.getInputSchema().findChoiceType(References.ENTITY);
+-        TaggedChoiceType<String> taggedchoicetype1 = this.getOutputSchema().findChoiceType(References.ENTITY);
++        TaggedChoiceType<String> taggedchoicetype = (TaggedChoiceType<String>) this.getInputSchema().findChoiceType(References.ENTITY);
++        TaggedChoiceType<String> taggedchoicetype1 = (TaggedChoiceType<String>) this.getOutputSchema().findChoiceType(References.ENTITY);
+         return this.fixTypeEverywhere(
+             "EntityMinecartIdentifiersFix",
+             taggedchoicetype,

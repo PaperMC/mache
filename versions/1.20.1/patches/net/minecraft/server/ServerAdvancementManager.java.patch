@@ -1,0 +1,11 @@
+--- a/net/minecraft/server/ServerAdvancementManager.java
++++ b/net/minecraft/server/ServerAdvancementManager.java
+@@ -39,7 +39,7 @@
+             try {
+                 JsonObject jsonobject = GsonHelper.convertToJsonObject(json, "advancement");
+                 Advancement.Builder advancement$builder = Advancement.Builder.fromJson(jsonobject, new DeserializationContext(id, this.lootData));
+-                map.put(id, advancement$builder);
++                mapx.put(id, advancement$builder);
+             } catch (Exception exception1) {
+                 LOGGER.error("Parsing error loading custom advancement {}: {}", id, exception1.getMessage());
+             }

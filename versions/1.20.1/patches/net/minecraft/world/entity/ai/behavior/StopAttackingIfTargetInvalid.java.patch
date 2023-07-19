@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/StopAttackingIfTargetInvalid.java
++++ b/net/minecraft/world/entity/ai/behavior/StopAttackingIfTargetInvalid.java
+@@ -30,7 +30,7 @@
+         Predicate<LivingEntity> alternativeCondition, BiConsumer<E, LivingEntity> forgetCallback, boolean shouldForgetIfTargetUnreachable
+     ) {
+         return BehaviorBuilder.create(
+-            context -> context.<MemoryAccessor, MemoryAccessor>group(
++            context -> context.group(
+                         context.present(MemoryModuleType.ATTACK_TARGET), context.registered(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE)
+                     )
+                     .apply(

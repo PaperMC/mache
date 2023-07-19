@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/monster/piglin/StopAdmiringIfTiredOfTryingToReachItem.java
++++ b/net/minecraft/world/entity/monster/piglin/StopAdmiringIfTiredOfTryingToReachItem.java
+@@ -10,7 +10,7 @@
+ public class StopAdmiringIfTiredOfTryingToReachItem {
+     public static BehaviorControl<LivingEntity> create(int cooldown, int timeLimit) {
+         return BehaviorBuilder.create(
+-            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
++            context -> context.group(
+                         context.present(MemoryModuleType.ADMIRING_ITEM),
+                         context.present(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM),
+                         context.registered(MemoryModuleType.TIME_TRYING_TO_REACH_ADMIRE_ITEM),

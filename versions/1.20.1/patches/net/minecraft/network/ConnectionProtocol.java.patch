@@ -1,0 +1,71 @@
+--- a/net/minecraft/network/ConnectionProtocol.java
++++ b/net/minecraft/network/ConnectionProtocol.java
+@@ -196,14 +196,14 @@
+ 
+ public enum ConnectionProtocol implements BundlerInfo.Provider {
+     HANDSHAKING(
+-        -1, protocol().addFlow(PacketFlow.SERVERBOUND, new ConnectionProtocol.PacketSet().addPacket(ClientIntentionPacket.class, ClientIntentionPacket::new))
++        -1, protocol().addFlow(PacketFlow.SERVERBOUND, new ConnectionProtocol.PacketSet<net.minecraft.network.protocol.handshake.ServerHandshakePacketListener>().addPacket(ClientIntentionPacket.class, ClientIntentionPacket::new))
+     ),
+     PLAY(
+         0,
+         protocol()
+             .addFlow(
+                 PacketFlow.CLIENTBOUND,
+-                new ConnectionProtocol.PacketSet()
++                new ConnectionProtocol.PacketSet<net.minecraft.network.protocol.game.ClientGamePacketListener>()
+                     .withBundlePacket(ClientboundBundlePacket.class, ClientboundBundlePacket::new)
+                     .addPacket(ClientboundAddEntityPacket.class, ClientboundAddEntityPacket::new)
+                     .addPacket(ClientboundAddExperienceOrbPacket.class, ClientboundAddExperienceOrbPacket::new)
+@@ -318,7 +318,7 @@
+             )
+             .addFlow(
+                 PacketFlow.SERVERBOUND,
+-                new ConnectionProtocol.PacketSet()
++                new ConnectionProtocol.PacketSet<net.minecraft.network.protocol.game.ServerGamePacketListener>()
+                     .addPacket(ServerboundAcceptTeleportationPacket.class, ServerboundAcceptTeleportationPacket::new)
+                     .addPacket(ServerboundBlockEntityTagQuery.class, ServerboundBlockEntityTagQuery::new)
+                     .addPacket(ServerboundChangeDifficultyPacket.class, ServerboundChangeDifficultyPacket::new)
+@@ -377,13 +377,13 @@
+         protocol()
+             .addFlow(
+                 PacketFlow.SERVERBOUND,
+-                new ConnectionProtocol.PacketSet()
++                new ConnectionProtocol.PacketSet<net.minecraft.network.protocol.status.ServerStatusPacketListener>()
+                     .addPacket(ServerboundStatusRequestPacket.class, ServerboundStatusRequestPacket::new)
+                     .addPacket(ServerboundPingRequestPacket.class, ServerboundPingRequestPacket::new)
+             )
+             .addFlow(
+                 PacketFlow.CLIENTBOUND,
+-                new ConnectionProtocol.PacketSet()
++                new ConnectionProtocol.PacketSet<net.minecraft.network.protocol.status.ClientStatusPacketListener>()
+                     .addPacket(ClientboundStatusResponsePacket.class, ClientboundStatusResponsePacket::new)
+                     .addPacket(ClientboundPongResponsePacket.class, ClientboundPongResponsePacket::new)
+             )
+@@ -393,7 +393,7 @@
+         protocol()
+             .addFlow(
+                 PacketFlow.CLIENTBOUND,
+-                new ConnectionProtocol.PacketSet()
++                new ConnectionProtocol.PacketSet<net.minecraft.network.protocol.login.ClientLoginPacketListener>()
+                     .addPacket(ClientboundLoginDisconnectPacket.class, ClientboundLoginDisconnectPacket::new)
+                     .addPacket(ClientboundHelloPacket.class, ClientboundHelloPacket::new)
+                     .addPacket(ClientboundGameProfilePacket.class, ClientboundGameProfilePacket::new)
+@@ -402,7 +402,7 @@
+             )
+             .addFlow(
+                 PacketFlow.SERVERBOUND,
+-                new ConnectionProtocol.PacketSet()
++                new ConnectionProtocol.PacketSet<net.minecraft.network.protocol.login.ServerLoginPacketListener>()
+                     .addPacket(ServerboundHelloPacket.class, ServerboundHelloPacket::new)
+                     .addPacket(ServerboundKeyPacket.class, ServerboundKeyPacket::new)
+                     .addPacket(ServerboundCustomQueryPacket.class, ServerboundCustomQueryPacket::new)
+@@ -541,7 +541,7 @@
+         }
+ 
+         public void listAllPackets(Consumer<Class<? extends Packet<?>>> consumer) {
+-            this.classToId.keySet().stream().filter(type -> type != BundleDelimiterPacket.class).forEach(consumer);
++            this.classToId.keySet().stream().filter(type -> type != (Object) BundleDelimiterPacket.class).forEach(consumer);
+             this.extraClasses.forEach(consumer);
+         }
+ 

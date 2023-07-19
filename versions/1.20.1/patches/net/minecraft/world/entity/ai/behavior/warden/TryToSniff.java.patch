@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/warden/TryToSniff.java
++++ b/net/minecraft/world/entity/ai/behavior/warden/TryToSniff.java
+@@ -15,7 +15,7 @@
+ 
+     public static BehaviorControl<LivingEntity> create() {
+         return BehaviorBuilder.create(
+-            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
++            context -> context.group(
+                         context.registered(MemoryModuleType.IS_SNIFFING),
+                         context.registered(MemoryModuleType.WALK_TARGET),
+                         context.absent(MemoryModuleType.SNIFF_COOLDOWN),

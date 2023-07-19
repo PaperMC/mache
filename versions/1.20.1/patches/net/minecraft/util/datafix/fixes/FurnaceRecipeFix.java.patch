@@ -1,0 +1,15 @@
+--- a/net/minecraft/util/datafix/fixes/FurnaceRecipeFix.java
++++ b/net/minecraft/util/datafix/fixes/FurnaceRecipeFix.java
+@@ -43,9 +43,9 @@
+             "FurnaceRecipesFix",
+             type4,
+             type5,
+-            typed -> typed.updateTyped(opticfinder, type1, typedx -> this.updateFurnaceContents(type, type, typedx))
+-                    .updateTyped(opticfinder1, type2, typedx -> this.updateFurnaceContents(type, type, typedx))
+-                    .updateTyped(opticfinder2, type3, typedx -> this.updateFurnaceContents(type, type, typedx))
++            typed -> typed.updateTyped(opticfinder, type1, typedx -> this.updateFurnaceContents(type, typex, typedx))
++                    .updateTyped(opticfinder1, type2, typedx -> this.updateFurnaceContents(type, typex, typedx))
++                    .updateTyped(opticfinder2, type3, typedx -> this.updateFurnaceContents(type, typex, typedx))
+         );
+     }
+ 

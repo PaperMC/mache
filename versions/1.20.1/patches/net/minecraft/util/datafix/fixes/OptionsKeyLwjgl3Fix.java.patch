@@ -1,0 +1,22 @@
+--- a/net/minecraft/util/datafix/fixes/OptionsKeyLwjgl3Fix.java
++++ b/net/minecraft/util/datafix/fixes/OptionsKeyLwjgl3Fix.java
+@@ -153,15 +153,15 @@
+                                         s1 = "key.mouse." + (j + 1);
+                                     }
+     
+-                                    return Pair.of((Dynamic)entry.getKey(), ((Dynamic)entry.getValue()).createString(s1));
++                                    return Pair.of(entry.getKey(), (entry.getValue()).createString(s1));
+                                 } else {
+                                     String s = MAP.getOrDefault(i, "key.unknown");
+-                                    return Pair.of((Dynamic)entry.getKey(), ((Dynamic)entry.getValue()).createString(s));
++                                    return Pair.of(entry.getKey(), (entry.getValue()).createString(s));
+                                 }
+                             } else {
+-                                return Pair.of((Dynamic)entry.getKey(), (Dynamic)entry.getValue());
++                                return Pair.of(entry.getKey(), entry.getValue());
+                             }
+-                        }).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)))).result().orElse(dynamic))
++                        }).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)))).result().orElse((Dynamic) dynamic))
+         );
+     }
+ }

@@ -1,0 +1,11 @@
+--- a/net/minecraft/server/MinecraftServer.java
++++ b/net/minecraft/server/MinecraftServer.java
+@@ -779,7 +779,7 @@
+     }
+ 
+     @Override
+-    protected void doRunTask(TickTask tickTask) {
++    public void doRunTask(TickTask tickTask) {
+         this.getProfiler().incrementCounter("runTask");
+         super.doRunTask(tickTask);
+     }

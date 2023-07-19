@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/LocateHidingPlace.java
++++ b/net/minecraft/world/entity/ai/behavior/LocateHidingPlace.java
+@@ -12,7 +12,7 @@
+ public class LocateHidingPlace {
+     public static OneShot<LivingEntity> create(int maxDistance, float walkSpeed, int preferredDistance) {
+         return BehaviorBuilder.create(
+-            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
++            context -> context.group(
+                         context.absent(MemoryModuleType.WALK_TARGET),
+                         context.registered(MemoryModuleType.HOME),
+                         context.registered(MemoryModuleType.HIDING_PLACE),

@@ -1,0 +1,11 @@
+--- a/net/minecraft/util/datafix/fixes/ChunkProtoTickListFix.java
++++ b/net/minecraft/util/datafix/fixes/ChunkProtoTickListFix.java
+@@ -184,7 +184,7 @@
+         int kx = l >>> 8 & 15;
+         String s = function.apply(supplier != null ? supplier.get().get(ix, jx, kx) : null);
+         return dynamic.createMap(
+-            ImmutableMap.builder()
++            ImmutableMap.<Dynamic<?>, Dynamic<?>>builder()
+                 .put(dynamic.createString("i"), dynamic.createString(s))
+                 .put(dynamic.createString("x"), dynamic.createInt(i * 16 + ix))
+                 .put(dynamic.createString("y"), dynamic.createInt(j * 16 + jx))
