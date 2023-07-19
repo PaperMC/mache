@@ -20,7 +20,6 @@ import kotlin.io.path.outputStream
 import kotlin.io.path.pathString
 import kotlin.io.path.relativeTo
 import kotlin.io.path.walk
-import org.apache.tools.ant.types.CharSet
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.ProjectLayout
