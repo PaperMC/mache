@@ -69,6 +69,7 @@ abstract class RebuildPatches : DefaultTask() {
                     .level(Level.FINE)
                     .verbose(true)
                     .summary(true)
+                    .lineEnding("\n")
                     .build()
                     .operate()
 

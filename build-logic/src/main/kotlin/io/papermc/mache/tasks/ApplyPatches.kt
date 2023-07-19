@@ -72,6 +72,7 @@ abstract class ApplyPatches : DefaultTask() {
                 .verbose(true)
                 .summary(true)
                 .logTo(ps)
+                .lineEnding("\n")
                 .build()
                 .operate()
 
