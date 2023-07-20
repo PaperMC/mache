@@ -1,10 +1,10 @@
 package io.papermc.mache.codebook
 
 import io.papermc.codebook.CodeBook
-import io.papermc.codebook.config.CodeBookClasspathResource
 import io.papermc.codebook.config.CodeBookContext
-import io.papermc.codebook.config.CodeBookFileResource
-import io.papermc.codebook.config.CodeBookJarInput
+import io.papermc.codebook.config.CodeBookInput
+import io.papermc.codebook.config.CodeBookRemapper
+import io.papermc.codebook.config.CodeBookResource
 import java.io.PrintStream
 import java.nio.file.Path
 import kotlin.io.path.absolute
@@ -58,20 +58,26 @@ abstract class RunCodeBookWorker : WorkAction<RunCodeBookWorker.RunCodebookParam
 
     private fun run(tempDir: Path) {
         try {
-            val ctx = CodeBookContext(
-                parameters.tempDir.get().asFile.toPath().absolute(),
-                null,
-                CodeBookClasspathResource(parameters.remapperClasspath.files.mapTo(ArrayList()) { it.toPath().absolute() }),
-                CodeBookFileResource(parameters.serverMappings.get().asFile.toPath().absolute()),
-                CodeBookFileResource(parameters.paramMappings.singleFile.toPath().absolute()),
-                CodeBookFileResource(parameters.constants.singleFile.toPath().absolute()),
-                parameters.outputJar.get().asFile.toPath().absolute(),
-                false,
-                CodeBookJarInput(
-                    parameters.serverJar.get().asFile.toPath().absolute(),
-                    parameters.classpath.files.mapTo(ArrayList()) { it.toPath().absolute() },
-                ),
-            )
+            val ctx = CodeBookContext.builder()
+                .tempDir(parameters.tempDir.get().asFile.toPath().absolute())
+                .remapperJar(
+                    CodeBookRemapper.ofClasspath()
+                        .jars(parameters.remapperClasspath.files.map { it.toPath().absolute() })
+                        .build(),
+                )
+                .mappings(CodeBookResource.ofFile(parameters.serverMappings.get().asFile.toPath().absolute()))
+                .paramMappings(CodeBookResource.ofFile(parameters.paramMappings.singleFile.toPath().absolute()))
+                .constantsJar(CodeBookResource.ofFile(parameters.constants.singleFile.toPath().absolute()))
+                .outputJar(parameters.outputJar.get().asFile.toPath().absolute())
+                .overwrite(false)
+                .input(
+                    CodeBookInput.ofJar()
+                        .inputJar(parameters.serverJar.get().asFile.toPath().absolute())
+                        .classpathJars(parameters.classpath.files.map { it.toPath().absolute() })
+                        .build(),
+                )
+                .build()
+
             CodeBook(ctx).exec()
         } finally {
             tempDir.toFile().deleteRecursively()
