@@ -60,8 +60,8 @@ abstract class ApplyPatches : DefaultTask() {
                 .logTo(ps)
                 .build()
                 .operate()
-            if (result.exit == -1) {
-                throw Exception("Failed to apply patches. See log file: ${logs.absolutePathString()}")
+            if (result.exit != 0) {
+                throw Exception("Failed to apply patches (code: ${result.exit}). See log file: ${logs.absolutePathString()}")
             }
         }
     }
