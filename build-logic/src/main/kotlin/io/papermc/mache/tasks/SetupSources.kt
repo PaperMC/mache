@@ -24,7 +24,9 @@ import org.gradle.api.internal.file.FileOperations
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.UntrackedTask
 
+@UntrackedTask(because = "Always setup sources")
 abstract class SetupSources : DefaultTask() {
 
     @get:InputFile
