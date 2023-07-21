@@ -18,6 +18,7 @@ dependencies {
     implementation(libs.coroutines)
     implementation(libs.serialize)
     implementation(libs.diffpatch)
+    implementation(libs.jgit)
 
     implementation(project(":build-logic-lib"))
     implementation(project(":build-logic-codebook-runner"))

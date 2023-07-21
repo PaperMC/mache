@@ -8,6 +8,8 @@ import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 import java.net.http.HttpResponse.BodyHandlers
+import java.nio.channels.Channels
+import java.nio.channels.FileChannel
 import java.nio.file.Path
 import java.nio.file.attribute.FileTime
 import java.time.Duration
@@ -125,9 +127,10 @@ abstract class DownloadService : BuildService<BuildServiceParameters.None> {
         }
 
         downloadCallback()
-        response.body().use { input ->
-            target.outputStream().buffered().use { output ->
-                input.copyTo(output)
+
+        FileChannel.open(target).use { output ->
+            Channels.newChannel(response.body()).use { input ->
+                output.transferFrom(input, 0, Long.MAX_VALUE)
             }
         }
 

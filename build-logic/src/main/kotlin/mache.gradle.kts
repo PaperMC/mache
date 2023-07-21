@@ -1,6 +1,7 @@
 import io.papermc.mache.ConfigureVersionProject
 import io.papermc.mache.constants.DECOMP_JAR
 import io.papermc.mache.constants.DOWNLOAD_SERVER_JAR
+import io.papermc.mache.constants.PATCHED_JAR
 import io.papermc.mache.constants.REMAPPED_JAR
 import io.papermc.mache.constants.SERVER_JAR
 import io.papermc.mache.constants.SERVER_MAPPINGS
@@ -9,6 +10,7 @@ import io.papermc.mache.tasks.DecompileJar
 import io.papermc.mache.tasks.ExtractServerJar
 import io.papermc.mache.tasks.RebuildPatches
 import io.papermc.mache.tasks.RemapJar
+import io.papermc.mache.tasks.SetupSources
 import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
@@ -77,7 +79,14 @@ val applyPatches by tasks.registering(ApplyPatches::class) {
     }
 
     inputFile.set(decompileJar.flatMap { it.outputJar })
-    outputDir.set(layout.projectDirectory.dir("src/main/java"))
+    outputJar.set(layout.buildDirectory.file(PATCHED_JAR))
+}
+
+val setupSources by tasks.registering(SetupSources::class) {
+    decompJar.set(decompileJar.flatMap { it.outputJar })
+    patchedJar.set(applyPatches.flatMap { it.outputJar })
+
+    sourceDir.set(layout.projectDirectory.dir("src/main/java"))
 }
 
 val copyResources by tasks.registering(Sync::class) {
@@ -90,7 +99,7 @@ val copyResources by tasks.registering(Sync::class) {
 
 tasks.register("setup") {
     group = "mache"
-    dependsOn(applyPatches, copyResources)
+    dependsOn(setupSources, copyResources)
 }
 
 tasks.register("rebuildPatches", RebuildPatches::class) {

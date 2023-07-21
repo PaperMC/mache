@@ -11,6 +11,7 @@ import java.io.PrintStream
 import java.util.logging.Level
 import javax.inject.Inject
 import kotlin.io.path.absolutePathString
+import kotlin.io.path.copyTo
 import kotlin.io.path.exists
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.outputStream
@@ -22,7 +23,7 @@ import org.gradle.api.internal.file.FileOperations
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Optional
-import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.UntrackedTask
 
@@ -36,8 +37,8 @@ abstract class ApplyPatches : DefaultTask() {
     @get:InputFile
     abstract val inputFile: RegularFileProperty
 
-    @get:OutputDirectory
-    abstract val outputDir: DirectoryProperty
+    @get:OutputFile
+    abstract val outputJar: RegularFileProperty
 
     @get:Inject
     abstract val files: FileOperations
@@ -53,12 +54,8 @@ abstract class ApplyPatches : DefaultTask() {
         }
 
         if (!patchesPresent) {
-            outputDir.convertToPath().ensureClean()
-            files.sync {
-                from(files.zipTree(inputFile))
-                into(outputDir)
-                includeEmptyDirs = false
-            }
+            val out = outputJar.convertToPath().ensureClean()
+            inputFile.convertToPath().copyTo(out)
             return
         }
 
@@ -68,7 +65,7 @@ abstract class ApplyPatches : DefaultTask() {
             val result = PatchOperation.builder()
                 .patchesPath(patchDir.convertToPath(), null)
                 .basePath(inputFile.convertToPath(), ArchiveFormat.ZIP)
-                .outputPath(outputDir.convertToPath(), null)
+                .outputPath(outputJar.convertToPath(), ArchiveFormat.ZIP)
                 .mode(PatchMode.EXACT)
                 .level(Level.FINE)
                 .verbose(true)

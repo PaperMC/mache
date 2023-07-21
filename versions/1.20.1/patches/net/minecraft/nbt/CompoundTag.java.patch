@@ -1,0 +1,11 @@
+--- a/net/minecraft/nbt/CompoundTag.java
++++ b/net/minecraft/nbt/CompoundTag.java
+@@ -88,7 +88,7 @@
+             }
+ 
+             if (b0 != 0) {
+-                while((b0 = input.readByte()) != false) {
++                while((b0 = input.readByte()) != 0) {
+                     StringTag.skipString(input);
+                     TagTypes.getType(b0).skip(input);
+                 }
