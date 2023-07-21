@@ -37,6 +37,8 @@ open class MacheExtension(objects: ObjectFactory) {
                 "-dcc=true",
                 // Skip Extra Files: Skip copying non-class files from the input folder or file to the output
                 "-sef=true",
+                // New Line Seperator: Character that seperates lines in the decompiled output.
+                "-nls=1",
             ),
         )
     }

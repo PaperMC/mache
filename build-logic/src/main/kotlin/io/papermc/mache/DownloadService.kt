@@ -11,6 +11,9 @@ import java.net.http.HttpResponse.BodyHandlers
 import java.nio.channels.Channels
 import java.nio.channels.FileChannel
 import java.nio.file.Path
+import java.nio.file.StandardOpenOption.CREATE
+import java.nio.file.StandardOpenOption.TRUNCATE_EXISTING
+import java.nio.file.StandardOpenOption.WRITE
 import java.nio.file.attribute.FileTime
 import java.time.Duration
 import java.time.Instant
@@ -24,7 +27,6 @@ import kotlin.io.path.deleteIfExists
 import kotlin.io.path.exists
 import kotlin.io.path.getLastModifiedTime
 import kotlin.io.path.name
-import kotlin.io.path.outputStream
 import kotlin.io.path.readText
 import kotlin.io.path.setLastModifiedTime
 import kotlin.io.path.writeText
@@ -128,7 +130,7 @@ abstract class DownloadService : BuildService<BuildServiceParameters.None> {
 
         downloadCallback()
 
-        FileChannel.open(target).use { output ->
+        FileChannel.open(target, CREATE, TRUNCATE_EXISTING, WRITE).use { output ->
             Channels.newChannel(response.body()).use { input ->
                 output.transferFrom(input, 0, Long.MAX_VALUE)
             }

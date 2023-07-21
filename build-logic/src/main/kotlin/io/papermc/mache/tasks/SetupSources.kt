@@ -134,22 +134,21 @@ abstract class SetupSources : DefaultTask() {
     }
 
     private fun endingNewlines(path: Path) {
-        val seps = System.lineSeparator()
-        val sepLength = seps.length
+        val sep: Byte = '\n'.code.toByte()
+        val bytes = ByteBuffer.allocate(1)
 
-        val expectedBytes = ByteBuffer.wrap(ByteArray(sepLength) { i -> seps[i].code.toByte() })
-        val bytes = ByteBuffer.allocate(sepLength)
+        val sepBuffer = ByteBuffer.wrap(byteArrayOf(sep))
 
         for (file in path.walk().filter { it.name.endsWith(".java") }) {
             // try to check and fix each file without reading / writing the whole file
             FileChannel.open(file, READ, WRITE).use { f ->
-                f.position(f.size() - sepLength)
+                f.position(f.size() - 1)
                 f.read(bytes)
                 bytes.position(0)
-                if (bytes != expectedBytes) {
+                if (bytes[0] != sep) {
                     f.position(f.size())
-                    f.write(expectedBytes)
-                    expectedBytes.position(0)
+                    f.write(sepBuffer)
+                    sepBuffer.position(0)
                 }
             }
         }

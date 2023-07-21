@@ -66,6 +66,7 @@ abstract class ApplyPatches : DefaultTask() {
                 .patchesPath(patchDir.convertToPath(), null)
                 .basePath(inputFile.convertToPath(), ArchiveFormat.ZIP)
                 .outputPath(outputJar.convertToPath(), ArchiveFormat.ZIP)
+                .lineEnding("\n")
                 .mode(PatchMode.EXACT)
                 .level(Level.FINE)
                 .verbose(true)

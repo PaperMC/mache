@@ -64,6 +64,7 @@ abstract class RebuildPatches : DefaultTask() {
                     .aPath(decompJar.convertToPath(), ArchiveFormat.ZIP)
                     .bPath(copied.convertToPath(), ArchiveFormat.ZIP)
                     .outputPath(patchDir.convertToPath(), null)
+                    .lineEnding("\n")
                     .logTo(ps)
                     .level(Level.FINE)
                     .verbose(true)
