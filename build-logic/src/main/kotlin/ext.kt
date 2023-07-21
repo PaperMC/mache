@@ -1,3 +1,6 @@
+import io.papermc.mache.constants.GRADLE_DIR
+import org.gradle.api.file.Directory
+import org.gradle.api.file.ProjectLayout
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
 fun DependencyHandlerScope.codebook(version: String) {
@@ -19,3 +22,6 @@ fun DependencyHandlerScope.yarn(version: String) {
 
 fun tiny(version: String): String = "net.fabricmc:tiny-remapper:$version"
 fun vineflower(version: String): String = "org.vineflower:vineflower:$version"
+
+val ProjectLayout.dotGradleDirectory: Directory
+    get() = projectDirectory.dir(GRADLE_DIR)

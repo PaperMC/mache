@@ -1,5 +1,6 @@
 package io.papermc.mache.constants
 
+const val GRADLE_DIR = ".gradle"
 const val MACHE_DIR = "mache"
 const val JSONS_DIR = "$MACHE_DIR/jsons"
 
@@ -15,7 +16,5 @@ const val SERVER_LIBRARIES_LIST = "$SERVER_DIR/server_libraries.json"
 const val REMAPPED_JAR = "$SERVER_DIR/remapped.jar"
 const val DECOMP_JAR = "$SERVER_DIR/decomp.jar"
 const val DECOMP_CFG = "$SERVER_DIR/decomp.cfg"
-
-const val FULL_DECOMP_JAR = "$SERVER_DIR/full_decomp.jar"
 
 const val PATCHED_JAR = "$SERVER_DIR/patched.jar"

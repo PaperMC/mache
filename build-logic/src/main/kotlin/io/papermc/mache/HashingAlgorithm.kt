@@ -37,7 +37,6 @@ fun InputStream.hash(algorithm: HashingAlgorithm): ByteArray {
 }
 
 fun Path.hashFile(algorithm: HashingAlgorithm): ByteArray = inputStream().use { input -> input.hash(algorithm) }
-fun String.hash(algorithm: HashingAlgorithm): ByteArray = byteInputStream().hash(algorithm)
 
 fun ByteArray.asHexString(): String {
     val sb: StringBuilder = StringBuilder(size * 2)

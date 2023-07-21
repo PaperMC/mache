@@ -3,23 +3,13 @@ package io.papermc.mache.tasks
 import codechicken.diffpatch.cli.DiffOperation
 import codechicken.diffpatch.util.archiver.ArchiveFormat
 import io.papermc.mache.convertToPath
+import io.papermc.mache.ensureClean
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
-import java.lang.Exception
-import java.nio.file.FileSystems
-import java.nio.file.Files
-import java.nio.file.Path
 import java.util.logging.Level
 import javax.inject.Inject
 import kotlin.io.path.absolutePathString
-import kotlin.io.path.copyTo
-import kotlin.io.path.createDirectories
-import kotlin.io.path.deleteIfExists
-import kotlin.io.path.isDirectory
 import kotlin.io.path.outputStream
-import kotlin.io.path.pathString
-import kotlin.io.path.relativeTo
-import kotlin.io.path.walk
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.ProjectLayout
@@ -39,9 +29,6 @@ abstract class RebuildPatches : DefaultTask() {
     @get:InputDirectory
     abstract val sourceDir: DirectoryProperty
 
-    @get:InputDirectory
-    abstract val resourcesDir: DirectoryProperty
-
     @get:OutputDirectory
     abstract val patchDir: DirectoryProperty
 
@@ -50,56 +37,28 @@ abstract class RebuildPatches : DefaultTask() {
 
     @TaskAction
     fun run() {
-        val copied = layout.buildDirectory.file("tmp/tmp_copied.zip").get().asFile.toPath()
+        patchDir.convertToPath().ensureClean()
 
-        try {
-            copied.deleteIfExists()
-            copied.parent.createDirectories()
+        val logs = decompJar.convertToPath().resolveSibling("rebuildPatches.log")
+        PrintStream(logs.outputStream().buffered()).use { ps ->
+            val result = DiffOperation.builder()
+                .aPath(decompJar.convertToPath(), ArchiveFormat.ZIP)
+                .bPath(sourceDir.convertToPath(), null)
+                .outputPath(patchDir.convertToPath(), null)
+                .logTo(ps)
+                .level(Level.FINE)
+                .verbose(true)
+                .summary(true)
+                .build()
+                .operate()
 
-            FileSystems.newFileSystem(copied, mapOf("create" to true)).use { fs ->
-                val root = fs.getPath("/")
-                val walkFunc: (Path) -> (Path) -> Unit = { rootPath ->
-                    { p ->
-                        val target = root.resolve(p.relativeTo(rootPath).pathString)
-                        if (p.isDirectory()) {
-                            target.createDirectories()
-                        } else {
-                            p.copyTo(target)
-                        }
-                    }
-                }
-                sourceDir.convertToPath().let { src ->
-                    Files.walk(src).use { it.forEach(walkFunc(src)) }
-                }
-                resourcesDir.convertToPath().let { rsc ->
-                    Files.walk(rsc).use { it.forEach(walkFunc(rsc)) }
-                }
+            val output = ByteArrayOutputStream()
+            result.summary.print(PrintStream(output, true, Charsets.UTF_8), false)
+            logger.lifecycle(output.toString(Charsets.UTF_8))
+
+            if (result.exit != 0) {
+                throw Exception("Failed to rebuild patches. See log file: ${logs.absolutePathString()}")
             }
-
-            patchDir.convertToPath().createDirectories()
-
-            val logs = decompJar.convertToPath().resolveSibling("rebuildPatches.log")
-            PrintStream(logs.outputStream().buffered()).use { ps ->
-                val result = DiffOperation.builder()
-                    .aPath(decompJar.convertToPath(), ArchiveFormat.ZIP)
-                    .bPath(copied, ArchiveFormat.ZIP)
-                    .outputPath(patchDir.convertToPath(), null)
-                    .logTo(ps)
-                    .level(Level.FINE)
-                    .verbose(true)
-                    .summary(true)
-                    .build()
-                    .operate()
-                if (result.exit == -1) {
-                    throw Exception("Failed to rebuild patches. See log file: ${logs.absolutePathString()}")
-                }
-
-                val output = ByteArrayOutputStream()
-                result.summary.print(PrintStream(output, true, Charsets.UTF_8), false)
-                logger.lifecycle(output.toString(Charsets.UTF_8))
-            }
-        } finally {
-            copied.deleteIfExists()
         }
     }
 }

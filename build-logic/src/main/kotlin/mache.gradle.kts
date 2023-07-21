@@ -1,8 +1,14 @@
 import io.papermc.mache.ConfigureVersionProject
-import io.papermc.mache.constants.FULL_DECOMP_JAR
-import io.papermc.mache.constants.PATCHED_JAR
+import io.papermc.mache.constants.DECOMP_JAR
+import io.papermc.mache.constants.DOWNLOAD_SERVER_JAR
+import io.papermc.mache.constants.REMAPPED_JAR
+import io.papermc.mache.constants.SERVER_JAR
+import io.papermc.mache.constants.SERVER_MAPPINGS
 import io.papermc.mache.tasks.ApplyPatches
+import io.papermc.mache.tasks.DecompileJar
+import io.papermc.mache.tasks.ExtractServerJar
 import io.papermc.mache.tasks.RebuildPatches
+import io.papermc.mache.tasks.RemapJar
 import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
@@ -35,43 +41,62 @@ configurations.implementation {
     extendsFrom(constants.get())
 }
 
+val extractServerJar by tasks.registering(ExtractServerJar::class) {
+    downloadedJar.set(layout.dotGradleDirectory.file(DOWNLOAD_SERVER_JAR))
+    serverJar.set(layout.dotGradleDirectory.file(SERVER_JAR))
+}
+
+val remapJar by tasks.registering(RemapJar::class) {
+    serverJar.set(extractServerJar.flatMap { it.serverJar })
+    serverMappings.set(layout.dotGradleDirectory.file(SERVER_MAPPINGS))
+
+    codebookClasspath.from(codebook)
+    minecraftClasspath.from(minecraft)
+    remapperClasspath.from(remapper)
+    paramMappings.from(configurations.named("paramMappings"))
+    constants.from(configurations.named("constants"))
+
+    outputJar.set(layout.buildDirectory.file(REMAPPED_JAR))
+}
+
+val decompileJar by tasks.registering(DecompileJar::class) {
+    inputJar.set(remapJar.flatMap { it.outputJar })
+    decompilerArgs.set(mache.decompilerArgs)
+
+    minecraftClasspath.from(minecraft)
+    decompiler.from(configurations.named("decompiler"))
+
+    outputJar.set(layout.buildDirectory.file(DECOMP_JAR))
+}
+
 val applyPatches by tasks.registering(ApplyPatches::class) {
+    group = "mache"
     val patchesDir = layout.projectDirectory.dir("patches")
     if (patchesDir.asFile.exists()) {
         patchDir.set(patchesDir)
     }
 
-    inputFile.set(layout.buildDirectory.file(FULL_DECOMP_JAR))
-    outputFile.set(layout.buildDirectory.file(PATCHED_JAR))
-}
-
-val copySources by tasks.registering(Sync::class) {
-    dependsOn(applyPatches)
-    into(layout.projectDirectory.dir("src/main/java"))
-    from(zipTree(applyPatches.map { it.outputFile })) {
-        include("**/*.java")
-    }
-    includeEmptyDirs = false
+    inputFile.set(decompileJar.flatMap { it.outputJar })
+    outputDir.set(layout.projectDirectory.dir("src/main/java"))
 }
 
 val copyResources by tasks.registering(Sync::class) {
-    dependsOn(applyPatches)
     into(layout.projectDirectory.dir("src/main/resources"))
-    from(zipTree(applyPatches.map { it.outputFile })) {
-        exclude("**/*.java")
+    from(zipTree(extractServerJar.flatMap { it.serverJar })) {
+        exclude("**/*.class", "META-INF/**")
     }
     includeEmptyDirs = false
 }
 
 tasks.register("setup") {
-    dependsOn(copySources, copyResources)
+    group = "mache"
+    dependsOn(applyPatches, copyResources)
 }
 
 tasks.register("rebuildPatches", RebuildPatches::class) {
-    decompJar.set(layout.buildDirectory.file(FULL_DECOMP_JAR))
-
+    group = "mache"
+    decompJar.set(decompileJar.flatMap { it.outputJar })
     sourceDir.set(layout.projectDirectory.dir("src/main/java"))
-    resourcesDir.set(layout.projectDirectory.dir("src/main/resources"))
 
     patchDir.set(layout.projectDirectory.dir("patches"))
 }

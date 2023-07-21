@@ -6,5 +6,5 @@ plugins {
 }
 
 val mcManifestUrl = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json"
-val mcManifestFile: Provider<RegularFile> = layout.buildDirectory.file(MC_MANIFEST)
+val mcManifestFile: RegularFile = layout.dotGradleDirectory.file(MC_MANIFEST)
 download.download(mcManifestUrl, mcManifestFile)

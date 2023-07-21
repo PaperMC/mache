@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.copyFreeCompilerArgsToArgs
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -51,6 +52,11 @@ allprojects {
         kotlin {
             target {
                 jvmToolchain(java.toolchain.languageVersion.get().asInt())
+            }
+            sourceSets {
+                main {
+                    languageSettings.optIn("kotlin.io.path.ExperimentalPathApi")
+                }
             }
         }
 
