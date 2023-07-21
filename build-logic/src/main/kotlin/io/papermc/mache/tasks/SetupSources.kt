@@ -1,18 +1,13 @@
 package io.papermc.mache.tasks
 
 import io.papermc.mache.convertToPath
-import java.nio.ByteBuffer
-import java.nio.channels.FileChannel
 import java.nio.file.Path
-import java.nio.file.StandardOpenOption.READ
-import java.nio.file.StandardOpenOption.WRITE
 import javax.inject.Inject
 import kotlin.io.path.createDirectories
 import kotlin.io.path.deleteRecursively
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.name
 import kotlin.io.path.notExists
-import kotlin.io.path.walk
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.ResetCommand
 import org.eclipse.jgit.lib.PersonIdent
@@ -80,7 +75,6 @@ abstract class SetupSources : DefaultTask() {
             includeEmptyDirs = false
         }
 
-        endingNewlines(sources)
         git.add().addFilepattern(".").call()
         git.commit()
             .setMessage("Decompiled")
@@ -95,7 +89,6 @@ abstract class SetupSources : DefaultTask() {
             includeEmptyDirs = false
         }
 
-        endingNewlines(sources)
         git.add().addFilepattern(".").call()
         git.commit()
             .setMessage("Patched")
@@ -132,27 +125,6 @@ abstract class SetupSources : DefaultTask() {
                 continue
             }
             entry.deleteRecursively()
-        }
-    }
-
-    private fun endingNewlines(path: Path) {
-        val sep: Byte = '\n'.code.toByte()
-        val bytes = ByteBuffer.allocate(1)
-
-        val sepBuffer = ByteBuffer.wrap(byteArrayOf(sep))
-
-        for (file in path.walk().filter { it.name.endsWith(".java") }) {
-            // try to check and fix each file without reading / writing the whole file
-            FileChannel.open(file, READ, WRITE).use { f ->
-                f.position(f.size() - 1)
-                f.read(bytes)
-                bytes.position(0)
-                if (bytes[0] != sep) {
-                    f.position(f.size())
-                    f.write(sepBuffer)
-                    sepBuffer.position(0)
-                }
-            }
         }
     }
 

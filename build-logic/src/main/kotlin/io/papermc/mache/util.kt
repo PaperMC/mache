@@ -4,6 +4,7 @@ import java.io.File
 import java.lang.Exception
 import java.net.URI
 import java.net.URL
+import java.nio.file.FileSystems
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
 import kotlin.io.path.deleteRecursively
@@ -41,4 +42,17 @@ internal fun Path.ensureClean(): Path {
     deleteRecursively()
     parent.createDirectories()
     return this
+}
+
+inline fun <R> Path.useZip(create: Boolean = false, func: (Path) -> R): R {
+    val fs = if (create) {
+        FileSystems.newFileSystem(this, mapOf("create" to true))
+    } else {
+        FileSystems.newFileSystem(this)
+    }
+
+    return fs.use { f ->
+        val root = f.getPath("/")
+        func(root)
+    }
 }

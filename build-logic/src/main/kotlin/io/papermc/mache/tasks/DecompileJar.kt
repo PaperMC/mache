@@ -3,7 +3,7 @@ package io.papermc.mache.tasks
 import io.papermc.mache.constants.DECOMP_CFG
 import io.papermc.mache.convertToPath
 import io.papermc.mache.ensureClean
-import java.nio.file.FileSystems
+import io.papermc.mache.useZip
 import javax.inject.Inject
 import kotlin.io.path.absolutePathString
 import kotlin.io.path.deleteIfExists
@@ -85,8 +85,8 @@ abstract class DecompileJar : DefaultTask() {
             }
         }
 
-        FileSystems.newFileSystem(out).use { fs ->
-            fs.getPath("META-INF", "MANIFEST.MF").deleteIfExists()
+        out.useZip { root ->
+            root.resolve("META-INF").resolve("MANIFEST.MF").deleteIfExists()
         }
     }
 }

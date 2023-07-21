@@ -1,14 +1,4 @@
 pluginManagement {
-    repositories {
-        maven("https://maven.neoforged.net/releases/") {
-            name = "NeoForged"
-            mavenContent {
-                includeGroupAndSubgroups("net.neoforged")
-            }
-        }
-        mavenCentral()
-        gradlePluginPortal()
-    }
     includeBuild("build-logic")
 }
 

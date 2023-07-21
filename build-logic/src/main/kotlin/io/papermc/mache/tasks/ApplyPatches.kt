@@ -1,20 +1,26 @@
 package io.papermc.mache.tasks
 
-import codechicken.diffpatch.cli.PatchOperation
-import codechicken.diffpatch.util.PatchMode
-import codechicken.diffpatch.util.archiver.ArchiveFormat
-import io.papermc.mache.constants.SERVER_DIR
+import com.github.difflib.DiffUtils
+import com.github.difflib.UnifiedDiffUtils
+import com.github.difflib.patch.PatchFailedException
 import io.papermc.mache.convertToPath
 import io.papermc.mache.ensureClean
-import java.io.ByteArrayOutputStream
-import java.io.PrintStream
-import java.util.logging.Level
+import io.papermc.mache.useZip
+import java.nio.file.Path
+import java.nio.file.StandardOpenOption.CREATE_NEW
+import java.nio.file.StandardOpenOption.TRUNCATE_EXISTING
+import java.nio.file.StandardOpenOption.WRITE
 import javax.inject.Inject
-import kotlin.io.path.absolutePathString
 import kotlin.io.path.copyTo
+import kotlin.io.path.createDirectories
 import kotlin.io.path.exists
 import kotlin.io.path.listDirectoryEntries
-import kotlin.io.path.outputStream
+import kotlin.io.path.name
+import kotlin.io.path.notExists
+import kotlin.io.path.readLines
+import kotlin.io.path.relativeTo
+import kotlin.io.path.walk
+import kotlin.io.path.writeLines
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.ProjectLayout
@@ -53,36 +59,79 @@ abstract class ApplyPatches : DefaultTask() {
             patches.exists() && patches.listDirectoryEntries().isNotEmpty()
         }
 
-        outputJar.convertToPath().ensureClean()
+        val out = outputJar.convertToPath().ensureClean()
 
         if (!patchesPresent) {
-            inputFile.convertToPath().copyTo(outputJar.convertToPath())
+            inputFile.convertToPath().copyTo(out)
             return
         }
 
-        val logs = layout.buildDirectory.file("$SERVER_DIR/applyPatches.log").convertToPath()
+        inputFile.convertToPath().useZip { inputRoot ->
+            out.useZip(create = true) { outputRoot ->
+                val patchRoot = patchDir.convertToPath()
 
-        PrintStream(logs.outputStream().buffered()).use { ps ->
-            val result = PatchOperation.builder()
-                .patchesPath(patchDir.convertToPath(), null)
-                .basePath(inputFile.convertToPath(), ArchiveFormat.ZIP)
-                .outputPath(outputJar.convertToPath(), ArchiveFormat.ZIP)
-                .lineEnding("\n")
-                .mode(PatchMode.EXACT)
-                .level(Level.FINE)
-                .verbose(true)
-                .summary(true)
-                .logTo(ps)
-                .build()
-                .operate()
+                val result = inputRoot.walk()
+                    .filter { it.name.endsWith(".java") }
+                    .map { original ->
+                        val relPath = original.relativeTo(inputRoot)
+                        val patchPath = relPath.resolveSibling("${relPath.name}.patch").toString()
+                        val patch = patchRoot.resolve(patchPath)
+                        val patched = outputRoot.resolve(original.toString())
+                        PatchTask(patch, original, patched)
+                    }
+                    .fold<_, PatchResult>(PatchSuccess) { acc, value ->
+                        acc.fold(applyPatch(value))
+                    }
 
-            val output = ByteArrayOutputStream()
-            result.summary.print(PrintStream(output, true, Charsets.UTF_8), false)
-            logger.lifecycle(output.toString(Charsets.UTF_8))
-
-            if (result.exit != 0) {
-                throw Exception("Failed to apply patches (code: ${result.exit}). See log file: ${logs.absolutePathString()}")
+                if (result is PatchFailure) {
+                    result.thrown
+                        .map { "Patch failed: ${it.patch.relativeTo(patchRoot)}: ${it.thrown.message}" }
+                        .forEach { logger.error(it) }
+                    throw Exception("Failed to apply patches")
+                }
             }
+        }
+    }
+
+    private data class PatchTask(val patch: Path, val original: Path, val patched: Path)
+
+    private sealed interface PatchResult {
+        val thrown: List<PatchFailureDetails>
+            get() = emptyList()
+
+        fun fold(next: PatchResult): PatchResult {
+            return when (this) {
+                PatchSuccess -> next
+                is PatchFailure -> PatchFailure(this.thrown + next.thrown)
+            }
+        }
+    }
+
+    private object PatchSuccess : PatchResult
+    private data class PatchFailure(override val thrown: List<PatchFailureDetails>) : PatchResult {
+        constructor(patch: Path, e: PatchFailedException) : this(listOf(PatchFailureDetails(patch, e)))
+    }
+    private data class PatchFailureDetails(val patch: Path, val thrown: PatchFailedException)
+
+    private fun applyPatch(task: PatchTask): PatchResult {
+        val (patch, original, patched) = task
+
+        patched.parent.createDirectories()
+        if (patch.notExists()) {
+            original.copyTo(patched)
+            return PatchSuccess
+        }
+
+        val patchLines = patch.readLines(Charsets.UTF_8)
+        val parsedPatch = UnifiedDiffUtils.parseUnifiedDiff(patchLines)
+        val javaLines = original.readLines(Charsets.UTF_8)
+
+        return try {
+            val patchedLines = DiffUtils.patch(javaLines, parsedPatch)
+            patched.writeLines(patchedLines, Charsets.UTF_8, CREATE_NEW, WRITE, TRUNCATE_EXISTING)
+            PatchSuccess
+        } catch (e: PatchFailedException) {
+            PatchFailure(patch, e)
         }
     }
 }

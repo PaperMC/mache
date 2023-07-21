@@ -89,6 +89,10 @@ val setupSources by tasks.registering(SetupSources::class) {
     sourceDir.set(layout.projectDirectory.dir("src/main/java"))
 }
 
+applyPatches.configure {
+    finalizedBy(setupSources)
+}
+
 val copyResources by tasks.registering(Sync::class) {
     into(layout.projectDirectory.dir("src/main/resources"))
     from(zipTree(extractServerJar.flatMap { it.serverJar })) {

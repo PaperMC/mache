@@ -11,7 +11,6 @@ import io.papermc.mache.lib.data.LibrariesList
 import io.papermc.mache.lib.data.api.MinecraftManifest
 import io.papermc.mache.lib.data.api.MinecraftVersionManifest
 import io.papermc.mache.lib.json
-import java.nio.file.FileSystems
 import kotlin.io.path.exists
 import kotlin.io.path.useLines
 import kotlin.io.path.writeText
@@ -105,10 +104,10 @@ object ConfigureVersionProject {
             }
         }
 
-        val result = FileSystems.newFileSystem(serverJar).use { fs ->
-            val librariesList = fs.getPath("META-INF", "libraries.list")
+        val result = serverJar.useZip { root ->
+            val librariesList = root.resolve("META-INF").resolve("libraries.list")
 
-            return@use librariesList.useLines { lines ->
+            return@useZip librariesList.useLines { lines ->
                 return@useLines lines.map { line ->
                     val parts = line.split(whitespace)
                     if (parts.size != 3) {

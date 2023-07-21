@@ -2,8 +2,8 @@ package io.papermc.mache.tasks
 
 import io.papermc.mache.convertToPath
 import io.papermc.mache.ensureClean
+import io.papermc.mache.useZip
 import io.papermc.mache.whitespace
-import java.nio.file.FileSystems
 import kotlin.io.path.copyTo
 import kotlin.io.path.notExists
 import kotlin.io.path.readLines
@@ -31,8 +31,9 @@ abstract class ExtractServerJar : DefaultTask() {
         val jar = downloadedJar.convertToPath()
         val out = serverJar.convertToPath().ensureClean()
 
-        FileSystems.newFileSystem(jar).use { fs ->
-            val versionsList = fs.getPath("META-INF", "versions.list")
+        jar.useZip { root ->
+            val metaInf = root.resolve("META-INF")
+            val versionsList = metaInf.resolve("versions.list")
             if (versionsList.notExists()) {
                 throw Exception("Could not find versions.list")
             }
@@ -48,7 +49,7 @@ abstract class ExtractServerJar : DefaultTask() {
                 throw Exception("versions.list line is invalid")
             }
 
-            val serverJarInJar = fs.getPath("META-INF", "versions", parts[2])
+            val serverJarInJar = metaInf.resolve("versions").resolve(parts[2])
             if (serverJarInJar.notExists()) {
                 throw Exception("Could not find version jar")
             }

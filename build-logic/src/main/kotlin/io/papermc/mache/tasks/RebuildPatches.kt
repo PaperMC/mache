@@ -1,21 +1,19 @@
 package io.papermc.mache.tasks
 
-import codechicken.diffpatch.cli.DiffOperation
-import codechicken.diffpatch.util.archiver.ArchiveFormat
+import com.github.difflib.DiffUtils
+import com.github.difflib.UnifiedDiffUtils
 import io.papermc.mache.convertToPath
 import io.papermc.mache.ensureClean
-import java.io.ByteArrayOutputStream
-import java.io.PrintStream
-import java.nio.file.FileSystems
-import java.util.logging.Level
+import io.papermc.mache.useZip
+import java.nio.file.Path
 import javax.inject.Inject
-import kotlin.io.path.absolutePathString
-import kotlin.io.path.copyTo
 import kotlin.io.path.createDirectories
-import kotlin.io.path.deleteIfExists
-import kotlin.io.path.outputStream
+import kotlin.io.path.name
+import kotlin.io.path.readLines
 import kotlin.io.path.relativeTo
 import kotlin.io.path.walk
+import kotlin.io.path.writeLines
+import kotlin.io.path.writeText
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.ProjectLayout
@@ -43,46 +41,47 @@ abstract class RebuildPatches : DefaultTask() {
 
     @TaskAction
     fun run() {
-        val copied = layout.buildDirectory.file("tmp/copied.jar").convertToPath().ensureClean()
-        patchDir.convertToPath().ensureClean()
+        val patches = patchDir.convertToPath().ensureClean()
+        val sourceRoot = sourceDir.convertToPath()
 
-        try {
-            FileSystems.newFileSystem(copied, mapOf("create" to true)).use { fs ->
-                val sourceRoot = sourceDir.convertToPath()
-                val outputRoot = fs.getPath("/")
-
-                for (path in sourceRoot.walk().filterNot { it.relativeTo(sourceRoot).first().toString() == ".git" }) {
-                    val target = outputRoot.resolve(path.relativeTo(sourceRoot).toString())
-                    target.parent.createDirectories()
-                    path.copyTo(target)
+        // no need to check for newly created files
+        // also no need to check for deleted files
+        val patchesCreated = decompJar.convertToPath().useZip { decompRoot ->
+            sourceRoot.walk()
+                .filterNot { it.relativeTo(sourceRoot).first().name == ".git" }
+                .filter { it.name.endsWith(".java") }
+                .sumOf {
+                    diffFile(sourceRoot, decompRoot, it.relativeTo(sourceRoot).toString(), patches)
                 }
-            }
-
-            val logs = decompJar.convertToPath().resolveSibling("rebuildPatches.log")
-            PrintStream(logs.outputStream().buffered()).use { ps ->
-                val result = DiffOperation.builder()
-                    .aPath(decompJar.convertToPath(), ArchiveFormat.ZIP)
-                    .bPath(copied.convertToPath(), ArchiveFormat.ZIP)
-                    .outputPath(patchDir.convertToPath(), null)
-                    .lineEnding("\n")
-                    .logTo(ps)
-                    .level(Level.FINE)
-                    .verbose(true)
-                    .summary(true)
-                    .build()
-                    .operate()
-
-                val output = ByteArrayOutputStream()
-                result.summary.print(PrintStream(output, true, Charsets.UTF_8), false)
-                logger.lifecycle(output.toString(Charsets.UTF_8))
-
-                // DiffPatch is a bit weird. Successful runs will return 1 or 0, only -1 is returned for errors
-                if (result.exit == -1) {
-                    throw Exception("Failed to rebuild patches. See log file: ${logs.absolutePathString()}")
-                }
-            }
-        } finally {
-            copied.deleteIfExists()
         }
+
+        logger.lifecycle("Rebuilt $patchesCreated patches")
+    }
+
+    private fun diffFile(sourceRoot: Path, decompRoot: Path, relativePath: String, patchDir: Path): Int {
+        val source = sourceRoot.resolve(relativePath)
+        val decomp = decompRoot.resolve(relativePath)
+
+        val sourceLines = source.readLines(Charsets.UTF_8)
+        val decompLines = decomp.readLines(Charsets.UTF_8)
+
+        val patch = DiffUtils.diff(decompLines, sourceLines)
+        if (patch.deltas.isEmpty()) {
+            return 0
+        }
+
+        val unifiedPatch = UnifiedDiffUtils.generateUnifiedDiff(
+            "a/$relativePath",
+            "b/$relativePath",
+            decompLines,
+            patch,
+            3,
+        )
+
+        val patchFile = patchDir.resolve("$relativePath.patch")
+        patchFile.parent.createDirectories()
+        patchFile.writeText(unifiedPatch.joinToString("\n", postfix = "\n"), Charsets.UTF_8)
+
+        return 1
     }
 }

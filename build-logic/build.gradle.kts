@@ -5,21 +5,12 @@ plugins {
     alias(libs.plugins.spotless)
 }
 
-repositories {
-    maven("https://maven.neoforged.net/releases/") {
-        name = "NeoForged"
-        mavenContent {
-            includeGroupAndSubgroups("net.neoforged")
-        }
-    }
-}
-
 dependencies {
     implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 
     implementation(libs.coroutines)
     implementation(libs.serialize)
-    implementation(libs.diffpatch)
+    implementation(libs.diffutils)
     implementation(libs.jgit)
 
     implementation(project(":build-logic-lib"))
