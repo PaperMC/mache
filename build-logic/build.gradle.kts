@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.copyFreeCompilerArgsToArgs
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -9,6 +8,9 @@ plugins {
 repositories {
     maven("https://maven.neoforged.net/releases/") {
         name = "NeoForged"
+        mavenContent {
+            includeGroupAndSubgroups("net.neoforged")
+        }
     }
 }
 
