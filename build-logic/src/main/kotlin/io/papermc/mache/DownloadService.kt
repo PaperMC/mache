@@ -57,6 +57,14 @@ abstract class DownloadService : BuildService<BuildServiceParameters.None> {
     }
 
     private fun download(source: URI, target: Path, hash: Hash?, retry: Boolean, downloadCallback: () -> Unit) {
+        // If we already know the hash and have a file, check it
+        if (hash != null && target.exists()) {
+            val currentHash = target.hashFile(hash.algorithm).asHexString().lowercase(Locale.ENGLISH)
+            if (currentHash == hash.valueLower) {
+                return
+            }
+        }
+
         download0(source, target, downloadCallback)
         if (hash == null) {
             return
@@ -82,6 +90,14 @@ abstract class DownloadService : BuildService<BuildServiceParameters.None> {
 
     private fun download0(source: URI, target: Path, downloadCallback: () -> Unit) {
         target.parent.createDirectories()
+
+        if (target.exists()) {
+            val duration = Duration.between(target.getLastModifiedTime().toInstant(), Instant.now())
+            if (duration < Duration.ofHours(4)) {
+                // 4 hour minimum cache time
+                return
+            }
+        }
 
         val etagFile = target.resolveSibling(target.name + ".etag")
         val etag = if (etagFile.exists()) etagFile.readText() else null
