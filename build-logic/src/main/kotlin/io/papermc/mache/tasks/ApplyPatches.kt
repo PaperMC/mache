@@ -53,9 +53,10 @@ abstract class ApplyPatches : DefaultTask() {
             patches.exists() && patches.listDirectoryEntries().isNotEmpty()
         }
 
+        outputJar.convertToPath().ensureClean()
+
         if (!patchesPresent) {
-            val out = outputJar.convertToPath().ensureClean()
-            inputFile.convertToPath().copyTo(out)
+            inputFile.convertToPath().copyTo(outputJar.convertToPath())
             return
         }
 
@@ -72,7 +73,6 @@ abstract class ApplyPatches : DefaultTask() {
                 .verbose(true)
                 .summary(true)
                 .logTo(ps)
-                .lineEnding("\n")
                 .build()
                 .operate()
 
