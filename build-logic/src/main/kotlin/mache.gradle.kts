@@ -6,6 +6,7 @@ import io.papermc.mache.constants.REMAPPED_JAR
 import io.papermc.mache.constants.SERVER_JAR
 import io.papermc.mache.constants.SERVER_MAPPINGS
 import io.papermc.mache.tasks.ApplyPatches
+import io.papermc.mache.tasks.ApplyPatchesFuzzy
 import io.papermc.mache.tasks.DecompileJar
 import io.papermc.mache.tasks.ExtractServerJar
 import io.papermc.mache.tasks.RebuildPatches
@@ -73,6 +74,8 @@ val decompileJar by tasks.registering(DecompileJar::class) {
 
 val applyPatches by tasks.registering(ApplyPatches::class) {
     group = "mache"
+    description = "Apply decompilation patches to the source."
+
     val patchesDir = layout.projectDirectory.dir("patches")
     if (patchesDir.asFile.exists()) {
         patchDir.set(patchesDir)
@@ -84,13 +87,29 @@ val applyPatches by tasks.registering(ApplyPatches::class) {
 
 val setupSources by tasks.registering(SetupSources::class) {
     decompJar.set(decompileJar.flatMap { it.outputJar })
-    patchedJar.set(applyPatches.flatMap { it.outputJar })
+    // Don't use the output of applyPatches directly with a flatMap
+    // That would tell Gradle that this task dependsOn applyPatches, so it
+    // would no longer work as a finalizer task if applyPatches fails
+    patchedJar.set(layout.buildDirectory.file(PATCHED_JAR))
 
     sourceDir.set(layout.projectDirectory.dir("src/main/java"))
 }
 
 applyPatches.configure {
     finalizedBy(setupSources)
+}
+
+val applyPatchesFuzzy by tasks.registering(ApplyPatchesFuzzy::class) {
+    finalizedBy(setupSources)
+
+    group = "mache"
+    description = "Attempt to apply patches with a fuzzy factor specified by --max-fuzz=<non-negative-int>. " +
+        "This is not intended for normal use."
+
+    patchDir.set(layout.projectDirectory.dir("patches"))
+
+    inputFile.set(decompileJar.flatMap { it.outputJar })
+    outputJar.set(layout.buildDirectory.file(PATCHED_JAR))
 }
 
 val copyResources by tasks.registering(Sync::class) {
@@ -103,11 +122,13 @@ val copyResources by tasks.registering(Sync::class) {
 
 tasks.register("setup") {
     group = "mache"
-    dependsOn(setupSources, copyResources)
+    description = "Set up the full project included patched sources and resources."
+    dependsOn(applyPatches, copyResources)
 }
 
 tasks.register("rebuildPatches", RebuildPatches::class) {
     group = "mache"
+    description = "Rebuild decompilation patches from the current source set."
     decompJar.set(decompileJar.flatMap { it.outputJar })
     sourceDir.set(layout.projectDirectory.dir("src/main/java"))
 

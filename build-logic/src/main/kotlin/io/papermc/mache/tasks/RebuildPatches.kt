@@ -12,7 +12,6 @@ import kotlin.io.path.name
 import kotlin.io.path.readLines
 import kotlin.io.path.relativeTo
 import kotlin.io.path.walk
-import kotlin.io.path.writeLines
 import kotlin.io.path.writeText
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty

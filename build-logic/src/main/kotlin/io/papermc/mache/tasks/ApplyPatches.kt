@@ -2,6 +2,7 @@ package io.papermc.mache.tasks
 
 import com.github.difflib.DiffUtils
 import com.github.difflib.UnifiedDiffUtils
+import com.github.difflib.patch.Patch
 import com.github.difflib.patch.PatchFailedException
 import io.papermc.mache.convertToPath
 import io.papermc.mache.ensureClean
@@ -93,9 +94,9 @@ abstract class ApplyPatches : DefaultTask() {
         }
     }
 
-    private data class PatchTask(val patch: Path, val original: Path, val patched: Path)
+    internal data class PatchTask(val patch: Path, val original: Path, val patched: Path)
 
-    private sealed interface PatchResult {
+    internal sealed interface PatchResult {
         val thrown: List<PatchFailureDetails>
             get() = emptyList()
 
@@ -107,13 +108,13 @@ abstract class ApplyPatches : DefaultTask() {
         }
     }
 
-    private object PatchSuccess : PatchResult
-    private data class PatchFailure(override val thrown: List<PatchFailureDetails>) : PatchResult {
+    internal object PatchSuccess : PatchResult
+    internal data class PatchFailure(override val thrown: List<PatchFailureDetails>) : PatchResult {
         constructor(patch: Path, e: PatchFailedException) : this(listOf(PatchFailureDetails(patch, e)))
     }
-    private data class PatchFailureDetails(val patch: Path, val thrown: PatchFailedException)
+    internal data class PatchFailureDetails(val patch: Path, val thrown: PatchFailedException)
 
-    private fun applyPatch(task: PatchTask): PatchResult {
+    internal open fun applyPatch(task: PatchTask): PatchResult {
         val (patch, original, patched) = task
 
         patched.parent.createDirectories()
@@ -127,11 +128,18 @@ abstract class ApplyPatches : DefaultTask() {
         val javaLines = original.readLines(Charsets.UTF_8)
 
         return try {
-            val patchedLines = DiffUtils.patch(javaLines, parsedPatch)
+            val patchedLines = applyPatch(parsedPatch, javaLines)
             patched.writeLines(patchedLines, Charsets.UTF_8, CREATE_NEW, WRITE, TRUNCATE_EXISTING)
             PatchSuccess
         } catch (e: PatchFailedException) {
+            // patch failed, so copy the file over without the patch applied
+            original.copyTo(patched, overwrite = true)
             PatchFailure(patch, e)
         }
+    }
+
+    @Throws(PatchFailedException::class)
+    internal open fun applyPatch(patch: Patch<String>, lines: List<String>): List<String> {
+        return DiffUtils.patch(lines, patch)
     }
 }
