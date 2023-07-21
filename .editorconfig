@@ -1,2 +1,6 @@
 [*.patch]
 end_of_line = lf
+trim_trailing_whitespace = false
+
+[*.java]
+trim_trailing_whitespace = false
