@@ -154,7 +154,7 @@ abstract class OpenVersion : DefaultTask() {
                 continue
             }
 
-            append(indent(1)).appendLine("repositories.register(\"${rep.name}\") {")
+            append(indent(1)).appendLine("repositories.maybeRegister(\"${rep.name}\") {")
             append(indent(2)).appendLine("url = \"${rep.url}\"")
 
             rep.groups?.forEach { group ->
