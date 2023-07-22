@@ -10,9 +10,9 @@ dependencies {
     codebook("1.0.0")
     remapper(tiny("0.8.7"))
     decompiler(vineflower("1.9.2-PAPER-SNAPSHOT"))
-    yarn("1.20.1+build.9")
+    yarn("1.20.1+build.10")
 }
 
 dependencies {
-    implementation("org.jetbrains:annotations:24.0.1")
+    compileOnly("org.jetbrains:annotations:24.0.1")
 }
