@@ -140,42 +140,30 @@ abstract class OpenVersion : DefaultTask() {
         )
         appendLine()
 
-        appendLine(
-            """
-            mache {
-                minecraftVersion = "${meta.version}"
-            }
-            """.trimIndent(),
-        )
-        appendLine()
+        appendLine("mache {")
+        append(indent(1)).appendLine("minecraftVersion = \"${meta.version}\"")
 
-        val defaultUrls = DefaultRepos.DEFAULTS.mapTo(HashSet()) { it.url }
         // in most cases, repos probably won't be needed
+        val defaultUrls = DefaultRepos.DEFAULTS.mapTo(HashSet()) { it.url }
         if (meta.repositories.any { it.url !in defaultUrls }) {
-            appendLine("repositories {")
-
-            for (rep in meta.repositories) {
-                if (rep.url in defaultUrls) {
-                    continue
-                }
-
-                append(indent(1)).appendLine("maven(${rep.url}) {")
-
-                append(indent(2)).appendLine("name = \"${rep.name}\"")
-                if (rep.groups?.isNotEmpty() == true) {
-                    append(indent(2)).appendLine("content {")
-                    rep.groups?.forEach { group ->
-                        append(indent(3)).appendLine("includeGroupAndSubgroups(\"${group}\")")
-                    }
-                    append(indent(2)).appendLine("}")
-                }
-
-                append(indent(1)).appendLine("}")
-            }
-
-            appendLine("}")
             appendLine()
         }
+
+        for (rep in meta.repositories) {
+            if (rep.url in defaultUrls) {
+                continue
+            }
+
+            append(indent(1)).appendLine("repositories.register(\"${rep.name}\") {")
+            append(indent(2)).appendLine("url = \"${rep.url}\"")
+
+            rep.groups?.forEach { group ->
+                append(indent(2)).appendLine("includeGroups.add(\"$group\")")
+            }
+            append(indent(1)).appendLine("}")
+        }
+        appendLine("}")
+        appendLine()
 
         // first set of dependencies is the codebook-related dependencies
         appendLine("dependencies {")
