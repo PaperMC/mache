@@ -17,6 +17,8 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.ProjectLayout
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
@@ -32,11 +34,20 @@ abstract class RebuildPatches : DefaultTask() {
     @get:InputDirectory
     abstract val sourceDir: DirectoryProperty
 
+    @get:Input
+    abstract val contextLines: Property<Int>
+
     @get:OutputDirectory
     abstract val patchDir: DirectoryProperty
 
     @get:Inject
     abstract val layout: ProjectLayout
+
+    init {
+        run {
+            contextLines.convention(3)
+        }
+    }
 
     @TaskAction
     fun run() {
@@ -74,7 +85,7 @@ abstract class RebuildPatches : DefaultTask() {
             "b/$relativePath",
             decompLines,
             patch,
-            3,
+            contextLines.get(),
         )
 
         val patchFile = patchDir.resolve("$relativePath.patch")
