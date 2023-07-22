@@ -22,12 +22,28 @@ plugins {
 val mache = extensions.create("mache", MacheExtension::class)
 
 repositories {
+    maven("https://repo.papermc.io/repository/maven-public/") {
+        name = "PaperMC"
+        mavenContent {
+            includeGroupAndSubgroups("io.papermc")
+        }
+    }
+    maven("https://maven.fabricmc.net/") {
+        name = "FabricMC"
+        mavenContent {
+            includeGroupAndSubgroups("net.fabricmc")
+        }
+    }
+    maven("https://repo.denwav.dev/repository/maven-public/") {
+        name = "DenWav"
+        mavenContent {
+            includeGroupAndSubgroups("org.vineflower")
+        }
+    }
     maven("https://libraries.minecraft.net/") {
         name = "Minecraft"
     }
-    maven("https://repo.denwav.dev/repository/maven-public/")
     mavenCentral()
-    maven("https://maven.fabricmc.net/")
 }
 
 val libs: LibrariesForLibs by extensions

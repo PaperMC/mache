@@ -4,7 +4,12 @@ plugins {
 }
 
 repositories {
-    maven("https://repo.denwav.dev/repository/maven-public/")
+    maven("https://repo.papermc.io/repository/maven-public/") {
+        name = "PaperMC"
+        mavenContent {
+            includeGroupAndSubgroups("io.papermc")
+        }
+    }
 }
 
 dependencies {

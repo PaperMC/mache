@@ -21,9 +21,11 @@ import org.gradle.api.Project
 import org.gradle.api.file.RegularFile
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.resources.TextResource
+import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.withType
 
 object ConfigureVersionProject {
 
@@ -47,6 +49,9 @@ object ConfigureVersionProject {
             toolchain {
                 languageVersion.set(JavaLanguageVersion.of(mcVersionManifest.javaVersion.majorVersion))
             }
+        }
+        tasks.withType(JavaCompile::class).configureEach {
+            options.release.set(mcVersionManifest.javaVersion.majorVersion)
         }
 
         val downloadServerJarFile = layout.dotGradleDirectory.file(DOWNLOAD_SERVER_JAR)
