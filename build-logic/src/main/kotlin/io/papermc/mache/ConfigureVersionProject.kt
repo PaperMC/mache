@@ -1,6 +1,5 @@
 package io.papermc.mache
 
-import MacheExtension
 import dotGradleDirectory
 import io.papermc.mache.constants.DOWNLOAD_SERVER_JAR
 import io.papermc.mache.constants.MC_MANIFEST

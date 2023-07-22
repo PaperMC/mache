@@ -1,13 +1,32 @@
+package io.papermc.mache
+
+import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
+import org.gradle.kotlin.dsl.domainObjectContainer
 import org.gradle.kotlin.dsl.listProperty
 import org.gradle.kotlin.dsl.property
 
 open class MacheExtension(objects: ObjectFactory) {
+    /**
+     * The version of Minecraft which will serve as the base.
+     */
     val minecraftVersion: Property<String> = objects.property()
 
+    /**
+     * Base arguments passed to the decompiler.
+     */
     val decompilerArgs: ListProperty<String> = objects.listProperty()
+
+    /**
+     * Maven repositories needed to resolve the configurations necessary to run mache. The configurations are
+     * `codebook`, `paramMappings`, `constants`, `remapper`, and `decompiler`.
+     *
+     * These are defined in this way because we need this information for the metadata file we generate. Repositories
+     * defined in the normal Gradle style will not be reported in the metadata file.
+     */
+    val repositories: NamedDomainObjectContainer<MacheRepo> = objects.domainObjectContainer(MacheRepo::class)
 
     init {
         decompilerArgs.convention(
@@ -41,5 +60,18 @@ open class MacheExtension(objects: ObjectFactory) {
                 "-nls=1",
             ),
         )
+
+        repositories.register("PaperMC") {
+            url.set("https://repo.papermc.io/repository/maven-public/")
+            includeGroups.add("io.papermc")
+        }
+        repositories.register("FabricMC") {
+            url.set("https://maven.fabricmc.net/")
+            includeGroups.add("net.fabricmc")
+        }
+        repositories.register("DenWav") {
+            url.set("https://repo.denwav.dev/repository/maven-public/")
+            includeGroups.add("org.vineflower")
+        }
     }
 }

@@ -1,4 +1,5 @@
 import io.papermc.mache.ConfigureVersionProject
+import io.papermc.mache.MacheExtension
 import io.papermc.mache.constants.DECOMP_JAR
 import io.papermc.mache.constants.DOWNLOAD_SERVER_JAR
 import io.papermc.mache.constants.PATCHED_JAR
@@ -9,6 +10,7 @@ import io.papermc.mache.tasks.ApplyPatches
 import io.papermc.mache.tasks.ApplyPatchesFuzzy
 import io.papermc.mache.tasks.DecompileJar
 import io.papermc.mache.tasks.ExtractServerJar
+import io.papermc.mache.tasks.GenerateMacheMetadata
 import io.papermc.mache.tasks.RebuildPatches
 import io.papermc.mache.tasks.RemapJar
 import io.papermc.mache.tasks.SetupSources
@@ -16,35 +18,11 @@ import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
     java
+    `maven-publish`
     id("mache-lib")
 }
 
 val mache = extensions.create("mache", MacheExtension::class)
-
-repositories {
-    maven("https://repo.papermc.io/repository/maven-public/") {
-        name = "PaperMC"
-        mavenContent {
-            includeGroupAndSubgroups("io.papermc")
-        }
-    }
-    maven("https://maven.fabricmc.net/") {
-        name = "FabricMC"
-        mavenContent {
-            includeGroupAndSubgroups("net.fabricmc")
-        }
-    }
-    maven("https://repo.denwav.dev/repository/maven-public/") {
-        name = "DenWav"
-        mavenContent {
-            includeGroupAndSubgroups("org.vineflower")
-        }
-    }
-    maven("https://libraries.minecraft.net/") {
-        name = "Minecraft"
-    }
-    mavenCentral()
-}
 
 val libs: LibrariesForLibs by extensions
 
@@ -151,6 +129,80 @@ tasks.register("rebuildPatches", RebuildPatches::class) {
     patchDir.set(layout.projectDirectory.dir("patches"))
 }
 
+val generateMacheMetadata by tasks.registering(GenerateMacheMetadata::class) {
+    repos.addAll(mache.repositories)
+
+    codebookConfiguration.set(codebook)
+    paramMappingsConfiguration.set(paramMappings)
+    constantsConfiguration.set(constants)
+    remapperConfiguration.set(remapper)
+    decompilerConfiguration.set(decompiler)
+
+    decompilerArgs.set(mache.decompilerArgs)
+}
+
+val buildIdVar: Provider<String> = providers.environmentVariable("BUILD_ID").orElse("local")
+val versionProvider: Provider<String> = mache.minecraftVersion.zip(buildIdVar) { mcVersion, buildId ->
+    "$mcVersion+build.$buildId"
+}
+
+val createMacheArtifact by tasks.registering(Zip::class) {
+    group = "mache"
+    description = "Create the mache metadata artifact for publishing."
+
+    from(generateMacheMetadata) {
+        rename { "mache.json" }
+    }
+    into("patches") {
+        from(layout.projectDirectory.dir("patches"))
+    }
+
+    archiveBaseName.set("mache")
+    archiveVersion.set(versionProvider)
+    archiveExtension.set("zip")
+}
+
+val archive = artifacts.archives(createMacheArtifact)
+
 afterEvaluate {
+    repositories {
+        for (repository in mache.repositories) {
+            maven(repository.url) {
+                name = repository.name
+                mavenContent {
+                    for (group in repository.includeGroups.get()) {
+                        includeGroupAndSubgroups(group)
+                    }
+                }
+            }
+        }
+
+        maven("https://libraries.minecraft.net/") {
+            name = "Minecraft"
+        }
+        mavenCentral()
+    }
+
     ConfigureVersionProject.configure(project, mache)
+}
+
+publishing {
+    afterEvaluate {
+        publications {
+            register<MavenPublication>("mache") {
+                groupId = "io.papermc"
+                artifactId = "mache"
+                version = versionProvider.get()
+
+                artifact(archive)
+            }
+        }
+    }
+
+    repositories {
+        maven("https://repo.papermc.io/repository/maven-releases/") {
+            name = "papermc"
+            credentials(PasswordCredentials::class)
+        }
+    }
 }
