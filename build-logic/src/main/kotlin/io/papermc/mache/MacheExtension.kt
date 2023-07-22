@@ -1,5 +1,7 @@
 package io.papermc.mache
 
+import io.papermc.mache.constants.DefaultRepos
+import io.papermc.mache.util.MacheRepo
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
@@ -61,17 +63,11 @@ open class MacheExtension(objects: ObjectFactory) {
             ),
         )
 
-        repositories.register("PaperMC") {
-            url.set("https://repo.papermc.io/repository/maven-public/")
-            includeGroups.add("io.papermc")
-        }
-        repositories.register("FabricMC") {
-            url.set("https://maven.fabricmc.net/")
-            includeGroups.add("net.fabricmc")
-        }
-        repositories.register("DenWav") {
-            url.set("https://repo.denwav.dev/repository/maven-public/")
-            includeGroups.add("org.vineflower")
+        for (repo in DefaultRepos.DEFAULTS) {
+            repositories.register(repo.name) {
+                url.set(repo.url)
+                includeGroups.addAll(repo.includeGroups)
+            }
         }
     }
 }

@@ -1,9 +1,9 @@
 package io.papermc.mache.tasks
 
 import io.papermc.mache.constants.DECOMP_CFG
-import io.papermc.mache.convertToPath
-import io.papermc.mache.ensureClean
-import io.papermc.mache.useZip
+import io.papermc.mache.util.convertToPath
+import io.papermc.mache.util.ensureClean
+import io.papermc.mache.util.useZip
 import javax.inject.Inject
 import kotlin.io.path.absolutePathString
 import kotlin.io.path.deleteIfExists

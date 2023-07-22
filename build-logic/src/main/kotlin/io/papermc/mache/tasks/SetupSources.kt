@@ -1,6 +1,6 @@
 package io.papermc.mache.tasks
 
-import io.papermc.mache.convertToPath
+import io.papermc.mache.util.convertToPath
 import java.nio.file.Path
 import javax.inject.Inject
 import kotlin.io.path.createDirectories

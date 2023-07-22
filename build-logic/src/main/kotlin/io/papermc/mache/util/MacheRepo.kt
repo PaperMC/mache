@@ -1,4 +1,4 @@
-package io.papermc.mache
+package io.papermc.mache.util
 
 import org.gradle.api.Named
 import org.gradle.api.provider.ListProperty
@@ -21,3 +21,9 @@ abstract class MacheRepo : Named {
     @Input
     abstract override fun getName(): String
 }
+
+data class SimpleMacheRepo(
+    val url: String,
+    val name: String,
+    val includeGroups: List<String>,
+)

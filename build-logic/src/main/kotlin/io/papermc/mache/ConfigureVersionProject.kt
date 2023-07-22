@@ -10,6 +10,15 @@ import io.papermc.mache.lib.data.LibrariesList
 import io.papermc.mache.lib.data.api.MinecraftManifest
 import io.papermc.mache.lib.data.api.MinecraftVersionManifest
 import io.papermc.mache.lib.json
+import io.papermc.mache.util.DownloadService
+import io.papermc.mache.util.Hash
+import io.papermc.mache.util.HashingAlgorithm
+import io.papermc.mache.util.asHexString
+import io.papermc.mache.util.convertToPath
+import io.papermc.mache.util.download
+import io.papermc.mache.util.hashFile
+import io.papermc.mache.util.useZip
+import io.papermc.mache.util.whitespace
 import kotlin.io.path.exists
 import kotlin.io.path.useLines
 import kotlin.io.path.writeText

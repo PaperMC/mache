@@ -1,5 +1,5 @@
-import io.papermc.mache.DownloadService
 import io.papermc.mache.constants.MACHE_DIR
+import io.papermc.mache.util.DownloadService
 
 gradle.sharedServices.registerIfAbsent("download", DownloadService::class) {}
 

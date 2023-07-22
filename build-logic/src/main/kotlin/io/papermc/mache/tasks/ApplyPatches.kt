@@ -4,9 +4,9 @@ import com.github.difflib.DiffUtils
 import com.github.difflib.UnifiedDiffUtils
 import com.github.difflib.patch.Patch
 import com.github.difflib.patch.PatchFailedException
-import io.papermc.mache.convertToPath
-import io.papermc.mache.ensureClean
-import io.papermc.mache.useZip
+import io.papermc.mache.util.convertToPath
+import io.papermc.mache.util.ensureClean
+import io.papermc.mache.util.useZip
 import java.nio.file.Path
 import java.nio.file.StandardOpenOption.CREATE_NEW
 import java.nio.file.StandardOpenOption.TRUNCATE_EXISTING

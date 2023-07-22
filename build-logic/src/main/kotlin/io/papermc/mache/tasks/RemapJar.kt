@@ -1,8 +1,8 @@
 package io.papermc.mache.tasks
 
 import io.papermc.mache.codebook.RunCodeBookWorker
-import io.papermc.mache.convertToPath
-import io.papermc.mache.ensureClean
+import io.papermc.mache.util.convertToPath
+import io.papermc.mache.util.ensureClean
 import javax.inject.Inject
 import kotlin.io.path.name
 import org.gradle.api.DefaultTask

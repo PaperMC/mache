@@ -5,5 +5,11 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.serialize)
+    implementation(libs.serialize.core)
+    implementation(libs.serialize.json)
+
+    implementation(libs.xml.core)
+    implementation(libs.xml.serialize) {
+        isTransitive = false
+    }
 }

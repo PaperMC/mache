@@ -1,9 +1,9 @@
 package io.papermc.mache.tasks
 
-import io.papermc.mache.convertToPath
-import io.papermc.mache.ensureClean
-import io.papermc.mache.useZip
-import io.papermc.mache.whitespace
+import io.papermc.mache.util.convertToPath
+import io.papermc.mache.util.ensureClean
+import io.papermc.mache.util.useZip
+import io.papermc.mache.util.whitespace
 import kotlin.io.path.copyTo
 import kotlin.io.path.notExists
 import kotlin.io.path.readLines

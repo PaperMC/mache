@@ -14,6 +14,7 @@ import io.papermc.mache.tasks.GenerateMacheMetadata
 import io.papermc.mache.tasks.RebuildPatches
 import io.papermc.mache.tasks.RemapJar
 import io.papermc.mache.tasks.SetupSources
+import io.papermc.mache.util.asGradleMavenArtifacts
 import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
@@ -130,18 +131,26 @@ tasks.register("rebuildPatches", RebuildPatches::class) {
 }
 
 val generateMacheMetadata by tasks.registering(GenerateMacheMetadata::class) {
+    version.set(mache.minecraftVersion)
     repos.addAll(mache.repositories)
-
-    codebookConfiguration.set(codebook)
-    paramMappingsConfiguration.set(paramMappings)
-    constantsConfiguration.set(constants)
-    remapperConfiguration.set(remapper)
-    decompilerConfiguration.set(decompiler)
 
     decompilerArgs.set(mache.decompilerArgs)
 }
 
-val buildIdVar: Provider<String> = providers.environmentVariable("BUILD_ID").orElse("local")
+afterEvaluate {
+    generateMacheMetadata.configure {
+        codebookDeps.set(asGradleMavenArtifacts(codebook.get()))
+        paramMappingsDeps.set(asGradleMavenArtifacts(paramMappings.get()))
+        constantsDeps.set(asGradleMavenArtifacts(constants.get()))
+        remapperDeps.set(asGradleMavenArtifacts(remapper.get()))
+        decompilerDeps.set(asGradleMavenArtifacts(decompiler.get()))
+
+        compileOnlyDeps.set(asGradleMavenArtifacts(configurations.compileOnly.get()))
+        implementationDeps.set(asGradleMavenArtifacts(configurations.implementation.get()))
+    }
+}
+
+val buildIdVar: Provider<String> = providers.environmentVariable("BUILD_ID").orElse("local-SNAPSHOT")
 val versionProvider: Provider<String> = mache.minecraftVersion.zip(buildIdVar) { mcVersion, buildId ->
     "$mcVersion+build.$buildId"
 }
@@ -202,6 +211,10 @@ publishing {
     repositories {
         maven("https://repo.papermc.io/repository/maven-releases/") {
             name = "papermc"
+            credentials(PasswordCredentials::class)
+        }
+        maven("https://repo.denwav.dev/repository/maven-releases/") {
+            name = "denwav"
             credentials(PasswordCredentials::class)
         }
     }

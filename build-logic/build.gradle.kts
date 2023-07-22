@@ -9,9 +9,15 @@ dependencies {
     implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 
     implementation(libs.coroutines)
-    implementation(libs.serialize)
+    implementation(libs.serialize.core)
+    implementation(libs.serialize.json)
     implementation(libs.diffutils)
     implementation(libs.jgit)
+
+    implementation(libs.xml.core)
+    implementation(libs.xml.serialize) {
+        isTransitive = false
+    }
 
     implementation(project(":build-logic-lib"))
     implementation(project(":build-logic-codebook-runner"))

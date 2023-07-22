@@ -1,4 +1,4 @@
-package io.papermc.mache
+package io.papermc.mache.util
 
 import java.io.InputStream
 import java.net.CookieManager
