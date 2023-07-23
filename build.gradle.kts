@@ -1,4 +1,5 @@
 import io.papermc.mache.constants.MC_MANIFEST
+import io.papermc.mache.tasks.MigrateVersion
 import io.papermc.mache.tasks.OpenVersion
 import io.papermc.mache.util.download
 
@@ -14,3 +15,5 @@ tasks.register("openVersion", OpenVersion::class) {
     // TODO: Switch to PaperMC repo once we start publishing
     repoUrl.set("https://repo.denwav.dev/repository/maven-releases/")
 }
+
+tasks.register("migrate", MigrateVersion::class)
