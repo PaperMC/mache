@@ -1,0 +1,38 @@
+--- a/net/minecraft/server/packs/linkfs/LinkFSPath.java
++++ b/net/minecraft/server/packs/linkfs/LinkFSPath.java
+@@ -165,12 +165,12 @@
+             } else {
+                 List<String> list = this.pathToRoot();
+                 List<String> list1 = linkFSPath.pathToRoot();
+-                int size = list1.size();
+-                if (size > list.size()) {
++                int i = list1.size();
++                if (i > list.size()) {
+                     return false;
+                 } else {
+-                    for(int i = 0; i < size; ++i) {
+-                        if (!list1.get(i).equals(list.get(i))) {
++                    for(int i1 = 0; i1 < i; ++i1) {
++                        if (!list1.get(i1).equals(list.get(i1))) {
+                             return false;
+                         }
+                     }
+@@ -193,13 +193,13 @@
+             } else {
+                 List<String> list = this.pathToRoot();
+                 List<String> list1 = linkFSPath.pathToRoot();
+-                int size = list1.size();
+-                int i = list.size() - size;
+-                if (i < 0) {
++                int i = list1.size();
++                int i1 = list.size() - i;
++                if (i1 < 0) {
+                     return false;
+                 } else {
+-                    for(int i1 = size - 1; i1 >= 0; --i1) {
+-                        if (!list1.get(i1).equals(list.get(i + i1))) {
++                    for(int i2 = i - 1; i2 >= 0; --i2) {
++                        if (!list1.get(i2).equals(list.get(i1 + i2))) {
+                             return false;
+                         }
+                     }

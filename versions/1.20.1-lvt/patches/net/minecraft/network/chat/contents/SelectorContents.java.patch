@@ -1,0 +1,13 @@
+--- a/net/minecraft/network/chat/contents/SelectorContents.java
++++ b/net/minecraft/network/chat/contents/SelectorContents.java
+@@ -94,8 +94,8 @@
+ 
+     @Override
+     public int hashCode() {
+-        int hashCode = this.pattern.hashCode();
+-        return 31 * hashCode + this.separator.hashCode();
++        int i = this.pattern.hashCode();
++        return 31 * i + this.separator.hashCode();
+     }
+ 
+     @Override

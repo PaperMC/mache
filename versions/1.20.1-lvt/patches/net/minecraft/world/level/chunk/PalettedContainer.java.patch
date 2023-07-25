@@ -1,0 +1,69 @@
+--- a/net/minecraft/world/level/chunk/PalettedContainer.java
++++ b/net/minecraft/world/level/chunk/PalettedContainer.java
+@@ -56,7 +56,7 @@
+     private static <T, C extends PalettedContainerRO<T>> Codec<C> codec(
+         IdMap<T> idList, Codec<T> entryCodec, PalettedContainer.Strategy provider, T defaultValue, PalettedContainerRO.Unpacker<T, C> reader
+     ) {
+-        return RecordCodecBuilder.<PalettedContainerRO.PackedData>create(
++        return RecordCodecBuilder.<PalettedContainerRO.PackedData<T>>create(
+                 instance -> instance.group(
+                             entryCodec.mapResult(ExtraCodecs.orElsePartial(defaultValue))
+                                 .listOf()
+@@ -195,12 +195,12 @@
+         IdMap<T> idList, PalettedContainer.Strategy paletteProvider, PalettedContainerRO.PackedData<T> serialized
+     ) {
+         List<T> paletteEntries = serialized.paletteEntries();
+-        int size = paletteProvider.size();
+-        int i = paletteProvider.calculateBitsForSerialization(idList, paletteEntries.size());
+-        PalettedContainer.Configuration<T> configuration = paletteProvider.getConfiguration(idList, i);
++        int i = paletteProvider.size();
++        int i1 = paletteProvider.calculateBitsForSerialization(idList, paletteEntries.size());
++        PalettedContainer.Configuration<T> configuration = paletteProvider.getConfiguration(idList, i1);
+         BitStorage bitStorage;
+-        if (i == 0) {
+-            bitStorage = new ZeroBitStorage(size);
++        if (i1 == 0) {
++            bitStorage = new ZeroBitStorage(i);
+         } else {
+             Optional<LongStream> storage = serialized.storage();
+             if (storage.isEmpty()) {
+@@ -211,14 +211,14 @@
+ 
+             try {
+                 if (configuration.factory() == PalettedContainer.Strategy.GLOBAL_PALETTE_FACTORY) {
+-                    Palette<T> palette = new HashMapPalette<>(idList, i, (id, value) -> 0, paletteEntries);
+-                    SimpleBitStorage simpleBitStorage = new SimpleBitStorage(i, size, longs);
+-                    int[] ints = new int[size];
++                    Palette<T> palette = new HashMapPalette<>(idList, i1, (id, value) -> 0, paletteEntries);
++                    SimpleBitStorage simpleBitStorage = new SimpleBitStorage(i1, i, longs);
++                    int[] ints = new int[i];
+                     simpleBitStorage.unpack(ints);
+                     swapPalette(ints, id -> idList.getId(palette.valueFor(id)));
+-                    bitStorage = new SimpleBitStorage(configuration.bits(), size, ints);
++                    bitStorage = new SimpleBitStorage(configuration.bits(), i, ints);
+                 } else {
+-                    bitStorage = new SimpleBitStorage(configuration.bits(), size, longs);
++                    bitStorage = new SimpleBitStorage(configuration.bits(), i, longs);
+                 }
+             } catch (SimpleBitStorage.InitializationException var13) {
+                 return DataResult.error(() -> "Failed to read PalettedContainer: " + var13.getMessage());
+@@ -235,14 +235,14 @@
+         PalettedContainerRO.PackedData var12;
+         try {
+             HashMapPalette<T> hashMapPalette = new HashMapPalette<>(idList, this.data.storage.getBits(), this.dummyPaletteResize);
+-            int size = paletteProvider.size();
+-            int[] ints = new int[size];
++            int i = paletteProvider.size();
++            int[] ints = new int[i];
+             this.data.storage.unpack(ints);
+             swapPalette(ints, id -> hashMapPalette.idFor(this.data.palette.valueFor(id)));
+-            int i = paletteProvider.calculateBitsForSerialization(idList, hashMapPalette.getSize());
++            int i1 = paletteProvider.calculateBitsForSerialization(idList, hashMapPalette.getSize());
+             Optional<LongStream> optional;
+-            if (i != 0) {
+-                SimpleBitStorage simpleBitStorage = new SimpleBitStorage(i, size, ints);
++            if (i1 != 0) {
++                SimpleBitStorage simpleBitStorage = new SimpleBitStorage(i1, i, ints);
+                 optional = Optional.of(Arrays.stream(simpleBitStorage.getRaw()));
+             } else {
+                 optional = Optional.empty();

@@ -1,0 +1,15 @@
+--- a/net/minecraft/world/entity/ai/behavior/LongJumpToRandomPos.java
++++ b/net/minecraft/world/entity/ai/behavior/LongJumpToRandomPos.java
+@@ -139,9 +139,9 @@
+             if (l - this.prepareJumpStart >= 40L) {
+                 mob.setYRot(mob.yBodyRot);
+                 mob.setDiscardFriction(true);
+-                double len = this.chosenJump.length();
+-                double d = len + (double)mob.getJumpBoostPower();
+-                mob.setDeltaMovement(this.chosenJump.scale(d / len));
++                double d = this.chosenJump.length();
++                double d1 = d + (double)mob.getJumpBoostPower();
++                mob.setDeltaMovement(this.chosenJump.scale(d1 / d));
+                 mob.getBrain().setMemory(MemoryModuleType.LONG_JUMP_MID_JUMP, true);
+                 serverLevel.playSound(null, mob, this.getJumpSound.apply(mob), SoundSource.NEUTRAL, 1.0F, 1.0F);
+             }

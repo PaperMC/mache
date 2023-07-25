@@ -1,0 +1,29 @@
+--- a/net/minecraft/util/ExtraCodecs.java
++++ b/net/minecraft/util/ExtraCodecs.java
+@@ -215,7 +215,7 @@
+                 P object1 = listx.get(1);
+                 return combineFunction.apply(object, object1);
+             }), pair -> ImmutableList.of(leftFunction.apply(pair), rightFunction.apply(pair)));
+-        Codec<I> codec2 = RecordCodecBuilder.<Pair>create(
++        Codec<I> codec2 = RecordCodecBuilder.<Pair<P, P>>create(
+                 instance -> instance.group(codec.fieldOf(leftFieldName).forGetter(Pair::getFirst), codec.fieldOf(rightFieldName).forGetter(Pair::getSecond))
+                         .apply(instance, Pair::of)
+             )
+@@ -445,12 +445,12 @@
+         return validate(
+             Codec.STRING,
+             string -> {
+-                int len = string.length();
+-                if (len < minLength) {
+-                    return DataResult.error(() -> "String \"" + string + "\" is too short: " + len + ", expected range [" + minLength + "-" + maxLength + "]");
++                int i2 = string.length();
++                if (i2 < minLength) {
++                    return DataResult.error(() -> "String \"" + string + "\" is too short: " + i2 + ", expected range [" + minLength + "-" + maxLength + "]");
+                 } else {
+-                    return len > maxLength
+-                        ? DataResult.error(() -> "String \"" + string + "\" is too long: " + len + ", expected range [" + minLength + "-" + maxLength + "]")
++                    return i2 > maxLength
++                        ? DataResult.error(() -> "String \"" + string + "\" is too long: " + i2 + ", expected range [" + minLength + "-" + maxLength + "]")
+                         : DataResult.success(string);
+                 }
+             }

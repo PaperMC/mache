@@ -1,0 +1,25 @@
+--- a/net/minecraft/network/protocol/game/ClientboundSectionBlocksUpdatePacket.java
++++ b/net/minecraft/network/protocol/game/ClientboundSectionBlocksUpdatePacket.java
+@@ -18,15 +18,15 @@
+ 
+     public ClientboundSectionBlocksUpdatePacket(SectionPos sectionPos, ShortSet positions, LevelChunkSection section) {
+         this.sectionPos = sectionPos;
+-        int size = positions.size();
+-        this.positions = new short[size];
+-        this.states = new BlockState[size];
+-        int i = 0;
++        int i = positions.size();
++        this.positions = new short[i];
++        this.states = new BlockState[i];
++        int i1 = 0;
+ 
+         for(short s : positions) {
+-            this.positions[i] = s;
+-            this.states[i] = section.getBlockState(SectionPos.sectionRelativeX(s), SectionPos.sectionRelativeY(s), SectionPos.sectionRelativeZ(s));
+-            ++i;
++            this.positions[i1] = s;
++            this.states[i1] = section.getBlockState(SectionPos.sectionRelativeX(s), SectionPos.sectionRelativeY(s), SectionPos.sectionRelativeZ(s));
++            ++i1;
+         }
+     }
+ 

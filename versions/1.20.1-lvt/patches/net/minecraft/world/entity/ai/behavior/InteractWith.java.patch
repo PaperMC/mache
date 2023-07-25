@@ -1,0 +1,20 @@
+--- a/net/minecraft/world/entity/ai/behavior/InteractWith.java
++++ b/net/minecraft/world/entity/ai/behavior/InteractWith.java
+@@ -29,7 +29,7 @@
+         int i = maxDistance * maxDistance;
+         Predicate<LivingEntity> predicate = entity -> type.equals(entity.getType()) && targetPredicate.test((T)entity);
+         return BehaviorBuilder.create(
+-            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
++            context -> context.group(
+                         context.registered(targetModule),
+                         context.registered(MemoryModuleType.LOOK_TARGET),
+                         context.absent(MemoryModuleType.WALK_TARGET),
+@@ -44,7 +44,7 @@
+                                         target -> target.distanceToSqr(entity) <= (double)i && predicate.test(target)
+                                     );
+                                     optional.ifPresent(target -> {
+-                                        targetValue.set(target);
++                                        targetValue.set((T) target);
+                                         lookTarget.set(new EntityTracker(target, true));
+                                         walkTarget.set(new WalkTarget(new EntityTracker(target, false), speed, completionRange));
+                                     });

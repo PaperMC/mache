@@ -1,0 +1,11 @@
+--- a/net/minecraft/server/network/ServerGamePacketListenerImpl.java
++++ b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
+@@ -807,7 +807,7 @@
+             CompoundTag compoundTag = new CompoundTag();
+             int i = 0;
+ 
+-            for(int size = messages.size(); i < size; ++i) {
++            for(int i1 = messages.size(); i < i1; ++i) {
+                 FilteredText filteredText = messages.get(i);
+                 String raw = filteredText.raw();
+                 listTag.add(StringTag.valueOf(postProcessor.apply(raw)));

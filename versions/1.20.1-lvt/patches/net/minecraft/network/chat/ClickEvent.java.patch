@@ -1,0 +1,13 @@
+--- a/net/minecraft/network/chat/ClickEvent.java
++++ b/net/minecraft/network/chat/ClickEvent.java
+@@ -44,8 +44,8 @@
+ 
+     @Override
+     public int hashCode() {
+-        int hashCode = this.action.hashCode();
+-        return 31 * hashCode + (this.value != null ? this.value.hashCode() : 0);
++        int i = this.action.hashCode();
++        return 31 * i + (this.value != null ? this.value.hashCode() : 0);
+     }
+ 
+     public static enum Action {

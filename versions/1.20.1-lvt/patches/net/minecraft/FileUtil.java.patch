@@ -1,0 +1,24 @@
+--- a/net/minecraft/FileUtil.java
++++ b/net/minecraft/FileUtil.java
+@@ -141,16 +141,16 @@
+     }
+ 
+     public static Path resolvePath(Path root, List<String> paths) {
+-        int size = paths.size();
++        int i = paths.size();
+ 
+-        return switch(size) {
++        return switch(i) {
+             case 0 -> root;
+             case 1 -> root.resolve(paths.get(0));
+             default -> {
+-                String[] strings = new String[size - 1];
++                String[] strings = new String[i - 1];
+ 
+-                for(int i = 1; i < size; ++i) {
+-                    strings[i - 1] = paths.get(i);
++                for(int i1 = 1; i1 < i; ++i1) {
++                    strings[i1 - 1] = paths.get(i1);
+                 }
+ 
+                 yield root.resolve(root.getFileSystem().getPath(paths.get(0), strings));

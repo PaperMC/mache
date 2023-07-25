@@ -1,0 +1,15 @@
+--- a/net/minecraft/advancements/CriterionTrigger.java
++++ b/net/minecraft/advancements/CriterionTrigger.java
+@@ -53,9 +53,9 @@
+ 
+         @Override
+         public int hashCode() {
+-            int hashCode = this.trigger.hashCode();
+-            hashCode = 31 * hashCode + this.advancement.hashCode();
+-            return 31 * hashCode + this.criterion.hashCode();
++            int i = this.trigger.hashCode();
++            i = 31 * i + this.advancement.hashCode();
++            return 31 * i + this.criterion.hashCode();
+         }
+     }
+ }

@@ -1,0 +1,25 @@
+--- a/net/minecraft/util/DebugBuffer.java
++++ b/net/minecraft/util/DebugBuffer.java
+@@ -16,16 +16,16 @@
+     }
+ 
+     public void push(T value) {
+-        int len = this.data.length();
++        int i = this.data.length();
+ 
+-        int i;
+         int i1;
++        int i2;
+         do {
+-            i = this.index.get();
+-            i1 = (i + 1) % len;
+-        } while(!this.index.compareAndSet(i, i1));
++            i1 = this.index.get();
++            i2 = (i1 + 1) % i;
++        } while(!this.index.compareAndSet(i1, i2));
+ 
+-        this.data.set(i1, value);
++        this.data.set(i2, value);
+     }
+ 
+     public List<T> dump() {

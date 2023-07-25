@@ -1,0 +1,17 @@
+--- a/net/minecraft/world/level/storage/loot/LootDataType.java
++++ b/net/minecraft/world/level/storage/loot/LootDataType.java
+@@ -80,12 +80,12 @@
+     private static <T> BiFunction<Gson, String, BiFunction<ResourceLocation, JsonElement, Optional<T>>> createSingleOrMultipleDeserialiser(
+         Class<T> clazz, Function<T[], T> combiner
+     ) {
+-        Class<T[]> clazz1 = clazz.arrayType();
++        Class<T[]> clazz1 = (Class<T[]>) clazz.arrayType();
+         return (gson, dataTypeId) -> (id, json) -> {
+                 try {
+                     if (json.isJsonArray()) {
+                         T[] objects = (T[])((Object[])gson.fromJson(json, clazz1));
+-                        return Optional.of(combiner.apply((T)objects));
++                        return Optional.of(combiner.apply(objects));
+                     } else {
+                         return Optional.of(gson.fromJson(json, clazz));
+                     }

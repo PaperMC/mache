@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/BecomePassiveIfMemoryPresent.java
++++ b/net/minecraft/world/entity/ai/behavior/BecomePassiveIfMemoryPresent.java
+@@ -17,7 +17,7 @@
+                         context,
+                         context.point(
+                             () -> "[BecomePassive if " + requiredMemory + " present]",
+-                            (Function3<MemoryAccessor, MemoryAccessor, MemoryAccessor, Trigger<LivingEntity>>)(attackTarget, pacified, requiredMemoryResult) -> (world, entity, time) -> {
++                            (attackTarget, pacified, requiredMemoryResult) -> (world, entity, time) -> {
+                                     pacified.setWithExpiry(true, (long)duration);
+                                     attackTarget.erase();
+                                     return true;

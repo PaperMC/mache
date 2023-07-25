@@ -1,0 +1,20 @@
+--- a/net/minecraft/world/level/chunk/storage/RegionFile.java
++++ b/net/minecraft/world/level/chunk/storage/RegionFile.java
+@@ -69,7 +69,7 @@
+                     LOGGER.warn("Region file {} has truncated header: {}", file, i);
+                 }
+ 
+-                long size = Files.size(file);
++                long l = Files.size(file);
+ 
+                 for(int i1 = 0; i1 < 1024; ++i1) {
+                     int i2 = this.offsets.get(i1);
+@@ -82,7 +82,7 @@
+                         } else if (numSectors == 0) {
+                             LOGGER.warn("Region file {} has an invalid sector at index: {}; size has to be > 0", file, i1);
+                             this.offsets.put(i1, 0);
+-                        } else if ((long)sectorNumber * 4096L > size) {
++                        } else if ((long)sectorNumber * 4096L > l) {
+                             LOGGER.warn("Region file {} has an invalid sector at index: {}; sector {} is out of bounds", file, i1, sectorNumber);
+                             this.offsets.put(i1, 0);
+                         } else {

@@ -1,0 +1,19 @@
+--- a/net/minecraft/world/inventory/AbstractContainerMenu.java
++++ b/net/minecraft/world/inventory/AbstractContainerMenu.java
+@@ -135,14 +135,14 @@
+     public void sendAllDataToRemote() {
+         int i = 0;
+ 
+-        for(int size = this.slots.size(); i < size; ++i) {
++        for(int i1 = this.slots.size(); i < i1; ++i) {
+             this.remoteSlots.set(i, this.slots.get(i).getItem().copy());
+         }
+ 
+         this.remoteCarried = this.getCarried().copy();
+         i = 0;
+ 
+-        for(int size = this.dataSlots.size(); i < size; ++i) {
++        for(int i1 = this.dataSlots.size(); i < i1; ++i) {
+             this.remoteDataSlots.set(i, this.dataSlots.get(i).get());
+         }
+ 

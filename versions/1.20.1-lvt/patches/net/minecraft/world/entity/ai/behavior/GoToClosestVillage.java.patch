@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/GoToClosestVillage.java
++++ b/net/minecraft/world/entity/ai/behavior/GoToClosestVillage.java
+@@ -14,7 +14,7 @@
+ public class GoToClosestVillage {
+     public static BehaviorControl<Villager> create(float speed, int completionRange) {
+         return BehaviorBuilder.create(
+-            context -> context.<MemoryAccessor>group(context.absent(MemoryModuleType.WALK_TARGET)).apply(context, walkTarget -> (world, entity, time) -> {
++            context -> context.group(context.absent(MemoryModuleType.WALK_TARGET)).apply(context, walkTarget -> (world, entity, time) -> {
+                         if (world.isVillage(entity.blockPosition())) {
+                             return false;
+                         } else {

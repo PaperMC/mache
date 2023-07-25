@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/animal/axolotl/AxolotlAi.java
++++ b/net/minecraft/world/entity/animal/axolotl/AxolotlAi.java
+@@ -72,7 +72,7 @@
+             Activity.FIGHT,
+             0,
+             ImmutableList.of(
+-                StopAttackingIfTargetInvalid.<Mob>create(Axolotl::onStopAttacking),
++                StopAttackingIfTargetInvalid.create(Axolotl::onStopAttacking),
+                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(AxolotlAi::getSpeedModifierChasing),
+                 MeleeAttack.create(20),
+                 EraseMemoryIf.<Mob>create(BehaviorUtils::isBreeding, MemoryModuleType.ATTACK_TARGET)

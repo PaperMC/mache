@@ -1,0 +1,37 @@
+--- a/net/minecraft/world/level/BaseSpawner.java
++++ b/net/minecraft/world/level/BaseSpawner.java
+@@ -94,12 +94,10 @@
+                     }
+ 
+                     ListTag list = getEntityToSpawn.getList("Pos", Tag.TAG_DOUBLE);
+-                    int size = list.size();
+-                    double d = size >= 1 ? list.getDouble(0) : (double)pos.getX() + (random.nextDouble() - random.nextDouble()) * (double)this.spawnRange + 0.5;
+-                    double d1 = size >= 2 ? list.getDouble(1) : (double)(pos.getY() + random.nextInt(3) - 1);
+-                    double d2 = size >= 3
+-                        ? list.getDouble(2)
+-                        : (double)pos.getZ() + (random.nextDouble() - random.nextDouble()) * (double)this.spawnRange + 0.5;
++                    int i1 = list.size();
++                    double d = i1 >= 1 ? list.getDouble(0) : (double)pos.getX() + (random.nextDouble() - random.nextDouble()) * (double)this.spawnRange + 0.5;
++                    double d1 = i1 >= 2 ? list.getDouble(1) : (double)(pos.getY() + random.nextInt(3) - 1);
++                    double d2 = i1 >= 3 ? list.getDouble(2) : (double)pos.getZ() + (random.nextDouble() - random.nextDouble()) * (double)this.spawnRange + 0.5;
+                     if (world.noCollision(optional.get().getAABB(d, d1, d2))) {
+                         BlockPos blockPos = BlockPos.containing(d, d1, d2);
+                         if (nextSpawnData.getCustomSpawnRules().isPresent()) {
+@@ -125,7 +123,7 @@
+                             return;
+                         }
+ 
+-                        int size1 = world.getEntitiesOfClass(
++                        int i2 = world.getEntitiesOfClass(
+                                 entity.getClass(),
+                                 new AABB(
+                                         (double)pos.getX(),
+@@ -138,7 +136,7 @@
+                                     .inflate((double)this.spawnRange)
+                             )
+                             .size();
+-                        if (size1 >= this.maxNearbyEntities) {
++                        if (i2 >= this.maxNearbyEntities) {
+                             this.delay(world, pos);
+                             return;
+                         }

@@ -1,0 +1,48 @@
+--- a/net/minecraft/network/chat/HoverEvent.java
++++ b/net/minecraft/network/chat/HoverEvent.java
+@@ -61,8 +61,8 @@
+ 
+     @Override
+     public int hashCode() {
+-        int hashCode = this.action.hashCode();
+-        return 31 * hashCode + (this.value != null ? this.value.hashCode() : 0);
++        int i = this.action.hashCode();
++        return 31 * i + (this.value != null ? this.value.hashCode() : 0);
+     }
+ 
+     @Nullable
+@@ -105,7 +105,7 @@
+         );
+         private static final Map<String, HoverEvent.Action<?>> LOOKUP = Stream.of(SHOW_TEXT, SHOW_ITEM, SHOW_ENTITY)
+             .collect(
+-                ImmutableMap.toImmutableMap(HoverEvent.Action::getName, (Function<? super HoverEvent.Action, ? extends HoverEvent.Action>)(action -> action))
++                ImmutableMap.toImmutableMap(HoverEvent.Action::getName, (action -> action))
+             );
+         private final String name;
+         private final boolean allowFromServer;
+@@ -245,9 +245,9 @@
+ 
+         @Override
+         public int hashCode() {
+-            int hashCode = this.type.hashCode();
+-            hashCode = 31 * hashCode + this.id.hashCode();
+-            return 31 * hashCode + (this.name != null ? this.name.hashCode() : 0);
++            int i = this.type.hashCode();
++            i = 31 * i + this.id.hashCode();
++            return 31 * i + (this.name != null ? this.name.hashCode() : 0);
+         }
+     }
+ 
+@@ -283,9 +283,9 @@
+ 
+         @Override
+         public int hashCode() {
+-            int hashCode = this.item.hashCode();
+-            hashCode = 31 * hashCode + this.count;
+-            return 31 * hashCode + (this.tag != null ? this.tag.hashCode() : 0);
++            int i = this.item.hashCode();
++            i = 31 * i + this.count;
++            return 31 * i + (this.tag != null ? this.tag.hashCode() : 0);
+         }
+ 
+         public ItemStack getItemStack() {

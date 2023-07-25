@@ -1,0 +1,80 @@
+--- a/net/minecraft/Util.java
++++ b/net/minecraft/Util.java
+@@ -358,7 +358,7 @@
+     }
+ 
+     public static <K> Strategy<K> identityStrategy() {
+-        return Util.IdentityStrategy.INSTANCE;
++        return (Strategy<K>) Util.IdentityStrategy.INSTANCE;
+     }
+ 
+     public static <V> CompletableFuture<List<V>> sequence(List<? extends CompletableFuture<V>> futures) {
+@@ -392,13 +392,13 @@
+         List<V> list = Lists.newArrayListWithCapacity(futures.size());
+         CompletableFuture<?>[] completableFutures = new CompletableFuture[futures.size()];
+         futures.forEach(future -> {
+-            int size = list.size();
++            int i = list.size();
+             list.add((V)null);
+-            completableFutures[size] = future.whenComplete((value, throwable) -> {
++            completableFutures[i] = future.whenComplete((value, throwable) -> {
+                 if (throwable != null) {
+                     exceptionHandler.accept(throwable);
+                 } else {
+-                    list.set(size, value);
++                    list.set(i, value);
+                 }
+             });
+         });
+@@ -601,15 +601,15 @@
+     }
+ 
+     public static int offsetByCodepoints(String string, int cursor, int delta) {
+-        int len = string.length();
++        int i = string.length();
+         if (delta >= 0) {
+-            for(int i = 0; cursor < len && i < delta; ++i) {
+-                if (Character.isHighSurrogate(string.charAt(cursor++)) && cursor < len && Character.isLowSurrogate(string.charAt(cursor))) {
++            for(int i1 = 0; cursor < i && i1 < delta; ++i1) {
++                if (Character.isHighSurrogate(string.charAt(cursor++)) && cursor < i && Character.isLowSurrogate(string.charAt(cursor))) {
+                     ++cursor;
+                 }
+             }
+         } else {
+-            for(int i = delta; cursor > 0 && i < 0; ++i) {
++            for(int i1 = delta; cursor > 0 && i1 < 0; ++i1) {
+                 --cursor;
+                 if (Character.isLowSurrogate(string.charAt(cursor)) && cursor > 0 && Character.isHighSurrogate(string.charAt(cursor - 1))) {
+                     --cursor;
+@@ -729,11 +729,11 @@
+ 
+     public static IntArrayList toShuffledList(IntStream stream, RandomSource random) {
+         IntArrayList intArrayList = IntArrayList.wrap(stream.toArray());
+-        int size = intArrayList.size();
++        int i = intArrayList.size();
+ 
+-        for(int i = size; i > 1; --i) {
+-            int i1 = random.nextInt(i);
+-            intArrayList.set(i - 1, intArrayList.set(i1, intArrayList.getInt(i - 1)));
++        for(int i1 = i; i1 > 1; --i1) {
++            int i2 = random.nextInt(i1);
++            intArrayList.set(i1 - 1, intArrayList.set(i2, intArrayList.getInt(i1 - 1)));
+         }
+ 
+         return intArrayList;
+@@ -752,11 +752,11 @@
+     }
+ 
+     public static <T> void shuffle(ObjectArrayList<T> list, RandomSource random) {
+-        int size = list.size();
++        int i = list.size();
+ 
+-        for(int i = size; i > 1; --i) {
+-            int i1 = random.nextInt(i);
+-            list.set(i - 1, list.set(i1, list.get(i - 1)));
++        for(int i1 = i; i1 > 1; --i1) {
++            int i2 = random.nextInt(i1);
++            list.set(i1 - 1, list.set(i2, list.get(i1 - 1)));
+         }
+     }
+ 

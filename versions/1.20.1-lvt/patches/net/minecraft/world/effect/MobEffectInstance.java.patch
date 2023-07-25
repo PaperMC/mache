@@ -1,0 +1,17 @@
+--- a/net/minecraft/world/effect/MobEffectInstance.java
++++ b/net/minecraft/world/effect/MobEffectInstance.java
+@@ -255,10 +255,10 @@
+ 
+     @Override
+     public int hashCode() {
+-        int hashCode = this.effect.hashCode();
+-        hashCode = 31 * hashCode + this.duration;
+-        hashCode = 31 * hashCode + this.amplifier;
+-        return 31 * hashCode + (this.ambient ? 1 : 0);
++        int i = this.effect.hashCode();
++        i = 31 * i + this.duration;
++        i = 31 * i + this.amplifier;
++        return 31 * i + (this.ambient ? 1 : 0);
+     }
+ 
+     public CompoundTag save(CompoundTag nbt) {

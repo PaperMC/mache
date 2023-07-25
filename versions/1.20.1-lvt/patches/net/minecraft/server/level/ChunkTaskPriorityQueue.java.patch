@@ -1,0 +1,11 @@
+--- a/net/minecraft/server/level/ChunkTaskPriorityQueue.java
++++ b/net/minecraft/server/level/ChunkTaskPriorityQueue.java
+@@ -94,7 +94,7 @@
+                 ++this.firstQueue;
+             }
+ 
+-            return list.stream().map(optional -> optional.map(Either::left).orElseGet(() -> Either.right(this.acquire(l))));
++            return list.stream().map(optional -> optional.<Either<T, Runnable>>map(Either::left).orElseGet(() -> Either.right(this.acquire(l))));
+         }
+     }
+ 

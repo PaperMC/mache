@@ -1,0 +1,19 @@
+--- a/net/minecraft/world/item/crafting/ShapedRecipe.java
++++ b/net/minecraft/world/item/crafting/ShapedRecipe.java
+@@ -317,12 +317,12 @@
+                 .byName(GsonHelper.getAsString(jsonObject, "category", null), CraftingBookCategory.MISC);
+             Map<String, Ingredient> map = ShapedRecipe.keyFromJson(GsonHelper.getAsJsonObject(jsonObject, "key"));
+             String[] strings = ShapedRecipe.shrink(ShapedRecipe.patternFromJson(GsonHelper.getAsJsonArray(jsonObject, "pattern")));
+-            int len = strings[0].length();
+-            int i = strings.length;
+-            NonNullList<Ingredient> nonNullList = ShapedRecipe.dissolvePattern(strings, map, len, i);
++            int i = strings[0].length();
++            int i1 = strings.length;
++            NonNullList<Ingredient> nonNullList = ShapedRecipe.dissolvePattern(strings, map, i, i1);
+             ItemStack itemStack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(jsonObject, "result"));
+             boolean asBoolean = GsonHelper.getAsBoolean(jsonObject, "show_notification", true);
+-            return new ShapedRecipe(resourceLocation, asString, craftingBookCategory, len, i, nonNullList, itemStack, asBoolean);
++            return new ShapedRecipe(resourceLocation, asString, craftingBookCategory, i, i1, nonNullList, itemStack, asBoolean);
+         }
+ 
+         @Override

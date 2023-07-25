@@ -1,0 +1,64 @@
+--- a/net/minecraft/world/level/levelgen/blending/Blender.java
++++ b/net/minecraft/world/level/levelgen/blending/Blender.java
+@@ -121,15 +121,15 @@
+                 .forEach(
+                     (chunkPos, data) -> data.iterateHeights(
+                             QuartPos.fromSection(ChunkPos.getX(chunkPos)), QuartPos.fromSection(ChunkPos.getZ(chunkPos)), (biomeX, biomeZ, height) -> {
+-                                double len = Mth.length((double)(i - biomeX), (double)(i1 - biomeZ));
+-                                if (!(len > (double)HEIGHT_BLENDING_RANGE_CELLS)) {
+-                                    if (len < mutableDouble2.doubleValue()) {
+-                                        mutableDouble2.setValue(len);
++                                double d2 = Mth.length((double)(i - biomeX), (double)(i1 - biomeZ));
++                                if (!(d2 > (double)HEIGHT_BLENDING_RANGE_CELLS)) {
++                                    if (d2 < mutableDouble2.doubleValue()) {
++                                        mutableDouble2.setValue(d2);
+                                     }
+             
+-                                    double d2 = 1.0 / (len * len * len * len);
+-                                    mutableDouble1.add(height * d2);
+-                                    mutableDouble.add(d2);
++                                    double d3 = 1.0 / (d2 * d2 * d2 * d2);
++                                    mutableDouble1.add(height * d3);
++                                    mutableDouble.add(d3);
+                                 }
+                             }
+                         )
+@@ -171,15 +171,15 @@
+                             i1 - 1,
+                             i1 + 1,
+                             (biomeX, halfSectionY, biomeZ, collidableBlockDensity) -> {
+-                                double len = Mth.length((double)(i - biomeX), (double)((i1 - halfSectionY) * 2), (double)(i2 - biomeZ));
+-                                if (!(len > 2.0)) {
+-                                    if (len < mutableDouble2.doubleValue()) {
+-                                        mutableDouble2.setValue(len);
++                                double d2 = Mth.length((double)(i - biomeX), (double)((i1 - halfSectionY) * 2), (double)(i2 - biomeZ));
++                                if (!(d2 > 2.0)) {
++                                    if (d2 < mutableDouble2.doubleValue()) {
++                                        mutableDouble2.setValue(d2);
+                                     }
+             
+-                                    double d2 = 1.0 / (len * len * len * len);
+-                                    mutableDouble1.add(collidableBlockDensity * d2);
+-                                    mutableDouble.add(d2);
++                                    double d3 = 1.0 / (d2 * d2 * d2 * d2);
++                                    mutableDouble1.add(collidableBlockDensity * d3);
++                                    mutableDouble.add(d3);
+                                 }
+                             }
+                         )
+@@ -241,11 +241,11 @@
+             .forEach(
+                 (chunkPos, data) -> data.iterateBiomes(
+                         QuartPos.fromSection(ChunkPos.getX(chunkPos)), y, QuartPos.fromSection(ChunkPos.getZ(chunkPos)), (biomeX, biomeZ, biome) -> {
+-                            double len = Mth.length((double)(x - biomeX), (double)(z - biomeZ));
+-                            if (!(len > (double)HEIGHT_BLENDING_RANGE_CELLS)) {
+-                                if (len < mutableDouble.doubleValue()) {
++                            double d2 = Mth.length((double)(x - biomeX), (double)(z - biomeZ));
++                            if (!(d2 > (double)HEIGHT_BLENDING_RANGE_CELLS)) {
++                                if (d2 < mutableDouble.doubleValue()) {
+                                     mutableObject.setValue(biome);
+-                                    mutableDouble.setValue(len);
++                                    mutableDouble.setValue(d2);
+                                 }
+                             }
+                         }

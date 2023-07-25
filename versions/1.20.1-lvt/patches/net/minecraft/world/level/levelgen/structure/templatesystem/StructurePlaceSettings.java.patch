@@ -1,0 +1,17 @@
+--- a/net/minecraft/world/level/levelgen/structure/templatesystem/StructurePlaceSettings.java
++++ b/net/minecraft/world/level/levelgen/structure/templatesystem/StructurePlaceSettings.java
+@@ -139,11 +139,11 @@
+     }
+ 
+     public StructureTemplate.Palette getRandomPalette(List<StructureTemplate.Palette> infoLists, @Nullable BlockPos pos) {
+-        int size = infoLists.size();
+-        if (size == 0) {
++        int i = infoLists.size();
++        if (i == 0) {
+             throw new IllegalStateException("No palettes");
+         } else {
+-            return infoLists.get(this.getRandom(pos).nextInt(size));
++            return infoLists.get(this.getRandom(pos).nextInt(i));
+         }
+     }
+ 

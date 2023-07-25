@@ -1,0 +1,72 @@
+--- a/net/minecraft/world/level/chunk/ChunkGenerator.java
++++ b/net/minecraft/world/level/chunk/ChunkGenerator.java
+@@ -336,17 +336,17 @@
+                 }
+             });
+             set.retainAll(this.biomeSource.possibleBiomes());
+-            int size = list.size();
++            int i = list.size();
+ 
+             try {
+                 Registry<PlacedFeature> registry1 = world.registryAccess().registryOrThrow(Registries.PLACED_FEATURE);
+-                int i = Math.max(GenerationStep.Decoration.values().length, size);
++                int i1 = Math.max(GenerationStep.Decoration.values().length, i);
+ 
+-                for(int i1 = 0; i1 < i; ++i1) {
+-                    int i2 = 0;
++                for(int i2 = 0; i2 < i1; ++i2) {
++                    int i3 = 0;
+                     if (structureAccessor.shouldGenerateStructures()) {
+-                        for(Structure structure : map.getOrDefault(i1, Collections.emptyList())) {
+-                            worldgenRandom.setFeatureSeed(l, i2, i1);
++                        for(Structure structure : map.getOrDefault(i2, Collections.emptyList())) {
++                            worldgenRandom.setFeatureSeed(l, i3, i2);
+                             Supplier<String> supplier = () -> registry.getResourceKey(structure).map(Object::toString).orElseGet(structure::toString);
+ 
+                             try {
+@@ -359,34 +359,34 @@
+                                 throw new ReportedException(crashReport);
+                             }
+ 
+-                            ++i2;
++                            ++i3;
+                         }
+                     }
+ 
+-                    if (i1 < size) {
++                    if (i2 < i) {
+                         IntSet set1 = new IntArraySet();
+ 
+                         for(Holder<Biome> holder : set) {
+                             List<HolderSet<PlacedFeature>> list2 = this.generationSettingsGetter.apply(holder).features();
+-                            if (i1 < list2.size()) {
+-                                HolderSet<PlacedFeature> holderSet = list2.get(i1);
+-                                FeatureSorter.StepFeatureData stepFeatureData = list.get(i1);
++                            if (i2 < list2.size()) {
++                                HolderSet<PlacedFeature> holderSet = list2.get(i2);
++                                FeatureSorter.StepFeatureData stepFeatureData = list.get(i2);
+                                 holderSet.stream()
+                                     .map(Holder::value)
+                                     .forEach(placedFeature1 -> set1.add(stepFeatureData.indexMapping().applyAsInt(placedFeature1)));
+                             }
+                         }
+ 
+-                        int i3 = set1.size();
++                        int i4 = set1.size();
+                         int[] ints = set1.toIntArray();
+                         Arrays.sort(ints);
+-                        FeatureSorter.StepFeatureData stepFeatureData1 = list.get(i1);
++                        FeatureSorter.StepFeatureData stepFeatureData1 = list.get(i2);
+ 
+-                        for(int i4 = 0; i4 < i3; ++i4) {
+-                            int i5 = ints[i4];
+-                            PlacedFeature placedFeature = stepFeatureData1.features().get(i5);
++                        for(int i5 = 0; i5 < i4; ++i5) {
++                            int i6 = ints[i5];
++                            PlacedFeature placedFeature = stepFeatureData1.features().get(i6);
+                             Supplier<String> supplier1 = () -> registry1.getResourceKey(placedFeature).map(Object::toString).orElseGet(placedFeature::toString);
+-                            worldgenRandom.setFeatureSeed(l, i5, i1);
++                            worldgenRandom.setFeatureSeed(l, i6, i2);
+ 
+                             try {
+                                 world.setCurrentlyGenerating(supplier1);

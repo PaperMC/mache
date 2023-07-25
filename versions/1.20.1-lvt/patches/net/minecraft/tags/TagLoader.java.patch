@@ -1,0 +1,11 @@
+--- a/net/minecraft/tags/TagLoader.java
++++ b/net/minecraft/tags/TagLoader.java
+@@ -85,7 +85,7 @@
+             @Nullable
+             @Override
+             public T element(ResourceLocation id) {
+-                return TagLoader.this.idToValue.apply(id).orElse((T)null);
++                return TagLoader.this.idToValue.apply(id).orElse(null);
+             }
+ 
+             @Nullable

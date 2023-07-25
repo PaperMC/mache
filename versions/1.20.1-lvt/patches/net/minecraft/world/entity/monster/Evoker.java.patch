@@ -1,0 +1,15 @@
+--- a/net/minecraft/world/entity/monster/Evoker.java
++++ b/net/minecraft/world/entity/monster/Evoker.java
+@@ -238,10 +238,10 @@
+             if (!super.canUse()) {
+                 return false;
+             } else {
+-                int size = Evoker.this.level()
++                int i = Evoker.this.level()
+                     .getNearbyEntities(Vex.class, this.vexCountTargeting, Evoker.this, Evoker.this.getBoundingBox().inflate(16.0))
+                     .size();
+-                return Evoker.this.random.nextInt(8) + 1 > size;
++                return Evoker.this.random.nextInt(8) + 1 > i;
+             }
+         }
+ 

@@ -1,0 +1,36 @@
+--- a/net/minecraft/world/level/block/entity/ConduitBlockEntity.java
++++ b/net/minecraft/world/level/block/entity/ConduitBlockEntity.java
+@@ -166,18 +166,18 @@
+     }
+ 
+     private static void applyEffects(Level world, BlockPos pos, List<BlockPos> activatingBlocks) {
+-        int size = activatingBlocks.size();
+-        int i = size / 7 * 16;
++        int i = activatingBlocks.size();
++        int i1 = i / 7 * 16;
+         int x = pos.getX();
+         int y = pos.getY();
+         int z = pos.getZ();
+         AABB aABB = new AABB((double)x, (double)y, (double)z, (double)(x + 1), (double)(y + 1), (double)(z + 1))
+-            .inflate((double)i)
++            .inflate((double)i1)
+             .expandTowards(0.0, (double)world.getHeight(), 0.0);
+         List<Player> entitiesOfClass = world.getEntitiesOfClass(Player.class, aABB);
+         if (!entitiesOfClass.isEmpty()) {
+             for(Player player : entitiesOfClass) {
+-                if (pos.closerThan(player.blockPosition(), (double)i) && player.isInWaterOrRain()) {
++                if (pos.closerThan(player.blockPosition(), (double)i1) && player.isInWaterOrRain()) {
+                     player.addEffect(new MobEffectInstance(MobEffects.CONDUIT_POWER, 260, 0, true, true));
+                 }
+             }
+@@ -186,8 +186,8 @@
+ 
+     private static void updateDestroyTarget(Level world, BlockPos pos, BlockState state, List<BlockPos> activatingBlocks, ConduitBlockEntity blockEntity) {
+         LivingEntity livingEntity = blockEntity.destroyTarget;
+-        int size = activatingBlocks.size();
+-        if (size < 42) {
++        int i = activatingBlocks.size();
++        if (i < 42) {
+             blockEntity.destroyTarget = null;
+         } else if (blockEntity.destroyTarget == null && blockEntity.destroyTargetUUID != null) {
+             blockEntity.destroyTarget = findDestroyTarget(world, pos, blockEntity.destroyTargetUUID);

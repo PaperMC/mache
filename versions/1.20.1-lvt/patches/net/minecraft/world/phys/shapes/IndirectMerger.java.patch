@@ -1,0 +1,79 @@
+--- a/net/minecraft/world/phys/shapes/IndirectMerger.java
++++ b/net/minecraft/world/phys/shapes/IndirectMerger.java
+@@ -13,51 +13,51 @@
+ 
+     public IndirectMerger(DoubleList first, DoubleList second, boolean includeFirstOnly, boolean includeSecondOnly) {
+         double d = Double.NaN;
+-        int size = first.size();
+-        int size1 = second.size();
+-        int i = size + size1;
+-        this.result = new double[i];
+-        this.firstIndices = new int[i];
+-        this.secondIndices = new int[i];
++        int i = first.size();
++        int i1 = second.size();
++        int i2 = i + i1;
++        this.result = new double[i2];
++        this.firstIndices = new int[i2];
++        this.secondIndices = new int[i2];
+         boolean flag = !includeFirstOnly;
+         boolean flag1 = !includeSecondOnly;
+-        int i1 = 0;
+-        int i2 = 0;
+         int i3 = 0;
++        int i4 = 0;
++        int i5 = 0;
+ 
+         while(true) {
+-            boolean flag2 = i2 >= size;
+-            boolean flag3 = i3 >= size1;
++            boolean flag2 = i4 >= i;
++            boolean flag3 = i5 >= i1;
+             if (flag2 && flag3) {
+-                this.resultLength = Math.max(1, i1);
++                this.resultLength = Math.max(1, i3);
+                 return;
+             }
+ 
+-            boolean flag4 = !flag2 && (flag3 || first.getDouble(i2) < second.getDouble(i3) + 1.0E-7);
++            boolean flag4 = !flag2 && (flag3 || first.getDouble(i4) < second.getDouble(i5) + 1.0E-7);
+             if (flag4) {
+-                ++i2;
+-                if (flag && (i3 == 0 || flag3)) {
++                ++i4;
++                if (flag && (i5 == 0 || flag3)) {
+                     continue;
+                 }
+             } else {
+-                ++i3;
+-                if (flag1 && (i2 == 0 || flag2)) {
++                ++i5;
++                if (flag1 && (i4 == 0 || flag2)) {
+                     continue;
+                 }
+             }
+ 
+-            int i4 = i2 - 1;
+-            int i5 = i3 - 1;
+-            double d1 = flag4 ? first.getDouble(i4) : second.getDouble(i5);
++            int i6 = i4 - 1;
++            int i7 = i5 - 1;
++            double d1 = flag4 ? first.getDouble(i6) : second.getDouble(i7);
+             if (!(d >= d1 - 1.0E-7)) {
+-                this.firstIndices[i1] = i4;
+-                this.secondIndices[i1] = i5;
+-                this.result[i1] = d1;
+-                ++i1;
++                this.firstIndices[i3] = i6;
++                this.secondIndices[i3] = i7;
++                this.result[i3] = d1;
++                ++i3;
+                 d = d1;
+             } else {
+-                this.firstIndices[i1 - 1] = i4;
+-                this.secondIndices[i1 - 1] = i5;
++                this.firstIndices[i3 - 1] = i6;
++                this.secondIndices[i3 - 1] = i7;
+             }
+         }
+     }

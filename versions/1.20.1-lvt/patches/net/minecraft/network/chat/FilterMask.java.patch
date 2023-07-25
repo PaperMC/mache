@@ -1,0 +1,13 @@
+--- a/net/minecraft/network/chat/FilterMask.java
++++ b/net/minecraft/network/chat/FilterMask.java
+@@ -138,8 +138,8 @@
+ 
+     @Override
+     public int hashCode() {
+-        int hashCode = this.mask.hashCode();
+-        return 31 * hashCode + this.type.hashCode();
++        int i = this.mask.hashCode();
++        return 31 * i + this.type.hashCode();
+     }
+ 
+     static enum Type implements StringRepresentable {

@@ -1,0 +1,16 @@
+--- a/net/minecraft/world/entity/monster/EnderMan.java
++++ b/net/minecraft/world/entity/monster/EnderMan.java
+@@ -222,10 +222,10 @@
+         } else {
+             Vec3 vec3 = player.getViewVector(1.0F).normalize();
+             Vec3 vec31 = new Vec3(this.getX() - player.getX(), this.getEyeY() - player.getEyeY(), this.getZ() - player.getZ());
+-            double len = vec31.length();
++            double d = vec31.length();
+             vec31 = vec31.normalize();
+-            double d = vec3.dot(vec31);
+-            return d > 1.0 - 0.025 / len && player.hasLineOfSight(this);
++            double d1 = vec3.dot(vec31);
++            return d1 > 1.0 - 0.025 / d && player.hasLineOfSight(this);
+         }
+     }
+ 

@@ -1,0 +1,14 @@
+--- a/net/minecraft/world/level/timers/TimerQueue.java
++++ b/net/minecraft/world/level/timers/TimerQueue.java
+@@ -76,9 +76,9 @@
+     public int remove(String name) {
+         Collection<TimerQueue.Event<T>> collection = this.events.row(name).values();
+         collection.forEach(this.queue::remove);
+-        int size = collection.size();
++        int i = collection.size();
+         collection.clear();
+-        return size;
++        return i;
+     }
+ 
+     public Set<String> getEventsIds() {

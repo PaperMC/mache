@@ -1,0 +1,14 @@
+--- a/net/minecraft/world/entity/monster/Ghast.java
++++ b/net/minecraft/world/entity/monster/Ghast.java
+@@ -204,9 +204,9 @@
+                 if (this.floatDuration-- <= 0) {
+                     this.floatDuration += this.ghast.getRandom().nextInt(5) + 2;
+                     Vec3 vec3 = new Vec3(this.wantedX - this.ghast.getX(), this.wantedY - this.ghast.getY(), this.wantedZ - this.ghast.getZ());
+-                    double len = vec3.length();
++                    double d = vec3.length();
+                     Vec3 var4 = vec3.normalize();
+-                    if (this.canReach(var4, Mth.ceil(len))) {
++                    if (this.canReach(var4, Mth.ceil(d))) {
+                         this.ghast.setDeltaMovement(this.ghast.getDeltaMovement().add(var4.scale(0.1)));
+                     } else {
+                         this.operation = MoveControl.Operation.WAIT;

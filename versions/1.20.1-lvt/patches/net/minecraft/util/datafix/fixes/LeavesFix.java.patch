@@ -1,0 +1,44 @@
+--- a/net/minecraft/util/datafix/fixes/LeavesFix.java
++++ b/net/minecraft/util/datafix/fixes/LeavesFix.java
+@@ -296,24 +296,24 @@
+             boolean flag = Objects.equals(dynamic.get("Properties").get("persistent").asString(""), "true");
+             int stateId = this.getStateId(string, flag, distance);
+             if (!this.stateToIdMap.containsKey(stateId)) {
+-                int size = this.palette.size();
+-                this.leaveIds.add(size);
+-                this.stateToIdMap.put(stateId, size);
++                int i2 = this.palette.size();
++                this.leaveIds.add(i2);
++                this.stateToIdMap.put(stateId, i2);
+                 this.palette.add(this.makeLeafTag(dynamic, string, flag, distance));
+             }
+ 
+-            int size = this.stateToIdMap.get(stateId);
+-            if (1 << this.storage.getBits() <= size) {
++            int i2 = this.stateToIdMap.get(stateId);
++            if (1 << this.storage.getBits() <= i2) {
+                 PackedBitStorage packedBitStorage = new PackedBitStorage(this.storage.getBits() + 1, 4096);
+ 
+-                for(int i2 = 0; i2 < 4096; ++i2) {
+-                    packedBitStorage.set(i2, this.storage.get(i2));
++                for(int i3 = 0; i3 < 4096; ++i3) {
++                    packedBitStorage.set(i3, this.storage.get(i3));
+                 }
+ 
+                 this.storage = packedBitStorage;
+             }
+ 
+-            this.storage.set(i, size);
++            this.storage.set(i, i2);
+         }
+     }
+ 
+@@ -356,7 +356,7 @@
+                 : typed.update(DSL.remainderFinder(), dynamic -> dynamic.set("BlockStates", dynamic.createLongList(Arrays.stream(this.storage.getRaw()))))
+                     .set(
+                         this.paletteFinder,
+-                        this.palette.stream().map(dynamic -> Pair.of(References.BLOCK_STATE.typeName(), dynamic)).collect(Collectors.toList())
++                        this.palette.stream().<Pair<String, Dynamic<?>>>map(dynamic -> Pair.of(References.BLOCK_STATE.typeName(), dynamic)).collect(Collectors.toList())
+                     );
+         }
+ 

@@ -1,0 +1,11 @@
+--- a/net/minecraft/server/dedicated/DedicatedServerProperties.java
++++ b/net/minecraft/server/dedicated/DedicatedServerProperties.java
+@@ -185,7 +185,7 @@
+     }
+ 
+     private static FeatureFlagSet getFeatures(String featureFlags) {
+-        return FeatureFlags.REGISTRY.fromNames(COMMA_SPLITTER.splitToStream(featureFlags).mapMulti((id, consumer) -> {
++        return FeatureFlags.REGISTRY.fromNames(COMMA_SPLITTER.splitToStream(featureFlags).<ResourceLocation>mapMulti((id, consumer) -> {
+             ResourceLocation resourceLocation = ResourceLocation.tryParse(id);
+             if (resourceLocation == null) {
+                 LOGGER.warn("Invalid resource location {}, ignoring", id);

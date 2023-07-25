@@ -1,0 +1,14 @@
+--- a/net/minecraft/commands/arguments/coordinates/WorldCoordinates.java
++++ b/net/minecraft/commands/arguments/coordinates/WorldCoordinates.java
+@@ -114,8 +114,8 @@
+ 
+     @Override
+     public int hashCode() {
+-        int hashCode = this.x.hashCode();
+-        hashCode = 31 * hashCode + this.y.hashCode();
+-        return 31 * hashCode + this.z.hashCode();
++        int i = this.x.hashCode();
++        i = 31 * i + this.y.hashCode();
++        return 31 * i + this.z.hashCode();
+     }
+ }

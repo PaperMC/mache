@@ -1,0 +1,56 @@
+--- a/net/minecraft/world/entity/monster/Guardian.java
++++ b/net/minecraft/world/entity/monster/Guardian.java
+@@ -484,37 +484,37 @@
+         public void tick() {
+             if (this.operation == MoveControl.Operation.MOVE_TO && !this.guardian.getNavigation().isDone()) {
+                 Vec3 vec3 = new Vec3(this.wantedX - this.guardian.getX(), this.wantedY - this.guardian.getY(), this.wantedZ - this.guardian.getZ());
+-                double len = vec3.length();
+-                double d = vec3.x / len;
+-                double d1 = vec3.y / len;
+-                double d2 = vec3.z / len;
++                double d = vec3.length();
++                double d1 = vec3.x / d;
++                double d2 = vec3.y / d;
++                double d3 = vec3.z / d;
+                 float f = (float)(Mth.atan2(vec3.z, vec3.x) * 180.0F / (float)Math.PI) - 90.0F;
+                 this.guardian.setYRot(this.rotlerp(this.guardian.getYRot(), f, 90.0F));
+                 this.guardian.yBodyRot = this.guardian.getYRot();
+                 float f1 = (float)(this.speedModifier * this.guardian.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                 float f2 = Mth.lerp(0.125F, this.guardian.getSpeed(), f1);
+                 this.guardian.setSpeed(f2);
+-                double d3 = Math.sin((double)(this.guardian.tickCount + this.guardian.getId()) * 0.5) * 0.05;
+-                double d4 = Math.cos((double)(this.guardian.getYRot() * (float) (Math.PI / 180.0)));
+-                double d5 = Math.sin((double)(this.guardian.getYRot() * (float) (Math.PI / 180.0)));
+-                double d6 = Math.sin((double)(this.guardian.tickCount + this.guardian.getId()) * 0.75) * 0.05;
+-                this.guardian.setDeltaMovement(this.guardian.getDeltaMovement().add(d3 * d4, d6 * (d5 + d4) * 0.25 + (double)f2 * d1 * 0.1, d3 * d5));
++                double d4 = Math.sin((double)(this.guardian.tickCount + this.guardian.getId()) * 0.5) * 0.05;
++                double d5 = Math.cos((double)(this.guardian.getYRot() * (float) (Math.PI / 180.0)));
++                double d6 = Math.sin((double)(this.guardian.getYRot() * (float) (Math.PI / 180.0)));
++                double d7 = Math.sin((double)(this.guardian.tickCount + this.guardian.getId()) * 0.75) * 0.05;
++                this.guardian.setDeltaMovement(this.guardian.getDeltaMovement().add(d4 * d5, d7 * (d6 + d5) * 0.25 + (double)f2 * d2 * 0.1, d4 * d6));
+                 LookControl lookControl = this.guardian.getLookControl();
+-                double d7 = this.guardian.getX() + d * 2.0;
+-                double d8 = this.guardian.getEyeY() + d1 / len;
+-                double d9 = this.guardian.getZ() + d2 * 2.0;
++                double d8 = this.guardian.getX() + d1 * 2.0;
++                double d9 = this.guardian.getEyeY() + d2 / d;
++                double d10 = this.guardian.getZ() + d3 * 2.0;
+                 double wantedX = lookControl.getWantedX();
+                 double wantedY = lookControl.getWantedY();
+                 double wantedZ = lookControl.getWantedZ();
+                 if (!lookControl.isLookingAtTarget()) {
+-                    wantedX = d7;
+-                    wantedY = d8;
+-                    wantedZ = d9;
++                    wantedX = d8;
++                    wantedY = d9;
++                    wantedZ = d10;
+                 }
+ 
+                 this.guardian
+                     .getLookControl()
+-                    .setLookAt(Mth.lerp(0.125, wantedX, d7), Mth.lerp(0.125, wantedY, d8), Mth.lerp(0.125, wantedZ, d9), 10.0F, 40.0F);
++                    .setLookAt(Mth.lerp(0.125, wantedX, d8), Mth.lerp(0.125, wantedY, d9), Mth.lerp(0.125, wantedZ, d10), 10.0F, 40.0F);
+                 this.guardian.setMoving(true);
+             } else {
+                 this.guardian.setSpeed(0.0F);

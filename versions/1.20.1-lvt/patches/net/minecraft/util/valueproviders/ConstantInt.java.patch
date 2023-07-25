@@ -1,0 +1,11 @@
+--- a/net/minecraft/util/valueproviders/ConstantInt.java
++++ b/net/minecraft/util/valueproviders/ConstantInt.java
+@@ -9,7 +9,7 @@
+     public static final ConstantInt ZERO = new ConstantInt(0);
+     public static final Codec<ConstantInt> CODEC = Codec.either(
+             Codec.INT,
+-            RecordCodecBuilder.create(
++            RecordCodecBuilder.<ConstantInt>create(
+                 instance -> instance.group(Codec.INT.fieldOf("value").forGetter(provider -> provider.value)).apply(instance, ConstantInt::new)
+             )
+         )

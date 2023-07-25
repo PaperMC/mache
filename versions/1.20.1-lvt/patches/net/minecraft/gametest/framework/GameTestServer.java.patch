@@ -1,0 +1,18 @@
+--- a/net/minecraft/gametest/framework/GameTestServer.java
++++ b/net/minecraft/gametest/framework/GameTestServer.java
+@@ -86,13 +86,13 @@
+                         executor -> WorldLoader.load(
+                                 initConfig,
+                                 dataLoadContext -> {
+-                                    Registry<LevelStem> frozen = new MappedRegistry<>(Registries.LEVEL_STEM, Lifecycle.stable()).freeze();
++                                    Registry<LevelStem> registry = new MappedRegistry<>(Registries.LEVEL_STEM, Lifecycle.stable()).freeze();
+                                     WorldDimensions.Complete bake = dataLoadContext.datapackWorldgen()
+                                         .<WorldPreset>registryOrThrow(Registries.WORLD_PRESET)
+                                         .getHolderOrThrow(WorldPresets.FLAT)
+                                         .value()
+                                         .createWorldDimensions()
+-                                        .bake(frozen);
++                                        .bake(registry);
+                                     return new WorldLoader.DataLoadOutput<>(
+                                         new PrimaryLevelData(levelSettings, WORLD_OPTIONS, bake.specialWorldProperty(), bake.lifecycle()),
+                                         bake.dimensionsRegistryAccess()
