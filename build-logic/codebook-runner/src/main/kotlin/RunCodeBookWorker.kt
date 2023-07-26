@@ -16,6 +16,7 @@ import kotlin.io.path.outputStream
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.Property
 import org.gradle.workers.WorkAction
 import org.gradle.workers.WorkParameters
 
@@ -30,6 +31,7 @@ abstract class RunCodeBookWorker : WorkAction<RunCodeBookWorker.RunCodebookParam
         val constants: ConfigurableFileCollection
         val outputJar: RegularFileProperty
         val logs: RegularFileProperty
+        val logMissingLvtSuggestions: Property<Boolean>
     }
 
     override fun execute() {
@@ -76,6 +78,7 @@ abstract class RunCodeBookWorker : WorkAction<RunCodeBookWorker.RunCodebookParam
                         .classpathJars(parameters.classpath.files.map { it.toPath().absolute() })
                         .build(),
                 )
+                .logMissingLvtSuggestions(parameters.logMissingLvtSuggestions.getOrElse(false))
                 .build()
 
             CodeBook(ctx).exec()
