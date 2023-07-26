@@ -4,8 +4,8 @@
              jsonObject.addProperty("default", defaultKey.toString());
          }
  
--        int defaultKey1 = BuiltInRegistries.REGISTRY.getId(registry);
-+        int defaultKey1 = ((Registry) BuiltInRegistries.REGISTRY).getId(registry);
+-        int defaultKey1 = BuiltInRegistries.REGISTRY.getId(registry1);
++        int defaultKey1 = ((Registry) BuiltInRegistries.REGISTRY).getId(registry1);
          jsonObject.addProperty("protocol_id", defaultKey1);
          JsonObject jsonObject1 = new JsonObject();
-         registry.holders().forEach(entry -> {
+         registry1.holders().forEach(entry -> {

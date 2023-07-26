@@ -1,8 +1,8 @@
 --- a/net/minecraft/server/level/ChunkTaskPriorityQueueSorter.java
 +++ b/net/minecraft/server/level/ChunkTaskPriorityQueueSorter.java
-@@ -156,7 +156,7 @@
+@@ -152,7 +152,7 @@
          if (chunkTaskPriorityQueue == null) {
-             throw (IllegalArgumentException)Util.pauseInIde(new IllegalArgumentException("No queue for: " + actor));
+             throw (IllegalArgumentException)Util.pauseInIde(new IllegalArgumentException("No queue for: " + processorHandle));
          } else {
 -            return chunkTaskPriorityQueue;
 +            return (ChunkTaskPriorityQueue<Function<ProcessorHandle<Unit>, T>>) chunkTaskPriorityQueue;

@@ -3,9 +3,9 @@
 @@ -12,7 +12,7 @@
      }
  
-     public void handlePlacement(boolean craftAll, Recipe<?> recipe, ServerPlayer player) {
--        new ServerPlaceRecipe<>(this).recipeClicked(player, recipe, craftAll);
-+        new ServerPlaceRecipe<>(this).recipeClicked(player, (Recipe<C>) recipe, craftAll);
+     public void handlePlacement(boolean craftAll, Recipe<?> recipe, ServerPlayer serverPlayer) {
+-        new ServerPlaceRecipe<>(this).recipeClicked(serverPlayer, recipe, craftAll);
++        new ServerPlaceRecipe<>(this).recipeClicked(serverPlayer, (Recipe<C>) recipe, craftAll);
      }
  
      public abstract void fillCraftSlotsStackedContents(StackedContents finder);

@@ -10,7 +10,7 @@
                          context.registered(MemoryModuleType.DOORS_TO_CLOSE),
                          context.registered(MemoryModuleType.NEAREST_LIVING_ENTITIES)
 @@ -159,7 +159,7 @@
-         MemoryAccessor<Mu, Set<GlobalPos>> queryResult, Optional<Set<GlobalPos>> doors, ServerLevel world, BlockPos pos
+         MemoryAccessor<Mu, Set<GlobalPos>> memoryAccessor, Optional<Set<GlobalPos>> doors, ServerLevel world, BlockPos pos
      ) {
          GlobalPos globalPos = GlobalPos.of(world.dimension(), pos);
 -        return Optional.of(doors.map((Function<? super Set<GlobalPos>, ? extends Set<GlobalPos>>)(doorSet -> {

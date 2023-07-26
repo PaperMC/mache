@@ -2,7 +2,7 @@
 +++ b/net/minecraft/world/entity/ai/behavior/VillageBoundRandomStroll.java
 @@ -22,7 +22,7 @@
  
-     public static OneShot<PathfinderMob> create(float walkSpeed, int horizontalRange, int verticalRange) {
+     public static OneShot<PathfinderMob> create(float f, int horizontalRange, int verticalRange) {
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor>group(context.absent(MemoryModuleType.WALK_TARGET))
 +            context -> context.group(context.absent(MemoryModuleType.WALK_TARGET))

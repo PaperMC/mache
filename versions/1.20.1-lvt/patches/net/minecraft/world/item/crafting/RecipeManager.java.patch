@@ -3,9 +3,9 @@
 @@ -107,7 +107,7 @@
      }
  
-     private <C extends Container, T extends Recipe<C>> Map<ResourceLocation, T> byType(RecipeType<T> type) {
--        return this.recipes.getOrDefault(type, Collections.emptyMap());
-+        return (Map<ResourceLocation, T>) this.recipes.getOrDefault(type, Collections.emptyMap());
+     private <C extends Container, T extends Recipe<C>> Map<ResourceLocation, T> byType(RecipeType<T> recipeType) {
+-        return this.recipes.getOrDefault(recipeType, Collections.emptyMap());
++        return (Map<ResourceLocation, T>) this.recipes.getOrDefault(recipeType, Collections.emptyMap());
      }
  
-     public <C extends Container, T extends Recipe<C>> NonNullList<ItemStack> getRemainingItemsFor(RecipeType<T> type, C inventory, Level world) {
+     public <C extends Container, T extends Recipe<C>> NonNullList<ItemStack> getRemainingItemsFor(RecipeType<T> type, C inventory, Level level) {

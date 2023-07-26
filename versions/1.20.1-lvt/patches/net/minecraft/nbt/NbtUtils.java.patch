@@ -1,0 +1,31 @@
+--- a/net/minecraft/nbt/NbtUtils.java
++++ b/net/minecraft/nbt/NbtUtils.java
+@@ -348,7 +348,7 @@
+             case 9:
+                 ListTag listTag = (ListTag)nbt;
+                 int asByteArray1 = listTag.size();
+-                int i = listTag.getElementType();
++                i = listTag.getElementType();
+                 String string = i == 0 ? "undefined" : TagTypes.getType(i).getPrettyName();
+                 indent(depth, stringBuilder1).append("list<").append(string).append(">[").append(asByteArray1).append("] [");
+                 if (asByteArray1 != 0) {
+@@ -380,8 +380,8 @@
+                     indent(depth + 1, stringBuilder1);
+                 }
+ 
+-                int i = asByteArray3.stream().mapToInt(String::length).max().orElse(0);
+-                String string = Strings.repeat(" ", i);
++                i = asByteArray3.stream().mapToInt(String::length).max().orElse(0);
++                string = Strings.repeat(" ", i);
+ 
+                 for(int i2 = 0; i2 < asByteArray3.size(); ++i2) {
+                     if (i2 != 0) {
+@@ -407,7 +407,7 @@
+             case 11:
+                 IntArrayTag intArrayTag = (IntArrayTag)nbt;
+                 int[] asByteArray2 = intArrayTag.getAsIntArray();
+-                int i = 0;
++                i = 0;
+ 
+                 for(int i3 : asByteArray2) {
+                     i = Math.max(i, String.format(Locale.ROOT, "%X", i3).length());

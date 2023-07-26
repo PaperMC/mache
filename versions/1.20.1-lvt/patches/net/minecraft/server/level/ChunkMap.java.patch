@@ -4,9 +4,9 @@
  
          int i1 = Math.max(0, this.unloadQueue.size() - 2000);
  
--        while((shouldKeepTicking.getAsBoolean() || i1 > 0) && (l = (long)this.unloadQueue.poll()) != null) {
+-        while((booleanSupplier.getAsBoolean() || i1 > 0) && (l = (long)this.unloadQueue.poll()) != null) {
 +        Runnable runnable;
-+        while((shouldKeepTicking.getAsBoolean() || i1 > 0) && (runnable = this.unloadQueue.poll()) != null) {
++        while((booleanSupplier.getAsBoolean() || i1 > 0) && (runnable = this.unloadQueue.poll()) != null) {
              --i1;
 -            l.run();
 +            runnable.run();
@@ -17,8 +17,8 @@
                  }
  
                  return flag;
--            })).thenApplyAsync(nbt -> {
-+            })).<Either<ChunkAccess, ChunkHolder.ChunkLoadingFailure>>thenApplyAsync(nbt -> {
+-            })).thenApplyAsync(optional -> {
++            })).<Either<ChunkAccess, ChunkHolder.ChunkLoadingFailure>>thenApplyAsync(optional -> {
              this.level.getProfiler().incrementCounter("chunkLoad");
-             if (nbt.isPresent()) {
-                 ChunkAccess chunkAccess = ChunkSerializer.read(this.level, this.poiManager, pos, nbt.get());
+             if (optional.isPresent()) {
+                 ChunkAccess chunkAccess = ChunkSerializer.read(this.level, this.poiManager, chunkPos, optional.get());

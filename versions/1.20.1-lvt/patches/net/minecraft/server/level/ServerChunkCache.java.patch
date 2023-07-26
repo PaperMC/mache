@@ -1,7 +1,7 @@
 --- a/net/minecraft/server/level/ServerChunkCache.java
 +++ b/net/minecraft/server/level/ServerChunkCache.java
-@@ -576,7 +576,7 @@
-             super.doRunTask(task);
+@@ -574,7 +574,7 @@
+             super.doRunTask(runnable);
          }
  
 -        protected boolean pollTask() {

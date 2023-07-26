@@ -3,38 +3,38 @@
 @@ -34,8 +34,8 @@
          return new RegistryAccess.Frozen() {
              @Override
-             public <T> Optional<Registry<T>> registry(ResourceKey<? extends Registry<? extends T>> key) {
--                Registry<Registry<T>> registry = registries;
--                return registry.getOptional(key);
-+                Registry<Registry<T>> registry = (Registry<Registry<T>>) registries;
-+                return registry.getOptional((ResourceKey<Registry<T>>) key);
+             public <T> Optional<Registry<T>> registry(ResourceKey<? extends Registry<? extends T>> resourceKey) {
+-                Registry<Registry<T>> registry1 = registry;
+-                return registry1.getOptional(resourceKey);
++                Registry<Registry<T>> registry1 = (Registry<Registry<T>>) registry;
++                return registry1.getOptional((ResourceKey<Registry<T>>) resourceKey);
              }
  
              @Override
 @@ -72,7 +72,7 @@
  
-         public ImmutableRegistryAccess(List<? extends Registry<?>> registries) {
-             this.registries = registries.stream()
--                .collect(Collectors.toUnmodifiableMap(Registry::key, (Function<? super Registry, ? extends Registry>)(registry -> registry)));
-+                .collect(Collectors.toUnmodifiableMap(Registry::key, (registry -> registry)));
+         public ImmutableRegistryAccess(List<? extends Registry<?>> list) {
+             this.registries = list.stream()
+-                .collect(Collectors.toUnmodifiableMap(Registry::key, (Function<? super Registry, ? extends Registry>)(registry1 -> registry1)));
++                .collect(Collectors.toUnmodifiableMap(Registry::key, (registry1 -> registry1)));
          }
  
-         public ImmutableRegistryAccess(Map<? extends ResourceKey<? extends Registry<?>>, ? extends Registry<?>> registries) {
+         public ImmutableRegistryAccess(Map<? extends ResourceKey<? extends Registry<?>>, ? extends Registry<?>> map) {
 @@ -85,7 +85,7 @@
  
          @Override
-         public <E> Optional<Registry<E>> registry(ResourceKey<? extends Registry<? extends E>> key) {
--            return Optional.ofNullable(this.registries.get(key)).map((Function<? super Registry<?>, ? extends Registry<E>>)(registry -> registry));
-+            return Optional.ofNullable(this.registries.get(key)).map((Function<? super Registry<?>, ? extends Registry<E>>)(registry -> (Registry<E>) registry));
+         public <E> Optional<Registry<E>> registry(ResourceKey<? extends Registry<? extends E>> resourceKey) {
+-            return Optional.ofNullable(this.registries.get(resourceKey)).map((Function<? super Registry<?>, ? extends Registry<E>>)(registry1 -> registry1));
++            return Optional.ofNullable(this.registries.get(resourceKey)).map((registry1 -> (Registry<E>) registry1));
          }
  
          @Override
 @@ -102,7 +102,7 @@
          }
  
-         private static <T> RegistryAccess.RegistryEntry<T> fromUntyped(ResourceKey<? extends Registry<?>> key, Registry<?> value) {
--            return new RegistryAccess.RegistryEntry<>(key, value);
-+            return new RegistryAccess.RegistryEntry<>((ResourceKey<? extends Registry<T>>) key, (Registry<T>) value);
+         private static <T> RegistryAccess.RegistryEntry<T> fromUntyped(ResourceKey<? extends Registry<?>> resourceKey, Registry<?> value) {
+-            return new RegistryAccess.RegistryEntry<>(resourceKey, value);
++            return new RegistryAccess.RegistryEntry<>((ResourceKey<Registry<T>>) resourceKey, (Registry<T>) value);
          }
  
          private RegistryAccess.RegistryEntry<T> freeze() {

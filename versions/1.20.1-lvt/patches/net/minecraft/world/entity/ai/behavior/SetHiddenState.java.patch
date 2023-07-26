@@ -1,7 +1,7 @@
 --- a/net/minecraft/world/entity/ai/behavior/SetHiddenState.java
 +++ b/net/minecraft/world/entity/ai/behavior/SetHiddenState.java
 @@ -15,7 +15,7 @@
-         int i = maxHiddenSeconds * 20;
+         int i1 = i * 20;
          MutableInt mutableInt = new MutableInt(0);
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor, MemoryAccessor>group(

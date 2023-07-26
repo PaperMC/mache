@@ -1,0 +1,37 @@
+--- a/net/minecraft/world/item/BrushItem.java
++++ b/net/minecraft/world/item/BrushItem.java
+@@ -58,8 +58,7 @@
+     @Override
+     public void onUseTick(Level world, LivingEntity user, ItemStack stack, int i) {
+         if (i >= 0 && user instanceof Player player) {
+-            HitResult hitResult = this.calculateHitResult(user);
+-            if (hitResult instanceof BlockHitResult blockHitResult && hitResult.getType() == HitResult.Type.BLOCK) {
++            if (this.calculateHitResult(user) instanceof BlockHitResult blockHitResult && blockHitResult.getType() == HitResult.Type.BLOCK) {
+                 int i1 = this.getUseDuration(stack) - i + 1;
+                 boolean flag = i1 % 10 == 5;
+                 if (flag) {
+@@ -67,9 +66,8 @@
+                     BlockState blockState = world.getBlockState(blockPos);
+                     HumanoidArm humanoidArm = user.getUsedItemHand() == InteractionHand.MAIN_HAND ? player.getMainArm() : player.getMainArm().getOpposite();
+                     this.spawnDustParticles(world, blockHitResult, blockState, user.getViewVector(0.0F), humanoidArm);
+-                    Block block = blockState.getBlock();
+                     SoundEvent brushSound;
+-                    if (block instanceof BrushableBlock brushableBlock) {
++                    if (blockState.getBlock() instanceof BrushableBlock brushableBlock) {
+                         brushSound = brushableBlock.getBrushSound();
+                     } else {
+                         brushSound = SoundEvents.BRUSH_GENERIC;
+@@ -77,10 +75,9 @@
+ 
+                     world.playSound(player, blockPos, brushSound, SoundSource.BLOCKS);
+                     if (!world.isClientSide()) {
+-                        BlockEntity var18 = world.getBlockEntity(blockPos);
+-                        if (var18 instanceof BrushableBlockEntity brushableBlockEntity) {
+-                            boolean block = brushableBlockEntity.brush(world.getGameTime(), player, blockHitResult.getDirection());
+-                            if (block) {
++                        if (world.getBlockEntity(blockPos) instanceof BrushableBlockEntity brushableBlockEntity) {
++                            boolean brush = brushableBlockEntity.brush(world.getGameTime(), player, blockHitResult.getDirection());
++                            if (brush) {
+                                 EquipmentSlot equipmentSlot = stack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND))
+                                     ? EquipmentSlot.OFFHAND
+                                     : EquipmentSlot.MAINHAND;

@@ -1,11 +1,11 @@
 --- a/net/minecraft/world/entity/animal/Sheep.java
 +++ b/net/minecraft/world/entity/animal/Sheep.java
 @@ -83,7 +83,7 @@
-         map.put(DyeColor.RED, Blocks.RED_WOOL);
-         map.put(DyeColor.BLACK, Blocks.BLACK_WOOL);
+         enumMap.put(DyeColor.RED, Blocks.RED_WOOL);
+         enumMap.put(DyeColor.BLACK, Blocks.BLACK_WOOL);
      });
 -    private static final Map<DyeColor, float[]> COLORARRAY_BY_COLOR = Maps.newEnumMap(
 +    private static final Map<DyeColor, float[]> COLORARRAY_BY_COLOR = Maps.<DyeColor, float[]>newEnumMap(
-         Arrays.stream(DyeColor.values()).collect(Collectors.toMap(color -> color, Sheep::createSheepColor))
+         Arrays.stream(DyeColor.values()).collect(Collectors.toMap(dyeColor -> dyeColor, Sheep::createSheepColor))
      );
      private int eatAnimationTick;

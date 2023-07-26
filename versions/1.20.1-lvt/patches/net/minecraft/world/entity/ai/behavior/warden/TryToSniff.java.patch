@@ -4,8 +4,8 @@
  
      public static BehaviorControl<LivingEntity> create() {
          return BehaviorBuilder.create(
--            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
-+            context -> context.group(
-                         context.registered(MemoryModuleType.IS_SNIFFING),
-                         context.registered(MemoryModuleType.WALK_TARGET),
-                         context.absent(MemoryModuleType.SNIFF_COOLDOWN),
+-            instance -> instance.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
++            instance -> instance.group(
+                         instance.registered(MemoryModuleType.IS_SNIFFING),
+                         instance.registered(MemoryModuleType.WALK_TARGET),
+                         instance.absent(MemoryModuleType.SNIFF_COOLDOWN),

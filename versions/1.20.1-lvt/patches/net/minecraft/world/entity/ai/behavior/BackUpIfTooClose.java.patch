@@ -2,7 +2,7 @@
 +++ b/net/minecraft/world/entity/ai/behavior/BackUpIfTooClose.java
 @@ -11,7 +11,7 @@
  public class BackUpIfTooClose {
-     public static OneShot<Mob> create(int distance, float forwardMovement) {
+     public static OneShot<Mob> create(int i, float forwardMovement) {
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
 +            context -> context.group(

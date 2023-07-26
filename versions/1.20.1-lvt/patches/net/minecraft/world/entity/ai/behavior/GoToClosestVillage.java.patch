@@ -2,7 +2,7 @@
 +++ b/net/minecraft/world/entity/ai/behavior/GoToClosestVillage.java
 @@ -14,7 +14,7 @@
  public class GoToClosestVillage {
-     public static BehaviorControl<Villager> create(float speed, int completionRange) {
+     public static BehaviorControl<Villager> create(float f, int completionRange) {
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor>group(context.absent(MemoryModuleType.WALK_TARGET)).apply(context, walkTarget -> (world, entity, time) -> {
 +            context -> context.group(context.absent(MemoryModuleType.WALK_TARGET)).apply(context, walkTarget -> (world, entity, time) -> {

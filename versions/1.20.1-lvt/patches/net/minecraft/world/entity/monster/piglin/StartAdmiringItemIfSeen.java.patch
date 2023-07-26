@@ -2,7 +2,7 @@
 +++ b/net/minecraft/world/entity/monster/piglin/StartAdmiringItemIfSeen.java
 @@ -10,7 +10,7 @@
  public class StartAdmiringItemIfSeen {
-     public static BehaviorControl<LivingEntity> create(int duration) {
+     public static BehaviorControl<LivingEntity> create(int i) {
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
 +            context -> context.group(

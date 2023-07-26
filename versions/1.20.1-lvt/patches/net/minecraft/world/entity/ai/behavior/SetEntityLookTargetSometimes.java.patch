@@ -1,7 +1,7 @@
 --- a/net/minecraft/world/entity/ai/behavior/SetEntityLookTargetSometimes.java
 +++ b/net/minecraft/world/entity/ai/behavior/SetEntityLookTargetSometimes.java
 @@ -25,7 +25,7 @@
-         float f = maxDistance * maxDistance;
+         float f1 = f * f;
          SetEntityLookTargetSometimes.Ticker ticker = new SetEntityLookTargetSometimes.Ticker(interval);
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor, MemoryAccessor>group(

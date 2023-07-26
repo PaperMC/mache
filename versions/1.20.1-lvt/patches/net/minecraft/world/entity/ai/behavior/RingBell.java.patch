@@ -4,8 +4,8 @@
  
      public static BehaviorControl<LivingEntity> create() {
          return BehaviorBuilder.create(
--            context -> context.<MemoryAccessor>group(context.present(MemoryModuleType.MEETING_POINT)).apply(context, meetingPoint -> (world, entity, time) -> {
-+            context -> context.group(context.present(MemoryModuleType.MEETING_POINT)).apply(context, meetingPoint -> (world, entity, time) -> {
-                         if (world.random.nextFloat() <= 0.95F) {
-                             return false;
-                         } else {
+-            instance -> instance.<MemoryAccessor>group(instance.present(MemoryModuleType.MEETING_POINT))
++            instance -> instance.group(instance.present(MemoryModuleType.MEETING_POINT))
+                     .apply(instance, meetingPoint -> (world, entity, time) -> {
+                             if (world.random.nextFloat() <= 0.95F) {
+                                 return false;

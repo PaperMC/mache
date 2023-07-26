@@ -1,0 +1,11 @@
+--- a/net/minecraft/util/datafix/fixes/ItemWrittenBookPagesStrictJsonFix.java
++++ b/net/minecraft/util/datafix/fixes/ItemWrittenBookPagesStrictJsonFix.java
+@@ -26,7 +26,7 @@
+                     dynamic2.asStreamOpt()
+                         .map(
+                             stream -> stream.map(
+-                                    (Function<? super Dynamic, ? extends Dynamic>)(dynamic3 -> {
++                                    (dynamic3 -> {
+                                         if (!dynamic3.asString().result().isPresent()) {
+                                             return dynamic3;
+                                         } else {

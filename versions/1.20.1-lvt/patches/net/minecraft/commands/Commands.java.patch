@@ -6,6 +6,6 @@
              if (commandNode.canUse(source)) {
 -                ArgumentBuilder<SharedSuggestionProvider, ?> argumentBuilder = commandNode.createBuilder();
 +                ArgumentBuilder<SharedSuggestionProvider, ?> argumentBuilder = (ArgumentBuilder) commandNode.createBuilder();
-                 argumentBuilder.requires(sourcex -> true);
+                 argumentBuilder.requires(sharedSuggestionProvider -> true);
                  if (argumentBuilder.getCommand() != null) {
-                     argumentBuilder.executes(context -> 0);
+                     argumentBuilder.executes(commandContext -> 0);

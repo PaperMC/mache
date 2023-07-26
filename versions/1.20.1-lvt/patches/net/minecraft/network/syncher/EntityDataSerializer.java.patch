@@ -3,15 +3,15 @@
 @@ -19,12 +19,12 @@
          return new EntityDataSerializer.ForValueType<T>() {
              @Override
-             public void write(FriendlyByteBuf buf, T value) {
--                writer.accept((T)buf, value);
-+                writer.accept(buf, value);
+             public void write(FriendlyByteBuf buf, T object) {
+-                writer1.accept((T)buf, object);
++                writer1.accept(buf, object);
              }
  
              @Override
-             public T read(FriendlyByteBuf buf) {
--                return reader.apply((T)buf);
-+                return reader.apply(buf);
+             public T read(FriendlyByteBuf friendlyByteBuf) {
+-                return reader.apply((T)friendlyByteBuf);
++                return reader.apply(friendlyByteBuf);
              }
          };
      }

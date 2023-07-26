@@ -4,8 +4,8 @@
  public class RememberIfHoglinWasKilled {
      public static BehaviorControl<LivingEntity> create() {
          return BehaviorBuilder.create(
--            context -> context.<MemoryAccessor, MemoryAccessor>group(
-+            context -> context.group(
-                         context.present(MemoryModuleType.ATTACK_TARGET), context.registered(MemoryModuleType.HUNTED_RECENTLY)
+-            instance -> instance.<MemoryAccessor, MemoryAccessor>group(
++            instance -> instance.group(
+                         instance.present(MemoryModuleType.ATTACK_TARGET), instance.registered(MemoryModuleType.HUNTED_RECENTLY)
                      )
-                     .apply(context, (attackTarget, huntedRecently) -> (world, entity, time) -> {
+                     .apply(instance, (attackTarget, huntedRecently) -> (world, entity, time) -> {

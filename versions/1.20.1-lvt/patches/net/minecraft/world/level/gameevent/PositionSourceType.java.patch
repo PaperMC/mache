@@ -2,9 +2,9 @@
 +++ b/net/minecraft/world/level/gameevent/PositionSourceType.java
 @@ -30,6 +30,6 @@
  
-     static <T extends PositionSource> void toNetwork(T positionSource, FriendlyByteBuf buf) {
-         buf.writeResourceLocation(BuiltInRegistries.POSITION_SOURCE_TYPE.getKey(positionSource.getType()));
--        positionSource.getType().write(buf, positionSource);
-+        ((PositionSourceType<T>) positionSource.getType()).write(buf, positionSource);
+     static <T extends PositionSource> void toNetwork(T positionSource1, FriendlyByteBuf buf) {
+         buf.writeResourceLocation(BuiltInRegistries.POSITION_SOURCE_TYPE.getKey(positionSource1.getType()));
+-        positionSource1.getType().write(buf, positionSource1);
++        ((PositionSourceType<T>) positionSource1.getType()).write(buf, positionSource1);
      }
  }

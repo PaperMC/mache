@@ -3,15 +3,15 @@
 @@ -242,11 +242,11 @@
              }
  
-             if (typeReader == ByteTag.TYPE) {
--                list.add((T)((NumericTag)tag).getAsByte());
-+                list.add((T)(Byte)((NumericTag)tag).getAsByte());
-             } else if (typeReader == LongTag.TYPE) {
--                list.add((T)((NumericTag)tag).getAsLong());
-+                list.add((T)(Long)((NumericTag)tag).getAsLong());
+             if (tagType == ByteTag.TYPE) {
+-                list.add((T)((NumericTag)value).getAsByte());
++                list.add((T)(Byte)((NumericTag)value).getAsByte());
+             } else if (tagType == LongTag.TYPE) {
+-                list.add((T)((NumericTag)value).getAsLong());
++                list.add((T)(Long)((NumericTag)value).getAsLong());
              } else {
--                list.add((T)((NumericTag)tag).getAsInt());
-+                list.add((T)(Integer)((NumericTag)tag).getAsInt());
+-                list.add((T)((NumericTag)value).getAsInt());
++                list.add((T)(Integer)((NumericTag)value).getAsInt());
              }
  
              if (!this.hasElementSeparator()) {

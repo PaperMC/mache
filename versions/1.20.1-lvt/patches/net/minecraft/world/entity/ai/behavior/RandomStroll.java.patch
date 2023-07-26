@@ -1,8 +1,8 @@
 --- a/net/minecraft/world/entity/ai/behavior/RandomStroll.java
 +++ b/net/minecraft/world/entity/ai/behavior/RandomStroll.java
-@@ -42,7 +42,7 @@
+@@ -46,7 +46,7 @@
  
-     private static OneShot<PathfinderMob> strollFlyOrSwim(float speed, Function<PathfinderMob, Vec3> targetGetter, Predicate<PathfinderMob> shouldRun) {
+     private static OneShot<PathfinderMob> strollFlyOrSwim(float f, Function<PathfinderMob, Vec3> targetGetter, Predicate<PathfinderMob> shouldRun) {
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor>group(context.absent(MemoryModuleType.WALK_TARGET)).apply(context, walkTarget -> (world, entity, time) -> {
 +            context -> context.group(context.absent(MemoryModuleType.WALK_TARGET)).apply(context, walkTarget -> (world, entity, time) -> {

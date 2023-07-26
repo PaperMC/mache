@@ -2,7 +2,7 @@
 +++ b/net/minecraft/world/entity/ai/behavior/StartAttacking.java
 @@ -16,7 +16,7 @@
  
-     public static <E extends Mob> BehaviorControl<E> create(Predicate<E> startCondition, Function<E, Optional<? extends LivingEntity>> targetGetter) {
+     public static <E extends Mob> BehaviorControl<E> create(Predicate<E> predicate, Function<E, Optional<? extends LivingEntity>> targetGetter) {
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor, MemoryAccessor>group(
 +            context -> context.group(

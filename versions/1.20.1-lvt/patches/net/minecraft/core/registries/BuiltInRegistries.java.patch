@@ -2,10 +2,10 @@
 +++ b/net/minecraft/core/registries/BuiltInRegistries.java
 @@ -284,7 +284,7 @@
      ) {
-         ResourceLocation resourceLocation = key.location();
+         ResourceLocation resourceLocation = resourceKey.location();
          LOADERS.put(resourceLocation, () -> initializer.run(registry));
--        WRITABLE_REGISTRY.register(key, registry, lifecycle);
-+        WRITABLE_REGISTRY.register((ResourceKey) key, registry, lifecycle);
+-        WRITABLE_REGISTRY.register(resourceKey, registry, lifecycle);
++        WRITABLE_REGISTRY.register((ResourceKey) resourceKey, registry, lifecycle);
          return registry;
      }
  

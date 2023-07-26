@@ -2,7 +2,7 @@
 +++ b/net/minecraft/world/entity/ai/behavior/Mount.java
 @@ -12,7 +12,7 @@
  
-     public static BehaviorControl<LivingEntity> create(float speed) {
+     public static BehaviorControl<LivingEntity> create(float f) {
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
 +            context -> context.group(

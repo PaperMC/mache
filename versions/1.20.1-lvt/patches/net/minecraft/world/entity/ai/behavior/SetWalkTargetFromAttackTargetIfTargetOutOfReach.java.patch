@@ -2,7 +2,7 @@
 +++ b/net/minecraft/world/entity/ai/behavior/SetWalkTargetFromAttackTargetIfTargetOutOfReach.java
 @@ -19,7 +19,7 @@
  
-     public static BehaviorControl<Mob> create(Function<LivingEntity, Float> speed) {
+     public static BehaviorControl<Mob> create(Function<LivingEntity, Float> function) {
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
 +            context -> context.group(

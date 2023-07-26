@@ -1,17 +1,17 @@
 --- a/net/minecraft/world/entity/monster/piglin/PiglinAi.java
 +++ b/net/minecraft/world/entity/monster/piglin/PiglinAi.java
-@@ -169,7 +169,7 @@
-         brain.addActivityAndRemoveMemoryWhenStopped(
-             Activity.FIGHT,
-             10,
--            ImmutableList.of(
-+            ImmutableList.<BehaviorControl<? super Piglin>>of(
-                 StopAttackingIfTargetInvalid.create(target -> !isNearestValidAttackTarget(piglin, target)),
+@@ -174,7 +174,7 @@
                  BehaviorBuilder.triggerIf(PiglinAi::hasCrossbow, BackUpIfTooClose.create(5, 0.75F)),
                  SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
+                 MeleeAttack.create(20),
+-                new CrossbowAttack(),
++                new CrossbowAttack<>(),
+                 RememberIfHoglinWasKilled.create(),
+                 EraseMemoryIf.create(PiglinAi::isNearZombified, MemoryModuleType.ATTACK_TARGET)
+             ),
 @@ -192,7 +192,7 @@
                  StartAttacking.<Piglin>create(AbstractPiglin::isAdult, PiglinAi::findNearestValidAttackTarget),
-                 BehaviorBuilder.triggerIf(piglin -> !piglin.isDancing(), GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 2, 1.0F)),
+                 BehaviorBuilder.triggerIf(piglin1 -> !piglin1.isDancing(), GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 2, 1.0F)),
                  BehaviorBuilder.triggerIf(Piglin::isDancing, GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 4, 0.6F)),
 -                new RunOne<LivingEntity>(
 +                new RunOne<>(

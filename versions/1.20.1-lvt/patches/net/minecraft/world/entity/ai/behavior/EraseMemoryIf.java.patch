@@ -2,10 +2,10 @@
 +++ b/net/minecraft/world/entity/ai/behavior/EraseMemoryIf.java
 @@ -9,7 +9,7 @@
  public class EraseMemoryIf {
-     public static <E extends LivingEntity> BehaviorControl<E> create(Predicate<E> condition, MemoryModuleType<?> memory) {
+     public static <E extends LivingEntity> BehaviorControl<E> create(Predicate<E> predicate, MemoryModuleType<?> memory) {
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor>group(context.present(memory)).apply(context, queryResult -> (world, entity, time) -> {
 +            context -> context.group(context.present(memory)).apply(context, queryResult -> (world, entity, time) -> {
-                         if (condition.test(entity)) {
+                         if (predicate.test(entity)) {
                              queryResult.erase();
                              return true;

@@ -3,9 +3,9 @@
 @@ -23,7 +23,7 @@
  
              @Override
-             public <T> Optional<RegistryOps.RegistryInfo<T>> lookup(ResourceKey<? extends Registry<? extends T>> registryRef) {
--                return this.lookups.computeIfAbsent(registryRef, registryInfoGetter::lookup);
-+                return (Optional<RegistryInfo<T>>) this.lookups.computeIfAbsent(registryRef, registryInfoGetter::lookup);
+             public <T> Optional<RegistryOps.RegistryInfo<T>> lookup(ResourceKey<? extends Registry<? extends T>> resourceKey) {
+-                return this.lookups.computeIfAbsent(resourceKey, registryInfoLookup::lookup);
++                return (Optional<RegistryOps.RegistryInfo<T>>) this.lookups.computeIfAbsent(resourceKey, registryInfoLookup::lookup);
              }
          };
      }

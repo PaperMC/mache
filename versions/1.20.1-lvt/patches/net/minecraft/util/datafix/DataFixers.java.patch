@@ -1,20 +1,20 @@
 --- a/net/minecraft/util/datafix/DataFixers.java
 +++ b/net/minecraft/util/datafix/DataFixers.java
-@@ -1003,7 +1003,7 @@
-         Schema schema160 = builder.addSchema(3086, SAME_NAMESPACED);
-         builder.addFixer(
-             new EntityVariantFix(
--                schema160, "Change cat variant type", References.ENTITY, "minecraft:cat", "CatType", Util.make(new Int2ObjectOpenHashMap(), catVariants -> {
-+                schema160, "Change cat variant type", References.ENTITY, "minecraft:cat", "CatType", Util.make(new Int2ObjectOpenHashMap<String>(), catVariants -> {
-                     catVariants.defaultReturnValue("minecraft:tabby");
-                     catVariants.put(0, "minecraft:tabby");
-                     catVariants.put(1, "minecraft:black");
-@@ -1040,7 +1040,7 @@
-         Schema schema161 = builder.addSchema(3087, SAME_NAMESPACED);
-         builder.addFixer(
-             new EntityVariantFix(
--                schema161, "Change frog variant type", References.ENTITY, "minecraft:frog", "Variant", Util.make(new Int2ObjectOpenHashMap(), frogVariants -> {
-+                schema161, "Change frog variant type", References.ENTITY, "minecraft:frog", "Variant", Util.make(new Int2ObjectOpenHashMap<String>(), frogVariants -> {
-                     frogVariants.put(0, "minecraft:temperate");
-                     frogVariants.put(1, "minecraft:warm");
-                     frogVariants.put(2, "minecraft:cold");
+@@ -1014,7 +1014,7 @@
+                 References.ENTITY,
+                 "minecraft:cat",
+                 "CatType",
+-                Util.make(new Int2ObjectOpenHashMap(), int2ObjectOpenHashMap -> {
++                Util.make(new Int2ObjectOpenHashMap<String>(), int2ObjectOpenHashMap -> {
+                     int2ObjectOpenHashMap.defaultReturnValue("minecraft:tabby");
+                     int2ObjectOpenHashMap.put(0, "minecraft:tabby");
+                     int2ObjectOpenHashMap.put(1, "minecraft:black");
+@@ -1056,7 +1056,7 @@
+                 References.ENTITY,
+                 "minecraft:frog",
+                 "Variant",
+-                Util.make(new Int2ObjectOpenHashMap(), int2ObjectOpenHashMap -> {
++                Util.make(new Int2ObjectOpenHashMap<String>(), int2ObjectOpenHashMap -> {
+                     int2ObjectOpenHashMap.put(0, "minecraft:temperate");
+                     int2ObjectOpenHashMap.put(1, "minecraft:warm");
+                     int2ObjectOpenHashMap.put(2, "minecraft:cold");

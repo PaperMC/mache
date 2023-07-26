@@ -4,8 +4,8 @@
  
      public static BehaviorControl<LivingEntity> create() {
          return BehaviorBuilder.create(
--            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
-+            context -> context.group(
-                         context.registered(MemoryModuleType.HURT_BY),
-                         context.registered(MemoryModuleType.HURT_BY_ENTITY),
-                         context.registered(MemoryModuleType.NEAREST_HOSTILE)
+-            instance -> instance.<MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
++            instance -> instance.group(
+                         instance.registered(MemoryModuleType.HURT_BY),
+                         instance.registered(MemoryModuleType.HURT_BY_ENTITY),
+                         instance.registered(MemoryModuleType.NEAREST_HOSTILE)

@@ -3,9 +3,9 @@
 @@ -185,7 +185,7 @@
      }
  
-     private static FeatureFlagSet getFeatures(String featureFlags) {
--        return FeatureFlags.REGISTRY.fromNames(COMMA_SPLITTER.splitToStream(featureFlags).mapMulti((id, consumer) -> {
-+        return FeatureFlags.REGISTRY.fromNames(COMMA_SPLITTER.splitToStream(featureFlags).<ResourceLocation>mapMulti((id, consumer) -> {
-             ResourceLocation resourceLocation = ResourceLocation.tryParse(id);
+     private static FeatureFlagSet getFeatures(String string) {
+-        return FeatureFlags.REGISTRY.fromNames(COMMA_SPLITTER.splitToStream(string).mapMulti((string1, consumer) -> {
++        return FeatureFlags.REGISTRY.fromNames(COMMA_SPLITTER.splitToStream(string).<ResourceLocation>mapMulti((string1, consumer) -> {
+             ResourceLocation resourceLocation = ResourceLocation.tryParse(string1);
              if (resourceLocation == null) {
-                 LOGGER.warn("Invalid resource location {}, ignoring", id);
+                 LOGGER.warn("Invalid resource location {}, ignoring", string1);

@@ -2,7 +2,7 @@
 +++ b/net/minecraft/world/entity/ai/behavior/warden/SetRoarTarget.java
 @@ -12,7 +12,7 @@
  public class SetRoarTarget {
-     public static <E extends Warden> BehaviorControl<E> create(Function<E, Optional<? extends LivingEntity>> targetFinder) {
+     public static <E extends Warden> BehaviorControl<E> create(Function<E, Optional<? extends LivingEntity>> function) {
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
 +            context -> context.group(

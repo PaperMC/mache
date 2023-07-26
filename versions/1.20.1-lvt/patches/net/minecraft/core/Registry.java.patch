@@ -3,9 +3,9 @@
 @@ -155,7 +155,7 @@
      Optional<HolderSet.Named<T>> getTag(TagKey<T> tag);
  
-     default Iterable<Holder<T>> getTagOrEmpty(TagKey<T> tag) {
--        return DataFixUtils.orElse(this.getTag(tag), List.<T>of());
-+        return DataFixUtils.orElse(this.getTag(tag), List.of());
+     default Iterable<Holder<T>> getTagOrEmpty(TagKey<T> tagKey) {
+-        return DataFixUtils.orElse(this.getTag(tagKey), List.<T>of());
++        return DataFixUtils.orElse(this.getTag(tagKey), List.of());
      }
  
      HolderSet.Named<T> getOrCreateTag(TagKey<T> tag);
@@ -22,8 +22,8 @@
  
              @Override
              public Iterator<Holder<T>> iterator() {
--                return Registry.this.holders().map(entry -> entry).iterator();
-+                return Registry.this.holders().map(entry -> (Holder<T>) entry).iterator();
+-                return Registry.this.holders().map(reference -> reference).iterator();
++                return Registry.this.holders().map(reference -> (Holder<T>) reference).iterator();
              }
          };
      }

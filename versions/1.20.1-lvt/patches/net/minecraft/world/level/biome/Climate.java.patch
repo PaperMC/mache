@@ -1,22 +1,11 @@
 --- a/net/minecraft/world/level/biome/Climate.java
 +++ b/net/minecraft/world/level/biome/Climate.java
-@@ -262,14 +262,14 @@
-             if (entries.isEmpty()) {
-                 throw new IllegalArgumentException("Need at least one value to build the search tree.");
-             } else {
--                int size = entries.get(0).getFirst().parameterSpace().size();
--                if (size != 7) {
--                    throw new IllegalStateException("Expecting parameter space to be 7, got " + size);
-+                int i = entries.get(0).getFirst().parameterSpace().size();
-+                if (i != 7) {
-+                    throw new IllegalStateException("Expecting parameter space to be 7, got " + i);
+@@ -263,7 +263,7 @@
+                     throw new IllegalStateException("Expecting parameter space to be 7, got " + size);
                  } else {
-                     List<Climate.RTree.Leaf<T>> list = entries.stream()
--                        .map(entry -> new Climate.RTree.Leaf(entry.getFirst(), entry.getSecond()))
-+                        .map(entry -> new Climate.RTree.Leaf<>(entry.getFirst(), entry.getSecond()))
+                     List<Climate.RTree.Leaf<T>> list1 = list.stream()
+-                        .map(pair -> new Climate.RTree.Leaf(pair.getFirst(), pair.getSecond()))
++                        .map(pair -> new Climate.RTree.Leaf<>(pair.getFirst(), pair.getSecond()))
                          .collect(Collectors.toCollection(ArrayList::new));
--                    return new Climate.RTree<>(build(size, list));
-+                    return new Climate.RTree<>(build(i, list));
+                     return new Climate.RTree<>(build(size, list1));
                  }
-             }
-         }

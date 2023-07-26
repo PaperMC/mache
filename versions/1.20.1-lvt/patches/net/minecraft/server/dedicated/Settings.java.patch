@@ -2,10 +2,10 @@
 +++ b/net/minecraft/server/dedicated/Settings.java
 @@ -119,7 +119,7 @@
          String stringRaw = this.getStringRaw(key);
-         V object = MoreObjects.firstNonNull(stringRaw != null ? parser.apply(stringRaw) : null, fallback);
-         this.properties.put(key, stringifier.apply(object));
--        return new Settings.MutableValue<>(key, object, stringifier);
-+        return new Settings<T>.MutableValue<>(key, object, stringifier);
+         V object1 = MoreObjects.firstNonNull(stringRaw != null ? parser.apply(stringRaw) : null, object);
+         this.properties.put(key, stringifier.apply(object1));
+-        return new Settings.MutableValue<>(key, object1, stringifier);
++        return new Settings<T>.MutableValue<>(key, object1, stringifier);
      }
  
-     protected <V> V get(String key, Function<String, V> parser, UnaryOperator<V> parsedTransformer, Function<V, String> stringifier, V fallback) {
+     protected <V> V get(String key, Function<String, V> parser, UnaryOperator<V> parsedTransformer, Function<V, String> stringifier, V object) {

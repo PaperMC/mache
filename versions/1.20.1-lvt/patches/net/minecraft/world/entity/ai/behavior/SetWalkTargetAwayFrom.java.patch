@@ -1,11 +1,11 @@
 --- a/net/minecraft/world/entity/ai/behavior/SetWalkTargetAwayFrom.java
 +++ b/net/minecraft/world/entity/ai/behavior/SetWalkTargetAwayFrom.java
 @@ -25,7 +25,7 @@
-         MemoryModuleType<T> posSource, float speed, int range, boolean requiresWalkTarget, Function<T, Vec3> posGetter
+         MemoryModuleType<T> memoryModuleType, float speed, int range, boolean requiresWalkTarget, Function<T, Vec3> posGetter
      ) {
          return BehaviorBuilder.create(
--            context -> context.<MemoryAccessor, MemoryAccessor>group(context.registered(MemoryModuleType.WALK_TARGET), context.present(posSource))
-+            context -> context.group(context.registered(MemoryModuleType.WALK_TARGET), context.present(posSource))
+-            context -> context.<MemoryAccessor, MemoryAccessor>group(context.registered(MemoryModuleType.WALK_TARGET), context.present(memoryModuleType))
++            context -> context.group(context.registered(MemoryModuleType.WALK_TARGET), context.present(memoryModuleType))
                      .apply(context, (walkTarget, posSourcex) -> (world, entity, time) -> {
                              Optional<WalkTarget> optional = context.tryGet(walkTarget);
                              if (optional.isPresent() && !requiresWalkTarget) {

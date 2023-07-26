@@ -3,18 +3,18 @@
 @@ -150,7 +150,7 @@
  
          @Override
-         public <E> Optional<ResourceOrTagArgument.Result<E>> cast(ResourceKey<? extends Registry<E>> registryRef) {
--            return this.value.key().isFor(registryRef) ? Optional.of(this) : Optional.empty();
-+            return this.value.key().isFor(registryRef) ? Optional.of((Result<E>) this) : Optional.empty();
+         public <E> Optional<ResourceOrTagArgument.Result<E>> cast(ResourceKey<? extends Registry<E>> resourceKey) {
+-            return this.value.key().isFor(resourceKey) ? Optional.of(this) : Optional.empty();
++            return this.value.key().isFor(resourceKey) ? Optional.of((ResourceOrTagArgument.Result<E>) this) : Optional.empty();
          }
  
          @Override
 @@ -180,7 +180,7 @@
  
          @Override
-         public <E> Optional<ResourceOrTagArgument.Result<E>> cast(ResourceKey<? extends Registry<E>> registryRef) {
--            return this.tag.key().isFor(registryRef) ? Optional.of(this) : Optional.empty();
-+            return this.tag.key().isFor(registryRef) ? Optional.of((Result<E>) this) : Optional.empty();
+         public <E> Optional<ResourceOrTagArgument.Result<E>> cast(ResourceKey<? extends Registry<E>> resourceKey) {
+-            return this.tag.key().isFor(resourceKey) ? Optional.of(this) : Optional.empty();
++            return this.tag.key().isFor(resourceKey) ? Optional.of((ResourceOrTagArgument.Result<E>) this) : Optional.empty();
          }
  
          @Override

@@ -5,7 +5,7 @@
                          }
  
 -                        return typed.set(opticFinder1, ((Pair)optional2.get()).getFirst());
-+                        return typed.set(opticFinder1, optional2.get().getFirst());
++                        return typed.set(opticFinder1, (optional2.get()).getFirst());
                      }
                  }
              }
