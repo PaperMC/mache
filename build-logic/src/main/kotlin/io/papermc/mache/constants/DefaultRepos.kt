@@ -7,6 +7,5 @@ object DefaultRepos {
     val DEFAULTS: List<SimpleMacheRepo> = listOf(
         SimpleMacheRepo("https://repo.papermc.io/repository/maven-public/", "PaperMC", listOf("io.papermc")),
         SimpleMacheRepo("https://maven.fabricmc.net/", "FabricMC", listOf("net.fabricmc")),
-        SimpleMacheRepo("https://repo.denwav.dev/repository/maven-public/", "DenWav", listOf("org.vineflower")),
     )
 }
