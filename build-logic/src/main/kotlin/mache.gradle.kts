@@ -54,6 +54,8 @@ val remapJar by tasks.registering(RemapJar::class) {
     paramMappings.from(configurations.named("paramMappings"))
     constants.from(configurations.named("constants"))
 
+    logMissingLvtSuggestions.set(providers.gradleProperty("logMissingLvt").map { it.toBoolean() })
+
     outputJar.set(layout.buildDirectory.file(REMAPPED_JAR))
 }
 
