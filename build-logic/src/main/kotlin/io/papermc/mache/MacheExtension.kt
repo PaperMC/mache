@@ -50,7 +50,7 @@ open class MacheExtension(objects: ObjectFactory) {
                 // Indent String
                 "-ind=    ",
                 // JAD-Style Variable Naming: Use JAD-style variable naming for local variables
-                "-jvn=true",
+                "-jvn=false",
                 // Decompile complex constant-dynamic expressions:
                 // Some constant-dynamic expressions can't be converted to a single Java expression with
                 // identical run-time behaviour. This decompiles them to a similar non-lazy expression,

@@ -4,20 +4,6 @@ plugins {
 
 mache {
     minecraftVersion = "1.20.1"
-
-    decompilerArgs.set(listOf(
-        "-nns=true",
-        "-tcs=true",
-        "-ovr=false",
-        "-vvm=true",
-        "-iec=true",
-        "-jrt=current",
-        "-ind=    ",
-        "-jvn=false",
-        "-dcc=true",
-        "-sef=true",
-        "-nls=1",
-    ))
 }
 
 dependencies {
