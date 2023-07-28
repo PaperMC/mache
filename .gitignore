@@ -44,5 +44,3 @@ versions/**/src
 versions/*
 # Don't ignore the current version
 !versions/1.20.1
-# TODO: temporary
-!versions/1.20.1-lvt
