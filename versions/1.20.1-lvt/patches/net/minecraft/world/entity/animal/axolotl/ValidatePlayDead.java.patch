@@ -4,8 +4,8 @@
  public class ValidatePlayDead {
      public static BehaviorControl<LivingEntity> create() {
          return BehaviorBuilder.create(
--            instance -> instance.<MemoryAccessor, MemoryAccessor>group(
-+            instance -> instance.group(
-                         instance.present(MemoryModuleType.PLAY_DEAD_TICKS), instance.registered(MemoryModuleType.HURT_BY_ENTITY)
+-            context -> context.<MemoryAccessor, MemoryAccessor>group(
++            context -> context.group(
+                         context.present(MemoryModuleType.PLAY_DEAD_TICKS), context.registered(MemoryModuleType.HURT_BY_ENTITY)
                      )
-                     .apply(instance, (playDeadTicks, hurtByEntity) -> (world, entity, time) -> {
+                     .apply(context, (playDeadTicks, hurtByEntity) -> (world, entity, time) -> {

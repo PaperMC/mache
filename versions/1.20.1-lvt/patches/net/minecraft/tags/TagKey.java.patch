@@ -3,9 +3,9 @@
 @@ -41,7 +41,7 @@
      }
  
-     public <E> Optional<TagKey<E>> cast(ResourceKey<? extends Registry<E>> resourceKey) {
--        return this.isFor(resourceKey) ? Optional.of(this) : Optional.empty();
-+        return this.isFor(resourceKey) ? Optional.of((TagKey<E>) this) : Optional.empty();
+     public <E> Optional<TagKey<E>> cast(ResourceKey<? extends Registry<E>> registryRef) {
+-        return this.isFor(registryRef) ? Optional.of(this) : Optional.empty();
++        return this.isFor(registryRef) ? Optional.of((TagKey<E>) this) : Optional.empty();
      }
  
      @Override

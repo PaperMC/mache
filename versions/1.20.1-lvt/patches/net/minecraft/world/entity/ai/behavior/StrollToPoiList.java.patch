@@ -6,6 +6,6 @@
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
 +            context -> context.group(
-                         context.registered(MemoryModuleType.WALK_TARGET), context.present(memoryModuleType), context.present(primaryPosition)
+                         context.registered(MemoryModuleType.WALK_TARGET), context.present(secondaryPositions), context.present(primaryPosition)
                      )
                      .apply(

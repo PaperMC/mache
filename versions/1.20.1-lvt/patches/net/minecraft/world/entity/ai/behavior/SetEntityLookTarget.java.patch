@@ -1,7 +1,7 @@
 --- a/net/minecraft/world/entity/ai/behavior/SetEntityLookTarget.java
 +++ b/net/minecraft/world/entity/ai/behavior/SetEntityLookTarget.java
 @@ -26,7 +26,7 @@
-     public static OneShot<LivingEntity> create(Predicate<LivingEntity> predicate1, float maxDistance) {
+     public static OneShot<LivingEntity> create(Predicate<LivingEntity> predicate, float maxDistance) {
          float f = maxDistance * maxDistance;
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor, MemoryAccessor>group(

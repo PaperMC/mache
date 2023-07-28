@@ -8,4 +8,4 @@
 +            this(buf.readCollection(FriendlyByteBuf.<List<MessageSignature.Packed>>limitValue(ArrayList::new, 20), MessageSignature.Packed::read));
          }
  
-         public void write(FriendlyByteBuf friendlyByteBuf) {
+         public void write(FriendlyByteBuf buf) {

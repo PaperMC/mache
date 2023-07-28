@@ -1,11 +1,11 @@
 --- a/net/minecraft/gametest/framework/GameTestRegistry.java
 +++ b/net/minecraft/gametest/framework/GameTestRegistry.java
 @@ -53,7 +53,7 @@
-         T annotation = method1.getAnnotation(clazz);
+         T annotation = method.getAnnotation(clazz);
          if (annotation != null) {
              String string = batchIdFunction.apply(annotation);
--            Consumer<ServerLevel> consumer = batchConsumerMap.putIfAbsent(string, turnMethodIntoConsumer(method1));
-+            Consumer<ServerLevel> consumer = batchConsumerMap.putIfAbsent(string, (Consumer<ServerLevel>) turnMethodIntoConsumer(method1));
+-            Consumer<ServerLevel> consumer = batchConsumerMap.putIfAbsent(string, turnMethodIntoConsumer(method));
++            Consumer<ServerLevel> consumer = batchConsumerMap.putIfAbsent(string, (Consumer<ServerLevel>) turnMethodIntoConsumer(method));
              if (consumer != null) {
                  throw new RuntimeException("Hey, there should only be one " + clazz + " method per batch. Batch '" + string + "' has more than one!");
              }
@@ -13,8 +13,8 @@
              gameTest.required(),
              gameTest.requiredSuccesses(),
              gameTest.attempts(),
--            turnMethodIntoConsumer(method1)
-+            (Consumer<GameTestHelper>) turnMethodIntoConsumer(method1)
+-            turnMethodIntoConsumer(method)
++            (Consumer<GameTestHelper>) turnMethodIntoConsumer(method)
          );
      }
  

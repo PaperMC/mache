@@ -3,9 +3,9 @@
 @@ -57,7 +57,7 @@
      }
  
-     private static OperationArgument.Operation getOperation(String string) throws CommandSyntaxException {
--        return (OperationArgument.Operation)(string.equals("><") ? (score, b) -> {
-+        return (string.equals("><") ? (score, b) -> {
-             int score1 = score.getScore();
-             score.setScore(b.getScore());
-             b.setScore(score1);
+     private static OperationArgument.Operation getOperation(String operator) throws CommandSyntaxException {
+-        return (OperationArgument.Operation)(operator.equals("><") ? (a, b) -> {
++        return (operator.equals("><") ? (a, b) -> {
+             int score = a.getScore();
+             a.setScore(b.getScore());
+             b.setScore(score);

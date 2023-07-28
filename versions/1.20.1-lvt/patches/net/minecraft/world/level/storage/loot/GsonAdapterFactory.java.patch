@@ -1,18 +1,18 @@
 --- a/net/minecraft/world/level/storage/loot/GsonAdapterFactory.java
 +++ b/net/minecraft/world/level/storage/loot/GsonAdapterFactory.java
 @@ -116,13 +116,13 @@
-         public JsonElement serialize(E object, Type type, JsonSerializationContext jsonSerializationContext) {
+         public JsonElement serialize(E object, Type type, JsonSerializationContext context) {
              T serializerType = this.typeGetter.apply(object);
              if (this.inlineType != null && this.inlineType.getFirst() == serializerType) {
--                return this.inlineType.getSecond().serialize(object, jsonSerializationContext);
-+                return ((InlineSerializer<E>) this.inlineType.getSecond()).serialize(object, jsonSerializationContext);
+-                return this.inlineType.getSecond().serialize(object, context);
++                return ((InlineSerializer<E>) this.inlineType.getSecond()).serialize(object, context);
              } else if (serializerType == null) {
                  throw new JsonSyntaxException("Unknown type: " + object);
              } else {
                  JsonObject jsonObject = new JsonObject();
                  jsonObject.addProperty(this.typeKey, this.registry.getKey(serializerType).toString());
--                serializerType.getSerializer().serialize(jsonObject, object, jsonSerializationContext);
-+                ((Serializer<E>) serializerType.getSerializer()).serialize(jsonObject, object, jsonSerializationContext);
+-                serializerType.getSerializer().serialize(jsonObject, object, context);
++                ((Serializer<E>) serializerType.getSerializer()).serialize(jsonObject, object, context);
                  return jsonObject;
              }
          }

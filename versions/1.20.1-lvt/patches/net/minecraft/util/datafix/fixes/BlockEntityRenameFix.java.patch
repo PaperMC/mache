@@ -8,6 +8,6 @@
 -        TaggedChoiceType<String> taggedChoiceType1 = this.getOutputSchema().findChoiceType(References.BLOCK_ENTITY);
 +        TaggedChoiceType<String> taggedChoiceType = (TaggedChoiceType<String>) this.getInputSchema().findChoiceType(References.BLOCK_ENTITY);
 +        TaggedChoiceType<String> taggedChoiceType1 = (TaggedChoiceType<String>) this.getOutputSchema().findChoiceType(References.BLOCK_ENTITY);
-         return this.fixTypeEverywhere(this.name, taggedChoiceType, taggedChoiceType1, dynamicOps -> pair -> pair.mapFirst(this.nameChangeLookup));
+         return this.fixTypeEverywhere(this.name, taggedChoiceType, taggedChoiceType1, ops -> pair -> pair.mapFirst(this.nameChangeLookup));
      }
  

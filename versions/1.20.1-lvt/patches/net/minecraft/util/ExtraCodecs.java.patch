@@ -1,11 +1,11 @@
 --- a/net/minecraft/util/ExtraCodecs.java
 +++ b/net/minecraft/util/ExtraCodecs.java
-@@ -216,7 +216,7 @@
+@@ -215,7 +215,7 @@
                  P object1 = listx.get(1);
                  return combineFunction.apply(object, object1);
              }), pair -> ImmutableList.of(leftFunction.apply(pair), rightFunction.apply(pair)));
--        Codec<I> codec3 = RecordCodecBuilder.<Pair>create(
-+        Codec<I> codec3 = RecordCodecBuilder.<Pair<P, P>>create(
-                 instance -> instance.group(codec1.fieldOf(leftFieldName).forGetter(Pair::getFirst), codec1.fieldOf(rightFieldName).forGetter(Pair::getSecond))
+-        Codec<I> codec2 = RecordCodecBuilder.<Pair>create(
++        Codec<I> codec2 = RecordCodecBuilder.<Pair<P, P>>create(
+                 instance -> instance.group(codec.fieldOf(leftFieldName).forGetter(Pair::getFirst), codec.fieldOf(rightFieldName).forGetter(Pair::getSecond))
                          .apply(instance, Pair::of)
              )

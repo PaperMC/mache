@@ -2,23 +2,23 @@
 +++ b/net/minecraft/server/level/ChunkMap.java
 @@ -507,9 +507,10 @@
  
-         int i1 = Math.max(0, this.unloadQueue.size() - 2000);
+         int max = Math.max(0, this.unloadQueue.size() - 2000);
  
--        while((booleanSupplier.getAsBoolean() || i1 > 0) && (l = (long)this.unloadQueue.poll()) != null) {
+-        while((shouldKeepTicking.getAsBoolean() || max > 0) && (l = (long)this.unloadQueue.poll()) != null) {
 +        Runnable runnable;
-+        while((booleanSupplier.getAsBoolean() || i1 > 0) && (runnable = this.unloadQueue.poll()) != null) {
-             --i1;
++        while((shouldKeepTicking.getAsBoolean() || max > 0) && (runnable = this.unloadQueue.poll()) != null) {
+             --max;
 -            l.run();
 +            runnable.run();
          }
  
-         int i2 = 0;
+         int i1 = 0;
 @@ -594,7 +595,7 @@
                  }
  
-                 return flag;
--            })).thenApplyAsync(optional -> {
-+            })).<Either<ChunkAccess, ChunkHolder.ChunkLoadingFailure>>thenApplyAsync(optional -> {
+                 return isChunkDataValid;
+-            })).thenApplyAsync(nbt -> {
++            })).<Either<ChunkAccess, ChunkHolder.ChunkLoadingFailure>>thenApplyAsync(nbt -> {
              this.level.getProfiler().incrementCounter("chunkLoad");
-             if (optional.isPresent()) {
-                 ChunkAccess chunkAccess = ChunkSerializer.read(this.level, this.poiManager, chunkPos, optional.get());
+             if (nbt.isPresent()) {
+                 ChunkAccess chunkAccess = ChunkSerializer.read(this.level, this.poiManager, pos, nbt.get());

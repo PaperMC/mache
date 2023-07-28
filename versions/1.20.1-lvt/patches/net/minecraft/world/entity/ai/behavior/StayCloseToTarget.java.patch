@@ -1,7 +1,7 @@
 --- a/net/minecraft/world/entity/ai/behavior/StayCloseToTarget.java
 +++ b/net/minecraft/world/entity/ai/behavior/StayCloseToTarget.java
-@@ -14,7 +14,7 @@
-         Function<LivingEntity, Optional<PositionTracker>> function, Predicate<LivingEntity> predicate, int completionRange, int searchRange, float speed
+@@ -18,7 +18,7 @@
+         float speed
      ) {
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor, MemoryAccessor>group(

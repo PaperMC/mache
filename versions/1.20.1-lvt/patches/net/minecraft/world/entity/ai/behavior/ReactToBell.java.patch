@@ -4,8 +4,8 @@
  public class ReactToBell {
      public static BehaviorControl<LivingEntity> create() {
          return BehaviorBuilder.create(
--            instance -> instance.<MemoryAccessor>group(instance.present(MemoryModuleType.HEARD_BELL_TIME))
-+            instance -> instance.group(instance.present(MemoryModuleType.HEARD_BELL_TIME))
-                     .apply(instance, memoryAccessor -> (serverLevel, entity, time) -> {
-                             Raid raidAt = serverLevel.getRaidAt(entity.blockPosition());
+-            context -> context.<MemoryAccessor>group(context.present(MemoryModuleType.HEARD_BELL_TIME))
++            context -> context.group(context.present(MemoryModuleType.HEARD_BELL_TIME))
+                     .apply(context, heardBellTime -> (world, entity, time) -> {
+                             Raid raidAt = world.getRaidAt(entity.blockPosition());
                              if (raidAt == null) {

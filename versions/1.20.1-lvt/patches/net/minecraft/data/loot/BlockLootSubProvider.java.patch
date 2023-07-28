@@ -1,20 +1,20 @@
 --- a/net/minecraft/data/loot/BlockLootSubProvider.java
 +++ b/net/minecraft/data/loot/BlockLootSubProvider.java
-@@ -362,7 +362,7 @@
-             block,
+@@ -357,7 +357,7 @@
+             dropWithShears,
              this.applyExplosionDecay(
-                 block,
+                 dropWithShears,
 -                ((LootPoolSingletonContainer.Builder)LootItem.lootTableItem(Items.WHEAT_SEEDS).when(LootItemRandomChanceCondition.randomChance(0.125F)))
 +                (LootItem.lootTableItem(Items.WHEAT_SEEDS).when(LootItemRandomChanceCondition.randomChance(0.125F)))
                      .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, 2))
              )
          );
-@@ -413,7 +413,7 @@
+@@ -408,7 +408,7 @@
                      .add(
                          this.applyExplosionDecay(
                              drop,
--                            ((LootPoolSingletonContainer.Builder)((LootPoolSingletonContainer.Builder)LootItem.lootTableItem(drop).when(builder))
-+                            ((LootItem.lootTableItem(drop).when(builder))
+-                            ((LootPoolSingletonContainer.Builder)((LootPoolSingletonContainer.Builder)LootItem.lootTableItem(drop).when(condition))
++                            ((LootItem.lootTableItem(drop).when(condition))
                                      .apply(
                                          Direction.values(),
                                          direction -> SetItemCountFunction.setCount(ConstantValue.exactly(1.0F), true)

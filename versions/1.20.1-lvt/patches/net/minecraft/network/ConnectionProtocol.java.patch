@@ -98,12 +98,12 @@
                      .addPacket(ServerboundHelloPacket.class, ServerboundHelloPacket::new)
                      .addPacket(ServerboundKeyPacket.class, ServerboundKeyPacket::new)
                      .addPacket(ServerboundCustomQueryPacket.class, ServerboundCustomQueryPacket::new)
-@@ -543,7 +550,7 @@
+@@ -541,7 +548,7 @@
          }
  
          public void listAllPackets(Consumer<Class<? extends Packet<?>>> consumer) {
--            this.classToId.keySet().stream().filter(clazz -> clazz != BundleDelimiterPacket.class).forEach(consumer);
-+            this.classToId.keySet().stream().filter(clazz -> clazz != (Object) BundleDelimiterPacket.class).forEach(consumer);
+-            this.classToId.keySet().stream().filter(type -> type != BundleDelimiterPacket.class).forEach(consumer);
++            this.classToId.keySet().stream().filter(type -> type != (Object) BundleDelimiterPacket.class).forEach(consumer);
              this.extraClasses.forEach(consumer);
          }
  

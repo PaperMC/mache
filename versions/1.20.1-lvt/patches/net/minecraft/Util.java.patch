@@ -8,4 +8,4 @@
 +        return (Strategy<K>) Util.IdentityStrategy.INSTANCE;
      }
  
-     public static <V> CompletableFuture<List<V>> sequence(List<? extends CompletableFuture<V>> list) {
+     public static <V> CompletableFuture<List<V>> sequence(List<? extends CompletableFuture<V>> futures) {

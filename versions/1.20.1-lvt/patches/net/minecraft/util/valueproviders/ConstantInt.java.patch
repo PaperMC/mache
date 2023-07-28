@@ -6,6 +6,6 @@
              Codec.INT,
 -            RecordCodecBuilder.create(
 +            RecordCodecBuilder.<ConstantInt>create(
-                 instance1 -> instance1.group(Codec.INT.fieldOf("value").forGetter(constantInt -> constantInt.value)).apply(instance1, ConstantInt::new)
+                 instance -> instance.group(Codec.INT.fieldOf("value").forGetter(provider -> provider.value)).apply(instance, ConstantInt::new)
              )
          )

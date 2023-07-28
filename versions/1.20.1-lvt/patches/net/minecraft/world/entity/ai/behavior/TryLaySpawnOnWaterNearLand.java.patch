@@ -2,7 +2,7 @@
 +++ b/net/minecraft/world/entity/ai/behavior/TryLaySpawnOnWaterNearLand.java
 @@ -16,7 +16,7 @@
  public class TryLaySpawnOnWaterNearLand {
-     public static BehaviorControl<LivingEntity> create(Block block) {
+     public static BehaviorControl<LivingEntity> create(Block frogSpawn) {
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
 +            context -> context.group(

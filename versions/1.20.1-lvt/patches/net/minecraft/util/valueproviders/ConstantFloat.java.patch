@@ -6,6 +6,6 @@
              Codec.FLOAT,
 -            RecordCodecBuilder.create(
 +            RecordCodecBuilder.<ConstantFloat>create(
-                 instance1 -> instance1.group(Codec.FLOAT.fieldOf("value").forGetter(constantFloat -> constantFloat.value)).apply(instance1, ConstantFloat::new)
+                 instance -> instance.group(Codec.FLOAT.fieldOf("value").forGetter(provider -> provider.value)).apply(instance, ConstantFloat::new)
              )
          )

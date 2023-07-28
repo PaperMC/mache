@@ -2,7 +2,7 @@
 +++ b/net/minecraft/world/entity/ai/behavior/StartCelebratingIfTargetDead.java
 @@ -11,7 +11,7 @@
  public class StartCelebratingIfTargetDead {
-     public static BehaviorControl<LivingEntity> create(int i, BiPredicate<LivingEntity, LivingEntity> predicate) {
+     public static BehaviorControl<LivingEntity> create(int celebrationDuration, BiPredicate<LivingEntity, LivingEntity> predicate) {
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
 +            context -> context.group(

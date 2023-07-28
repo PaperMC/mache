@@ -9,10 +9,10 @@
  public class ClientboundUpdateRecipesPacket implements Packet<ClientGamePacketListener> {
      private final List<Recipe<?>> recipes;
 @@ -46,6 +47,6 @@
-     public static <T extends Recipe<?>> void toNetwork(FriendlyByteBuf friendlyByteBuf, T recipe) {
-         friendlyByteBuf.writeResourceLocation(BuiltInRegistries.RECIPE_SERIALIZER.getKey(recipe.getSerializer()));
-         friendlyByteBuf.writeResourceLocation(recipe.getId());
--        recipe.getSerializer().toNetwork(friendlyByteBuf, recipe);
-+        ((RecipeSerializer<T>) recipe.getSerializer()).toNetwork(friendlyByteBuf, recipe);
+     public static <T extends Recipe<?>> void toNetwork(FriendlyByteBuf buf, T recipe) {
+         buf.writeResourceLocation(BuiltInRegistries.RECIPE_SERIALIZER.getKey(recipe.getSerializer()));
+         buf.writeResourceLocation(recipe.getId());
+-        recipe.getSerializer().toNetwork(buf, recipe);
++        ((RecipeSerializer<T>) recipe.getSerializer()).toNetwork(buf, recipe);
      }
  }

@@ -4,8 +4,8 @@
  public class StopBeingAngryIfTargetDead {
      public static BehaviorControl<LivingEntity> create() {
          return BehaviorBuilder.create(
--            instance -> instance.<MemoryAccessor>group(instance.present(MemoryModuleType.ANGRY_AT))
-+            instance -> instance.group(instance.present(MemoryModuleType.ANGRY_AT))
+-            context -> context.<MemoryAccessor>group(context.present(MemoryModuleType.ANGRY_AT))
++            context -> context.group(context.present(MemoryModuleType.ANGRY_AT))
                      .apply(
-                         instance,
+                         context,
                          angryAt -> (world, entity, time) -> {

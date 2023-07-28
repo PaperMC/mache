@@ -4,9 +4,9 @@
                  ResourceKey<?> resourceKey = entry.getKey();
                  if (resourceKey.isFor(this.key)) {
                      RegistrySetBuilder.RegisteredValue<T> registeredValue = (RegistrySetBuilder.RegisteredValue)entry.getValue();
--                    Holder.Reference<T> reference = buildState.lookup.holders.remove(resourceKey);
+-                    Holder.Reference<T> reference = registries.lookup.holders.remove(resourceKey);
 -                    map.put(resourceKey, new RegistrySetBuilder.ValueAndHolder<>(registeredValue, Optional.ofNullable(reference)));
-+                    Holder.Reference<T> reference = (Holder.Reference<T>) buildState.lookup.holders.remove(resourceKey);
++                    Holder.Reference<T> reference = (Holder.Reference<T>) registries.lookup.holders.remove(resourceKey);
 +                    map.put((ResourceKey<T>) resourceKey, new RegistrySetBuilder.ValueAndHolder<>(registeredValue, Optional.ofNullable(reference)));
                      iterator.remove();
                  }
@@ -14,9 +14,9 @@
 @@ -291,7 +291,7 @@
          }
  
-         <T> Holder.Reference<T> getOrCreate(ResourceKey<T> resourceKey) {
--            return this.holders.computeIfAbsent(resourceKey, resourceKey1 -> Holder.Reference.createStandAlone(this.owner, resourceKey1));
-+            return ((Map<ResourceKey<T>, Holder.Reference<T>>) (Map) this.holders).computeIfAbsent(resourceKey, resourceKey1 -> Holder.Reference.<T>createStandAlone((HolderOwner<T>) this.owner, resourceKey1));
+         <T> Holder.Reference<T> getOrCreate(ResourceKey<T> key) {
+-            return this.holders.computeIfAbsent(key, key2 -> Holder.Reference.createStandAlone(this.owner, key2));
++            return (Holder.Reference<T>) this.holders.computeIfAbsent((ResourceKey) key, key2 -> Holder.Reference.createStandAlone(this.owner, key2));
          }
      }
  

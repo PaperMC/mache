@@ -2,10 +2,10 @@
 +++ b/net/minecraft/util/datafix/fixes/TrappedChestBlockEntityFix.java
 @@ -79,7 +79,7 @@
                                          Dynamic<?> dynamic = typed1.get(DSL.remainderFinder());
-                                         int i1 = dynamic.get("xPos").asInt(0);
-                                         int i2 = dynamic.get("zPos").asInt(0);
+                                         int _int = dynamic.get("xPos").asInt(0);
+                                         int _int1 = dynamic.get("zPos").asInt(0);
 -                                        TaggedChoiceType<String> taggedChoiceType = this.getInputSchema().findChoiceType(References.BLOCK_ENTITY);
 +                                        TaggedChoiceType<String> taggedChoiceType = (TaggedChoiceType<String>) this.getInputSchema().findChoiceType(References.BLOCK_ENTITY);
                                          return typed1.updateTyped(
                                              opticFinder,
-                                             typedx -> typedx.updateTyped(
+                                             typed3 -> typed3.updateTyped(

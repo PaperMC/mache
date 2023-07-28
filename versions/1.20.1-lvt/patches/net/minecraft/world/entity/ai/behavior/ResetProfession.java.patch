@@ -4,8 +4,8 @@
  public class ResetProfession {
      public static BehaviorControl<Villager> create() {
          return BehaviorBuilder.create(
--            instance -> instance.<MemoryAccessor>group(instance.absent(MemoryModuleType.JOB_SITE))
-+            instance -> instance.group(instance.absent(MemoryModuleType.JOB_SITE))
+-            context -> context.<MemoryAccessor>group(context.absent(MemoryModuleType.JOB_SITE))
++            context -> context.group(context.absent(MemoryModuleType.JOB_SITE))
                      .apply(
-                         instance,
-                         memoryAccessor -> (serverLevel, entity, time) -> {
+                         context,
+                         jobSite -> (world, entity, time) -> {

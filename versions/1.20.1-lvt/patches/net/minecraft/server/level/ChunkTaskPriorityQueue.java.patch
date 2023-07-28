@@ -4,8 +4,8 @@
  public class ChunkTaskPriorityQueue<T> {
      public static final int PRIORITY_LEVEL_COUNT = ChunkLevel.MAX_LEVEL + 2;
      private final List<Long2ObjectLinkedOpenHashMap<List<Optional<T>>>> taskQueue = IntStream.range(0, PRIORITY_LEVEL_COUNT)
--        .mapToObj(ix -> new Long2ObjectLinkedOpenHashMap())
-+        .mapToObj(ix -> new Long2ObjectLinkedOpenHashMap<List<Optional<T>>>())
+-        .mapToObj(i -> new Long2ObjectLinkedOpenHashMap())
++        .mapToObj(i -> new Long2ObjectLinkedOpenHashMap<List<Optional<T>>>())
          .collect(Collectors.toList());
      private volatile int firstQueue = PRIORITY_LEVEL_COUNT;
      private final String name;

@@ -2,7 +2,7 @@
 +++ b/net/minecraft/world/entity/ai/behavior/BabyFollowAdult.java
 @@ -16,7 +16,7 @@
  
-     public static OneShot<AgeableMob> create(UniformInt uniformInt, Function<LivingEntity, Float> speed) {
+     public static OneShot<AgeableMob> create(UniformInt executionRange, Function<LivingEntity, Float> speed) {
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
 +            context -> context.group(

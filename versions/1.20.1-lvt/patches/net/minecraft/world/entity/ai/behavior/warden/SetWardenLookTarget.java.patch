@@ -4,8 +4,8 @@
  public class SetWardenLookTarget {
      public static BehaviorControl<LivingEntity> create() {
          return BehaviorBuilder.create(
--            instance -> instance.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
-+            instance -> instance.group(
-                         instance.registered(MemoryModuleType.LOOK_TARGET),
-                         instance.registered(MemoryModuleType.DISTURBANCE_LOCATION),
-                         instance.registered(MemoryModuleType.ROAR_TARGET),
+-            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
++            context -> context.group(
+                         context.registered(MemoryModuleType.LOOK_TARGET),
+                         context.registered(MemoryModuleType.DISTURBANCE_LOCATION),
+                         context.registered(MemoryModuleType.ROAR_TARGET),

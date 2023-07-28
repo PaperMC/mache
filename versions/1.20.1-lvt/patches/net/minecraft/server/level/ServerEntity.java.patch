@@ -4,9 +4,9 @@
              this.lastPassengers = passengers;
          }
  
--        Entity i1 = this.entity;
--        if (i1 instanceof ItemFrame itemFrame && this.tickCount % 10 == 0) {
+-        Entity floor1 = this.entity;
+-        if (floor1 instanceof ItemFrame itemFrame && this.tickCount % 10 == 0) {
 +        if (this.entity instanceof ItemFrame itemFrame && this.tickCount % 10 == 0) {
-             ItemStack itemStack = itemFrame.getItem();
-             if (itemStack.getItem() instanceof MapItem) {
-                 Integer mapId = MapItem.getMapId(itemStack);
+             ItemStack item = itemFrame.getItem();
+             if (item.getItem() instanceof MapItem) {
+                 Integer mapId = MapItem.getMapId(item);

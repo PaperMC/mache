@@ -4,8 +4,8 @@
                  )
              );
          } else {
--            to.setValue(dataValue.value);
-+            to.setValue((T) dataValue.value);
+-            to.setValue(from.value);
++            to.setValue((T) from.value);
          }
      }
  

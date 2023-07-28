@@ -3,9 +3,9 @@
 @@ -19,7 +19,7 @@
          OpticFinder<?> opticFinder = type.findField("dimensions");
          return this.fixTypeEverywhereTyped(
-             "WorldGenSettingsDisallowOldCustomWorldsFix_" + this.getOutputSchema().getVersionKey(), type, typed -> typed.updateTyped(opticFinder, typedx -> {
--                    typedx.write().map(dynamic -> dynamic.getMapValues().map((Function<? super Map, ? extends Map>)(map -> {
-+                    typedx.write().map(dynamic -> dynamic.getMapValues().map((map -> {
+             "WorldGenSettingsDisallowOldCustomWorldsFix_" + this.getOutputSchema().getVersionKey(), type, typed -> typed.updateTyped(opticFinder, typed1 -> {
+-                    typed1.write().map(dynamic -> dynamic.getMapValues().map((Function<? super Map, ? extends Map>)(map -> {
++                    typed1.write().map(dynamic -> dynamic.getMapValues().map((map -> {
                              map.forEach((dynamic1, dynamic2) -> {
                                  if (dynamic2.get("type").asString().result().isEmpty()) {
                                      throw new IllegalStateException("Unable load old custom worlds.");

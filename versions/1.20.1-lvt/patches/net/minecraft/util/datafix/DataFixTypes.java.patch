@@ -3,9 +3,9 @@
 @@ -43,7 +43,7 @@
      }
  
-     public CompoundTag update(DataFixer dataFixer, CompoundTag nbt, int oldVersion, int i) {
--        return this.update(dataFixer, new Dynamic<>(NbtOps.INSTANCE, nbt), oldVersion, i).getValue();
-+        return (CompoundTag) this.update(dataFixer, new Dynamic<>(NbtOps.INSTANCE, nbt), oldVersion, i).getValue();
+     public CompoundTag update(DataFixer dataFixer, CompoundTag nbt, int oldVersion, int newVersion) {
+-        return this.update(dataFixer, new Dynamic<>(NbtOps.INSTANCE, nbt), oldVersion, newVersion).getValue();
++        return (CompoundTag) this.update(dataFixer, new Dynamic<>(NbtOps.INSTANCE, nbt), oldVersion, newVersion).getValue();
      }
  
-     public CompoundTag updateToCurrentVersion(DataFixer dataFixer, CompoundTag nbt, int i) {
+     public CompoundTag updateToCurrentVersion(DataFixer dataFixer, CompoundTag nbt, int oldVersion) {

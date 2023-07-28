@@ -4,8 +4,8 @@
  
      public static BehaviorControl<PathfinderMob> create() {
          return BehaviorBuilder.create(
--            instance -> instance.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
-+            instance -> instance.group(
-                         instance.present(MemoryModuleType.VISIBLE_VILLAGER_BABIES),
-                         instance.absent(MemoryModuleType.WALK_TARGET),
-                         instance.registered(MemoryModuleType.LOOK_TARGET),
+-            context -> context.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
++            context -> context.group(
+                         context.present(MemoryModuleType.VISIBLE_VILLAGER_BABIES),
+                         context.absent(MemoryModuleType.WALK_TARGET),
+                         context.registered(MemoryModuleType.LOOK_TARGET),

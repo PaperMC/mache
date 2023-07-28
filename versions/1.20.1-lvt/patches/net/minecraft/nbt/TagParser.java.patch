@@ -3,10 +3,10 @@
 @@ -242,11 +242,11 @@
              }
  
-             if (tagType == ByteTag.TYPE) {
+             if (typeReader == ByteTag.TYPE) {
 -                list.add((T)((NumericTag)value).getAsByte());
 +                list.add((T)(Byte)((NumericTag)value).getAsByte());
-             } else if (tagType == LongTag.TYPE) {
+             } else if (typeReader == LongTag.TYPE) {
 -                list.add((T)((NumericTag)value).getAsLong());
 +                list.add((T)(Long)((NumericTag)value).getAsLong());
              } else {

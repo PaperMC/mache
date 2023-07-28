@@ -13,18 +13,15 @@ mache {
         "-iec=true",
         "-jrt=current",
         "-ind=    ",
+        "-jvn=false",
         "-dcc=true",
         "-sef=true",
         "-nls=1",
     ))
 }
 
-repositories {
-    maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-}
-
 dependencies {
-    codebook("1.0.1-SNAPSHOT")
+    codebook("1.0.1")
     remapper(tiny("0.8.7"))
     decompiler(vineflower("1.9.2-PAPER-SNAPSHOT"))
     yarn("1.20.1+build.10")

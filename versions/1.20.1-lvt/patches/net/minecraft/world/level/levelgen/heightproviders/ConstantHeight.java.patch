@@ -6,6 +6,6 @@
              VerticalAnchor.CODEC,
 -            RecordCodecBuilder.create(
 +            RecordCodecBuilder.<ConstantHeight>create(
-                 instance1 -> instance1.group(VerticalAnchor.CODEC.fieldOf("value").forGetter(constantHeight -> constantHeight.value))
-                         .apply(instance1, ConstantHeight::new)
+                 instance -> instance.group(VerticalAnchor.CODEC.fieldOf("value").forGetter(provider -> provider.value)).apply(instance, ConstantHeight::new)
              )
+         )

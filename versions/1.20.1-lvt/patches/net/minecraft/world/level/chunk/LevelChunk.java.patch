@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/chunk/LevelChunk.java
 +++ b/net/minecraft/world/level/chunk/LevelChunk.java
-@@ -615,7 +615,7 @@
+@@ -617,7 +617,7 @@
  
      private <T extends BlockEntity> void updateBlockEntityTicker(T blockEntity) {
          BlockState blockState = blockEntity.getBlockState();

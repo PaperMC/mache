@@ -4,8 +4,8 @@
  public class AssignProfessionFromJobSite {
      public static BehaviorControl<Villager> create() {
          return BehaviorBuilder.create(
--            instance -> instance.<MemoryAccessor, MemoryAccessor>group(
-+            instance -> instance.group(
-                         instance.present(MemoryModuleType.POTENTIAL_JOB_SITE), instance.registered(MemoryModuleType.JOB_SITE)
+-            context -> context.<MemoryAccessor, MemoryAccessor>group(
++            context -> context.group(
+                         context.present(MemoryModuleType.POTENTIAL_JOB_SITE), context.registered(MemoryModuleType.JOB_SITE)
                      )
                      .apply(

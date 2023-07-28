@@ -2,7 +2,7 @@
 +++ b/net/minecraft/world/entity/monster/piglin/StopAdmiringIfItemTooFarAway.java
 @@ -11,7 +11,7 @@
  public class StopAdmiringIfItemTooFarAway<E extends Piglin> {
-     public static BehaviorControl<LivingEntity> create(int i) {
+     public static BehaviorControl<LivingEntity> create(int range) {
          return BehaviorBuilder.create(
 -            context -> context.<MemoryAccessor, MemoryAccessor>group(
 +            context -> context.group(

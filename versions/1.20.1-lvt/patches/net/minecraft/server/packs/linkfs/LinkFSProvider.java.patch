@@ -4,8 +4,8 @@
                          } catch (IOException var3) {
                              throw new DirectoryIteratorException(var3);
                          }
--                    }).map(linkFSPath -> linkFSPath).iterator();
-+                    }).map(linkFSPath -> (Path) linkFSPath).iterator();
+-                    }).map(child -> child).iterator();
++                    }).map(child -> (Path) child).iterator();
                  }
  
                  @Override
