@@ -61,7 +61,7 @@ abstract class RebuildPatches : DefaultTask() {
                 .filterNot { it.relativeTo(sourceRoot).first().name == ".git" }
                 .filter { it.name.endsWith(".java") }
                 .sumOf {
-                    diffFile(sourceRoot, decompRoot, it.relativeTo(sourceRoot).toString(), patches)
+                    diffFile(sourceRoot, decompRoot, it.relativeTo(sourceRoot).toString().replace("\\", "/"), patches)
                 }
         }
 
