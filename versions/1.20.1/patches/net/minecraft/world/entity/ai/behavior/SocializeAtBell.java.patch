@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/SocializeAtBell.java
++++ b/net/minecraft/world/entity/ai/behavior/SocializeAtBell.java
+@@ -14,7 +14,7 @@
+ 
+     public static OneShot<LivingEntity> create() {
+         return BehaviorBuilder.create(
+-            instance -> instance.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
++            instance -> instance.group(
+                         instance.registered(MemoryModuleType.WALK_TARGET),
+                         instance.registered(MemoryModuleType.LOOK_TARGET),
+                         instance.present(MemoryModuleType.MEETING_POINT),

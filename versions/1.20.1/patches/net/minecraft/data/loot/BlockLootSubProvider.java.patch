@@ -1,0 +1,20 @@
+--- a/net/minecraft/data/loot/BlockLootSubProvider.java
++++ b/net/minecraft/data/loot/BlockLootSubProvider.java
+@@ -354,7 +354,7 @@
+             block,
+             this.applyExplosionDecay(
+                 block,
+-                ((LootPoolSingletonContainer.Builder)LootItem.lootTableItem(Items.WHEAT_SEEDS).when(LootItemRandomChanceCondition.randomChance(0.125F)))
++                (LootItem.lootTableItem(Items.WHEAT_SEEDS).when(LootItemRandomChanceCondition.randomChance(0.125F)))
+                     .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, 2))
+             )
+         );
+@@ -405,7 +405,7 @@
+                     .add(
+                         this.applyExplosionDecay(
+                             block,
+-                            ((LootPoolSingletonContainer.Builder)((LootPoolSingletonContainer.Builder)LootItem.lootTableItem(block).when(builder))
++                            ((LootItem.lootTableItem(block).when(builder))
+                                     .apply(
+                                         Direction.values(),
+                                         direction -> SetItemCountFunction.setCount(ConstantValue.exactly(1.0F), true)

@@ -1,0 +1,20 @@
+--- a/net/minecraft/gametest/framework/GameTestRegistry.java
++++ b/net/minecraft/gametest/framework/GameTestRegistry.java
+@@ -53,7 +53,7 @@
+         T annotation = testMethod.getAnnotation(annotationType);
+         if (annotation != null) {
+             String string = valueGetter.apply(annotation);
+-            Consumer<ServerLevel> consumer = positioning.putIfAbsent(string, turnMethodIntoConsumer(testMethod));
++            Consumer<ServerLevel> consumer = positioning.putIfAbsent(string, (Consumer<ServerLevel>) turnMethodIntoConsumer(testMethod));
+             if (consumer != null) {
+                 throw new RuntimeException("Hey, there should only be one " + annotationType + " method per batch. Batch '" + string + "' has more than one!");
+             }
+@@ -126,7 +126,7 @@
+             gameTest.required(),
+             gameTest.requiredSuccesses(),
+             gameTest.attempts(),
+-            turnMethodIntoConsumer(testMethod)
++                (Consumer<GameTestHelper>) turnMethodIntoConsumer(testMethod)
+         );
+     }
+ 

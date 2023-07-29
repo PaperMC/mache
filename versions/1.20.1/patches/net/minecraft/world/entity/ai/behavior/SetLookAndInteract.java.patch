@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/SetLookAndInteract.java
++++ b/net/minecraft/world/entity/ai/behavior/SetLookAndInteract.java
+@@ -12,7 +12,7 @@
+     public static BehaviorControl<LivingEntity> create(EntityType<?> entityType, int maxDist) {
+         int i = maxDist * maxDist;
+         return BehaviorBuilder.create(
+-            instance -> instance.<MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
++            instance -> instance.group(
+                         instance.registered(MemoryModuleType.LOOK_TARGET),
+                         instance.absent(MemoryModuleType.INTERACTION_TARGET),
+                         instance.present(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES)

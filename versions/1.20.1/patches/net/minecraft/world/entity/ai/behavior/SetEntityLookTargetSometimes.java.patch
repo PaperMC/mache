@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/SetEntityLookTargetSometimes.java
++++ b/net/minecraft/world/entity/ai/behavior/SetEntityLookTargetSometimes.java
+@@ -25,7 +25,7 @@
+         float f = maxDist * maxDist;
+         SetEntityLookTargetSometimes.Ticker ticker = new SetEntityLookTargetSometimes.Ticker(interval);
+         return BehaviorBuilder.create(
+-            instance -> instance.<MemoryAccessor, MemoryAccessor>group(
++            instance -> instance.group(
+                         instance.absent(MemoryModuleType.LOOK_TARGET), instance.present(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES)
+                     )
+                     .apply(

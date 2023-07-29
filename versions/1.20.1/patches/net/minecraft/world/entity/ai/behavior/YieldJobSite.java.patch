@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/YieldJobSite.java
++++ b/net/minecraft/world/entity/ai/behavior/YieldJobSite.java
+@@ -19,7 +19,7 @@
+ public class YieldJobSite {
+     public static BehaviorControl<Villager> create(float speedModifier) {
+         return BehaviorBuilder.create(
+-            instance -> instance.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
++            instance -> instance.group(
+                         instance.present(MemoryModuleType.POTENTIAL_JOB_SITE),
+                         instance.absent(MemoryModuleType.JOB_SITE),
+                         instance.present(MemoryModuleType.NEAREST_LIVING_ENTITIES),

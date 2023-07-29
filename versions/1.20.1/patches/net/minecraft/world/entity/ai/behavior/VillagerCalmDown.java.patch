@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/VillagerCalmDown.java
++++ b/net/minecraft/world/entity/ai/behavior/VillagerCalmDown.java
+@@ -10,7 +10,7 @@
+ 
+     public static BehaviorControl<LivingEntity> create() {
+         return BehaviorBuilder.create(
+-            instance -> instance.<MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
++            instance -> instance.group(
+                         instance.registered(MemoryModuleType.HURT_BY),
+                         instance.registered(MemoryModuleType.HURT_BY_ENTITY),
+                         instance.registered(MemoryModuleType.NEAREST_HOSTILE)

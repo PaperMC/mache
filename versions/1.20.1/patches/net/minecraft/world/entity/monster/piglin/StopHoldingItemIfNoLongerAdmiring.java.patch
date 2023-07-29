@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/monster/piglin/StopHoldingItemIfNoLongerAdmiring.java
++++ b/net/minecraft/world/entity/monster/piglin/StopHoldingItemIfNoLongerAdmiring.java
+@@ -9,7 +9,7 @@
+ public class StopHoldingItemIfNoLongerAdmiring {
+     public static BehaviorControl<Piglin> create() {
+         return BehaviorBuilder.create(
+-            instance -> instance.<MemoryAccessor>group(instance.absent(MemoryModuleType.ADMIRING_ITEM))
++            instance -> instance.group(instance.absent(MemoryModuleType.ADMIRING_ITEM))
+                     .apply(instance, admiringItem -> (level, piglin, gameTime) -> {
+                             if (!piglin.getOffhandItem().isEmpty() && !piglin.getOffhandItem().is(Items.SHIELD)) {
+                                 PiglinAi.stopHoldingOffHandItem(piglin, true);

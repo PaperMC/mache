@@ -1,0 +1,12 @@
+--- a/net/minecraft/world/item/Equipable.java
++++ b/net/minecraft/world/item/Equipable.java
+@@ -40,8 +40,7 @@
+ 
+     @Nullable
+     static Equipable get(ItemStack stack) {
+-        Item equipable1 = stack.getItem();
+-        if (equipable1 instanceof Equipable equipable) {
++        if (stack.getItem() instanceof Equipable equipable) {
+             return equipable;
+         } else {
+             Item var3 = stack.getItem();

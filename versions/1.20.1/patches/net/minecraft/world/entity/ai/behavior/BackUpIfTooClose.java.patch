@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/BackUpIfTooClose.java
++++ b/net/minecraft/world/entity/ai/behavior/BackUpIfTooClose.java
+@@ -11,7 +11,7 @@
+ public class BackUpIfTooClose {
+     public static OneShot<Mob> create(int tooCloseDistance, float strafeSpeed) {
+         return BehaviorBuilder.create(
+-            instance -> instance.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
++            instance -> instance.group(
+                         instance.absent(MemoryModuleType.WALK_TARGET),
+                         instance.registered(MemoryModuleType.LOOK_TARGET),
+                         instance.present(MemoryModuleType.ATTACK_TARGET),

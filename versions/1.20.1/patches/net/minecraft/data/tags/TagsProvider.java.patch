@@ -1,0 +1,30 @@
+--- a/net/minecraft/data/tags/TagsProvider.java
++++ b/net/minecraft/data/tags/TagsProvider.java
+@@ -62,6 +62,8 @@
+ 
+     @Override
+     public CompletableFuture<?> run(CachedOutput output) {
++        record CombinedData<T>(HolderLookup.Provider contents, TagsProvider.TagLookup<T> parent) {
++        }
+         return this.createContentsProvider()
+             .thenApply(provider -> {
+                 this.contentsDone.complete(null);
+@@ -108,9 +110,6 @@
+                 }
+             );
+ 
+-        record CombinedData<T>(HolderLookup.Provider contents, TagsProvider.TagLookup<T> parent) {
+-        }
+-
+     }
+ 
+     protected TagsProvider.TagAppender<T> tag(TagKey<T> tag) {
+@@ -178,7 +177,7 @@
+         }
+ 
+         default boolean contains(TagKey<T> key) {
+-            return this.apply((T)key).isPresent();
++            return this.apply(key).isPresent();
+         }
+     }
+ }

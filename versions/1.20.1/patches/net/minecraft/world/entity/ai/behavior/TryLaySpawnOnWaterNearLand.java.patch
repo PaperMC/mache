@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/TryLaySpawnOnWaterNearLand.java
++++ b/net/minecraft/world/entity/ai/behavior/TryLaySpawnOnWaterNearLand.java
+@@ -16,7 +16,7 @@
+ public class TryLaySpawnOnWaterNearLand {
+     public static BehaviorControl<LivingEntity> create(Block spawnBlock) {
+         return BehaviorBuilder.create(
+-            instance -> instance.<MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
++            instance -> instance.group(
+                         instance.absent(MemoryModuleType.ATTACK_TARGET),
+                         instance.present(MemoryModuleType.WALK_TARGET),
+                         instance.present(MemoryModuleType.IS_PREGNANT)

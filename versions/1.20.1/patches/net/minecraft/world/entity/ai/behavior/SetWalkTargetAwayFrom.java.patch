@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/SetWalkTargetAwayFrom.java
++++ b/net/minecraft/world/entity/ai/behavior/SetWalkTargetAwayFrom.java
+@@ -29,7 +29,7 @@
+         MemoryModuleType<T> walkTargetAwayFromMemory, float speedModifier, int desiredDistance, boolean hasTarget, Function<T, Vec3> toPosition
+     ) {
+         return BehaviorBuilder.create(
+-            instance -> instance.<MemoryAccessor, MemoryAccessor>group(
++            instance -> instance.group(
+                         instance.registered(MemoryModuleType.WALK_TARGET), instance.present(walkTargetAwayFromMemory)
+                     )
+                     .apply(instance, (walkTarget, walkTargetAwayFrom) -> (level, mob, gameTime) -> {

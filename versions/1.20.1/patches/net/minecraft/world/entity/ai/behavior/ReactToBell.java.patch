@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/ReactToBell.java
++++ b/net/minecraft/world/entity/ai/behavior/ReactToBell.java
+@@ -10,7 +10,7 @@
+ public class ReactToBell {
+     public static BehaviorControl<LivingEntity> create() {
+         return BehaviorBuilder.create(
+-            instance -> instance.<MemoryAccessor>group(instance.present(MemoryModuleType.HEARD_BELL_TIME))
++            instance -> instance.group(instance.present(MemoryModuleType.HEARD_BELL_TIME))
+                     .apply(instance, heardBellTime -> (level, entity, gameTime) -> {
+                             Raid raidAt = level.getRaidAt(entity.blockPosition());
+                             if (raidAt == null) {

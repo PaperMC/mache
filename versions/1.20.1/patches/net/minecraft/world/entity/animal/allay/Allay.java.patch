@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/animal/allay/Allay.java
++++ b/net/minecraft/world/entity/animal/allay/Allay.java
+@@ -138,7 +138,7 @@
+ 
+     @Override
+     public Brain<Allay> getBrain() {
+-        return super.getBrain();
++        return (Brain<Allay>) super.getBrain();
+     }
+ 
+     public static AttributeSupplier.Builder createAttributes() {

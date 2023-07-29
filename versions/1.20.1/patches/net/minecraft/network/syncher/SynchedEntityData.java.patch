@@ -1,0 +1,11 @@
+--- a/net/minecraft/network/syncher/SynchedEntityData.java
++++ b/net/minecraft/network/syncher/SynchedEntityData.java
+@@ -212,7 +212,7 @@
+                 )
+             );
+         } else {
+-            target.setValue(entry.value);
++            target.setValue((T) entry.value);
+         }
+     }
+ 

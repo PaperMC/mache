@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/behavior/SetWalkTargetFromLookTarget.java
++++ b/net/minecraft/world/entity/ai/behavior/SetWalkTargetFromLookTarget.java
+@@ -15,7 +15,7 @@
+ 
+     public static OneShot<LivingEntity> create(Predicate<LivingEntity> canSetWalkTarget, Function<LivingEntity, Float> speedModifier, int closeEnoughDist) {
+         return BehaviorBuilder.create(
+-            instance -> instance.<MemoryAccessor, MemoryAccessor>group(
++            instance -> instance.group(
+                         instance.absent(MemoryModuleType.WALK_TARGET), instance.present(MemoryModuleType.LOOK_TARGET)
+                     )
+                     .apply(instance, (walkTarget, lookTarget) -> (level, entity, gameTime) -> {
