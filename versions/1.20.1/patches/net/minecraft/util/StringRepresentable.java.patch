@@ -1,11 +1,11 @@
 --- a/net/minecraft/util/StringRepresentable.java
 +++ b/net/minecraft/util/StringRepresentable.java
-@@ -32,7 +32,7 @@
+@@ -31,7 +31,7 @@
+             Map<String, E> map = Arrays.stream(enums)
                  .collect(
                      Collectors.toMap(
-                         enum_ -> valueNameTransformer.apply(((StringRepresentable)enum_).getSerializedName()),
--                        (Function<? super Enum, ? extends Enum>)(_enum -> _enum)
-+                        (_enum -> _enum)
+-                        _enum -> keyFunction.apply(((StringRepresentable)_enum).getSerializedName()), (Function<? super Enum, ? extends Enum>)(_enum -> _enum)
++                        _enum -> keyFunction.apply(((StringRepresentable)_enum).getSerializedName()), (_enum -> _enum)
                      )
                  );
-             return new StringRepresentable.EnumCodec<>(enums, id -> id == null ? null : map.get(id));
+             return new StringRepresentable.EnumCodec<>(enums, string -> string == null ? null : map.get(string));

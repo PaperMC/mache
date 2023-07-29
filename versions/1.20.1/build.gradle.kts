@@ -7,10 +7,10 @@ mache {
 }
 
 dependencies {
-    codebook("1.0.1")
-    remapper(tiny("0.8.7"))
+    codebook("1.0.2")
+    remapper(art("1.0.5"))
     decompiler(vineflower("1.9.1"))
-    yarn("1.20.1+build.10")
+    parchment("1.20.1", "2023.07.23")
 }
 
 dependencies {

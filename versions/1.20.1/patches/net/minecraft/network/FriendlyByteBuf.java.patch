@@ -4,26 +4,26 @@
                  break;
              case DIRECT:
                  this.writeVarInt(0);
--                writer.accept((T)this, entry.value());
-+                writer.accept(this, entry.value());
+-                writer.accept((T)this, value.value());
++                writer.accept(this, value.value());
          }
      }
  
 @@ -171,7 +171,7 @@
-     public <T> Holder<T> readById(IdMap<Holder<T>> registryEntries, FriendlyByteBuf.Reader<T> reader) {
+     public <T> Holder<T> readById(IdMap<Holder<T>> idMap, FriendlyByteBuf.Reader<T> reader) {
          int varInt = this.readVarInt();
          if (varInt == 0) {
 -            return Holder.direct(reader.apply((T)this));
 +            return Holder.direct(reader.apply(this));
          } else {
-             Holder<T> holder = registryEntries.byId(varInt - 1);
+             Holder<T> holder = idMap.byId(varInt - 1);
              if (holder == null) {
 @@ -197,7 +197,7 @@
          C collection = collectionFactory.apply(varInt);
  
          for(int i = 0; i < varInt; ++i) {
--            collection.add(reader.apply((T)this));
-+            collection.add(reader.apply(this));
+-            collection.add(elementReader.apply((T)this));
++            collection.add(elementReader.apply(this));
          }
  
          return collection;
@@ -31,8 +31,8 @@
          this.writeVarInt(collection.size());
  
          for(T object : collection) {
--            writer.accept((T)this, object);
-+            writer.accept(this, object);
+-            elementWriter.accept((T)this, object);
++            elementWriter.accept(this, object);
          }
      }
  
@@ -50,20 +50,20 @@
 @@ -251,8 +251,8 @@
      public <K, V> void writeMap(Map<K, V> map, FriendlyByteBuf.Writer<K> keyWriter, FriendlyByteBuf.Writer<V> valueWriter) {
          this.writeVarInt(map.size());
-         map.forEach((key, value) -> {
--            keyWriter.accept((K)this, key);
--            valueWriter.accept((V)this, value);
-+            keyWriter.accept(this, key);
-+            valueWriter.accept(this, value);
+         map.forEach((object, object1) -> {
+-            keyWriter.accept((K)this, object);
+-            valueWriter.accept((V)this, object1);
++            keyWriter.accept(this, object);
++            valueWriter.accept(this, object1);
          });
      }
  
 @@ -292,25 +292,25 @@
-     public <T> void writeOptional(Optional<T> value, FriendlyByteBuf.Writer<T> writer) {
-         if (value.isPresent()) {
+     public <T> void writeOptional(Optional<T> optional, FriendlyByteBuf.Writer<T> writer) {
+         if (optional.isPresent()) {
              this.writeBoolean(true);
--            writer.accept((T)this, value.get());
-+            writer.accept(this, value.get());
+-            writer.accept((T)this, optional.get());
++            writer.accept(this, optional.get());
          } else {
              this.writeBoolean(false);
          }
@@ -89,8 +89,8 @@
              this.writeBoolean(false);
          }
 @@ -319,15 +319,15 @@
-     public <L, R> void writeEither(Either<L, R> either, FriendlyByteBuf.Writer<L> leftWriter, FriendlyByteBuf.Writer<R> rightWriter) {
-         either.ifLeft(object -> {
+     public <L, R> void writeEither(Either<L, R> value, FriendlyByteBuf.Writer<L> leftWriter, FriendlyByteBuf.Writer<R> rightWriter) {
+         value.ifLeft(object -> {
              this.writeBoolean(true);
 -            leftWriter.accept((L)this, object);
 +            leftWriter.accept(this, object);

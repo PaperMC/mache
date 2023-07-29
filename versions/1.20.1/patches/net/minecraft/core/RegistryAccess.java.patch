@@ -3,11 +3,11 @@
 @@ -34,8 +34,8 @@
          return new RegistryAccess.Frozen() {
              @Override
-             public <T> Optional<Registry<T>> registry(ResourceKey<? extends Registry<? extends T>> key) {
--                Registry<Registry<T>> registry = registries;
--                return registry.getOptional(key);
-+                Registry<Registry<T>> registry = (Registry<Registry<T>>) registries;
-+                return registry.getOptional((ResourceKey<Registry<T>>) key);
+             public <T> Optional<Registry<T>> registry(ResourceKey<? extends Registry<? extends T>> resourceKey) {
+-                Registry<Registry<T>> registry = registryOfRegistries;
+-                return registry.getOptional(resourceKey);
++                Registry<Registry<T>> registry = (Registry<Registry<T>>) registryOfRegistries;
++                return registry.getOptional((ResourceKey<Registry<T>>) resourceKey);
              }
  
              @Override
@@ -23,9 +23,9 @@
 @@ -85,7 +85,7 @@
  
          @Override
-         public <E> Optional<Registry<E>> registry(ResourceKey<? extends Registry<? extends E>> key) {
--            return Optional.ofNullable(this.registries.get(key)).map((Function<? super Registry<?>, ? extends Registry<E>>)(registry -> registry));
-+            return Optional.ofNullable(this.registries.get(key)).map((registry -> (Registry<E>) registry));
+         public <E> Optional<Registry<E>> registry(ResourceKey<? extends Registry<? extends E>> registryKey) {
+-            return Optional.ofNullable(this.registries.get(registryKey)).map((Function<? super Registry<?>, ? extends Registry<E>>)(registry -> registry));
++            return Optional.ofNullable(this.registries.get(registryKey)).map((registry -> (Registry<E>) registry));
          }
  
          @Override

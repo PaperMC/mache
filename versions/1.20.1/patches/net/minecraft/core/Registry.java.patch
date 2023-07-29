@@ -1,14 +1,14 @@
 --- a/net/minecraft/core/Registry.java
 +++ b/net/minecraft/core/Registry.java
 @@ -155,7 +155,7 @@
-     Optional<HolderSet.Named<T>> getTag(TagKey<T> tag);
+     Optional<HolderSet.Named<T>> getTag(TagKey<T> key);
  
-     default Iterable<Holder<T>> getTagOrEmpty(TagKey<T> tag) {
--        return DataFixUtils.orElse(this.getTag(tag), List.<T>of());
-+        return DataFixUtils.orElse(this.getTag(tag), List.of());
+     default Iterable<Holder<T>> getTagOrEmpty(TagKey<T> key) {
+-        return DataFixUtils.orElse(this.getTag(key), List.<T>of());
++        return DataFixUtils.orElse(this.getTag(key), List.of());
      }
  
-     HolderSet.Named<T> getOrCreateTag(TagKey<T> tag);
+     HolderSet.Named<T> getOrCreateTag(TagKey<T> key);
 @@ -178,7 +178,7 @@
              @Nullable
              @Override
@@ -22,8 +22,8 @@
  
              @Override
              public Iterator<Holder<T>> iterator() {
--                return Registry.this.holders().map(entry -> entry).iterator();
-+                return Registry.this.holders().map(entry -> (Holder<T>) entry).iterator();
+-                return Registry.this.holders().map(reference -> reference).iterator();
++                return Registry.this.holders().map(reference -> (Holder<T>) reference).iterator();
              }
          };
      }

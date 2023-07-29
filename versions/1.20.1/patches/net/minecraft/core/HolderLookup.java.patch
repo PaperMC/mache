@@ -1,11 +1,11 @@
 --- a/net/minecraft/core/HolderLookup.java
 +++ b/net/minecraft/core/HolderLookup.java
 @@ -87,7 +87,7 @@
-             final Map<ResourceKey<? extends Registry<?>>, HolderLookup.RegistryLookup<?>> map = wrappers.collect(
+             final Map<ResourceKey<? extends Registry<?>>, HolderLookup.RegistryLookup<?>> map = lookupStream.collect(
                  Collectors.toUnmodifiableMap(
                      HolderLookup.RegistryLookup::key,
--                    (Function<? super HolderLookup.RegistryLookup, ? extends HolderLookup.RegistryLookup>)(wrapper -> wrapper)
-+                    (wrapper -> wrapper)
+-                    (Function<? super HolderLookup.RegistryLookup, ? extends HolderLookup.RegistryLookup>)(registryLookup -> registryLookup)
++                    (registryLookup -> registryLookup)
                  )
              );
              return new HolderLookup.Provider() {

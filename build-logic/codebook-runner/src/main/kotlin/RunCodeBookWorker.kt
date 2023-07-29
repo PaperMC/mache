@@ -29,6 +29,7 @@ abstract class RunCodeBookWorker : WorkAction<RunCodeBookWorker.RunCodebookParam
         val serverMappings: RegularFileProperty
         val paramMappings: ConfigurableFileCollection
         val constants: ConfigurableFileCollection
+        val unpickDefinitions: ConfigurableFileCollection
         val outputJar: RegularFileProperty
         val logs: RegularFileProperty
         val logMissingLvtSuggestions: Property<Boolean>
@@ -69,7 +70,8 @@ abstract class RunCodeBookWorker : WorkAction<RunCodeBookWorker.RunCodebookParam
                 )
                 .mappings(CodeBookResource.ofFile(parameters.serverMappings.get().asFile.toPath().absolute()))
                 .paramMappings(CodeBookResource.ofFile(parameters.paramMappings.singleFile.toPath().absolute()))
-                .constantsJar(CodeBookResource.ofFile(parameters.constants.singleFile.toPath().absolute()))
+                .unpickDefinitions(parameters.unpickDefinitions.files.singleOrNull()?.let { CodeBookResource.ofFile(it.toPath().absolute()) })
+                .constantsJar(parameters.constants.files.singleOrNull()?.let { CodeBookResource.ofFile(it.toPath().absolute()) })
                 .outputJar(parameters.outputJar.get().asFile.toPath().absolute())
                 .overwrite(false)
                 .input(

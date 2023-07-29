@@ -3,9 +3,9 @@
 @@ -31,7 +31,7 @@
          public static final LastSeenMessages.Packed EMPTY = new LastSeenMessages.Packed(List.of());
  
-         public Packed(FriendlyByteBuf buf) {
--            this(buf.readCollection(FriendlyByteBuf.limitValue(ArrayList::new, 20), MessageSignature.Packed::read));
-+            this(buf.readCollection(FriendlyByteBuf.<List<MessageSignature.Packed>>limitValue(ArrayList::new, 20), MessageSignature.Packed::read));
+         public Packed(FriendlyByteBuf buffer) {
+-            this(buffer.readCollection(FriendlyByteBuf.limitValue(ArrayList::new, 20), MessageSignature.Packed::read));
++            this(buffer.readCollection(FriendlyByteBuf.<List<MessageSignature.Packed>>limitValue(ArrayList::new, 20), MessageSignature.Packed::read));
          }
  
-         public void write(FriendlyByteBuf buf) {
+         public void write(FriendlyByteBuf buffer) {
