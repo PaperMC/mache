@@ -2,7 +2,7 @@ Mâché
 =====
 
 Mache (from [papier-mâché](https://en.wikipedia.org/wiki/Papier-m%C3%A2ch%C3%A9)) is an environment which aims to
-provide a clean-slate, fully compilable and workable decompiled Minecraft server source code. This servers as the base
+provide a clean-slate, fully compilable and workable decompiled Minecraft server source code. This serves as the base
 for the PaperMC Minecraft server project, of which Paper's patches will apply to it. This can of course also be used by
 anyone else who wants to use it for their own purposes.
 
