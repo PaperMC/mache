@@ -1,14 +1,13 @@
 --- a/net/minecraft/commands/arguments/EntityArgument.java
 +++ b/net/minecraft/commands/arguments/EntityArgument.java
-@@ -117,9 +117,9 @@
+@@ -117,9 +117,8 @@
  
      @Override
      public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> ctx, SuggestionsBuilder builder) {
 -        StringReader stringReader = ctx.getSource();
 -        if (stringReader instanceof SharedSuggestionProvider sharedSuggestionProvider) {
 -            stringReader = new StringReader(builder.getInput());
-+        S s = ctx.getSource();
-+        if (s instanceof SharedSuggestionProvider sharedSuggestionProvider) {
++        if (ctx.getSource() instanceof SharedSuggestionProvider sharedSuggestionProvider) {
 +            StringReader stringReader = new StringReader(builder.getInput());
              stringReader.setCursor(builder.getStart());
              EntitySelectorParser entitySelectorParser = new EntitySelectorParser(stringReader, sharedSuggestionProvider.hasPermission(2));

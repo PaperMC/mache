@@ -1,10 +1,18 @@
 --- a/net/minecraft/network/protocol/game/ClientboundUpdateRecipesPacket.java
 +++ b/net/minecraft/network/protocol/game/ClientboundUpdateRecipesPacket.java
-@@ -46,6 +46,6 @@
+@@ -8,6 +8,7 @@
+ import net.minecraft.network.protocol.Packet;
+ import net.minecraft.resources.ResourceLocation;
+ import net.minecraft.world.item.crafting.Recipe;
++import net.minecraft.world.item.crafting.RecipeSerializer;
+ 
+ public class ClientboundUpdateRecipesPacket implements Packet<ClientGamePacketListener> {
+     private final List<Recipe<?>> recipes;
+@@ -46,6 +47,6 @@
      public static <T extends Recipe<?>> void toNetwork(FriendlyByteBuf buffer, T recipe) {
          buffer.writeResourceLocation(BuiltInRegistries.RECIPE_SERIALIZER.getKey(recipe.getSerializer()));
          buffer.writeResourceLocation(recipe.getId());
 -        recipe.getSerializer().toNetwork(buffer, recipe);
-+        ((net.minecraft.world.item.crafting.RecipeSerializer<T>) recipe.getSerializer()).toNetwork(buffer, recipe);
++        ((RecipeSerializer<T>) recipe.getSerializer()).toNetwork(buffer, recipe);
      }
  }

@@ -5,7 +5,7 @@
              .map(dynamic -> skullTag.remove("Owner").set("SkullOwner", dynamic))
              .result()
 -            .orElse(skullTag);
-+            .orElse((com.mojang.serialization.Dynamic) skullTag);
++            .orElse((Dynamic) skullTag);
      }
  
      private Dynamic<?> updateConduit(Dynamic<?> conduitTag) {

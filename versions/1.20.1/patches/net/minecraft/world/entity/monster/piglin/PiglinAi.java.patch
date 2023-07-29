@@ -5,7 +5,7 @@
              Activity.FIGHT,
              10,
 -            ImmutableList.of(
-+            ImmutableList.<net.minecraft.world.entity.ai.behavior.BehaviorControl<? super Piglin>>of(
++            ImmutableList.<BehaviorControl<? super Piglin>>of(
                  StopAttackingIfTargetInvalid.create(entity -> !isNearestValidAttackTarget(piglin, entity)),
                  BehaviorBuilder.triggerIf(PiglinAi::hasCrossbow, BackUpIfTooClose.create(5, 0.75F)),
                  SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),

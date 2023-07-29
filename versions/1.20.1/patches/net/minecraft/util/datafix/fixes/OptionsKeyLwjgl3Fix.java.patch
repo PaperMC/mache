@@ -16,7 +16,7 @@
 +                                return Pair.of(entry.getKey(), entry.getValue());
                              }
 -                        }).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)))).result().orElse(dynamic))
-+                        }).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)))).result().orElse((com.mojang.serialization.Dynamic) dynamic))
++                        }).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)))).result().orElse((Dynamic) dynamic))
          );
      }
  }

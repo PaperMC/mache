@@ -14,7 +14,7 @@
              gameTest.requiredSuccesses(),
              gameTest.attempts(),
 -            turnMethodIntoConsumer(testMethod)
-+                (Consumer<GameTestHelper>) turnMethodIntoConsumer(testMethod)
++            (Consumer<GameTestHelper>) turnMethodIntoConsumer(testMethod)
          );
      }
  

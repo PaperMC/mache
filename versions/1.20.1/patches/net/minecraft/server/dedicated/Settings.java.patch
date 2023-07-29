@@ -5,7 +5,7 @@
          V object = MoreObjects.firstNonNull(stringRaw != null ? mapper.apply(stringRaw) : null, value);
          this.properties.put(key, toString.apply(object));
 -        return new Settings.MutableValue<>(key, object, toString);
-+        return new Settings.MutableValue(key, object, toString);
++        return new Settings<T>.MutableValue<>(key, object, toString);
      }
  
      protected <V> V get(String key, Function<String, V> mapper, UnaryOperator<V> unaryOperator, Function<V, String> toString, V value) {

@@ -1,11 +1,20 @@
 --- a/net/minecraft/ChatFormatting.java
 +++ b/net/minecraft/ChatFormatting.java
-@@ -37,7 +37,7 @@
-     RESET("RESET", 'r', -1, null);
- 
-     public static final Codec<ChatFormatting> CODEC = StringRepresentable.fromEnum(ChatFormatting::values);
--    public static final char PREFIX_CODE = '§';
-+    public static final char PREFIX_CODE = '\u00A7';
+@@ -40,7 +40,7 @@
+     public static final char PREFIX_CODE = '§';
      private static final Map<String, ChatFormatting> FORMATTING_BY_NAME = Arrays.stream(values())
          .collect(Collectors.toMap(formatting -> cleanName(formatting.name), chatFormatter -> chatFormatter));
-     private static final Pattern STRIP_FORMATTING_PATTERN = Pattern.compile("(?i)§[0-9A-FK-OR]");
+-    private static final Pattern STRIP_FORMATTING_PATTERN = Pattern.compile("(?i)§[0-9A-FK-OR]");
++    private static final Pattern STRIP_FORMATTING_PATTERN = Pattern.compile("(?i)" + PREFIX_CODE + "[0-9A-FK-OR]");
+     private final String name;
+     private final char code;
+     private final boolean isFormat;
+@@ -67,7 +67,7 @@
+         this.isFormat = isFormat;
+         this.id = id;
+         this.color = color;
+-        this.toString = "§" + code;
++        this.toString = "" + PREFIX_CODE + code;
+     }
+ 
+     public char getChar() {
