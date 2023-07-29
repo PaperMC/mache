@@ -2,7 +2,6 @@ package io.papermc.mache.tasks
 
 import io.papermc.mache.util.convertToPath
 import java.nio.file.Path
-import java.util.regex.Pattern
 import javax.inject.Inject
 import kotlin.io.path.bufferedReader
 import kotlin.io.path.bufferedWriter
