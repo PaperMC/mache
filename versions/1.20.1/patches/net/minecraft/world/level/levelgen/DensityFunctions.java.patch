@@ -7,5 +7,5 @@
 -                    double d1 = this.argument2.minValue();
 +                    d1 = this.argument2.minValue();
  
-                     for(int i2 = 0; i2 < doubles.length; ++i2) {
-                         double d2 = doubles[i2];
+                     for(int i2 = 0; i2 < array.length; ++i2) {
+                         double d2 = array[i2];

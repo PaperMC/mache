@@ -3,9 +3,9 @@
 @@ -85,7 +85,7 @@
              @Nullable
              @Override
-             public T element(ResourceLocation resourceLocation) {
--                return TagLoader.this.idToValue.apply(resourceLocation).orElse((T)null);
-+                return TagLoader.this.idToValue.apply(resourceLocation).orElse(null);
+             public T element(ResourceLocation elementLocation) {
+-                return TagLoader.this.idToValue.apply(elementLocation).orElse((T)null);
++                return TagLoader.this.idToValue.apply(elementLocation).orElse(null);
              }
  
              @Nullable

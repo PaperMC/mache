@@ -3,11 +3,11 @@
 @@ -34,8 +34,8 @@
          return new RegistryAccess.Frozen() {
              @Override
-             public <T> Optional<Registry<T>> registry(ResourceKey<? extends Registry<? extends T>> resourceKey) {
+             public <T> Optional<Registry<T>> registry(ResourceKey<? extends Registry<? extends T>> registryKey) {
 -                Registry<Registry<T>> registry = registryOfRegistries;
--                return registry.getOptional(resourceKey);
+-                return registry.getOptional(registryKey);
 +                Registry<Registry<T>> registry = (Registry<Registry<T>>) registryOfRegistries;
-+                return registry.getOptional((ResourceKey<Registry<T>>) resourceKey);
++                return registry.getOptional((ResourceKey<Registry<T>>) registryKey);
              }
  
              @Override

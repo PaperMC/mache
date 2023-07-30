@@ -12,9 +12,9 @@
 @@ -178,7 +178,7 @@
              @Nullable
              @Override
-             public Holder<T> byId(int i) {
--                return (Holder<T>)Registry.this.getHolder(i).orElse((T)null);
-+                return (Holder<T>)Registry.this.getHolder(i).orElse(null);
+             public Holder<T> byId(int id) {
+-                return (Holder<T>)Registry.this.getHolder(id).orElse((T)null);
++                return (Holder<T>)Registry.this.getHolder(id).orElse(null);
              }
  
              @Override
