@@ -1,38 +1,37 @@
 package io.papermc.mache.tasks
 
-import com.github.difflib.DiffUtils
-import com.github.difflib.UnifiedDiffUtils
-import com.github.difflib.patch.Patch
-import com.github.difflib.patch.PatchFailedException
 import io.papermc.mache.util.convertToPath
+import io.papermc.mache.util.copyEntry
 import io.papermc.mache.util.ensureClean
-import io.papermc.mache.util.useZip
-import java.nio.file.Path
-import java.nio.file.StandardOpenOption.CREATE_NEW
-import java.nio.file.StandardOpenOption.TRUNCATE_EXISTING
-import java.nio.file.StandardOpenOption.WRITE
+import io.papermc.mache.util.patches.JavaPatcher
+import io.papermc.mache.util.patches.NativePatcher
+import io.papermc.mache.util.patches.PatchFailure
+import io.papermc.mache.util.patches.Patcher
+import io.papermc.mache.util.readZip
+import io.papermc.mache.util.writeZip
+import java.util.zip.ZipEntry
 import javax.inject.Inject
 import kotlin.io.path.copyTo
-import kotlin.io.path.createDirectories
+import kotlin.io.path.createDirectory
+import kotlin.io.path.deleteRecursively
 import kotlin.io.path.exists
+import kotlin.io.path.inputStream
 import kotlin.io.path.listDirectoryEntries
-import kotlin.io.path.name
-import kotlin.io.path.notExists
-import kotlin.io.path.readLines
 import kotlin.io.path.relativeTo
-import kotlin.io.path.walk
-import kotlin.io.path.writeLines
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.ProjectLayout
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.internal.file.FileOperations
+import org.gradle.api.provider.Property
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.UntrackedTask
+import org.gradle.process.ExecOperations
 
 @UntrackedTask(because = "Always apply patches")
 abstract class ApplyPatches : DefaultTask() {
@@ -44,14 +43,30 @@ abstract class ApplyPatches : DefaultTask() {
     @get:InputFile
     abstract val inputFile: RegularFileProperty
 
+    @get:Internal
+    abstract val useNativeDiff: Property<Boolean>
+
+    @get:Internal
+    abstract val patchExecutable: Property<String>
+
     @get:OutputFile
     abstract val outputJar: RegularFileProperty
+
+    @get:Inject
+    abstract val exec: ExecOperations
 
     @get:Inject
     abstract val files: FileOperations
 
     @get:Inject
     abstract val layout: ProjectLayout
+
+    init {
+        run {
+            useNativeDiff.convention(false)
+            patchExecutable.convention("patch")
+        }
+    }
 
     @TaskAction
     fun run() {
@@ -67,79 +82,57 @@ abstract class ApplyPatches : DefaultTask() {
             return
         }
 
-        inputFile.convertToPath().useZip { inputRoot ->
-            out.useZip(create = true) { outputRoot ->
-                val patchRoot = patchDir.convertToPath()
+        val tempInDir = out.resolveSibling(".tmp_applyPatches_input").ensureClean()
+        tempInDir.createDirectory()
+        val tempOutDir = out.resolveSibling(".tmp_applyPatches_output").ensureClean()
+        tempOutDir.createDirectory()
 
-                val result = inputRoot.walk()
-                    .filter { it.name.endsWith(".java") }
-                    .map { original ->
-                        val relPath = original.relativeTo(inputRoot)
-                        val patchPath = relPath.resolveSibling("${relPath.name}.patch").toString()
-                        val patch = patchRoot.resolve(patchPath)
-                        val patched = outputRoot.resolve(original.toString())
-                        PatchTask(patch, original, patched)
-                    }
-                    .fold<_, PatchResult>(PatchSuccess) { acc, value ->
-                        acc.fold(applyPatch(value))
-                    }
+        try {
+            files.sync {
+                from(files.zipTree(inputFile))
+                into(tempInDir)
+            }
 
-                if (result is PatchFailure) {
-                    result.thrown
-                        .map { "Patch failed: ${it.patch.relativeTo(patchRoot)}: ${it.thrown.message}" }
-                        .forEach { logger.error(it) }
-                    throw Exception("Failed to apply patches")
+            val result = createPatcher().applyPatches(tempInDir, patchDir.convertToPath(), tempOutDir)
+
+            out.writeZip { zos ->
+                inputFile.convertToPath().readZip { zis, zipEntry ->
+                    if (!zipEntry.name.endsWith(".java")) {
+                        copyEntry(zis, zos, zipEntry)
+                    } else {
+                        val patchedFile = tempOutDir.resolve(zipEntry.name)
+                        patchedFile.inputStream().buffered().use { input ->
+                            copyEntry(input, zos, zipEntry)
+                        }
+                        val rejectName = zipEntry.name + ".rej"
+                        val rejectFile = tempOutDir.resolve(rejectName)
+                        if (rejectFile.exists()) {
+                            rejectFile.inputStream().buffered().use { input ->
+                                copyEntry(input, zos, ZipEntry(rejectName))
+                            }
+                        }
+                    }
                 }
             }
-        }
-    }
 
-    internal data class PatchTask(val patch: Path, val original: Path, val patched: Path)
-
-    internal sealed interface PatchResult {
-        val thrown: List<PatchFailureDetails>
-            get() = emptyList()
-
-        fun fold(next: PatchResult): PatchResult {
-            return when (this) {
-                PatchSuccess -> next
-                is PatchFailure -> PatchFailure(this.thrown + next.thrown)
+            val patchRoot = patchDir.convertToPath()
+            if (result is PatchFailure) {
+                result.failures
+                    .map { "Patch failed: ${it.patch.relativeTo(patchRoot)}: ${it.details}" }
+                    .forEach { logger.error(it) }
+                throw Exception("Failed to apply patches")
             }
+        } finally {
+            tempInDir.deleteRecursively()
+            tempOutDir.hashCode()
         }
     }
 
-    internal object PatchSuccess : PatchResult
-    internal data class PatchFailure(override val thrown: List<PatchFailureDetails>) : PatchResult {
-        constructor(patch: Path, e: PatchFailedException) : this(listOf(PatchFailureDetails(patch, e)))
-    }
-    internal data class PatchFailureDetails(val patch: Path, val thrown: PatchFailedException)
-
-    internal open fun applyPatch(task: PatchTask): PatchResult {
-        val (patch, original, patched) = task
-
-        patched.parent.createDirectories()
-        if (patch.notExists()) {
-            original.copyTo(patched)
-            return PatchSuccess
+    internal open fun createPatcher(): Patcher {
+        return if (useNativeDiff.get()) {
+            NativePatcher(exec, patchExecutable.get())
+        } else {
+            JavaPatcher()
         }
-
-        val patchLines = patch.readLines(Charsets.UTF_8)
-        val parsedPatch = UnifiedDiffUtils.parseUnifiedDiff(patchLines)
-        val javaLines = original.readLines(Charsets.UTF_8)
-
-        return try {
-            val patchedLines = applyPatch(parsedPatch, javaLines)
-            patched.writeLines(patchedLines, Charsets.UTF_8, CREATE_NEW, WRITE, TRUNCATE_EXISTING)
-            PatchSuccess
-        } catch (e: PatchFailedException) {
-            // patch failed, so copy the file over without the patch applied
-            original.copyTo(patched, overwrite = true)
-            PatchFailure(patch, e)
-        }
-    }
-
-    @Throws(PatchFailedException::class)
-    internal open fun applyPatch(patch: Patch<String>, lines: List<String>): List<String> {
-        return DiffUtils.patch(lines, patch)
     }
 }

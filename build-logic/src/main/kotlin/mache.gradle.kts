@@ -15,6 +15,7 @@ import io.papermc.mache.tasks.RebuildPatches
 import io.papermc.mache.tasks.RemapJar
 import io.papermc.mache.tasks.SetupSources
 import io.papermc.mache.util.asGradleMavenArtifacts
+import io.papermc.mache.util.isNativeDiffAvailable
 import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
@@ -78,6 +79,13 @@ val applyPatches by tasks.registering(ApplyPatches::class) {
         patchDir.set(patchesDir)
     }
 
+    useNativeDiff.set(providers.gradleProperty("useNativeDiff").map { it.toBoolean() }.orElse(isNativeDiffAvailable()))
+    providers.gradleProperty("patchExecutable").let { ex ->
+        if (ex.isPresent) {
+            patchExecutable.set(ex)
+        }
+    }
+
     inputFile.set(decompileJar.flatMap { it.outputJar })
     outputJar.set(layout.buildDirectory.file(PATCHED_JAR))
 }
@@ -128,6 +136,8 @@ tasks.register("rebuildPatches", RebuildPatches::class) {
     description = "Rebuild decompilation patches from the current source set."
     decompJar.set(decompileJar.flatMap { it.outputJar })
     sourceDir.set(layout.projectDirectory.dir("src/main/java"))
+
+    useNativeDiff.set(providers.gradleProperty("useNativeDiff").map { it.toBoolean() }.orElse(isNativeDiffAvailable()))
 
     patchDir.set(layout.projectDirectory.dir("patches"))
 }

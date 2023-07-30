@@ -2,13 +2,19 @@ package io.papermc.mache.util
 
 import io.papermc.mache.lib.data.meta.MavenArtifact
 import java.io.File
+import java.io.InputStream
 import java.lang.Exception
 import java.net.URI
 import java.net.URL
 import java.nio.file.FileSystems
 import java.nio.file.Path
+import java.util.zip.ZipEntry
+import java.util.zip.ZipInputStream
+import java.util.zip.ZipOutputStream
 import kotlin.io.path.createDirectories
 import kotlin.io.path.deleteRecursively
+import kotlin.io.path.inputStream
+import kotlin.io.path.outputStream
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.ExternalDependency
@@ -51,16 +57,34 @@ internal fun Path.ensureClean(): Path {
     return this
 }
 
-inline fun <R> Path.useZip(create: Boolean = false, func: (Path) -> R): R {
-    val fs = if (create) {
-        FileSystems.newFileSystem(this, mapOf("create" to true))
-    } else {
-        FileSystems.newFileSystem(this)
-    }
-
-    return fs.use { f ->
+inline fun <R> Path.useZip(func: (Path) -> R): R {
+    return FileSystems.newFileSystem(this).use { f ->
         val root = f.getPath("/")
         func(root)
+    }
+}
+
+inline fun Path.readZip(func: (ZipInputStream, ZipEntry) -> Unit) {
+    ZipInputStream(this.inputStream().buffered()).use { zis ->
+        var entry = zis.nextEntry
+        while (entry != null) {
+            func(zis, entry)
+            entry = zis.nextEntry
+        }
+    }
+}
+
+inline fun Path.writeZip(func: (ZipOutputStream) -> Unit) {
+    ZipOutputStream(this.outputStream().buffered()).use(func)
+}
+
+fun copyEntry(input: InputStream, output: ZipOutputStream, entry: ZipEntry) {
+    val newEntry = ZipEntry(entry)
+    output.putNextEntry(newEntry)
+    try {
+        input.copyTo(output)
+    } finally {
+        output.closeEntry()
     }
 }
 
@@ -107,4 +131,23 @@ fun Project.asGradleMavenArtifacts(conf: Configuration): List<GradleMavenArtifac
             }
         }
     }
+}
+
+internal fun isNativeDiffAvailable(): Boolean {
+    val diffPresent = runCatching {
+        ProcessBuilder("diff", "--version")
+            .redirectOutput(ProcessBuilder.Redirect.DISCARD)
+            .redirectError(ProcessBuilder.Redirect.DISCARD)
+            .start()
+            .waitFor() == 0
+    }.getOrNull() ?: false
+    val patchPresent = runCatching {
+        ProcessBuilder("patch", "--version")
+            .redirectOutput(ProcessBuilder.Redirect.DISCARD)
+            .redirectError(ProcessBuilder.Redirect.DISCARD)
+            .start()
+            .waitFor() == 0
+    }.getOrNull() ?: false
+
+    return diffPresent && patchPresent
 }
