@@ -3,11 +3,11 @@
 @@ -117,9 +117,8 @@
  
      @Override
-     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> ctx, SuggestionsBuilder builder) {
--        StringReader stringReader = ctx.getSource();
+     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
+-        StringReader stringReader = context.getSource();
 -        if (stringReader instanceof SharedSuggestionProvider sharedSuggestionProvider) {
 -            stringReader = new StringReader(builder.getInput());
-+        if (ctx.getSource() instanceof SharedSuggestionProvider sharedSuggestionProvider) {
++        if (context.getSource() instanceof SharedSuggestionProvider sharedSuggestionProvider) {
 +            StringReader stringReader = new StringReader(builder.getInput());
              stringReader.setCursor(builder.getStart());
              EntitySelectorParser entitySelectorParser = new EntitySelectorParser(stringReader, sharedSuggestionProvider.hasPermission(2));

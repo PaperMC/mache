@@ -1,20 +1,5 @@
 --- a/net/minecraft/core/RegistrySetBuilder.java
 +++ b/net/minecraft/core/RegistrySetBuilder.java
-@@ -22,11 +22,11 @@
- public class RegistrySetBuilder {
-     private final List<RegistrySetBuilder.RegistryStub<?>> entries = new ArrayList<>();
- 
--    static <T> HolderGetter<T> wrapContextLookup(final HolderLookup.RegistryLookup<T> owner) {
--        return new RegistrySetBuilder.EmptyTagLookup<T>(owner) {
-+    static <T> HolderGetter<T> wrapContextLookup(final HolderLookup.RegistryLookup<T> wrapper) {
-+        return new RegistrySetBuilder.EmptyTagLookup<T>(wrapper) {
-             @Override
-             public Optional<Holder.Reference<T>> get(ResourceKey<T> resourceKey) {
--                return owner.get(resourceKey);
-+                return wrapper.get(resourceKey);
-             }
-         };
-     }
 @@ -273,8 +273,8 @@
                  ResourceKey<?> resourceKey = entry.getKey();
                  if (resourceKey.isFor(this.key)) {

@@ -8,4 +8,4 @@
 +                ArgumentBuilder<SharedSuggestionProvider, ?> argumentBuilder = (ArgumentBuilder) commandNode.createBuilder();
                  argumentBuilder.requires(suggestionProvider -> true);
                  if (argumentBuilder.getCommand() != null) {
-                     argumentBuilder.executes(ctx -> 0);
+                     argumentBuilder.executes(context -> 0);
