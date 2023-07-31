@@ -7,8 +7,8 @@ for the PaperMC Minecraft server project, of which Paper's patches will apply to
 anyone else who wants to use it for their own purposes.
 
 This repository is analogous to MCPConfig from Forge ([NeoForm now in NeoForged](https://github.com/NeoForged/NeoForm)).
-This is a separate project so we could focus the output to be centered around our tooling for our purposes, and we could
-customize the output however we like.
+This is a separate project so that we could focus the output to be centered around our tooling for our purposes, and we
+could customize the output however we like.
 
 Goal
 ----
@@ -16,10 +16,10 @@ Goal
 The current goal of this project is to provide the Minecraft source set as un-modified as possible. The patches present
 are only for allowing the decompiled code to be re-compilable. We may still end up publishing additional builds for a
 single Minecraft version, however, as we bring in updates from [codebook](https://github.com/PaperMC/codebook),
-[VineFlower](https://github.com/Vineflower/vineflower), or [yarn](https://github.com/FabricMC/yarn).
+[VineFlower](https://github.com/Vineflower/vineflower), or [Parchment](https://github.com/ParchmentMC/Parchment).
 
-The Minecraft sources generated here use Mojang's official mappings, and we use yarn mappings as a supplement for
-parameter name mappings. Local variable mappings are generated at remap time via
+The Minecraft sources generated here use Mojang's official mappings, and we use Parchment mappings for parameter name
+mappings. Local variable mappings are generated at remap time via
 [codebook](https://github.com/PaperMC/codebook).
 
 Usage
