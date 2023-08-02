@@ -54,6 +54,9 @@ abstract class ApplyPatches : DefaultTask() {
     @get:OutputFile
     abstract val outputJar: RegularFileProperty
 
+    @get:OutputFile
+    abstract val failedPatchesJar: RegularFileProperty
+
     @get:Inject
     abstract val exec: ExecOperations
 
@@ -62,9 +65,6 @@ abstract class ApplyPatches : DefaultTask() {
 
     @get:Inject
     abstract val layout: ProjectLayout
-
-    @get:Internal
-    abstract val failedPatches: SetProperty<Path>
 
     init {
         run {
@@ -81,6 +81,7 @@ abstract class ApplyPatches : DefaultTask() {
         }
 
         val out = outputJar.convertToPath().ensureClean()
+        val failed = failedPatchesJar.convertToPath().ensureClean()
 
         if (!patchesPresent) {
             inputFile.convertToPath().copyTo(out)
@@ -91,6 +92,8 @@ abstract class ApplyPatches : DefaultTask() {
         tempInDir.createDirectory()
         val tempOutDir = out.resolveSibling(".tmp_applyPatches_output").ensureClean()
         tempOutDir.createDirectory()
+        val tempFailedPatchDir = out.resolveSibling(".tmp_applyPatches_failed").ensureClean()
+        tempFailedPatchDir.createDirectory()
 
         try {
             files.sync {
@@ -98,43 +101,49 @@ abstract class ApplyPatches : DefaultTask() {
                 into(tempInDir)
             }
 
-            val result = createPatcher().applyPatches(tempInDir, patchDir.convertToPath(), tempOutDir)
+            val result = createPatcher().applyPatches(tempInDir, patchDir.convertToPath(), tempOutDir, tempFailedPatchDir)
 
             out.writeZip { zos ->
-                inputFile.convertToPath().readZip { zis, zipEntry ->
-                    if (!zipEntry.name.endsWith(".java")) {
-                        copyEntry(zis, zos, zipEntry)
-                    } else {
-                        val patchedFile = tempOutDir.resolve(zipEntry.name)
-                        patchedFile.inputStream().buffered().use { input ->
-                            copyEntry(input, zos, zipEntry)
-                        }
-                        val rejectName = zipEntry.name + ".rej"
-                        val rejectFile = tempOutDir.resolve(rejectName)
-                        if (rejectFile.exists()) {
-                            rejectFile.inputStream().buffered().use { input ->
-                                copyEntry(input, zos, ZipEntry(rejectName))
+                failed.writeZip { failedZos ->
+                    inputFile.convertToPath().readZip { zis, zipEntry ->
+                        if (!zipEntry.name.endsWith(".java")) {
+                            copyEntry(zis, zos, zipEntry)
+                        } else {
+                            val patchedFile = tempOutDir.resolve(zipEntry.name)
+                            if (patchedFile.exists()) {
+                                patchedFile.inputStream().buffered().use { input ->
+                                    copyEntry(input, zos, zipEntry)
+                                }
+                            }
+                            val failedPatch = tempFailedPatchDir.resolve(zipEntry.name)
+                            if (failedPatch.exists()) {
+                                failedPatch.inputStream().buffered().use { input ->
+                                    copyEntry(input, failedZos, zipEntry)
+                                }
+                            }
+                            val rejectName = zipEntry.name + ".rej"
+                            val rejectFile = tempOutDir.resolve(rejectName)
+                            if (rejectFile.exists()) {
+                                rejectFile.inputStream().buffered().use { input ->
+                                    copyEntry(input, failedZos, ZipEntry(rejectName))
+                                }
                             }
                         }
                     }
                 }
             }
 
-            val failedPatchSet: MutableSet<Path> = mutableSetOf();
             val patchRoot = patchDir.convertToPath()
             if (result is PatchFailure) {
                 result.failures
-                    .map { Pair("Patch failed: ${it.patch.relativeTo(patchRoot)}: ${it.details}", it.patch) }
-                    .forEach {
-                        logger.error(it.first)
-                        failedPatchSet.add(it.second.relativeTo(patchRoot))
-                    }
-                failedPatches.set(failedPatchSet)
+                    .map { "Patch failed: ${it.patch.relativeTo(patchRoot)}: ${it.details}" }
+                    .forEach { logger.error(it) }
                 throw Exception("Failed to apply patches")
             }
         } finally {
             tempInDir.deleteRecursively()
-            tempOutDir.hashCode()
+            tempOutDir.deleteRecursively()
+            tempFailedPatchDir.deleteRecursively()
         }
     }
 

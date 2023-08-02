@@ -4,7 +4,7 @@ import java.nio.file.Path
 
 internal interface Patcher {
 
-    fun applyPatches(baseDir: Path, patchDir: Path, outputDir: Path): PatchResult
+    fun applyPatches(baseDir: Path, patchDir: Path, outputDir: Path, failedDir: Path): PatchResult
 }
 
 internal sealed interface PatchResult {

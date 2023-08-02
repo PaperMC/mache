@@ -1,11 +1,6 @@
 import io.papermc.mache.ConfigureVersionProject
 import io.papermc.mache.MacheExtension
-import io.papermc.mache.constants.DECOMP_JAR
-import io.papermc.mache.constants.DOWNLOAD_SERVER_JAR
-import io.papermc.mache.constants.PATCHED_JAR
-import io.papermc.mache.constants.REMAPPED_JAR
-import io.papermc.mache.constants.SERVER_JAR
-import io.papermc.mache.constants.SERVER_MAPPINGS
+import io.papermc.mache.constants.*
 import io.papermc.mache.tasks.ApplyPatches
 import io.papermc.mache.tasks.ApplyPatchesFuzzy
 import io.papermc.mache.tasks.DecompileJar
@@ -89,22 +84,19 @@ val applyPatches by tasks.registering(ApplyPatches::class) {
 
     inputFile.set(decompileJar.flatMap { it.outputJar })
     outputJar.set(layout.buildDirectory.file(PATCHED_JAR))
+    failedPatchesJar.set(layout.buildDirectory.file(FAILED_PATCH_JAR))
 }
 
-fun createSetupSources(name: String, failedPatchSet: Provider<Set<Path>>): TaskProvider<SetupSources> {
-    return tasks.register(name, SetupSources::class) {
-        failedPatches.set(failedPatchSet)
-        decompJar.set(decompileJar.flatMap { it.outputJar })
-        // Don't use the output of applyPatches directly with a flatMap
-        // That would tell Gradle that this task dependsOn applyPatches, so it
-        // would no longer work as a finalizer task if applyPatches fails
-        patchedJar.set(layout.buildDirectory.file(PATCHED_JAR))
+val setupSources by tasks.registering(SetupSources::class) {
+    decompJar.set(decompileJar.flatMap { it.outputJar })
+    // Don't use the output of applyPatches directly with a flatMap
+    // That would tell Gradle that this task dependsOn applyPatches, so it
+    // would no longer work as a finalizer task if applyPatches fails
+    patchedJar.set(layout.buildDirectory.file(PATCHED_JAR))
+    failedPatchJar.set(layout.buildDirectory.file(FAILED_PATCH_JAR))
 
-        sourceDir.set(layout.projectDirectory.dir("src/main/java"))
-    }
+    sourceDir.set(layout.projectDirectory.dir("src/main/java"))
 }
-
-val setupSources = createSetupSources("setupSources", applyPatches.flatMap { it.failedPatches })
 
 applyPatches.configure {
     finalizedBy(setupSources)
@@ -121,12 +113,6 @@ val applyPatchesFuzzy by tasks.registering(ApplyPatchesFuzzy::class) {
 
     inputFile.set(decompileJar.flatMap { it.outputJar })
     outputJar.set(layout.buildDirectory.file(PATCHED_JAR))
-}
-
-val setupFuzzySources = createSetupSources("setupFuzzySources", applyPatchesFuzzy.flatMap { it.failedPatches })
-
-applyPatchesFuzzy.configure {
-    finalizedBy(setupFuzzySources)
 }
 
 val copyResources by tasks.registering(Sync::class) {

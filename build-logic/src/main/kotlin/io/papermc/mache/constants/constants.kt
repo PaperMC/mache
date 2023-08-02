@@ -18,3 +18,4 @@ const val DECOMP_JAR = "$SERVER_DIR/decomp.jar"
 const val DECOMP_CFG = "$SERVER_DIR/decomp.cfg"
 
 const val PATCHED_JAR = "$SERVER_DIR/patched.jar"
+const val FAILED_PATCH_JAR = "$SERVER_DIR/failed_patch.jar"

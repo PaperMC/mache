@@ -17,7 +17,7 @@ import kotlin.io.path.writeLines
 
 internal open class JavaPatcher : Patcher {
 
-    override fun applyPatches(baseDir: Path, patchDir: Path, outputDir: Path): PatchResult {
+    override fun applyPatches(baseDir: Path, patchDir: Path, outputDir: Path, failedDir: Path): PatchResult {
         val result = baseDir.walk()
             .filter { it.name.endsWith(".java") }
             .map { original ->

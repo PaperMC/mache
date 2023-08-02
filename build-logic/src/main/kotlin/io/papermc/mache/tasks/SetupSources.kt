@@ -33,9 +33,8 @@ abstract class SetupSources : DefaultTask() {
     @get:InputFile
     abstract val patchedJar: RegularFileProperty
 
-    @get:Input
-    @get:Optional
-    abstract val failedPatches: SetProperty<Path>
+    @get:InputFile
+    abstract val failedPatchJar: RegularFileProperty
 
     @get:OutputDirectory
     abstract val sourceDir: DirectoryProperty
@@ -97,20 +96,18 @@ abstract class SetupSources : DefaultTask() {
         }
 
         git.add().addFilepattern(".").call()
-
-        val reset = git.reset()
-        failedPatches.get().forEach {
-            reset.addPath(it.toString().removeSuffix(".patch"))
-        }
-        if (failedPatches.get().size > 0) {
-            reset.call()
-        }
         git.commit()
             .setMessage("Patched")
             .setAuthor(macheIdent)
             .setSign(false)
             .call()
         git.tag().setName("patched").setTagger(macheIdent).setSigned(false).call()
+
+        files.copy {
+            from(files.zipTree(failedPatchJar))
+            into(sourceDir)
+            includeEmptyDirs = false
+        }
     }
 
     private fun setupInitialRepo(path: Path): Git {
