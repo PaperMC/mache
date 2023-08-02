@@ -1,0 +1,109 @@
+--- a/net/minecraft/network/FriendlyByteBuf.java
++++ b/net/minecraft/network/FriendlyByteBuf.java
+@@ -142,7 +142,7 @@
+                 break;
+             case DIRECT:
+                 this.writeVarInt(0);
+-                writer.accept((T)this, value.value());
++                writer.accept(this, value.value());
+         }
+     }
+ 
+@@ -155,7 +155,7 @@
+     public <T> Holder<T> readById(IdMap<Holder<T>> idMap, FriendlyByteBuf.Reader<T> reader) {
+         int varInt = this.readVarInt();
+         if (varInt == 0) {
+-            return Holder.direct(reader.apply((T)this));
++            return Holder.direct(reader.apply(this));
+         } else {
+             Holder<T> holder = idMap.byId(varInt - 1);
+             if (holder == null) {
+@@ -181,7 +181,7 @@
+         C collection = collectionFactory.apply(varInt);
+ 
+         for(int i = 0; i < varInt; ++i) {
+-            collection.add(elementReader.apply((T)this));
++            collection.add(elementReader.apply(this));
+         }
+ 
+         return collection;
+@@ -191,7 +191,7 @@
+         this.writeVarInt(collection.size());
+ 
+         for(T object : collection) {
+-            elementWriter.accept((T)this, object);
++            elementWriter.accept(this, object);
+         }
+     }
+ 
+@@ -220,8 +220,8 @@
+         M map = mapFactory.apply(varInt);
+ 
+         for(int i = 0; i < varInt; ++i) {
+-            K object = keyReader.apply((K)this);
+-            V object1 = valueReader.apply((V)this);
++            K object = keyReader.apply(this);
++            V object1 = valueReader.apply(this);
+             map.put(object, object1);
+         }
+ 
+@@ -235,8 +235,8 @@
+     public <K, V> void writeMap(Map<K, V> map, FriendlyByteBuf.Writer<K> keyWriter, FriendlyByteBuf.Writer<V> valueWriter) {
+         this.writeVarInt(map.size());
+         map.forEach((object, object1) -> {
+-            keyWriter.accept((K)this, object);
+-            valueWriter.accept((V)this, object1);
++            keyWriter.accept(this, object);
++            valueWriter.accept(this, object1);
+         });
+     }
+ 
+@@ -276,25 +276,25 @@
+     public <T> void writeOptional(Optional<T> optional, FriendlyByteBuf.Writer<T> writer) {
+         if (optional.isPresent()) {
+             this.writeBoolean(true);
+-            writer.accept((T)this, optional.get());
++            writer.accept(this, optional.get());
+         } else {
+             this.writeBoolean(false);
+         }
+     }
+ 
+     public <T> Optional<T> readOptional(FriendlyByteBuf.Reader<T> reader) {
+-        return this.readBoolean() ? Optional.of(reader.apply((T)this)) : Optional.empty();
++        return this.readBoolean() ? Optional.of(reader.apply(this)) : Optional.empty();
+     }
+ 
+     @Nullable
+     public <T> T readNullable(FriendlyByteBuf.Reader<T> reader) {
+-        return this.readBoolean() ? reader.apply((T)this) : null;
++        return this.readBoolean() ? reader.apply(this) : null;
+     }
+ 
+     public <T> void writeNullable(@Nullable T value, FriendlyByteBuf.Writer<T> writer) {
+         if (value != null) {
+             this.writeBoolean(true);
+-            writer.accept((T)this, value);
++            writer.accept(this, value);
+         } else {
+             this.writeBoolean(false);
+         }
+@@ -303,15 +303,15 @@
+     public <L, R> void writeEither(Either<L, R> value, FriendlyByteBuf.Writer<L> leftWriter, FriendlyByteBuf.Writer<R> rightWriter) {
+         value.ifLeft(object -> {
+             this.writeBoolean(true);
+-            leftWriter.accept((L)this, object);
++            leftWriter.accept(this, object);
+         }).ifRight(object -> {
+             this.writeBoolean(false);
+-            rightWriter.accept((R)this, object);
++            rightWriter.accept(this, object);
+         });
+     }
+ 
+     public <L, R> Either<L, R> readEither(FriendlyByteBuf.Reader<L> leftReader, FriendlyByteBuf.Reader<R> rightReader) {
+-        return this.readBoolean() ? Either.left(leftReader.apply((L)this)) : Either.right(rightReader.apply((R)this));
++        return this.readBoolean() ? Either.left(leftReader.apply(this)) : Either.right(rightReader.apply(this));
+     }
+ 
+     public byte[] readByteArray() {

@@ -1,0 +1,35 @@
+--- a/net/minecraft/network/protocol/game/ServerboundConfigurationAcknowledgedPacket.java
++++ b/net/minecraft/network/protocol/game/ServerboundConfigurationAcknowledgedPacket.java
+@@ -1,11 +1,10 @@
+ package net.minecraft.network.protocol.game;
+ 
+-import java.lang.runtime.ObjectMethods;
+ import net.minecraft.network.ConnectionProtocol;
+ import net.minecraft.network.FriendlyByteBuf;
+ import net.minecraft.network.protocol.Packet;
+ 
+-public final class ServerboundConfigurationAcknowledgedPacket extends Record implements Packet<ServerGamePacketListener> {
++public record ServerboundConfigurationAcknowledgedPacket() implements Packet<ServerGamePacketListener> {
+     public ServerboundConfigurationAcknowledgedPacket(FriendlyByteBuf friendlyByteBuf) {
+         this();
+     }
+@@ -26,19 +25,4 @@
+     public ConnectionProtocol nextProtocol() {
+         return ConnectionProtocol.CONFIGURATION;
+     }
+-
+-    @Override
+-    public final String toString() {
+-        return ObjectMethods.bootstrap<"toString",ServerboundConfigurationAcknowledgedPacket,"">(this);
+-    }
+-
+-    @Override
+-    public final int hashCode() {
+-        return ObjectMethods.bootstrap<"hashCode",ServerboundConfigurationAcknowledgedPacket,"">(this);
+-    }
+-
+-    @Override
+-    public final boolean equals(Object object) {
+-        return ObjectMethods.bootstrap<"equals",ServerboundConfigurationAcknowledgedPacket,"">(this, object);
+-    }
+ }

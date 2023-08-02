@@ -1,0 +1,31 @@
+--- a/net/minecraft/network/protocol/configuration/ServerboundFinishConfigurationPacket.java
++++ b/net/minecraft/network/protocol/configuration/ServerboundFinishConfigurationPacket.java
+@@ -5,7 +5,7 @@
+ import net.minecraft.network.FriendlyByteBuf;
+ import net.minecraft.network.protocol.Packet;
+ 
+-public final class ServerboundFinishConfigurationPacket extends Record implements Packet<ServerConfigurationPacketListener> {
++public final class ServerboundFinishConfigurationPacket implements Packet<ServerConfigurationPacketListener> {
+     public ServerboundFinishConfigurationPacket(FriendlyByteBuf friendlyByteBuf) {
+         this();
+     }
+@@ -26,19 +26,4 @@
+     public ConnectionProtocol nextProtocol() {
+         return ConnectionProtocol.PLAY;
+     }
+-
+-    @Override
+-    public final String toString() {
+-        return ObjectMethods.bootstrap<"toString",ServerboundFinishConfigurationPacket,"">(this);
+-    }
+-
+-    @Override
+-    public final int hashCode() {
+-        return ObjectMethods.bootstrap<"hashCode",ServerboundFinishConfigurationPacket,"">(this);
+-    }
+-
+-    @Override
+-    public final boolean equals(Object object) {
+-        return ObjectMethods.bootstrap<"equals",ServerboundFinishConfigurationPacket,"">(this, object);
+-    }
+ }

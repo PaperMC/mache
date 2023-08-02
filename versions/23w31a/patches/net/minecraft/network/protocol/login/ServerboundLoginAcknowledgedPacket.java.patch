@@ -1,0 +1,35 @@
+--- a/net/minecraft/network/protocol/login/ServerboundLoginAcknowledgedPacket.java
++++ b/net/minecraft/network/protocol/login/ServerboundLoginAcknowledgedPacket.java
+@@ -1,11 +1,10 @@
+ package net.minecraft.network.protocol.login;
+ 
+-import java.lang.runtime.ObjectMethods;
+ import net.minecraft.network.ConnectionProtocol;
+ import net.minecraft.network.FriendlyByteBuf;
+ import net.minecraft.network.protocol.Packet;
+ 
+-public final class ServerboundLoginAcknowledgedPacket extends Record implements Packet<ServerLoginPacketListener> {
++public record ServerboundLoginAcknowledgedPacket() implements Packet<ServerLoginPacketListener> {
+     public ServerboundLoginAcknowledgedPacket(FriendlyByteBuf friendlyByteBuf) {
+         this();
+     }
+@@ -26,19 +25,4 @@
+     public ConnectionProtocol nextProtocol() {
+         return ConnectionProtocol.CONFIGURATION;
+     }
+-
+-    @Override
+-    public final String toString() {
+-        return ObjectMethods.bootstrap<"toString",ServerboundLoginAcknowledgedPacket,"">(this);
+-    }
+-
+-    @Override
+-    public final int hashCode() {
+-        return ObjectMethods.bootstrap<"hashCode",ServerboundLoginAcknowledgedPacket,"">(this);
+-    }
+-
+-    @Override
+-    public final boolean equals(Object object) {
+-        return ObjectMethods.bootstrap<"equals",ServerboundLoginAcknowledgedPacket,"">(this, object);
+-    }
+ }

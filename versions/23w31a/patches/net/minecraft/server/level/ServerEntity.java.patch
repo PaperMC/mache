@@ -1,0 +1,12 @@
+--- a/net/minecraft/server/level/ServerEntity.java
++++ b/net/minecraft/server/level/ServerEntity.java
+@@ -94,8 +94,7 @@
+             this.lastPassengers = passengers;
+         }
+ 
+-        Entity floor1 = this.entity;
+-        if (floor1 instanceof ItemFrame itemFrame && this.tickCount % 10 == 0) {
++        if (this.entity instanceof ItemFrame itemFrame && this.tickCount % 10 == 0) {
+             ItemStack item = itemFrame.getItem();
+             if (item.getItem() instanceof MapItem) {
+                 Integer mapId = MapItem.getMapId(item);

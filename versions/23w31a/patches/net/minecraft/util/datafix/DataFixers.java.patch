@@ -1,0 +1,20 @@
+--- a/net/minecraft/util/datafix/DataFixers.java
++++ b/net/minecraft/util/datafix/DataFixers.java
+@@ -1011,7 +1011,7 @@
+                 References.ENTITY,
+                 "minecraft:cat",
+                 "CatType",
+-                Util.make(new Int2ObjectOpenHashMap(), int2ObjectOpenHashMap -> {
++                Util.make(new Int2ObjectOpenHashMap<String>(), int2ObjectOpenHashMap -> {
+                     int2ObjectOpenHashMap.defaultReturnValue("minecraft:tabby");
+                     int2ObjectOpenHashMap.put(0, "minecraft:tabby");
+                     int2ObjectOpenHashMap.put(1, "minecraft:black");
+@@ -1053,7 +1053,7 @@
+                 References.ENTITY,
+                 "minecraft:frog",
+                 "Variant",
+-                Util.make(new Int2ObjectOpenHashMap(), int2ObjectOpenHashMap -> {
++                Util.make(new Int2ObjectOpenHashMap<String>(), int2ObjectOpenHashMap -> {
+                     int2ObjectOpenHashMap.put(0, "minecraft:temperate");
+                     int2ObjectOpenHashMap.put(1, "minecraft:warm");
+                     int2ObjectOpenHashMap.put(2, "minecraft:cold");

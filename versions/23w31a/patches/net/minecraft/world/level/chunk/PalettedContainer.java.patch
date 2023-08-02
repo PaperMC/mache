@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/chunk/PalettedContainer.java
++++ b/net/minecraft/world/level/chunk/PalettedContainer.java
+@@ -55,7 +55,7 @@
+     private static <T, C extends PalettedContainerRO<T>> Codec<C> codec(
+         IdMap<T> registry, Codec<T> codec, PalettedContainer.Strategy strategy, T value, PalettedContainerRO.Unpacker<T, C> unpacker
+     ) {
+-        return RecordCodecBuilder.<PalettedContainerRO.PackedData>create(
++        return RecordCodecBuilder.<PalettedContainerRO.PackedData<T>>create(
+                 codec1 -> codec1.group(
+                             codec.mapResult(ExtraCodecs.orElsePartial(value))
+                                 .listOf()

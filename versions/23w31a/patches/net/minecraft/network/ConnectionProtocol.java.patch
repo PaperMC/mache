@@ -1,0 +1,128 @@
+--- a/net/minecraft/network/ConnectionProtocol.java
++++ b/net/minecraft/network/ConnectionProtocol.java
+@@ -30,10 +30,13 @@
+ import net.minecraft.network.protocol.common.ServerboundKeepAlivePacket;
+ import net.minecraft.network.protocol.common.ServerboundPongPacket;
+ import net.minecraft.network.protocol.common.ServerboundResourcePackPacket;
++import net.minecraft.network.protocol.configuration.ClientConfigurationPacketListener;
+ import net.minecraft.network.protocol.configuration.ClientboundFinishConfigurationPacket;
+ import net.minecraft.network.protocol.configuration.ClientboundRegistryDataPacket;
+ import net.minecraft.network.protocol.configuration.ClientboundUpdateEnabledFeaturesPacket;
++import net.minecraft.network.protocol.configuration.ServerConfigurationPacketListener;
+ import net.minecraft.network.protocol.configuration.ServerboundFinishConfigurationPacket;
++import net.minecraft.network.protocol.game.ClientGamePacketListener;
+ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+ import net.minecraft.network.protocol.game.ClientboundAddExperienceOrbPacket;
+ import net.minecraft.network.protocol.game.ClientboundAddPlayerPacket;
+@@ -139,6 +142,8 @@
+ import net.minecraft.network.protocol.game.ClientboundUpdateAttributesPacket;
+ import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
+ import net.minecraft.network.protocol.game.ClientboundUpdateRecipesPacket;
++import net.minecraft.network.protocol.game.ServerGamePacketListener;
++import net.minecraft.network.protocol.game.ServerPacketListener;
+ import net.minecraft.network.protocol.game.ServerboundAcceptTeleportationPacket;
+ import net.minecraft.network.protocol.game.ServerboundBlockEntityTagQuery;
+ import net.minecraft.network.protocol.game.ServerboundChangeDifficultyPacket;
+@@ -186,17 +191,22 @@
+ import net.minecraft.network.protocol.game.ServerboundUseItemOnPacket;
+ import net.minecraft.network.protocol.game.ServerboundUseItemPacket;
+ import net.minecraft.network.protocol.handshake.ClientIntentionPacket;
++import net.minecraft.network.protocol.handshake.ServerHandshakePacketListener;
++import net.minecraft.network.protocol.login.ClientLoginPacketListener;
+ import net.minecraft.network.protocol.login.ClientboundCustomQueryPacket;
+ import net.minecraft.network.protocol.login.ClientboundGameProfilePacket;
+ import net.minecraft.network.protocol.login.ClientboundHelloPacket;
+ import net.minecraft.network.protocol.login.ClientboundLoginCompressionPacket;
+ import net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket;
++import net.minecraft.network.protocol.login.ServerLoginPacketListener;
+ import net.minecraft.network.protocol.login.ServerboundCustomQueryAnswerPacket;
+ import net.minecraft.network.protocol.login.ServerboundHelloPacket;
+ import net.minecraft.network.protocol.login.ServerboundKeyPacket;
+ import net.minecraft.network.protocol.login.ServerboundLoginAcknowledgedPacket;
++import net.minecraft.network.protocol.status.ClientStatusPacketListener;
+ import net.minecraft.network.protocol.status.ClientboundPongResponsePacket;
+ import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
++import net.minecraft.network.protocol.status.ServerStatusPacketListener;
+ import net.minecraft.network.protocol.status.ServerboundPingRequestPacket;
+ import net.minecraft.network.protocol.status.ServerboundStatusRequestPacket;
+ import net.minecraft.util.VisibleForDebug;
+@@ -206,15 +216,15 @@
+     HANDSHAKING(
+         "handshake",
+         protocol()
+-            .addFlow(PacketFlow.CLIENTBOUND, new ConnectionProtocol.PacketSet())
+-            .addFlow(PacketFlow.SERVERBOUND, new ConnectionProtocol.PacketSet().addPacket(ClientIntentionPacket.class, ClientIntentionPacket::new))
++            .addFlow(PacketFlow.CLIENTBOUND, new ConnectionProtocol.PacketSet<ServerPacketListener>())
++            .addFlow(PacketFlow.SERVERBOUND, new ConnectionProtocol.PacketSet<ServerHandshakePacketListener>().addPacket(ClientIntentionPacket.class, ClientIntentionPacket::new))
+     ),
+     PLAY(
+         "play",
+         protocol()
+             .addFlow(
+                 PacketFlow.CLIENTBOUND,
+-                new ConnectionProtocol.PacketSet()
++                new ConnectionProtocol.PacketSet<ClientGamePacketListener>()
+                     .withBundlePacket(ClientboundBundlePacket.class, ClientboundBundlePacket::new)
+                     .addPacket(ClientboundAddEntityPacket.class, ClientboundAddEntityPacket::new)
+                     .addPacket(ClientboundAddExperienceOrbPacket.class, ClientboundAddExperienceOrbPacket::new)
+@@ -331,7 +341,7 @@
+             )
+             .addFlow(
+                 PacketFlow.SERVERBOUND,
+-                new ConnectionProtocol.PacketSet()
++                new ConnectionProtocol.PacketSet<ServerGamePacketListener>()
+                     .addPacket(ServerboundAcceptTeleportationPacket.class, ServerboundAcceptTeleportationPacket::new)
+                     .addPacket(ServerboundBlockEntityTagQuery.class, ServerboundBlockEntityTagQuery::new)
+                     .addPacket(ServerboundChangeDifficultyPacket.class, ServerboundChangeDifficultyPacket::new)
+@@ -392,13 +402,13 @@
+         protocol()
+             .addFlow(
+                 PacketFlow.SERVERBOUND,
+-                new ConnectionProtocol.PacketSet()
++                new ConnectionProtocol.PacketSet<ServerStatusPacketListener>()
+                     .addPacket(ServerboundStatusRequestPacket.class, ServerboundStatusRequestPacket::new)
+                     .addPacket(ServerboundPingRequestPacket.class, ServerboundPingRequestPacket::new)
+             )
+             .addFlow(
+                 PacketFlow.CLIENTBOUND,
+-                new ConnectionProtocol.PacketSet()
++                new ConnectionProtocol.PacketSet<ClientStatusPacketListener>()
+                     .addPacket(ClientboundStatusResponsePacket.class, ClientboundStatusResponsePacket::new)
+                     .addPacket(ClientboundPongResponsePacket.class, ClientboundPongResponsePacket::new)
+             )
+@@ -408,7 +418,7 @@
+         protocol()
+             .addFlow(
+                 PacketFlow.CLIENTBOUND,
+-                new ConnectionProtocol.PacketSet()
++                new ConnectionProtocol.PacketSet<ClientLoginPacketListener>()
+                     .addPacket(ClientboundLoginDisconnectPacket.class, ClientboundLoginDisconnectPacket::new)
+                     .addPacket(ClientboundHelloPacket.class, ClientboundHelloPacket::new)
+                     .addPacket(ClientboundGameProfilePacket.class, ClientboundGameProfilePacket::new)
+@@ -417,7 +427,7 @@
+             )
+             .addFlow(
+                 PacketFlow.SERVERBOUND,
+-                new ConnectionProtocol.PacketSet()
++                new ConnectionProtocol.PacketSet<ServerLoginPacketListener>()
+                     .addPacket(ServerboundHelloPacket.class, ServerboundHelloPacket::new)
+                     .addPacket(ServerboundKeyPacket.class, ServerboundKeyPacket::new)
+                     .addPacket(ServerboundCustomQueryAnswerPacket.class, ServerboundCustomQueryAnswerPacket::read)
+@@ -429,7 +439,7 @@
+         protocol()
+             .addFlow(
+                 PacketFlow.CLIENTBOUND,
+-                new ConnectionProtocol.PacketSet()
++                new ConnectionProtocol.PacketSet<ClientConfigurationPacketListener>()
+                     .addPacket(ClientboundCustomPayloadPacket.class, ClientboundCustomPayloadPacket::new)
+                     .addPacket(ClientboundDisconnectPacket.class, ClientboundDisconnectPacket::new)
+                     .addPacket(ClientboundFinishConfigurationPacket.class, ClientboundFinishConfigurationPacket::new)
+@@ -442,7 +452,7 @@
+             )
+             .addFlow(
+                 PacketFlow.SERVERBOUND,
+-                new ConnectionProtocol.PacketSet()
++                new ConnectionProtocol.PacketSet<ServerConfigurationPacketListener>()
+                     .addPacket(ServerboundCustomPayloadPacket.class, ServerboundCustomPayloadPacket::new)
+                     .addPacket(ServerboundFinishConfigurationPacket.class, ServerboundFinishConfigurationPacket::new)
+                     .addPacket(ServerboundKeepAlivePacket.class, ServerboundKeepAlivePacket::new)
