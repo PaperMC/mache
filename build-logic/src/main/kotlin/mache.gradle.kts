@@ -17,6 +17,7 @@ import io.papermc.mache.tasks.SetupSources
 import io.papermc.mache.util.asGradleMavenArtifacts
 import io.papermc.mache.util.isNativeDiffAvailable
 import org.gradle.accessors.dm.LibrariesForLibs
+import java.nio.file.Path
 
 plugins {
     java
@@ -90,15 +91,20 @@ val applyPatches by tasks.registering(ApplyPatches::class) {
     outputJar.set(layout.buildDirectory.file(PATCHED_JAR))
 }
 
-val setupSources by tasks.registering(SetupSources::class) {
-    decompJar.set(decompileJar.flatMap { it.outputJar })
-    // Don't use the output of applyPatches directly with a flatMap
-    // That would tell Gradle that this task dependsOn applyPatches, so it
-    // would no longer work as a finalizer task if applyPatches fails
-    patchedJar.set(layout.buildDirectory.file(PATCHED_JAR))
+fun createSetupSources(name: String, failedPatchSet: Provider<Set<Path>>): TaskProvider<SetupSources> {
+    return tasks.register(name, SetupSources::class) {
+        failedPatches.set(failedPatchSet)
+        decompJar.set(decompileJar.flatMap { it.outputJar })
+        // Don't use the output of applyPatches directly with a flatMap
+        // That would tell Gradle that this task dependsOn applyPatches, so it
+        // would no longer work as a finalizer task if applyPatches fails
+        patchedJar.set(layout.buildDirectory.file(PATCHED_JAR))
 
-    sourceDir.set(layout.projectDirectory.dir("src/main/java"))
+        sourceDir.set(layout.projectDirectory.dir("src/main/java"))
+    }
 }
+
+val setupSources = createSetupSources("setupSources", applyPatches.flatMap { it.failedPatches })
 
 applyPatches.configure {
     finalizedBy(setupSources)
@@ -115,6 +121,12 @@ val applyPatchesFuzzy by tasks.registering(ApplyPatchesFuzzy::class) {
 
     inputFile.set(decompileJar.flatMap { it.outputJar })
     outputJar.set(layout.buildDirectory.file(PATCHED_JAR))
+}
+
+val setupFuzzySources = createSetupSources("setupFuzzySources", applyPatchesFuzzy.flatMap { it.failedPatches })
+
+applyPatchesFuzzy.configure {
+    finalizedBy(setupFuzzySources)
 }
 
 val copyResources by tasks.registering(Sync::class) {

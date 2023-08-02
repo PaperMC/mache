@@ -16,7 +16,10 @@ import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.ProjectLayout
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.internal.file.FileOperations
+import org.gradle.api.provider.SetProperty
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.UntrackedTask
@@ -29,6 +32,10 @@ abstract class SetupSources : DefaultTask() {
 
     @get:InputFile
     abstract val patchedJar: RegularFileProperty
+
+    @get:Input
+    @get:Optional
+    abstract val failedPatches: SetProperty<Path>
 
     @get:OutputDirectory
     abstract val sourceDir: DirectoryProperty
@@ -90,6 +97,14 @@ abstract class SetupSources : DefaultTask() {
         }
 
         git.add().addFilepattern(".").call()
+
+        val reset = git.reset()
+        failedPatches.get().forEach {
+            reset.addPath(it.toString().removeSuffix(".patch"))
+        }
+        if (failedPatches.get().size > 0) {
+            reset.call()
+        }
         git.commit()
             .setMessage("Patched")
             .setAuthor(macheIdent)

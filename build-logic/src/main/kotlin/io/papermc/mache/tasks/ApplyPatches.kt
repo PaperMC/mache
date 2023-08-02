@@ -24,6 +24,7 @@ import org.gradle.api.file.ProjectLayout
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.internal.file.FileOperations
 import org.gradle.api.provider.Property
+import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Internal
@@ -32,6 +33,7 @@ import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.UntrackedTask
 import org.gradle.process.ExecOperations
+import java.nio.file.Path
 
 @UntrackedTask(because = "Always apply patches")
 abstract class ApplyPatches : DefaultTask() {
@@ -60,6 +62,9 @@ abstract class ApplyPatches : DefaultTask() {
 
     @get:Inject
     abstract val layout: ProjectLayout
+
+    @get:Internal
+    abstract val failedPatches: SetProperty<Path>
 
     init {
         run {
@@ -115,11 +120,16 @@ abstract class ApplyPatches : DefaultTask() {
                 }
             }
 
+            val failedPatchSet: MutableSet<Path> = mutableSetOf();
             val patchRoot = patchDir.convertToPath()
             if (result is PatchFailure) {
                 result.failures
-                    .map { "Patch failed: ${it.patch.relativeTo(patchRoot)}: ${it.details}" }
-                    .forEach { logger.error(it) }
+                    .map { Pair("Patch failed: ${it.patch.relativeTo(patchRoot)}: ${it.details}", it.patch) }
+                    .forEach {
+                        logger.error(it.first)
+                        failedPatchSet.add(it.second.relativeTo(patchRoot))
+                    }
+                failedPatches.set(failedPatchSet)
                 throw Exception("Failed to apply patches")
             }
         } finally {
