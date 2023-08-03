@@ -9,7 +9,6 @@ import io.papermc.mache.util.patches.PatchFailure
 import io.papermc.mache.util.patches.Patcher
 import io.papermc.mache.util.readZip
 import io.papermc.mache.util.writeZip
-import java.util.zip.ZipEntry
 import javax.inject.Inject
 import kotlin.io.path.copyTo
 import kotlin.io.path.createDirectory
@@ -24,7 +23,6 @@ import org.gradle.api.file.ProjectLayout
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.internal.file.FileOperations
 import org.gradle.api.provider.Property
-import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Internal
@@ -33,7 +31,6 @@ import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.UntrackedTask
 import org.gradle.process.ExecOperations
-import java.nio.file.Path
 
 @UntrackedTask(because = "Always apply patches")
 abstract class ApplyPatches : DefaultTask() {

@@ -3,8 +3,15 @@ package io.papermc.mache.util.patches
 import java.io.ByteArrayOutputStream
 import java.nio.charset.Charset
 import java.nio.file.Path
+import kotlin.io.path.absolutePathString
+import kotlin.io.path.copyTo
+import kotlin.io.path.createDirectories
+import kotlin.io.path.moveTo
+import kotlin.io.path.name
+import kotlin.io.path.nameWithoutExtension
+import kotlin.io.path.relativeTo
+import kotlin.io.path.walk
 import org.gradle.process.ExecOperations
-import kotlin.io.path.*
 
 internal open class NativePatcher(private val exec: ExecOperations, protected val patchExecutable: String) : Patcher {
 

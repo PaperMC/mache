@@ -1,6 +1,12 @@
 import io.papermc.mache.ConfigureVersionProject
 import io.papermc.mache.MacheExtension
-import io.papermc.mache.constants.*
+import io.papermc.mache.constants.DECOMP_JAR
+import io.papermc.mache.constants.DOWNLOAD_SERVER_JAR
+import io.papermc.mache.constants.FAILED_PATCH_JAR
+import io.papermc.mache.constants.PATCHED_JAR
+import io.papermc.mache.constants.REMAPPED_JAR
+import io.papermc.mache.constants.SERVER_JAR
+import io.papermc.mache.constants.SERVER_MAPPINGS
 import io.papermc.mache.tasks.ApplyPatches
 import io.papermc.mache.tasks.ApplyPatchesFuzzy
 import io.papermc.mache.tasks.DecompileJar
@@ -12,7 +18,6 @@ import io.papermc.mache.tasks.SetupSources
 import io.papermc.mache.util.asGradleMavenArtifacts
 import io.papermc.mache.util.isNativeDiffAvailable
 import org.gradle.accessors.dm.LibrariesForLibs
-import java.nio.file.Path
 
 plugins {
     java
