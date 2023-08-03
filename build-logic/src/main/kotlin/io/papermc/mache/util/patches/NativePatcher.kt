@@ -41,11 +41,16 @@ internal open class NativePatcher(private val exec: ExecOperations, protected va
 
             isIgnoreExitValue = true
         }
+
         if (res.exitValue == 0) {
             return PatchSuccess
         } else {
-            val file = patch.relativeTo(patchDir).parent.resolve(patch.fileName.toString().removeSuffix(".patch"))
-            out.resolve(file).moveTo(failed.resolve(file).apply { parent?.createDirectories() })
+            val inputFile = patch.resolveSibling(patch.nameWithoutExtension)
+            val inputFilePath = inputFile.relativeTo(patchDir).toString()
+
+            val failedOutput = failed.resolve(inputFilePath)
+            failedOutput.parent.createDirectories()
+            out.resolve(inputFilePath).moveTo(failedOutput)
         }
 
         return PatchFailure(patch, baos.toString(Charset.defaultCharset()))

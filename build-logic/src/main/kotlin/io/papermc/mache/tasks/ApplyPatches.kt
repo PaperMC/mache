@@ -121,13 +121,6 @@ abstract class ApplyPatches : DefaultTask() {
                                     copyEntry(input, failedZos, zipEntry)
                                 }
                             }
-                            val rejectName = zipEntry.name + ".rej"
-                            val rejectFile = tempOutDir.resolve(rejectName)
-                            if (rejectFile.exists()) {
-                                rejectFile.inputStream().buffered().use { input ->
-                                    copyEntry(input, failedZos, ZipEntry(rejectName))
-                                }
-                            }
                         }
                     }
                 }
