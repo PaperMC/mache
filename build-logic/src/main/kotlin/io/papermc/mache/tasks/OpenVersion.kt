@@ -21,6 +21,7 @@ import java.nio.file.Path
 import javax.inject.Inject
 import kotlin.io.path.copyToRecursively
 import kotlin.io.path.createDirectories
+import kotlin.io.path.deleteRecursively
 import kotlin.io.path.exists
 import kotlin.io.path.notExists
 import kotlin.io.path.readText
@@ -48,10 +49,20 @@ abstract class OpenVersion : DefaultTask() {
     abstract val directoryName: Property<String>
 
     @get:Input
+    @get:Option(option = "force", description = "Force delete the target directory if it exists.")
+    abstract val force: Property<Boolean>
+
+    @get:Input
     abstract val repoUrl: Property<String>
 
     @get:Inject
     abstract val layout: ProjectLayout
+
+    init {
+        run {
+            force.convention(false)
+        }
+    }
 
     @TaskAction
     fun run() {
@@ -97,10 +108,14 @@ abstract class OpenVersion : DefaultTask() {
 
         val outputDir = versionsDirectory.resolve(thisVersionName)
         if (outputDir.exists()) {
-            throw Exception(
-                "Cannot create a new version directory of path: $outputDir, already exists. " +
-                    "Specify a different directory name with --dir-name.",
-            )
+            if (force.get()) {
+                outputDir.deleteRecursively()
+            } else {
+                throw Exception(
+                    "Cannot create a new version directory of path: $outputDir, already exists. " +
+                        "Specify a different directory name with --dir-name.",
+                )
+            }
         }
 
         outputDir.createDirectories()
@@ -179,8 +194,8 @@ abstract class OpenVersion : DefaultTask() {
         }
 
         for (dep in meta.dependencies.remapper) {
-            if (dep.matches("net.fabricmc:tiny-remapper")) {
-                append(indent(1)).appendLine("remapper(tiny(\"${dep.version}\"))")
+            if (dep.matches("net.neoforged:AutoRenamingTool")) {
+                append(indent(1)).appendLine("remapper(art(\"${dep.version}\"))")
             } else {
                 appendMavenDep(dep, "remapper")
             }
@@ -194,21 +209,19 @@ abstract class OpenVersion : DefaultTask() {
             }
         }
 
-        val param = meta.dependencies.paramMappings.find { it.matches("net.fabricmc:yarn", classifier = "mergedv2") }
-        val const = meta.dependencies.constants.find { it.matches("net.fabricmc:yarn", classifier = "constants") }
-        val yarnShorthand = param != null && const != null && param.version == const.version
-        if (yarnShorthand) {
-            append(indent(1)).appendLine("yarn(\"${param!!.version}\")")
-        }
-        for (paramMapping in meta.dependencies.paramMappings) {
-            if (!yarnShorthand || paramMapping != param) {
-                appendMavenDep(paramMapping, "paramMappings")
+        val mcVersionRegex = Regex("parchment-(?<mcVersion>.+)")
+        for (dep in meta.dependencies.paramMappings) {
+            if (dep.matches("org.parchmentmc.data", mcVersionRegex, extension = "zip")) {
+                val match = mcVersionRegex.matchEntire(dep.name)!!
+                val mcVersion = match.groups["mcVersion"]?.value!!
+                append(indent(1)).appendLine("parchment(\"$mcVersion\", \"${dep.version}\")")
+            } else {
+                appendMavenDep(dep, "paramMappings")
             }
         }
+
         for (constant in meta.dependencies.constants) {
-            if (!yarnShorthand || constant != const) {
-                appendMavenDep(constant, "constants")
-            }
+            appendMavenDep(constant, "constants")
         }
 
         appendLine("}")
@@ -262,6 +275,13 @@ abstract class OpenVersion : DefaultTask() {
     private fun MavenArtifact.matches(module: String, classifier: String? = null, extension: String? = null): Boolean {
         return group == module.substringBefore(':') &&
             name == module.substringAfter(':') &&
+            classifier == this.classifier &&
+            extension == this.extension
+    }
+
+    private fun MavenArtifact.matches(group: String, namePattern: Regex, classifier: String? = null, extension: String? = null): Boolean {
+        return this.group == group &&
+            this.name.matches(namePattern) &&
             classifier == this.classifier &&
             extension == this.extension
     }
