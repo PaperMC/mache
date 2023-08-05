@@ -17,8 +17,10 @@ import org.gradle.api.file.ProjectLayout
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.UntrackedTask
 import org.gradle.api.tasks.options.Option
 
+@UntrackedTask(because = "CLI command, always migrate")
 abstract class MigrateVersion : DefaultTask() {
 
     @get:Option(option = "from-version", description = "The version to migrate.")

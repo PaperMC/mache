@@ -1,4 +1,5 @@
 import io.papermc.mache.constants.MC_MANIFEST
+import io.papermc.mache.tasks.CopyVersion
 import io.papermc.mache.tasks.MigrateVersion
 import io.papermc.mache.tasks.OpenVersion
 import io.papermc.mache.util.download
@@ -17,3 +18,4 @@ tasks.register("openVersion", OpenVersion::class) {
 }
 
 tasks.register("migrate", MigrateVersion::class)
+tasks.register("copy", CopyVersion::class)

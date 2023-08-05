@@ -6,5 +6,7 @@ rootProject.name = "mache"
 
 file("versions").listFiles()
     ?.forEach { version ->
-        include(":versions:${version.name}")
+        if (version.resolve("build.gradle.kts").exists()) {
+            include(":versions:${version.name}")
+        }
     }
