@@ -5,6 +5,7 @@ import io.papermc.mache.constants.DOWNLOAD_SERVER_JAR
 import io.papermc.mache.constants.FAILED_PATCH_JAR
 import io.papermc.mache.constants.PATCHED_JAR
 import io.papermc.mache.constants.REMAPPED_JAR
+import io.papermc.mache.constants.REPO_URL
 import io.papermc.mache.constants.SERVER_JAR
 import io.papermc.mache.constants.SERVER_MAPPINGS
 import io.papermc.mache.tasks.ApplyPatches
@@ -15,6 +16,7 @@ import io.papermc.mache.tasks.GenerateMacheMetadata
 import io.papermc.mache.tasks.RebuildPatches
 import io.papermc.mache.tasks.RemapJar
 import io.papermc.mache.tasks.SetupSources
+import io.papermc.mache.util.ArtifactVersionProvider
 import io.papermc.mache.util.asGradleMavenArtifacts
 import io.papermc.mache.util.isNativeDiffAvailable
 import org.gradle.accessors.dm.LibrariesForLibs
@@ -165,9 +167,12 @@ afterEvaluate {
     }
 }
 
-val buildIdVar: Provider<String> = providers.environmentVariable("BUILD_ID").orElse("local-SNAPSHOT")
-val versionProvider: Provider<String> = mache.minecraftVersion.zip(buildIdVar) { mcVersion, buildId ->
-    "$mcVersion+build.$buildId"
+val artifactVersionProvider = providers.of(ArtifactVersionProvider::class) {
+    parameters {
+        repoUrl.set(REPO_URL)
+        mcVersion.set(mache.minecraftVersion)
+        ci.set(providers.environmentVariable("CI").orElse("false"))
+    }
 }
 
 val createMacheArtifact by tasks.registering(Zip::class) {
@@ -182,7 +187,7 @@ val createMacheArtifact by tasks.registering(Zip::class) {
     }
 
     archiveBaseName.set("mache")
-    archiveVersion.set(versionProvider)
+    archiveVersion.set(artifactVersionProvider)
     archiveExtension.set("zip")
 }
 
@@ -216,7 +221,7 @@ publishing {
             register<MavenPublication>("mache") {
                 groupId = "io.papermc"
                 artifactId = "mache"
-                version = versionProvider.get()
+                version = artifactVersionProvider.get()
 
                 artifact(archive)
             }
@@ -224,12 +229,8 @@ publishing {
     }
 
     repositories {
-        maven("https://repo.papermc.io/repository/maven-releases/") {
-            name = "papermc"
-            credentials(PasswordCredentials::class)
-        }
-        maven("https://repo.denwav.dev/repository/maven-releases/") {
-            name = "denwav"
+        maven(REPO_URL) {
+            name = "PaperMC"
             credentials(PasswordCredentials::class)
         }
     }

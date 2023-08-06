@@ -1,5 +1,7 @@
 package io.papermc.mache.constants
 
+const val REPO_URL = "https://repo.papermc.io/repository/maven-releases/"
+
 const val GRADLE_DIR = ".gradle"
 const val MACHE_DIR = "mache"
 const val JSONS_DIR = "$MACHE_DIR/jsons"

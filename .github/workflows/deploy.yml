@@ -1,0 +1,111 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - 'ver/*'
+      - 'snap/*'
+    paths:
+      - 'versions/*/patches/**'
+      - 'versions/*/build.gradle.kts'
+  workflow_dispatch:
+
+jobs:
+  # Only run if all dependencies are release versions
+  # SNAPSHOT versions are unstable, which would make our published artifact unstable
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    # Guard against manual runs on the wrong branch
+    if: startsWith(github.ref, 'refs/heads/ver/') || startsWith(github.ref, 'refs/heads/snap/')
+    steps:
+      - uses: actions/checkout@v3
+      - uses: gradle/wrapper-validation-action@v1
+      - name: Version Name
+        id: version
+        shell: bash
+        run: echo "name=${GITHUB_REF_NAME##*/}" >> $GITHUB_OUTPUT
+      - name: Verify Dependencies
+        id: verify_deps
+        shell: bash
+        run: |
+          if [[ "$(grep -i -- '-SNAPSHOT' versions/${GITHUB_REF_NAME##*/}/build.gradle.kts | wc -l)" -eq "0" ]] ; then
+            echo "all_release=true" >> $GITHUB_OUTPUT
+          else
+            echo "all_release=false" >> $GITHUB_OUTPUT
+          fi
+    outputs:
+      version_name: ${{ steps.version.outputs.name }}
+      deps_all_release: ${{ steps.verify_deps.outputs.all_release }}
+  applyPatches:
+    name: Apply Patches
+    runs-on: ubuntu-latest
+    needs: verify
+    if: needs.verify.outputs.deps_all_release == 'true'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 17
+      - uses: gradle/gradle-build-action@v2
+        name: Apply Patches
+        with:
+          arguments: ':versions:${{ needs.verify.outputs.version_name  }}:setup'
+      - name: Tar sources
+        run: tar --exclude '*/.git*' -cf sources.tar versions/${GITHUB_REF_NAME##*/}/src/
+      - uses: actions/upload-artifact@v3
+        name: Archive patched sources
+        with:
+          name: patched-sources
+          path: sources.tar
+          if-no-files-found: error
+          retention-days: 1
+  # We will only attempt to deploy an artifact if the current version config successfully compiles
+  # Note: We don't publish the sources or build output, this only validates that it _does_ build
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [verify, applyPatches]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 17
+      - uses: actions/download-artifact@v3
+        with:
+          name: patched-sources
+          path: sources
+      - name: Extract sources
+        run: tar -xf sources/sources.tar versions/${GITHUB_REF_NAME##*/}/src/ && rm -r sources/
+      - uses: gradle/gradle-build-action@v2
+        name: Build
+        with:
+          arguments: ':versions:${{ needs.verify.outputs.version_name }}:build'
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: [verify, build]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 17
+      - uses: gradle/gradle-build-action@v2
+        name: Deploy Mache Artifact
+        with:
+          arguments: ':versions:${{ needs.verify.outputs.version_name }}:publishMachePublicationToPaperMCRepository'
+        env:
+          BUILD_ID: ${{ env.GITHUB_RUN_NUMBER }}
+          ORG_GRADLE_PROJECT_PaperMCUsername: ${{ secrets.NEXUS_USERNAME }}
+          ORG_GRADLE_PROJECT_PaperMCPassword: ${{ secrets.NEXUS_PASSWORD }}
+  cleanup:
+    name: Cleanup
+    runs-on: ubuntu-latest
+    needs: [verify, applyPatches, build, deploy]
+    if: always()
+    steps:
+      - uses: geekyeggo/delete-artifact@v2
+        with:
+          name: patched-sources

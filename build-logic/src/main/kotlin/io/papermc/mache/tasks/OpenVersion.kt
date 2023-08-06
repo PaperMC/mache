@@ -5,11 +5,12 @@ import io.papermc.mache.lib.data.maven.MavenMetadata
 import io.papermc.mache.lib.data.meta.MacheMeta
 import io.papermc.mache.lib.data.meta.MavenArtifact
 import io.papermc.mache.lib.json
-import io.papermc.mache.lib.xml
 import io.papermc.mache.util.HashingAlgorithm
 import io.papermc.mache.util.asHexString
 import io.papermc.mache.util.convertToPath
 import io.papermc.mache.util.ensureClean
+import io.papermc.mache.util.getText
+import io.papermc.mache.util.getXml
 import io.papermc.mache.util.hashFile
 import io.papermc.mache.util.useZip
 import java.lang.IllegalStateException
@@ -133,7 +134,7 @@ abstract class OpenVersion : DefaultTask() {
         }
 
         val metaUrl = repoUrl.get().removeSuffix("/") + "/io/papermc/mache/maven-metadata.xml"
-        val meta = client.getXml(metaUrl)
+        val meta = client.getXml<MavenMetadata>(metaUrl)
 
         val buildIdentifier = "+build."
         val maxVersion = meta.versioning.versions.asSequence()
@@ -288,25 +289,6 @@ abstract class OpenVersion : DefaultTask() {
 
     private fun MavenArtifact.isSimple(): Boolean {
         return classifier == null && extension == null
-    }
-
-    private fun HttpClient.getXml(url: String): MavenMetadata {
-        return xml.decodeFromString(getText(url))
-    }
-
-    private fun HttpClient.getText(url: String): String {
-        val request = HttpRequest.newBuilder()
-            .GET()
-            .uri(URI.create(url))
-            .header("Cache-Control", "no-cache, max-age=0")
-            .build()
-
-        val response = send(request, BodyHandlers.ofString())
-        if (response.statusCode() !in 200..299) {
-            throw Exception("Failed to download file: $url")
-        }
-
-        return response.body()
     }
 
     private fun checkHash(client: HttpClient, url: String, path: Path) {
