@@ -41,7 +41,7 @@ import org.gradle.api.tasks.options.Option
 abstract class OpenVersion : DefaultTask() {
 
     @get:Input
-    @get:Option(option = "version-name", description = "The version to open.")
+    @get:Option(option = "ver", description = "The version to open.")
     abstract val versionName: Property<String>
 
     @get:Input

@@ -18,11 +18,11 @@ import org.gradle.api.tasks.options.Option
 @UntrackedTask(because = "CLI command")
 abstract class CopyVersion : DefaultTask() {
 
-    @get:Option(option = "from-version", description = "The version to copy")
+    @get:Option(option = "from", description = "The version to copy")
     @get:Input
     abstract val fromVersion: Property<String>
 
-    @get:Option(option = "to-version", description = "The target version")
+    @get:Option(option = "to", description = "The target version")
     @get:Input
     abstract val toVersion: Property<String>
 
