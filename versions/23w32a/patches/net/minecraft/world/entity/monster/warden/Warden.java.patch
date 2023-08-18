@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/monster/warden/Warden.java
 +++ b/net/minecraft/world/entity/monster/warden/Warden.java
-@@ -369,7 +369,7 @@
+@@ -370,7 +370,7 @@
  
      @Override
      public Brain<Warden> getBrain() {

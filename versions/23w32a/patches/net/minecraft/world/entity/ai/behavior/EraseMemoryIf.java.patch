@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/EraseMemoryIf.java
 +++ b/net/minecraft/world/entity/ai/behavior/EraseMemoryIf.java
-@@ -9,7 +9,7 @@
+@@ -10,7 +10,7 @@
  public class EraseMemoryIf {
      public static <E extends LivingEntity> BehaviorControl<E> create(Predicate<E> shouldEraseMemory, MemoryModuleType<?> erasingMemory) {
          return BehaviorBuilder.create(

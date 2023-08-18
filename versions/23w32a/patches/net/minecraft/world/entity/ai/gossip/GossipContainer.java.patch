@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/gossip/GossipContainer.java
 +++ b/net/minecraft/world/entity/ai/gossip/GossipContainer.java
-@@ -159,7 +159,7 @@
+@@ -161,7 +161,7 @@
              .decode(dynamic)
              .resultOrPartial(errorMessage -> LOGGER.warn("Failed to deserialize gossips: {}", errorMessage))
              .stream()

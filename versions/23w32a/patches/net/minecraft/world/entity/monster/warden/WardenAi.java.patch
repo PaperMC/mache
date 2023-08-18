@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/monster/warden/WardenAi.java
 +++ b/net/minecraft/world/entity/monster/warden/WardenAi.java
-@@ -83,7 +83,7 @@
+@@ -84,7 +84,7 @@
          MemoryModuleType.SONIC_BOOM_SOUND_DELAY
      );
      private static final BehaviorControl<Warden> DIG_COOLDOWN_SETTER = BehaviorBuilder.create(

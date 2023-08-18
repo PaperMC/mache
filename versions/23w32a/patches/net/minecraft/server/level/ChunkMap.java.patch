@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/level/ChunkMap.java
 +++ b/net/minecraft/server/level/ChunkMap.java
-@@ -500,9 +500,10 @@
+@@ -501,9 +501,10 @@
  
          int max = Math.max(0, this.unloadQueue.size() - 2000);
  
@@ -13,7 +13,7 @@
          }
  
          int i1 = 0;
-@@ -587,7 +588,7 @@
+@@ -588,7 +589,7 @@
                  }
  
                  return isChunkDataValid;

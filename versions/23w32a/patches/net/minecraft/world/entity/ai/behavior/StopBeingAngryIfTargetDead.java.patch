@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/StopBeingAngryIfTargetDead.java
 +++ b/net/minecraft/world/entity/ai/behavior/StopBeingAngryIfTargetDead.java
-@@ -11,7 +11,7 @@
+@@ -13,7 +13,7 @@
  public class StopBeingAngryIfTargetDead {
      public static BehaviorControl<LivingEntity> create() {
          return BehaviorBuilder.create(

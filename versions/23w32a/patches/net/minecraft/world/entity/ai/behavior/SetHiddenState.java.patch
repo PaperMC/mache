@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/SetHiddenState.java
 +++ b/net/minecraft/world/entity/ai/behavior/SetHiddenState.java
-@@ -15,7 +15,7 @@
+@@ -16,7 +16,7 @@
          int i = stayHiddenSeconds * 20;
          MutableInt mutableInt = new MutableInt(0);
          return BehaviorBuilder.create(

@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/item/BrushItem.java
 +++ b/net/minecraft/world/item/BrushItem.java
-@@ -73,9 +73,8 @@
+@@ -74,9 +74,8 @@
                          this.spawnDustParticles(level, blockHitResult, blockState, livingEntity.getViewVector(0.0F), humanoidArm);
                      }
  

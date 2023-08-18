@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/datafix/fixes/BlockEntityIdFix.java
 +++ b/net/minecraft/util/datafix/fixes/BlockEntityIdFix.java
-@@ -44,8 +44,8 @@
+@@ -47,8 +47,8 @@
      public TypeRewriteRule makeRule() {
          Type<?> type = this.getInputSchema().getType(References.ITEM_STACK);
          Type<?> type1 = this.getOutputSchema().getType(References.ITEM_STACK);

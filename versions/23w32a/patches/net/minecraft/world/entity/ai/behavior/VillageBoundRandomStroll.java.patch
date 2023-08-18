@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/VillageBoundRandomStroll.java
 +++ b/net/minecraft/world/entity/ai/behavior/VillageBoundRandomStroll.java
-@@ -22,7 +22,7 @@
+@@ -23,7 +23,7 @@
  
      public static OneShot<PathfinderMob> create(float speedModifier, int maxHorizontalDist, int maxVericalDist) {
          return BehaviorBuilder.create(

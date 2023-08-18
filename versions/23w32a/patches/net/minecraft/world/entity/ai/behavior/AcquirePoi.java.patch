@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/AcquirePoi.java
 +++ b/net/minecraft/world/entity/ai/behavior/AcquirePoi.java
-@@ -45,7 +45,7 @@
+@@ -47,7 +47,7 @@
          MutableLong mutableLong = new MutableLong(0L);
          Long2ObjectMap<AcquirePoi.JitteredLinearRetry> long2ObjectMap = new Long2ObjectOpenHashMap<>();
          OneShot<PathfinderMob> oneShot = BehaviorBuilder.create(
@@ -9,7 +9,7 @@
                      .apply(
                          instance,
                          memory -> (level, mob, gameTime) -> {
-@@ -101,7 +101,7 @@
+@@ -103,7 +103,7 @@
          );
          return acquiringMemory == existingAbsentMemory
              ? oneShot

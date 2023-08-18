@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/ResetProfession.java
 +++ b/net/minecraft/world/entity/ai/behavior/ResetProfession.java
-@@ -10,7 +10,7 @@
+@@ -11,7 +11,7 @@
  public class ResetProfession {
      public static BehaviorControl<Villager> create() {
          return BehaviorBuilder.create(

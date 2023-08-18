@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/InteractWithDoor.java
 +++ b/net/minecraft/world/entity/ai/behavior/InteractWithDoor.java
-@@ -34,7 +34,7 @@
+@@ -35,7 +35,7 @@
          MutableObject<Node> mutableObject = new MutableObject<>(null);
          MutableInt mutableInt = new MutableInt(0);
          return BehaviorBuilder.create(
@@ -9,7 +9,7 @@
                          instance.present(MemoryModuleType.PATH),
                          instance.registered(MemoryModuleType.DOORS_TO_CLOSE),
                          instance.registered(MemoryModuleType.NEAREST_LIVING_ENTITIES)
-@@ -161,7 +161,7 @@
+@@ -162,7 +162,7 @@
          MemoryAccessor<Mu, Set<GlobalPos>> doorsToClose, Optional<Set<GlobalPos>> doorPositions, ServerLevel level, BlockPos pos
      ) {
          GlobalPos globalPos = GlobalPos.of(level.dimension(), pos);

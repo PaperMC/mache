@@ -4,8 +4,8 @@
              Dynamic<?> dynamic = typed.get(DSL.remainderFinder());
              dynamic = dynamic.set("id", dynamic.createString("MobSpawner"));
              DataResult<? extends Pair<? extends Typed<?>, ?>> typed1 = type.readTyped(this.fix(dynamic));
--            return !typed1.result().isPresent() ? typed : ((Pair)typed1.result().get()).getFirst();
-+            return !typed1.result().isPresent() ? typed : (typed1.result().get()).getFirst();
+-            return typed1.result().isEmpty() ? typed : ((Pair)typed1.result().get()).getFirst();
++            return typed1.result().isEmpty() ? typed : (typed1.result().get()).getFirst();
          });
      }
  }

@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/SetLookAndInteract.java
 +++ b/net/minecraft/world/entity/ai/behavior/SetLookAndInteract.java
-@@ -12,7 +12,7 @@
+@@ -13,7 +13,7 @@
      public static BehaviorControl<LivingEntity> create(EntityType<?> entityType, int maxDist) {
          int i = maxDist * maxDist;
          return BehaviorBuilder.create(

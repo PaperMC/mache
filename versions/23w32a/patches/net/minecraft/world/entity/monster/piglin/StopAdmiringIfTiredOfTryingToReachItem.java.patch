@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/monster/piglin/StopAdmiringIfTiredOfTryingToReachItem.java
 +++ b/net/minecraft/world/entity/monster/piglin/StopAdmiringIfTiredOfTryingToReachItem.java
-@@ -10,7 +10,7 @@
+@@ -11,7 +11,7 @@
  public class StopAdmiringIfTiredOfTryingToReachItem {
      public static BehaviorControl<LivingEntity> create(int maxTimeToReachItem, int disableDuration) {
          return BehaviorBuilder.create(

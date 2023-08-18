@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/datafix/fixes/OptionsKeyLwjgl3Fix.java
 +++ b/net/minecraft/util/datafix/fixes/OptionsKeyLwjgl3Fix.java
-@@ -153,15 +153,15 @@
+@@ -156,15 +156,15 @@
                                          string = "key.mouse." + (i1 + 1);
                                      }
      

@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/animal/axolotl/ValidatePlayDead.java
 +++ b/net/minecraft/world/entity/animal/axolotl/ValidatePlayDead.java
-@@ -9,7 +9,7 @@
+@@ -10,7 +10,7 @@
  public class ValidatePlayDead {
      public static BehaviorControl<LivingEntity> create() {
          return BehaviorBuilder.create(

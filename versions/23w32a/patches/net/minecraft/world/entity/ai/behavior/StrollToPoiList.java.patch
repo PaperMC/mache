@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/StrollToPoiList.java
 +++ b/net/minecraft/world/entity/ai/behavior/StrollToPoiList.java
-@@ -19,7 +19,7 @@
+@@ -20,7 +20,7 @@
      ) {
          MutableLong mutableLong = new MutableLong(0L);
          return BehaviorBuilder.create(

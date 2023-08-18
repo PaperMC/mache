@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/TryFindLand.java
 +++ b/net/minecraft/world/entity/ai/behavior/TryFindLand.java
-@@ -19,7 +19,7 @@
+@@ -20,7 +20,7 @@
      public static BehaviorControl<PathfinderMob> create(int range, float speedModifier) {
          MutableLong mutableLong = new MutableLong(0L);
          return BehaviorBuilder.create(

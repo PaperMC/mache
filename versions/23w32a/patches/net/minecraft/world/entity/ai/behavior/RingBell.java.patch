@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/RingBell.java
 +++ b/net/minecraft/world/entity/ai/behavior/RingBell.java
-@@ -16,7 +16,7 @@
+@@ -17,7 +17,7 @@
  
      public static BehaviorControl<LivingEntity> create() {
          return BehaviorBuilder.create(

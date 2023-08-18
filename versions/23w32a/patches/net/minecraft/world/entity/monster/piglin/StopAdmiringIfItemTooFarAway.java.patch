@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/monster/piglin/StopAdmiringIfItemTooFarAway.java
 +++ b/net/minecraft/world/entity/monster/piglin/StopAdmiringIfItemTooFarAway.java
-@@ -11,7 +11,7 @@
+@@ -12,7 +12,7 @@
  public class StopAdmiringIfItemTooFarAway<E extends Piglin> {
      public static BehaviorControl<LivingEntity> create(int maxDist) {
          return BehaviorBuilder.create(

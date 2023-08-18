@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/PoiCompetitorScan.java
 +++ b/net/minecraft/world/entity/ai/behavior/PoiCompetitorScan.java
-@@ -15,7 +15,7 @@
+@@ -16,7 +16,7 @@
  public class PoiCompetitorScan {
      public static BehaviorControl<Villager> create() {
          return BehaviorBuilder.create(

@@ -1,6 +1,26 @@
 --- a/net/minecraft/world/entity/Mob.java
 +++ b/net/minecraft/world/entity/Mob.java
-@@ -1121,7 +1121,7 @@
+@@ -620,8 +620,7 @@
+         } else if (candidate.getItem() instanceof CrossbowItem && existing.getItem() instanceof CrossbowItem) {
+             return this.canReplaceEqualItem(candidate, existing);
+         } else {
+-            Item diggerItem = candidate.getItem();
+-            if (diggerItem instanceof ArmorItem armorItem) {
++            if (candidate.getItem() instanceof ArmorItem armorItem) {
+                 if (EnchantmentHelper.hasBindingCurse(existing)) {
+                     return false;
+                 } else if (!(existing.getItem() instanceof ArmorItem)) {
+@@ -642,8 +641,7 @@
+                         return true;
+                     }
+ 
+-                    Item diggerItem1 = existing.getItem();
+-                    if (diggerItem1 instanceof DiggerItem diggerItem) {
++                    if (existing.getItem() instanceof DiggerItem diggerItem) {
+                         DiggerItem diggerItem1x = (DiggerItem)candidate.getItem();
+                         if (diggerItem1x.getAttackDamage() != diggerItem.getAttackDamage()) {
+                             return diggerItem1x.getAttackDamage() > diggerItem.getAttackDamage();
+@@ -1123,7 +1121,7 @@
                  if (this.level() instanceof ServerLevel) {
                      SpawnEggItem spawnEggItem = (SpawnEggItem)itemInHand.getItem();
                      Optional<Mob> optional = spawnEggItem.spawnOffspringFromSpawnEgg(

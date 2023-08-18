@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/BabyFollowAdult.java
 +++ b/net/minecraft/world/entity/ai/behavior/BabyFollowAdult.java
-@@ -16,7 +16,7 @@
+@@ -17,7 +17,7 @@
  
      public static OneShot<AgeableMob> create(UniformInt followRange, Function<LivingEntity, Float> speedModifier) {
          return BehaviorBuilder.create(

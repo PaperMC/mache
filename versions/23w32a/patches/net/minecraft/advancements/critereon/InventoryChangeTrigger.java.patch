@@ -1,0 +1,11 @@
+--- a/net/minecraft/advancements/critereon/InventoryChangeTrigger.java
++++ b/net/minecraft/advancements/critereon/InventoryChangeTrigger.java
+@@ -74,7 +74,7 @@
+         }
+ 
+         public static InventoryChangeTrigger.TriggerInstance hasItems(ItemPredicate.Builder... builders) {
+-            return hasItems(Arrays.stream(builders).flatMap(builder -> builder.build().stream()).toArray(i -> new ItemPredicate[i]));
++            return hasItems(Arrays.stream(builders).flatMap(builder -> builder.build().stream()).toArray(ItemPredicate[]::new));
+         }
+ 
+         public static InventoryChangeTrigger.TriggerInstance hasItems(ItemPredicate... items) {

@@ -7,8 +7,8 @@
 +import com.mojang.datafixers.types.templates.TaggedChoice;
  import com.mojang.datafixers.util.Pair;
  import com.mojang.serialization.Dynamic;
- import java.util.List;
-@@ -43,8 +44,8 @@
+ import com.mojang.serialization.DynamicOps;
+@@ -44,8 +45,8 @@
          return TypeRewriteRule.seq(
              this.fixTypeEverywhere(
                  "InjectBedBlockEntityType",

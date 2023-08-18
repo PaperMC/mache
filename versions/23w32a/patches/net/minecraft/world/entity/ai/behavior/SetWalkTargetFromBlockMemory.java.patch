@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/SetWalkTargetFromBlockMemory.java
 +++ b/net/minecraft/world/entity/ai/behavior/SetWalkTargetFromBlockMemory.java
-@@ -16,7 +16,7 @@
+@@ -17,7 +17,7 @@
          MemoryModuleType<GlobalPos> blockTargetMemory, float speedModifier, int closeEnoughDist, int tooFarDistance, int tooLongUnreachableDuration
      ) {
          return BehaviorBuilder.create(

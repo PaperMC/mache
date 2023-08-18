@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/dedicated/DedicatedServerProperties.java
 +++ b/net/minecraft/server/dedicated/DedicatedServerProperties.java
-@@ -186,7 +186,7 @@
+@@ -187,7 +187,7 @@
      }
  
      private static FeatureFlagSet getFeatures(String features) {

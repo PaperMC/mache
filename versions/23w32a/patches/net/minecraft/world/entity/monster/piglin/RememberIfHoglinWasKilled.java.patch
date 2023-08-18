@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/monster/piglin/RememberIfHoglinWasKilled.java
 +++ b/net/minecraft/world/entity/monster/piglin/RememberIfHoglinWasKilled.java
-@@ -10,7 +10,7 @@
+@@ -11,7 +11,7 @@
  public class RememberIfHoglinWasKilled {
      public static BehaviorControl<LivingEntity> create() {
          return BehaviorBuilder.create(

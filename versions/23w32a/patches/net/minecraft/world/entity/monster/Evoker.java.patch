@@ -1,0 +1,13 @@
+--- a/net/minecraft/world/entity/monster/Evoker.java
++++ b/net/minecraft/world/entity/monster/Evoker.java
+@@ -223,6 +223,10 @@
+     }
+ 
+     class EvokerCastingSpellGoal extends SpellcasterIllager.SpellcasterCastingSpellGoal {
++        EvokerCastingSpellGoal() {
++            super();
++        }
++
+         @Override
+         public void tick() {
+             if (Evoker.this.getTarget() != null) {

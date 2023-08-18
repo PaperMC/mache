@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/SetClosestHomeAsWalkTarget.java
 +++ b/net/minecraft/world/entity/ai/behavior/SetClosestHomeAsWalkTarget.java
-@@ -32,7 +32,7 @@
+@@ -34,7 +34,7 @@
          Long2LongMap long2LongMap = new Long2LongOpenHashMap();
          MutableLong mutableLong = new MutableLong(0L);
          return BehaviorBuilder.create(

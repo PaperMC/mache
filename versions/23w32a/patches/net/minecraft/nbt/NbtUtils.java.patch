@@ -1,6 +1,6 @@
 --- a/net/minecraft/nbt/NbtUtils.java
 +++ b/net/minecraft/nbt/NbtUtils.java
-@@ -344,7 +344,7 @@
+@@ -343,7 +343,7 @@
              case 9:
                  ListTag listTag = (ListTag)tag;
                  int size = listTag.size();
@@ -9,7 +9,7 @@
                  String string = i == 0 ? "undefined" : TagTypes.getType(i).getPrettyName();
                  indent(indentLevel, stringBuilder).append("list<").append(string).append(">[").append(size).append("] [");
                  if (size != 0) {
-@@ -376,8 +376,8 @@
+@@ -375,8 +375,8 @@
                      indent(indentLevel + 1, stringBuilder);
                  }
  
@@ -20,7 +20,7 @@
  
                  for(int i2 = 0; i2 < list.size(); ++i2) {
                      if (i2 != 0) {
-@@ -403,7 +403,7 @@
+@@ -402,7 +402,7 @@
              case 11:
                  IntArrayTag intArrayTag = (IntArrayTag)tag;
                  int[] asIntArray = intArrayTag.getAsIntArray();

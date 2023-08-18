@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/BecomePassiveIfMemoryPresent.java
 +++ b/net/minecraft/world/entity/ai/behavior/BecomePassiveIfMemoryPresent.java
-@@ -17,7 +17,7 @@
+@@ -18,7 +18,7 @@
                          instance,
                          instance.point(
                              () -> "[BecomePassive if " + pacifyingMemory + " present]",

@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/GoToTargetLocation.java
 +++ b/net/minecraft/world/entity/ai/behavior/GoToTargetLocation.java
-@@ -19,7 +19,7 @@
+@@ -20,7 +20,7 @@
  
      public static <E extends Mob> OneShot<E> create(MemoryModuleType<BlockPos> locationMemory, int closeEnoughDist, float speedModifier) {
          return BehaviorBuilder.create(

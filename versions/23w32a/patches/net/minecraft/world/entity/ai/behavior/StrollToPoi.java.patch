@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/StrollToPoi.java
 +++ b/net/minecraft/world/entity/ai/behavior/StrollToPoi.java
-@@ -12,7 +12,7 @@
+@@ -13,7 +13,7 @@
      public static BehaviorControl<PathfinderMob> create(MemoryModuleType<GlobalPos> poiPosMemory, float speedModifier, int closeEnoughDist, int maxDistFromPoi) {
          MutableLong mutableLong = new MutableLong(0L);
          return BehaviorBuilder.create(

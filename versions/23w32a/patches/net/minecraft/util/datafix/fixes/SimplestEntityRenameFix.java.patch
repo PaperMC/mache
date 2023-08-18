@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/datafix/fixes/SimplestEntityRenameFix.java
 +++ b/net/minecraft/util/datafix/fixes/SimplestEntityRenameFix.java
-@@ -21,8 +21,8 @@
+@@ -22,8 +22,8 @@
  
      @Override
      public TypeRewriteRule makeRule() {

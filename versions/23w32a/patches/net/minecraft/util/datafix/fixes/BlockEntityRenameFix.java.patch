@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/datafix/fixes/BlockEntityRenameFix.java
 +++ b/net/minecraft/util/datafix/fixes/BlockEntityRenameFix.java
-@@ -18,8 +18,8 @@
+@@ -20,8 +20,8 @@
  
      @Override
      public TypeRewriteRule makeRule() {

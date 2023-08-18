@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/datafix/fixes/BlockEntityUUIDFix.java
 +++ b/net/minecraft/util/datafix/fixes/BlockEntityUUIDFix.java
-@@ -23,7 +23,7 @@
+@@ -24,7 +24,7 @@
              .map(dynamic -> replaceUUIDString(dynamic, "Id", "Id").orElse(dynamic))
              .map(dynamic -> skullTag.remove("Owner").set("SkullOwner", dynamic))
              .result()

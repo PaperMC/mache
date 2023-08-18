@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/TryLaySpawnOnWaterNearLand.java
 +++ b/net/minecraft/world/entity/ai/behavior/TryLaySpawnOnWaterNearLand.java
-@@ -16,7 +16,7 @@
+@@ -17,7 +17,7 @@
  public class TryLaySpawnOnWaterNearLand {
      public static BehaviorControl<LivingEntity> create(Block spawnBlock) {
          return BehaviorBuilder.create(

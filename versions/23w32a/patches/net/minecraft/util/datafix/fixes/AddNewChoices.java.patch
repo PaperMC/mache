@@ -6,9 +6,9 @@
  import com.mojang.datafixers.schemas.Schema;
 +import com.mojang.datafixers.types.templates.TaggedChoice;
  import com.mojang.datafixers.types.templates.TaggedChoice.TaggedChoiceType;
- import java.util.Locale;
- 
-@@ -28,8 +29,8 @@
+ import com.mojang.datafixers.util.Pair;
+ import com.mojang.serialization.DynamicOps;
+@@ -30,8 +31,8 @@
          if (type.getKeyType() != newType.getKeyType()) {
              throw new IllegalStateException("Could not inject: key type is not the same");
          } else {

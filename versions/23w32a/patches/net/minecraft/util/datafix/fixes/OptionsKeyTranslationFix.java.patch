@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/datafix/fixes/OptionsKeyTranslationFix.java
 +++ b/net/minecraft/util/datafix/fixes/OptionsKeyTranslationFix.java
-@@ -22,12 +22,12 @@
+@@ -25,12 +25,12 @@
                              if (((Dynamic)entry.getKey()).asString("").startsWith("key_")) {
                                  String string = ((Dynamic)entry.getValue()).asString("");
                                  if (!string.startsWith("key.mouse") && !string.startsWith("scancode.")) {

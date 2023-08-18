@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/VillagerCalmDown.java
 +++ b/net/minecraft/world/entity/ai/behavior/VillagerCalmDown.java
-@@ -10,7 +10,7 @@
+@@ -11,7 +11,7 @@
  
      public static BehaviorControl<LivingEntity> create() {
          return BehaviorBuilder.create(

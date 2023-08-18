@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/StayCloseToTarget.java
 +++ b/net/minecraft/world/entity/ai/behavior/StayCloseToTarget.java
-@@ -18,7 +18,7 @@
+@@ -19,7 +19,7 @@
          float speedModifier
      ) {
          return BehaviorBuilder.create(
