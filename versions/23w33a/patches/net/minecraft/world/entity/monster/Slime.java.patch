@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/monster/Slime.java
 +++ b/net/minecraft/world/entity/monster/Slime.java
-@@ -183,7 +183,7 @@
+@@ -189,7 +189,7 @@
  
      @Override
      public EntityType<? extends Slime> getType() {

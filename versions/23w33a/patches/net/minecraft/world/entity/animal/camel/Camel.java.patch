@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/animal/camel/Camel.java
 +++ b/net/minecraft/world/entity/animal/camel/Camel.java
-@@ -154,7 +154,7 @@
+@@ -148,7 +148,7 @@
      @Override
      protected void customServerAiStep() {
          this.level().getProfiler().push("camelBrain");
