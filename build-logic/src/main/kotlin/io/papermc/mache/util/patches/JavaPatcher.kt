@@ -9,7 +9,9 @@ import java.nio.file.StandardOpenOption
 import kotlin.io.path.copyTo
 import kotlin.io.path.createDirectories
 import kotlin.io.path.name
+import kotlin.io.path.nameWithoutExtension
 import kotlin.io.path.notExists
+import kotlin.io.path.pathString
 import kotlin.io.path.readLines
 import kotlin.io.path.relativeTo
 import kotlin.io.path.walk
@@ -18,7 +20,7 @@ import kotlin.io.path.writeLines
 internal open class JavaPatcher : Patcher {
 
     override fun applyPatches(baseDir: Path, patchDir: Path, outputDir: Path, failedDir: Path): PatchResult {
-        val result = baseDir.walk()
+        var result = baseDir.walk()
             .filter { it.name.endsWith(".java") }
             .map { original ->
                 val relPath = original.relativeTo(baseDir)
@@ -29,6 +31,19 @@ internal open class JavaPatcher : Patcher {
             }
             .fold<_, PatchResult>(PatchSuccess) { acc, value ->
                 acc.fold(applyPatch(value))
+            }
+
+        result = patchDir.walk()
+            .filter { it.name.endsWith(".patch") }
+            .filterNot { result.patches.contains(it) }
+            .map { patch ->
+                // all patches here did not have matching files
+                // this results in a patch failure too
+                val relPath = patch.relativeTo(patchDir)
+                PatchFailure(patch, "No matching file found for patch: " + relPath.pathString)
+            }
+            .fold(result) { acc, value ->
+                acc.fold(value)
             }
 
         return result
@@ -58,7 +73,7 @@ internal open class JavaPatcher : Patcher {
                 StandardOpenOption.WRITE,
                 StandardOpenOption.TRUNCATE_EXISTING,
             )
-            PatchSuccess
+            PatchSuccess(patch)
         } catch (e: PatchFailedException) {
             // patch failed, so copy the file over without the patch applied
             original.copyTo(patched, overwrite = true)

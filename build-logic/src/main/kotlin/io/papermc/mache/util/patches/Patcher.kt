@@ -8,19 +8,33 @@ internal interface Patcher {
 }
 
 internal sealed interface PatchResult {
+    val patches: List<Path>
     val failures: List<PatchFailureDetails>
         get() = emptyList()
 
     fun fold(next: PatchResult): PatchResult {
-        return when (this) {
-            PatchSuccess -> next
-            is PatchFailure -> PatchFailure(this.failures + next.failures)
+        return when {
+            this is PatchSuccess && next is PatchSuccess -> PatchSuccess(this.patches + next.patches)
+            else -> PatchFailure(this.patches + next.patches, this.failures + next.failures)
         }
     }
 }
 
-internal object PatchSuccess : PatchResult
-internal data class PatchFailure(override val failures: List<PatchFailureDetails>) : PatchResult {
-    constructor(patch: Path, details: String) : this(listOf(PatchFailureDetails(patch, details)))
+internal sealed interface PatchSuccess : PatchResult {
+    companion object : PatchSuccess {
+
+        operator fun invoke(patches: List<Path> = emptyList()): PatchSuccess = PatchSuccessFile(patches)
+        operator fun invoke(patch: Path): PatchSuccess = PatchSuccessFile(listOf(patch))
+
+        override val patches: List<Path>
+            get() = emptyList()
+    }
 }
+
+private data class PatchSuccessFile(override val patches: List<Path>) : PatchSuccess
+
+internal data class PatchFailure(override val patches: List<Path>, override val failures: List<PatchFailureDetails>) : PatchResult {
+    constructor(patch: Path, details: String) : this(listOf(patch), listOf(PatchFailureDetails(patch, details)))
+}
+
 internal data class PatchFailureDetails(val patch: Path, val details: String)

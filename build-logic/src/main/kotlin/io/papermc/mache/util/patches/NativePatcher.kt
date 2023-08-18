@@ -6,6 +6,7 @@ import java.nio.file.Path
 import kotlin.io.path.absolutePathString
 import kotlin.io.path.copyTo
 import kotlin.io.path.createDirectories
+import kotlin.io.path.exists
 import kotlin.io.path.moveTo
 import kotlin.io.path.name
 import kotlin.io.path.nameWithoutExtension
@@ -54,10 +55,13 @@ internal open class NativePatcher(private val exec: ExecOperations, protected va
         } else {
             val inputFile = patch.resolveSibling(patch.nameWithoutExtension)
             val inputFilePath = inputFile.relativeTo(patchDir).toString()
+            val input = out.resolve(inputFilePath)
 
-            val failedOutput = failed.resolve(inputFilePath)
-            failedOutput.parent.createDirectories()
-            out.resolve(inputFilePath).moveTo(failedOutput)
+            if (input.exists()) {
+                val failedOutput = failed.resolve(inputFilePath)
+                failedOutput.parent.createDirectories()
+                input.moveTo(failedOutput)
+            }
         }
 
         return PatchFailure(patch, baos.toString(Charset.defaultCharset()))
