@@ -3,14 +3,14 @@ plugins {
 }
 
 mache {
-    minecraftVersion = "23w31a"
+    minecraftVersion = "23w32a"
 }
 
 dependencies {
     codebook("1.0.6")
-    remapper(art("1.0.5"))
+    remapper(art("1.0.7"))
     decompiler(vineflower("1.9.2"))
-    parchment("1.20.1", "2023.07.30")
+    parchment("1.20.1", "2023.08.13")
 }
 
 dependencies {
