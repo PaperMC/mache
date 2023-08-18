@@ -38,8 +38,9 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-# Never includes the src directory
+# Never includes the src or run directories
 versions/**/src
+versions/**/run
 # Ignore all versions by default
 versions/*
 # Don't ignore the current version

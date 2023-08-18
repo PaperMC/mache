@@ -147,6 +147,26 @@ tasks.register("rebuildPatches", RebuildPatches::class) {
     patchDir.set(layout.projectDirectory.dir("patches"))
 }
 
+tasks.register("runServer", JavaExec::class) {
+    doNotTrackState("Run server")
+
+    val path = objects.fileCollection()
+    path.from(sourceSets.main.map { it.output })
+    path.from(configurations.runtimeClasspath)
+    classpath = path
+
+    mainClass = "net.minecraft.server.Main"
+
+    args("--nogui")
+
+    standardInput = System.`in`
+
+    workingDir(layout.projectDirectory.dir("run"))
+    doFirst {
+        workingDir.mkdirs()
+    }
+}
+
 val generateMacheMetadata by tasks.registering(GenerateMacheMetadata::class) {
     version.set(mache.minecraftVersion)
     repos.addAll(mache.repositories)
