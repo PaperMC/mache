@@ -9,15 +9,6 @@
      }
  
      HolderSet.Named<T> getOrCreateTag(TagKey<T> key);
-@@ -173,7 +173,7 @@
-             @Nullable
-             @Override
-             public Holder<T> byId(int id) {
--                return (Holder<T>)Registry.this.getHolder(id).orElse((T)null);
-+                return (Holder<T>)Registry.this.getHolder(id).orElse(null);
-             }
- 
-             @Override
 @@ -183,7 +183,7 @@
  
              @Override

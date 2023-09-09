@@ -1,22 +1,11 @@
 --- a/net/minecraft/core/RegistrySetBuilder.java
 +++ b/net/minecraft/core/RegistrySetBuilder.java
-@@ -273,8 +273,8 @@
-                 ResourceKey<?> resourceKey = entry.getKey();
-                 if (resourceKey.isFor(this.key)) {
-                     RegistrySetBuilder.RegisteredValue<T> registeredValue = (RegistrySetBuilder.RegisteredValue)entry.getValue();
--                    Holder.Reference<T> reference = state.lookup.holders.remove(resourceKey);
--                    map.put(resourceKey, new RegistrySetBuilder.ValueAndHolder<>(registeredValue, Optional.ofNullable(reference)));
-+                    Holder.Reference<T> reference = (Holder.Reference<T>) state.lookup.holders.remove(resourceKey);
-+                    map.put((ResourceKey<T>) resourceKey, new RegistrySetBuilder.ValueAndHolder<>(registeredValue, Optional.ofNullable(reference)));
-                     iterator.remove();
-                 }
-             }
-@@ -296,7 +296,7 @@
-         }
+@@ -298,7 +298,7 @@
  
          <T> Holder.Reference<T> getOrCreate(ResourceKey<T> key) {
--            return this.holders.computeIfAbsent(key, resourceKey -> Holder.Reference.createStandAlone(this.owner, resourceKey));
-+            return (Holder.Reference<T>) this.holders.computeIfAbsent((ResourceKey<Object> ) key, resourceKey -> Holder.Reference.createStandAlone(this.owner, resourceKey));
+             return (Holder.Reference<T>)this.holders
+-                .computeIfAbsent(key, resourceKey -> Holder.Reference.createStandAlone(this.owner, (ResourceKey<Object>)resourceKey));
++                .computeIfAbsent((ResourceKey<Object>) key, resourceKey -> Holder.Reference.createStandAlone(this.owner, (ResourceKey<Object>)resourceKey));
          }
      }
  

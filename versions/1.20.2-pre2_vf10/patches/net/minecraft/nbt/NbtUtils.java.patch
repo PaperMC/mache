@@ -18,7 +18,7 @@
 +                i = list.stream().mapToInt(String::length).max().orElse(0);
 +                string = Strings.repeat(" ", i);
  
-                 for(int i2 = 0; i2 < list.size(); ++i2) {
+                 for (int i2 = 0; i2 < list.size(); i2++) {
                      if (i2 != 0) {
 @@ -402,7 +402,7 @@
              case 11:
@@ -27,5 +27,5 @@
 -                int i = 0;
 +                i = 0;
  
-                 for(int i3 : asIntArray) {
+                 for (int i3 : asIntArray) {
                      i = Math.max(i, String.format(Locale.ROOT, "%X", i3).length());

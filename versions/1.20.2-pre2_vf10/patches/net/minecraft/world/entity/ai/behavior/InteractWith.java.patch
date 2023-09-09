@@ -1,14 +1,5 @@
 --- a/net/minecraft/world/entity/ai/behavior/InteractWith.java
 +++ b/net/minecraft/world/entity/ai/behavior/InteractWith.java
-@@ -30,7 +30,7 @@
-         int i = interactionRange * interactionRange;
-         Predicate<LivingEntity> predicate = entity -> type.equals(entity.getType()) && targetFilter.test((T)entity);
-         return BehaviorBuilder.create(
--            instance -> instance.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
-+            instance -> instance.group(
-                         instance.registered(memory),
-                         instance.registered(MemoryModuleType.LOOK_TARGET),
-                         instance.absent(MemoryModuleType.WALK_TARGET),
 @@ -45,7 +45,7 @@
                                          testEntity -> testEntity.distanceToSqr(entity) <= (double)i && predicate.test(testEntity)
                                      );

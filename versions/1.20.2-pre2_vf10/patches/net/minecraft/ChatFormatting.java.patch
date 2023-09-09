@@ -3,7 +3,7 @@
 @@ -40,7 +40,7 @@
      public static final char PREFIX_CODE = '§';
      private static final Map<String, ChatFormatting> FORMATTING_BY_NAME = Arrays.stream(values())
-         .collect(Collectors.toMap(formatting -> cleanName(formatting.name), chatFormatter -> chatFormatter));
+         .collect(Collectors.toMap(formatting -> cleanName(formatting.name), chatFormatter -> (ChatFormatting)chatFormatter));
 -    private static final Pattern STRIP_FORMATTING_PATTERN = Pattern.compile("(?i)§[0-9A-FK-OR]");
 +    private static final Pattern STRIP_FORMATTING_PATTERN = Pattern.compile("(?i)" + PREFIX_CODE + "[0-9A-FK-OR]");
      private final String name;

@@ -1,0 +1,11 @@
+--- a/net/minecraft/data/tags/ItemTagsProvider.java
++++ b/net/minecraft/data/tags/ItemTagsProvider.java
+@@ -42,7 +42,7 @@
+         return super.createContentsProvider().thenCombineAsync(this.blockTags, (provider, tagLookup) -> {
+             this.tagsToCopy.forEach((tagKey, tagKey1) -> {
+                 TagBuilder rawBuilder = this.getOrCreateRawBuilder((TagKey<Item>)tagKey1);
+-                Optional<TagBuilder> optional = tagLookup.apply((TagKey<? super TagKey<Block>>)tagKey);
++                Optional<TagBuilder> optional = tagLookup.apply(tagKey);
+                 optional.orElseThrow(() -> new IllegalStateException("Missing block tag " + tagKey1.location())).build().forEach(rawBuilder::add);
+             });
+             return (HolderLookup.Provider)provider;

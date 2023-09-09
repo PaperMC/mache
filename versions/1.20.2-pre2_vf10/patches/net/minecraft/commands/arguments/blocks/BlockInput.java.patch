@@ -1,0 +1,11 @@
+--- a/net/minecraft/commands/arguments/blocks/BlockInput.java
++++ b/net/minecraft/commands/arguments/blocks/BlockInput.java
+@@ -40,7 +40,7 @@
+             return false;
+         } else {
+             for (Property<?> property : this.properties) {
+-                if (state.getValue((Property<boolean>)property) != this.state.getValue((Property<boolean>)property)) {
++                if (state.getValue(property) != this.state.getValue(property)) {
+                     return false;
+                 }
+             }

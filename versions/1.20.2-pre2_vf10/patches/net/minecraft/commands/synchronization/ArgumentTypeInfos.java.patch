@@ -15,12 +15,3 @@
          register(registry, "template_mirror", TemplateMirrorArgument.class, SingletonArgumentInfo.contextFree(TemplateMirrorArgument::templateMirror));
          register(registry, "template_rotation", TemplateRotationArgument.class, SingletonArgumentInfo.contextFree(TemplateRotationArgument::templateRotation));
          register(registry, "heightmap", HeightmapTypeArgument.class, SingletonArgumentInfo.contextFree(HeightmapTypeArgument::heightmap));
-@@ -142,7 +142,7 @@
-         if (argumentTypeInfo == null) {
-             throw new IllegalArgumentException(String.format(Locale.ROOT, "Unrecognized argument type %s (%s)", argument, argument.getClass()));
-         } else {
--            return argumentTypeInfo;
-+            return (ArgumentTypeInfo<A, ?>) argumentTypeInfo;
-         }
-     }
- 

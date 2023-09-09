@@ -1,0 +1,29 @@
+--- a/net/minecraft/data/loot/packs/VanillaBlockLoot.java
++++ b/net/minecraft/data/loot/packs/VanillaBlockLoot.java
+@@ -847,7 +847,7 @@
+                         LootPool.lootPool()
+                             .add(
+                                 this.applyExplosionDecay(
+-                                    block, (FunctionUserBuilder<LootPoolSingletonContainer.Builder<?>>)LootItem.lootTableItem(Items.COMPOSTER)
++                                    block, LootItem.lootTableItem(Items.COMPOSTER)
+                                 )
+                             )
+                     )
+@@ -1107,7 +1107,7 @@
+             Blocks.COBWEB,
+             block -> createSilkTouchOrShearsDispatchTable(
+                     block,
+-                    this.applyExplosionCondition(block, (ConditionUserBuilder<LootPoolSingletonContainer.Builder<?>>)LootItem.lootTableItem(Items.STRING))
++                    this.applyExplosionCondition(block, LootItem.lootTableItem(Items.STRING))
+                 )
+         );
+         this.add(
+@@ -1140,7 +1140,7 @@
+                         LootPool.lootPool()
+                             .setRolls(ConstantValue.exactly(1.0F))
+                             .add(
+-                                this.applyExplosionCondition(block, (ConditionUserBuilder<LootPoolSingletonContainer.Builder<?>>)LootItem.lootTableItem(block))
++                                this.applyExplosionCondition(block, LootItem.lootTableItem(block))
+                                     .when(LootItemEntityPropertyCondition.entityPresent(LootContext.EntityTarget.THIS))
+                             )
+                     )

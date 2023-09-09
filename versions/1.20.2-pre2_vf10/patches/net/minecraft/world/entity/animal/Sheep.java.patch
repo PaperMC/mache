@@ -6,6 +6,6 @@
      });
 -    private static final Map<DyeColor, float[]> COLORARRAY_BY_COLOR = Maps.newEnumMap(
 +    private static final Map<DyeColor, float[]> COLORARRAY_BY_COLOR = Maps.<DyeColor, float[]>newEnumMap(
-         Arrays.stream(DyeColor.values()).collect(Collectors.toMap(color -> color, Sheep::createSheepColor))
+         Arrays.stream(DyeColor.values()).collect(Collectors.toMap(color -> (DyeColor)color, Sheep::createSheepColor))
      );
      private int eatAnimationTick;

@@ -10,7 +10,7 @@
      private volatile int firstQueue = PRIORITY_LEVEL_COUNT;
      private final String name;
 @@ -94,7 +94,7 @@
-                 ++this.firstQueue;
+                 this.firstQueue++;
              }
  
 -            return list.stream().map(optional -> optional.map(Either::left).orElseGet(() -> Either.right(this.acquire(l))));

@@ -1,19 +1,6 @@
 --- a/net/minecraft/server/level/ChunkMap.java
 +++ b/net/minecraft/server/level/ChunkMap.java
-@@ -501,9 +501,10 @@
- 
-         int max = Math.max(0, this.unloadQueue.size() - 2000);
- 
--        while((hasMoreTime.getAsBoolean() || max > 0) && (l = (long)this.unloadQueue.poll()) != null) {
-+        Runnable runnable;
-+        while((hasMoreTime.getAsBoolean() || max > 0) && (runnable = this.unloadQueue.poll()) != null) {
-             --max;
--            l.run();
-+            runnable.run();
-         }
- 
-         int i1 = 0;
-@@ -588,7 +589,7 @@
+@@ -588,7 +588,7 @@
                  }
  
                  return isChunkDataValid;

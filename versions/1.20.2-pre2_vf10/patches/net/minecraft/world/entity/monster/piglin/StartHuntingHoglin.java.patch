@@ -1,14 +1,5 @@
 --- a/net/minecraft/world/entity/monster/piglin/StartHuntingHoglin.java
 +++ b/net/minecraft/world/entity/monster/piglin/StartHuntingHoglin.java
-@@ -11,7 +11,7 @@
- public class StartHuntingHoglin {
-     public static OneShot<Piglin> create() {
-         return BehaviorBuilder.create(
--            instance -> instance.<MemoryAccessor, MemoryAccessor, MemoryAccessor, MemoryAccessor>group(
-+            instance -> instance.group(
-                         instance.present(MemoryModuleType.NEAREST_VISIBLE_HUNTABLE_HOGLIN),
-                         instance.absent(MemoryModuleType.ANGRY_AT),
-                         instance.absent(MemoryModuleType.HUNTED_RECENTLY),
 @@ -21,14 +21,14 @@
                          instance,
                          (nearestVisibleHuntableHoglin, angryAt, huntedRecently, nearestVisibleAdultPiglins) -> (level, piglin, gameTime) -> {

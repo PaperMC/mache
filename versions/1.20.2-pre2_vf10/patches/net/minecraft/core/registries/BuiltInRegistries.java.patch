@@ -4,8 +4,8 @@
      ) {
          ResourceLocation resourceLocation = key.location();
          LOADERS.put(resourceLocation, () -> bootstrap.run(registry));
--        WRITABLE_REGISTRY.register(key, registry, lifecycle);
-+        WRITABLE_REGISTRY.register((ResourceKey) key, registry, lifecycle);
+-        WRITABLE_REGISTRY.register((ResourceKey<WritableRegistry<?>>)key, registry, lifecycle);
++        WRITABLE_REGISTRY.register((ResourceKey)key, registry, lifecycle);
          return registry;
      }
  

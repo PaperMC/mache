@@ -1,40 +1,11 @@
 --- a/net/minecraft/core/RegistryAccess.java
 +++ b/net/minecraft/core/RegistryAccess.java
-@@ -34,8 +34,8 @@
-         return new RegistryAccess.Frozen() {
-             @Override
-             public <T> Optional<Registry<T>> registry(ResourceKey<? extends Registry<? extends T>> registryKey) {
--                Registry<Registry<T>> registry = registryOfRegistries;
--                return registry.getOptional(registryKey);
-+                Registry<Registry<T>> registry = (Registry<Registry<T>>) registryOfRegistries;
-+                return registry.getOptional((ResourceKey<Registry<T>>) registryKey);
-             }
- 
-             @Override
-@@ -72,7 +72,7 @@
- 
-         public ImmutableRegistryAccess(List<? extends Registry<?>> registries) {
-             this.registries = registries.stream()
--                .collect(Collectors.toUnmodifiableMap(Registry::key, (Function<? super Registry, ? extends Registry>)(registry -> registry)));
-+                .collect(Collectors.toUnmodifiableMap(Registry::key, (registry -> registry)));
-         }
- 
-         public ImmutableRegistryAccess(Map<? extends ResourceKey<? extends Registry<?>>, ? extends Registry<?>> registries) {
-@@ -85,7 +85,7 @@
- 
-         @Override
-         public <E> Optional<Registry<E>> registry(ResourceKey<? extends Registry<? extends E>> registryKey) {
--            return Optional.ofNullable(this.registries.get(registryKey)).map((Function<? super Registry<?>, ? extends Registry<E>>)(registry -> registry));
-+            return Optional.ofNullable(this.registries.get(registryKey)).map((registry -> (Registry<E>) registry));
-         }
- 
-         @Override
-@@ -102,7 +102,7 @@
+@@ -100,7 +100,7 @@
          }
  
          private static <T> RegistryAccess.RegistryEntry<T> fromUntyped(ResourceKey<? extends Registry<?>> key, Registry<?> value) {
--            return new RegistryAccess.RegistryEntry<>(key, value);
-+            return new RegistryAccess.RegistryEntry<>((ResourceKey<Registry<T>>) key, (Registry<T>) value);
+-            return new RegistryAccess.RegistryEntry<>(key, (Registry<T>)value);
++            return new RegistryAccess.RegistryEntry<>((ResourceKey<Registry<T>>) key, (Registry<T>)value);
          }
  
          private RegistryAccess.RegistryEntry<T> freeze() {

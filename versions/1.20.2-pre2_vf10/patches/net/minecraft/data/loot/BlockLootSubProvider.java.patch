@@ -1,6 +1,15 @@
 --- a/net/minecraft/data/loot/BlockLootSubProvider.java
 +++ b/net/minecraft/data/loot/BlockLootSubProvider.java
-@@ -354,7 +354,7 @@
+@@ -135,7 +135,7 @@
+ 
+     protected LootTable.Builder createSingleItemTableWithSilkTouch(Block block, ItemLike item) {
+         return createSilkTouchDispatchTable(
+-            block, this.applyExplosionCondition(block, (ConditionUserBuilder<LootPoolSingletonContainer.Builder<?>>)LootItem.lootTableItem(item))
++            block, this.applyExplosionCondition(block, LootItem.lootTableItem(item))
+         );
+     }
+ 
+@@ -356,7 +356,7 @@
              block,
              this.applyExplosionDecay(
                  block,
@@ -9,7 +18,7 @@
                      .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, 2))
              )
          );
-@@ -405,7 +405,7 @@
+@@ -407,7 +407,7 @@
                      .add(
                          this.applyExplosionDecay(
                              block,
@@ -18,3 +27,30 @@
                                      .apply(
                                          Direction.values(),
                                          direction -> SetItemCountFunction.setCount(ConstantValue.exactly(1.0F), true)
+@@ -428,7 +428,7 @@
+     protected LootTable.Builder createLeavesDrops(Block leavesBlock, Block saplingBlock, float... chances) {
+         return createSilkTouchOrShearsDispatchTable(
+                 leavesBlock,
+-                this.applyExplosionCondition(leavesBlock, (ConditionUserBuilder<LootPoolSingletonContainer.Builder<?>>)LootItem.lootTableItem(saplingBlock))
++                this.applyExplosionCondition(leavesBlock, LootItem.lootTableItem(saplingBlock))
+                     .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, chances))
+             )
+             .withPool(
+@@ -452,7 +452,7 @@
+                     .when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+                     .add(
+                         this.applyExplosionCondition(
+-                                oakLeavesBlock, (ConditionUserBuilder<LootPoolSingletonContainer.Builder<?>>)LootItem.lootTableItem(Items.APPLE)
++                                oakLeavesBlock, LootItem.lootTableItem(Items.APPLE)
+                             )
+                             .when(
+                                 BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)
+@@ -505,7 +505,7 @@
+                 .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))
+                 .when(HAS_SHEARS))
+             .otherwise(
+-                this.applyExplosionCondition(block, (ConditionUserBuilder<LootPoolSingletonContainer.Builder<?>>)LootItem.lootTableItem(Items.WHEAT_SEEDS))
++                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.WHEAT_SEEDS))
+                     .when(LootItemRandomChanceCondition.randomChance(0.125F))
+             );
+         return LootTable.lootTable()

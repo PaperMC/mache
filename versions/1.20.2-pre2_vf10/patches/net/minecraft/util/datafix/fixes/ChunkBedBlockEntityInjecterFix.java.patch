@@ -8,14 +8,14 @@
  import com.mojang.datafixers.util.Pair;
  import com.mojang.serialization.Dynamic;
  import com.mojang.serialization.DynamicOps;
-@@ -44,8 +45,8 @@
+@@ -42,8 +43,8 @@
          return TypeRewriteRule.seq(
              this.fixTypeEverywhere(
                  "InjectBedBlockEntityType",
--                this.getInputSchema().findChoiceType(References.BLOCK_ENTITY),
--                this.getOutputSchema().findChoiceType(References.BLOCK_ENTITY),
-+                    (TaggedChoice.TaggedChoiceType<String>) this.getInputSchema().findChoiceType(References.BLOCK_ENTITY),
-+                    (TaggedChoice.TaggedChoiceType<String>) this.getOutputSchema().findChoiceType(References.BLOCK_ENTITY),
+-                (Type<Pair<?, ?>>)this.getInputSchema().findChoiceType(References.BLOCK_ENTITY),
+-                (Type<Pair<?, ?>>)this.getOutputSchema().findChoiceType(References.BLOCK_ENTITY),
++                (TaggedChoice.TaggedChoiceType<String>) this.getInputSchema().findChoiceType(References.BLOCK_ENTITY),
++                (TaggedChoice.TaggedChoiceType<String>) this.getOutputSchema().findChoiceType(References.BLOCK_ENTITY),
                  dynamicOps -> pair -> pair
              ),
              this.fixTypeEverywhereTyped(

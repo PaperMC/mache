@@ -19,12 +19,3 @@
      }
  
      protected TagsProvider.TagAppender<T> tag(TagKey<T> tag) {
-@@ -179,7 +178,7 @@
-         }
- 
-         default boolean contains(TagKey<T> key) {
--            return this.apply((T)key).isPresent();
-+            return this.apply(key).isPresent();
-         }
-     }
- }
