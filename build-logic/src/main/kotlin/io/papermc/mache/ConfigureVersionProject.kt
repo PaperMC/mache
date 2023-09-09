@@ -46,7 +46,8 @@ object ConfigureVersionProject {
         val mcManifest = json.decodeFromString<MinecraftManifest>(resources.text.fromFile(mcManifestFile).asString())
 
         val mcVersionManifestFile: RegularFile = layout.dotGradleDirectory.file(MC_VERSION)
-        val mcVersion = mcManifest.versions.first { it.id == mache.minecraftVersion.get() }
+        val mcVersion = mcManifest.versions.firstOrNull { it.id == mache.minecraftVersion.get() }
+            ?: throw RuntimeException("Unknown Minecraft version ${mache.minecraftVersion.get()}")
         download.download(mcVersion.url, mcVersionManifestFile, Hash(mcVersion.sha1, HashingAlgorithm.SHA1))
 
         val manifestResource: TextResource = resources.text.fromFile(mcVersionManifestFile)

@@ -128,7 +128,7 @@ abstract class ApplyPatches : DefaultTask() {
                 result.failures
                     .map { "Patch failed: ${it.patch.relativeTo(patchRoot)}: ${it.details}" }
                     .forEach { logger.error(it) }
-                throw Exception("Failed to apply patches")
+                throw Exception("Failed to apply ${result.failures.size} patches")
             }
         } finally {
             tempInDir.deleteRecursively()

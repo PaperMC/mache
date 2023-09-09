@@ -72,7 +72,7 @@ abstract class DecompileJar : DefaultTask() {
                 classpath(decompiler)
                 mainClass.set("org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler")
 
-                maxHeapSize = "2G"
+                maxHeapSize = "3G"
 
                 args(decompilerArgs.get())
                 args("-cfg", cfgFile.absolutePathString())

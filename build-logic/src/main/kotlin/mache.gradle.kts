@@ -148,6 +148,8 @@ tasks.register("rebuildPatches", RebuildPatches::class) {
 }
 
 tasks.register("runServer", JavaExec::class) {
+    group = "mache"
+    description = "Runs the minecraft server"
     doNotTrackState("Run server")
 
     val path = objects.fileCollection()
