@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/GameRules.java
 +++ b/net/minecraft/world/level/GameRules.java
-@@ -226,8 +226,8 @@
+@@ -233,8 +233,8 @@
      }
  
      private static <T extends GameRules.Value<T>> void callVisitorCap(GameRules.GameRuleTypeVisitor visitor, GameRules.Key<?> key, GameRules.Type<?> type) {
