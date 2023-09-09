@@ -3,7 +3,7 @@ plugins {
 }
 
 mache {
-    minecraftVersion = "23w35a"
+    minecraftVersion = "1.20.2-pre2"
 }
 
 dependencies {
