@@ -5,7 +5,7 @@
                          Typed<?> typed3 = typed2.getOrCreateTyped(opticFinder3);
                          Typed<?> typed4 = typed3.getOrCreateTyped(opticFinder4);
 +                        Dynamic<?> f_Dynamic = dynamic;
-                         Typed<?> typed5 = typed4.write()
+                         Typed<?> typed5 = (Typed)typed4.write()
 -                            .flatMap(dynamic2 -> typeRaw.readTyped(dynamic2.set("id", dynamic.createString(string))))
 +                            .flatMap(dynamic2 -> typeRaw.readTyped(dynamic2.set("id", f_Dynamic.createString(string))))
                              .result()

@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/ai/gossip/GossipContainer.java
++++ b/net/minecraft/world/entity/ai/gossip/GossipContainer.java
+@@ -161,7 +161,7 @@
+             .decode(dynamic)
+             .resultOrPartial(errorMessage -> LOGGER.warn("Failed to deserialize gossips: {}", errorMessage))
+             .stream()
+-            .flatMap(result -> ((List)result.getFirst()).stream())
++            .flatMap(result -> result.getFirst().stream())
+             .forEach(gossip -> this.getOrCreate(gossip.target).entries.put(gossip.type, gossip.value));
+     }
+ 

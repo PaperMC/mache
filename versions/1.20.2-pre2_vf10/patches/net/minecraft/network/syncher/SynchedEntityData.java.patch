@@ -1,0 +1,11 @@
+--- a/net/minecraft/network/syncher/SynchedEntityData.java
++++ b/net/minecraft/network/syncher/SynchedEntityData.java
+@@ -284,7 +284,7 @@
+             if (serializer == null) {
+                 throw new DecoderException("Unknown serializer type " + varInt);
+             } else {
+-                return read(buffer, id, (EntityDataSerializer<T>)serializer);
++                return read(buffer, id, serializer);
+             }
+         }
+ 
