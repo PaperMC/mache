@@ -1,6 +1,6 @@
 --- a/net/minecraft/core/RegistrySetBuilder.java
 +++ b/net/minecraft/core/RegistrySetBuilder.java
-@@ -298,7 +298,7 @@
+@@ -292,7 +292,7 @@
  
          <T> Holder.Reference<T> getOrCreate(ResourceKey<T> key) {
              return (Holder.Reference<T>)this.holders

@@ -4,7 +4,7 @@
      public static <T extends Recipe<?>> void toNetwork(FriendlyByteBuf friendlyByteBuf, RecipeHolder<?> recipeHolder) {
          friendlyByteBuf.writeResourceLocation(BuiltInRegistries.RECIPE_SERIALIZER.getKey(recipeHolder.value().getSerializer()));
          friendlyByteBuf.writeResourceLocation(recipeHolder.id());
--        recipeHolder.value().getSerializer().toNetwork(friendlyByteBuf, (T)recipeHolder.value());
-+        ((net.minecraft.world.item.crafting.RecipeSerializer<T>) recipeHolder.value().getSerializer()).toNetwork(friendlyByteBuf, (T)recipeHolder.value());
+-        recipeHolder.value().getSerializer().toNetwork(friendlyByteBuf, recipeHolder.value());
++        ((net.minecraft.world.item.crafting.RecipeSerializer<T>) recipeHolder.value().getSerializer()).toNetwork(friendlyByteBuf, (T) recipeHolder.value());
      }
  }
