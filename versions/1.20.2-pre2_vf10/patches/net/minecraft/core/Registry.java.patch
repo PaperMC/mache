@@ -9,12 +9,3 @@
      }
  
      HolderSet.Named<T> getOrCreateTag(TagKey<T> key);
-@@ -183,7 +183,7 @@
- 
-             @Override
-             public Iterator<Holder<T>> iterator() {
--                return Registry.this.holders().map(reference -> reference).iterator();
-+                return Registry.this.holders().map(reference -> (Holder<T>) reference).iterator();
-             }
-         };
-     }
