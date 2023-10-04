@@ -32,6 +32,7 @@ jobs:
             echo "all_release=true" >> $GITHUB_OUTPUT
           else
             echo "all_release=false" >> $GITHUB_OUTPUT
+            echo '⚠️ Not releasing since build.gradle.kts contains snapshots!' >> $GITHUB_STEP_SUMMARY
           fi
     outputs:
       version_name: ${{ steps.version.outputs.name }}
