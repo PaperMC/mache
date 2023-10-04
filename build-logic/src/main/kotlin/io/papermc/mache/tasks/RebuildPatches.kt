@@ -21,7 +21,6 @@ import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.UntrackedTask
@@ -37,9 +36,6 @@ abstract class RebuildPatches : DefaultTask() {
 
     @get:Input
     abstract val contextLines: Property<Int>
-
-    @get:Internal
-    abstract val useNativeDiff: Property<Boolean>
 
     @get:OutputDirectory
     abstract val patchDir: DirectoryProperty

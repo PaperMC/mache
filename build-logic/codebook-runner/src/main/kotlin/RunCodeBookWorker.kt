@@ -62,7 +62,7 @@ abstract class RunCodeBookWorker : WorkAction<RunCodeBookWorker.RunCodebookParam
     private fun run(tempDir: Path) {
         try {
             val ctx = CodeBookContext.builder()
-                .tempDir(parameters.tempDir.get().asFile.toPath().absolute())
+                .tempDir(tempDir.absolute())
                 .remapperJar(
                     CodeBookRemapper.ofClasspath()
                         .jars(parameters.remapperClasspath.files.map { it.toPath().absolute() })

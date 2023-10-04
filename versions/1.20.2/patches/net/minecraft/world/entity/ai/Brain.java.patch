@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/Brain.java
 +++ b/net/minecraft/world/entity/ai/Brain.java
-@@ -198,14 +198,14 @@
+@@ -196,14 +196,14 @@
          if (optional == null) {
              throw new IllegalStateException("Unregistered memory fetched: " + type);
          } else {
@@ -17,7 +17,7 @@
      }
  
      public <U> long getTimeUntilExpiry(MemoryModuleType<U> memoryType) {
-@@ -498,7 +498,7 @@
+@@ -496,7 +496,7 @@
          private final Optional<? extends ExpirableValue<U>> value;
  
          static <U> Brain.MemoryValue<U> createUnchecked(MemoryModuleType<U> memoryType, Optional<? extends ExpirableValue<?>> memory) {

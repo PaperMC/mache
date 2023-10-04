@@ -141,9 +141,6 @@ tasks.register("rebuildPatches", RebuildPatches::class) {
     description = "Rebuild decompilation patches from the current source set."
     decompJar.set(decompileJar.flatMap { it.outputJar })
     sourceDir.set(layout.projectDirectory.dir("src/main/java"))
-
-    useNativeDiff.set(providers.gradleProperty("useNativeDiff").map { it.toBoolean() }.orElse(isNativeDiffAvailable()))
-
     patchDir.set(layout.projectDirectory.dir("patches"))
 }
 
