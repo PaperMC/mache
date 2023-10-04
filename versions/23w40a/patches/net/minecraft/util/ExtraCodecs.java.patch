@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/ExtraCodecs.java
 +++ b/net/minecraft/util/ExtraCodecs.java
-@@ -236,7 +236,7 @@
+@@ -222,7 +222,7 @@
                  P object1 = list1.get(1);
                  return biFunction.apply(object, object1);
              }), object -> ImmutableList.of(function.apply((I)object), function1.apply((I)object)));

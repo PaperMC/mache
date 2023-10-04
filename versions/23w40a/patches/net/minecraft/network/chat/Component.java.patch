@@ -1,0 +1,11 @@
+--- a/net/minecraft/network/chat/Component.java
++++ b/net/minecraft/network/chat/Component.java
+@@ -243,7 +243,7 @@
+         }
+ 
+         static MutableComponent deserialize(JsonElement jsonElement) {
+-            return Util.getOrThrow(ComponentSerialization.CODEC.parse(JsonOps.INSTANCE, jsonElement), JsonParseException::new);
++            return (MutableComponent) Util.getOrThrow(ComponentSerialization.CODEC.parse(JsonOps.INSTANCE, jsonElement), JsonParseException::new);
+         }
+ 
+         static JsonElement serialize(Component component) {

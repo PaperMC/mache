@@ -2,7 +2,7 @@
 +++ b/net/minecraft/server/level/ServerLevel.java
 @@ -1513,7 +1513,7 @@
  
-             return object2IntOpenHashMap.object2IntEntrySet()
+             return map.object2IntEntrySet()
                  .stream()
 -                .sorted(Comparator.comparing(Entry::getIntValue).reversed())
 +                .sorted(Comparator.<Entry<String>, Integer>comparing(Entry::getIntValue).reversed())
