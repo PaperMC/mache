@@ -1,0 +1,20 @@
+--- a/net/minecraft/commands/execution/tasks/BuildContexts.java
++++ b/net/minecraft/commands/execution/tasks/BuildContexts.java
+@@ -45,7 +45,7 @@
+                     CommandContext<T> topContext = contextChain.getTopContext();
+                     flag1 |= topContext.isForked();
+                     RedirectModifier<T> redirectModifier = topContext.getRedirectModifier();
+-                    if (redirectModifier instanceof CustomModifierExecutor<T> customModifierExecutor) {
++                    if (redirectModifier instanceof CustomModifierExecutor.ModifierAdapter<T> customModifierExecutor) {
+                         customModifierExecutor.apply(list1, contextChain, flag1, createExecutionControl(executionContext, i));
+                         return;
+                     }
+@@ -73,7 +73,7 @@
+         }
+ 
+         CommandContext<T> topContext1 = contextChain.getTopContext();
+-        if (topContext1.getCommand() instanceof CustomCommandExecutor<T> customCommandExecutor) {
++        if (topContext1.getCommand() instanceof CustomCommandExecutor.CommandAdapter<T> customCommandExecutor) {
+             ExecutionControl<T> executionControl = createExecutionControl(executionContext, i);
+ 
+             for (T executionCommandSourcex : list1) {
