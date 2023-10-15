@@ -1,31 +1,20 @@
 --- a/net/minecraft/nbt/NbtUtils.java
 +++ b/net/minecraft/nbt/NbtUtils.java
-@@ -343,7 +343,7 @@
-             case 9:
-                 ListTag list1 = (ListTag)tag;
-                 int size = list1.size();
--                int i = list1.getElementType();
-+                i = list1.getElementType();
-                 String string = i == 0 ? "undefined" : TagTypes.getType(i).getPrettyName();
-                 indent(indentLevel, stringBuilder).append("list<").append(string).append(">[").append(size).append("] [");
-                 if (size != 0) {
-@@ -375,8 +375,8 @@
+@@ -375,7 +375,7 @@
                      indent(indentLevel + 1, stringBuilder);
                  }
  
--                int i = list3.stream().mapToInt(String::length).max().orElse(0);
--                String string = Strings.repeat(" ", i);
-+                i = list3.stream().mapToInt(String::length).max().orElse(0);
-+                string = Strings.repeat(" ", i);
+-                int ix = list3.stream().mapToInt(String::length).max().orElse(0);
++                ix = list3.stream().mapToInt(String::length).max().orElse(0);
+                 String stringx = Strings.repeat(" ", ix);
  
                  for (int i2 = 0; i2 < list3.size(); i2++) {
-                     if (i2 != 0) {
 @@ -402,7 +402,7 @@
              case 11:
                  IntArrayTag list2 = (IntArrayTag)tag;
                  int[] asIntArray = list2.getAsIntArray();
--                int i = 0;
-+                i = 0;
+-                int ix = 0;
++                ix = 0;
  
                  for (int i3 : asIntArray) {
-                     i = Math.max(i, String.format(Locale.ROOT, "%X", i3).length());
+                     ix = Math.max(ix, String.format(Locale.ROOT, "%X", i3).length());
