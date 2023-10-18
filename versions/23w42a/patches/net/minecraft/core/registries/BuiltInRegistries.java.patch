@@ -1,6 +1,6 @@
 --- a/net/minecraft/core/registries/BuiltInRegistries.java
 +++ b/net/minecraft/core/registries/BuiltInRegistries.java
-@@ -293,7 +293,7 @@
+@@ -298,7 +298,7 @@
      ) {
          ResourceLocation resourceLocation = key.location();
          LOADERS.put(resourceLocation, () -> bootstrap.run(registry));
