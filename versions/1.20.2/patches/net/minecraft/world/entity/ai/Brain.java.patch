@@ -17,12 +17,3 @@
      }
  
      public <U> long getTimeUntilExpiry(MemoryModuleType<U> memoryType) {
-@@ -496,7 +496,7 @@
-         private final Optional<? extends ExpirableValue<U>> value;
- 
-         static <U> Brain.MemoryValue<U> createUnchecked(MemoryModuleType<U> memoryType, Optional<? extends ExpirableValue<?>> memory) {
--            return new Brain.MemoryValue<>(memoryType, memory);
-+            return new Brain.MemoryValue<U>(memoryType, (Optional<? extends ExpirableValue<U>>) memory);
-         }
- 
-         MemoryValue(MemoryModuleType<U> type, Optional<? extends ExpirableValue<U>> value) {

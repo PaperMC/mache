@@ -1,6 +1,6 @@
 --- a/net/minecraft/Util.java
 +++ b/net/minecraft/Util.java
-@@ -359,7 +359,7 @@
+@@ -360,7 +360,7 @@
      }
  
      public static <K> Strategy<K> identityStrategy() {
