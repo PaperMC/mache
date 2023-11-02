@@ -1,0 +1,12 @@
+--- a/net/minecraft/server/level/ServerChunkCache.java
++++ b/net/minecraft/server/level/ServerChunkCache.java
+@@ -573,7 +573,8 @@
+             super.doRunTask(task);
+         }
+ 
+-        protected boolean pollTask() {
++        @Override
++        public boolean pollTask() {
+             if (ServerChunkCache.this.runDistanceManagerUpdates()) {
+                 return true;
+             } else {
