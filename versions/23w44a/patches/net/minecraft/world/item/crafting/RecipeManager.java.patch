@@ -4,7 +4,7 @@
      }
  
      private <C extends Container, T extends Recipe<C>> Map<ResourceLocation, RecipeHolder<T>> byType(RecipeType<T> recipeType) {
--        return this.recipes.getOrDefault(recipeType, Collections.emptyMap());
+-        return (Map<ResourceLocation, RecipeHolder<T>>)this.recipes.getOrDefault(recipeType, Collections.emptyMap());
 +        return (Map<ResourceLocation, RecipeHolder<T>>) ((Map<ResourceLocation, ?>) this.recipes.getOrDefault(recipeType, Collections.emptyMap()));
      }
  

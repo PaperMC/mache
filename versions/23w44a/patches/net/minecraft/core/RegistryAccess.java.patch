@@ -4,7 +4,7 @@
          }
  
          private static <T> RegistryAccess.RegistryEntry<T> fromUntyped(ResourceKey<? extends Registry<?>> key, Registry<?> value) {
--            return new RegistryAccess.RegistryEntry<>(key, (Registry<T>)value);
+-            return new RegistryAccess.RegistryEntry<>((ResourceKey<? extends Registry<T>>)key, (Registry<T>)value);
 +            return new RegistryAccess.RegistryEntry<>((ResourceKey<Registry<T>>) key, (Registry<T>)value);
          }
  

@@ -1,10 +1,16 @@
 --- a/net/minecraft/network/protocol/game/ClientboundUpdateRecipesPacket.java
 +++ b/net/minecraft/network/protocol/game/ClientboundUpdateRecipesPacket.java
-@@ -48,6 +48,6 @@
-     public static <T extends Recipe<?>> void toNetwork(FriendlyByteBuf friendlyByteBuf, RecipeHolder<?> recipeHolder) {
-         friendlyByteBuf.writeResourceLocation(BuiltInRegistries.RECIPE_SERIALIZER.getKey(recipeHolder.value().getSerializer()));
-         friendlyByteBuf.writeResourceLocation(recipeHolder.id());
--        recipeHolder.value().getSerializer().toNetwork(friendlyByteBuf, recipeHolder.value());
+@@ -46,9 +46,9 @@
+         return new RecipeHolder<>(resourceLocation1, recipe);
+     }
+ 
+-    public static <T extends Recipe<?>> void toNetwork(FriendlyByteBuf buffer, RecipeHolder<?> recipe) {
+-        buffer.writeResourceLocation(BuiltInRegistries.RECIPE_SERIALIZER.getKey(recipe.value().getSerializer()));
+-        buffer.writeResourceLocation(recipe.id());
+-        ((RecipeSerializer<Recipe<?>>)recipe.value().getSerializer()).toNetwork(buffer, recipe.value());
++    public static <T extends Recipe<?>> void toNetwork(FriendlyByteBuf friendlyByteBuf, RecipeHolder<?> recipeHolder) {
++        friendlyByteBuf.writeResourceLocation(BuiltInRegistries.RECIPE_SERIALIZER.getKey(recipeHolder.value().getSerializer()));
++        friendlyByteBuf.writeResourceLocation(recipeHolder.id());
 +        ((net.minecraft.world.item.crafting.RecipeSerializer<T>) recipeHolder.value().getSerializer()).toNetwork(friendlyByteBuf, (T) recipeHolder.value());
      }
  }

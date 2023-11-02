@@ -13,7 +13,7 @@
              throw new IllegalStateException("Could not inject: key type is not the same");
          } else {
 -            return this.fixTypeEverywhere(name, type, (Type<Pair<K, ?>>)newType, dynamicOps -> pair -> {
--                    if (!newType.hasType(pair.getFirst())) {
+-                    if (!((TaggedChoiceType<K>)newType).hasType(pair.getFirst())) {
 +            return this.fixTypeEverywhere(name, type, (TaggedChoice.TaggedChoiceType<K>) newType, dynamicOps -> pair -> {
 +                    if (!((TaggedChoice.TaggedChoiceType<K>) newType).hasType(pair.getFirst())) {
                          throw new IllegalArgumentException(String.format(Locale.ROOT, "Unknown type %s in %s ", pair.getFirst(), this.type));

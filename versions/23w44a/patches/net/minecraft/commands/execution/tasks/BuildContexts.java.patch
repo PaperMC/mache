@@ -1,20 +1,25 @@
 --- a/net/minecraft/commands/execution/tasks/BuildContexts.java
 +++ b/net/minecraft/commands/execution/tasks/BuildContexts.java
-@@ -45,7 +45,7 @@
-                     CommandContext<T> topContext = contextChain.getTopContext();
-                     flag1 |= topContext.isForked();
+@@ -52,7 +52,7 @@
+                     }
+ 
                      RedirectModifier<T> redirectModifier = topContext.getRedirectModifier();
 -                    if (redirectModifier instanceof CustomModifierExecutor<T> customModifierExecutor) {
 +                    if (redirectModifier instanceof CustomModifierExecutor.ModifierAdapter<T> customModifierExecutor) {
-                         customModifierExecutor.apply(list1, contextChain, flag1, createExecutionControl(executionContext, i));
-                         return;
-                     }
-@@ -73,7 +73,7 @@
-         }
+                         customModifierExecutor.apply(
+                             executionCommandSource, list1, contextChain, chainModifiers1, ExecutionControl.create(executionContext, frame)
+                         );
+@@ -92,11 +92,11 @@
  
-         CommandContext<T> topContext1 = contextChain.getTopContext();
--        if (topContext1.getCommand() instanceof CustomCommandExecutor<T> customCommandExecutor) {
-+        if (topContext1.getCommand() instanceof CustomCommandExecutor.CommandAdapter<T> customCommandExecutor) {
-             ExecutionControl<T> executionControl = createExecutionControl(executionContext, i);
+         if (list1.isEmpty()) {
+             if (chainModifiers1.isReturn()) {
+-                executionContext.queueNext(new CommandQueueEntry<>(frame, FallthroughTask.instance()));
++                executionContext.queueNext(new CommandQueueEntry<T>(frame, FallthroughTask.instance()));
+             }
+         } else {
+             CommandContext<T> topContext1 = contextChain.getTopContext();
+-            if (topContext1.getCommand() instanceof CustomCommandExecutor<T> customCommandExecutor) {
++            if (topContext1.getCommand() instanceof CustomCommandExecutor.CommandAdapter<T> customCommandExecutor) {
+                 ExecutionControl<T> executionControl = ExecutionControl.create(executionContext, frame);
  
-             for (T executionCommandSourcex : list1) {
+                 for (T executionCommandSource2 : list1) {

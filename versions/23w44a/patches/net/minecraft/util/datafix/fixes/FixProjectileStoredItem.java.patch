@@ -1,0 +1,28 @@
+--- a/net/minecraft/util/datafix/fixes/FixProjectileStoredItem.java
++++ b/net/minecraft/util/datafix/fixes/FixProjectileStoredItem.java
+@@ -46,13 +46,13 @@
+         };
+     }
+ 
+-    private Function<Typed<?>, Typed<?>> fixChoice(String string, FixProjectileStoredItem.SubFixer<?> subFixer) {
++    private Function<Typed<?>, Typed<?>> fixChoice(String string, FixProjectileStoredItem.SubFixer subFixer) {
+         Type<?> choiceType = this.getInputSchema().getChoiceType(References.ENTITY, string);
+         Type<?> choiceType1 = this.getOutputSchema().getChoiceType(References.ENTITY, string);
+         return fixChoiceCap(string, subFixer, choiceType, choiceType1);
+     }
+ 
+-    private static <T> Function<Typed<?>, Typed<?>> fixChoiceCap(String string, FixProjectileStoredItem.SubFixer<?> subFixer, Type<?> type, Type<T> type1) {
++    private static Function<Typed<?>, Typed<?>> fixChoiceCap(String string, FixProjectileStoredItem.SubFixer subFixer, Type<?> type, Type<?> type1) {
+         OpticFinder<?> opticFinder = DSL.namedChoice(string, type);
+         return typed -> typed.updateTyped(opticFinder, type1, typed1 -> subFixer.fix(typed1, type1));
+     }
+@@ -87,7 +87,7 @@
+         return new Typed<>(type, typed.getOps(), (T)typed.getValue());
+     }
+ 
+-    interface SubFixer<F> {
+-        Typed<F> fix(Typed<?> typed, Type<F> type);
++    interface SubFixer {
++        Typed<?> fix(Typed<?> typed, Type<?> type);
+     }
+ }

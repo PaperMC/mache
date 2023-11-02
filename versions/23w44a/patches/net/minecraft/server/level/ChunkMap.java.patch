@@ -1,5 +1,14 @@
 --- a/net/minecraft/server/level/ChunkMap.java
 +++ b/net/minecraft/server/level/ChunkMap.java
+@@ -273,7 +273,7 @@
+             }
+ 
+             FullChunkStatus fullStatus = visibleChunkIfPresent.getFullStatus();
+-            string = string + '§' + fullStatus.ordinal() + fullStatus;
++            string = string + "§" + fullStatus.ordinal() + fullStatus;
+             return string + "§r";
+         }
+     }
 @@ -588,7 +588,7 @@
                  }
  
