@@ -1,0 +1,11 @@
+--- a/net/minecraft/commands/arguments/OperationArgument.java
++++ b/net/minecraft/commands/arguments/OperationArgument.java
+@@ -57,7 +57,7 @@
+     }
+ 
+     private static OperationArgument.Operation getOperation(String name) throws CommandSyntaxException {
+-        return (OperationArgument.Operation)(name.equals("><") ? (scoreAccess, scoreAccess1) -> {
++        return (name.equals("><") ? (scoreAccess, scoreAccess1) -> {
+             int i = scoreAccess.get();
+             scoreAccess.set(scoreAccess1.get());
+             scoreAccess1.set(i);

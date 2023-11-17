@@ -1,0 +1,11 @@
+--- a/net/minecraft/server/commands/ReturnCommand.java
++++ b/net/minecraft/server/commands/ReturnCommand.java
+@@ -18,7 +18,7 @@
+ public class ReturnCommand {
+     public static <T extends ExecutionCommandSource<T>> void register(CommandDispatcher<T> dispatcher) {
+         dispatcher.register(
+-            (LiteralArgumentBuilder<T>)LiteralArgumentBuilder.<ExecutionCommandSource>literal("return")
++            (LiteralArgumentBuilder<T>)LiteralArgumentBuilder.<T>literal("return")
+                 .requires(executionCommandSource -> executionCommandSource.hasPermission(2))
+                 .then(
+                     RequiredArgumentBuilder.<T, Integer>argument("value", IntegerArgumentType.integer())

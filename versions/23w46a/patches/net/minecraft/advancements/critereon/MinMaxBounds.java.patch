@@ -1,0 +1,20 @@
+--- a/net/minecraft/advancements/critereon/MinMaxBounds.java
++++ b/net/minecraft/advancements/critereon/MinMaxBounds.java
+@@ -127,7 +127,7 @@
+     public static record Doubles(@Override Optional<Double> min, @Override Optional<Double> max, Optional<Double> minSq, Optional<Double> maxSq)
+         implements MinMaxBounds<Double> {
+         public static final MinMaxBounds.Doubles ANY = new MinMaxBounds.Doubles(Optional.empty(), Optional.empty());
+-        public static final Codec<MinMaxBounds.Doubles> CODEC = MinMaxBounds.createCodec(Codec.DOUBLE, MinMaxBounds.Doubles::new);
++        public static final Codec<MinMaxBounds.Doubles> CODEC = MinMaxBounds.<Double, MinMaxBounds.Doubles>createCodec(Codec.DOUBLE, MinMaxBounds.Doubles::new);
+ 
+         private Doubles(Optional<Double> optional, Optional<Double> optional1) {
+             this(optional, optional1, squareOpt(optional), squareOpt(optional1));
+@@ -183,7 +183,7 @@
+     public static record Ints(@Override Optional<Integer> min, @Override Optional<Integer> max, Optional<Long> minSq, Optional<Long> maxSq)
+         implements MinMaxBounds<Integer> {
+         public static final MinMaxBounds.Ints ANY = new MinMaxBounds.Ints(Optional.empty(), Optional.empty());
+-        public static final Codec<MinMaxBounds.Ints> CODEC = MinMaxBounds.createCodec(Codec.INT, MinMaxBounds.Ints::new);
++        public static final Codec<MinMaxBounds.Ints> CODEC = MinMaxBounds.<Integer, MinMaxBounds.Ints>createCodec(Codec.INT, MinMaxBounds.Ints::new);
+ 
+         private Ints(Optional<Integer> optional, Optional<Integer> optional1) {
+             this(optional, optional1, optional.map(integer -> integer.longValue() * integer.longValue()), squareOpt(optional1));
