@@ -1,6 +1,6 @@
 --- a/net/minecraft/network/ConnectionProtocol.java
 +++ b/net/minecraft/network/ConnectionProtocol.java
-@@ -33,9 +33,11 @@
+@@ -34,9 +34,11 @@
  import net.minecraft.network.protocol.common.ServerboundKeepAlivePacket;
  import net.minecraft.network.protocol.common.ServerboundPongPacket;
  import net.minecraft.network.protocol.common.ServerboundResourcePackPacket;
@@ -12,7 +12,7 @@
  import net.minecraft.network.protocol.configuration.ServerboundFinishConfigurationPacket;
  import net.minecraft.network.protocol.game.ClientGamePacketListener;
  import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
-@@ -146,6 +148,7 @@
+@@ -147,6 +149,7 @@
  import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
  import net.minecraft.network.protocol.game.ClientboundUpdateRecipesPacket;
  import net.minecraft.network.protocol.game.ServerGamePacketListener;
@@ -20,7 +20,7 @@
  import net.minecraft.network.protocol.game.ServerboundAcceptTeleportationPacket;
  import net.minecraft.network.protocol.game.ServerboundBlockEntityTagQuery;
  import net.minecraft.network.protocol.game.ServerboundChangeDifficultyPacket;
-@@ -218,7 +221,7 @@
+@@ -219,7 +222,7 @@
      HANDSHAKING(
          "handshake",
          protocol()
@@ -29,7 +29,7 @@
              .addFlow(
                  PacketFlow.SERVERBOUND,
                  new ConnectionProtocol.PacketSet<ServerHandshakePacketListener>().addPacket(ClientIntentionPacket.class, ClientIntentionPacket::new)
-@@ -449,7 +452,7 @@
+@@ -451,7 +454,7 @@
          protocol()
              .addFlow(
                  PacketFlow.CLIENTBOUND,
@@ -38,7 +38,7 @@
                      .addPacket(ClientboundCustomPayloadPacket.class, ClientboundCustomPayloadPacket::new)
                      .addPacket(ClientboundDisconnectPacket.class, ClientboundDisconnectPacket::new)
                      .addPacket(ClientboundFinishConfigurationPacket.class, ClientboundFinishConfigurationPacket::new)
-@@ -462,7 +465,7 @@
+@@ -465,7 +468,7 @@
              )
              .addFlow(
                  PacketFlow.SERVERBOUND,
