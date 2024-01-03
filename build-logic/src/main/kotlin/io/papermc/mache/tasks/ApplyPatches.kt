@@ -82,6 +82,7 @@ abstract class ApplyPatches : DefaultTask() {
 
         if (!patchesPresent) {
             inputFile.convertToPath().copyTo(out)
+            failed.writeZip { }
             return
         }
 
