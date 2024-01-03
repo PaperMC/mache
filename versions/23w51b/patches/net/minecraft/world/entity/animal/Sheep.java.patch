@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/animal/Sheep.java
 +++ b/net/minecraft/world/entity/animal/Sheep.java
-@@ -86,7 +86,7 @@
+@@ -82,7 +82,7 @@
          map.put(DyeColor.RED, Blocks.RED_WOOL);
          map.put(DyeColor.BLACK, Blocks.BLACK_WOOL);
      });

@@ -1,0 +1,19 @@
+--- a/net/minecraft/world/item/alchemy/Potion.java
++++ b/net/minecraft/world/item/alchemy/Potion.java
+@@ -4,6 +4,7 @@
+ import java.util.function.Function;
+ import javax.annotation.Nullable;
+ import net.minecraft.core.Holder;
++import net.minecraft.core.Holder.Reference;
+ import net.minecraft.core.registries.BuiltInRegistries;
+ import net.minecraft.resources.ResourceKey;
+ import net.minecraft.resources.ResourceLocation;
+@@ -16,7 +17,7 @@
+ 
+     public static Holder<Potion> byName(String string) {
+         ResourceLocation resourceLocation = ResourceLocation.tryParse(string);
+-        return resourceLocation == null ? Potions.EMPTY : BuiltInRegistries.POTION.getHolder(resourceLocation).map(Function.identity()).orElse(Potions.EMPTY);
++        return resourceLocation == null ? Potions.EMPTY : BuiltInRegistries.POTION.getHolder(resourceLocation).map(potionReference -> (Holder<Potion>)potionReference).orElse(Potions.EMPTY);
+     }
+ 
+     public Potion(MobEffectInstance... effects) {
