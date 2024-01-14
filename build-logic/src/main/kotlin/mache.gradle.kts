@@ -1,13 +1,6 @@
 import io.papermc.mache.ConfigureVersionProject
 import io.papermc.mache.MacheExtension
-import io.papermc.mache.constants.DECOMP_JAR
-import io.papermc.mache.constants.DOWNLOAD_SERVER_JAR
-import io.papermc.mache.constants.FAILED_PATCH_JAR
-import io.papermc.mache.constants.PATCHED_JAR
-import io.papermc.mache.constants.REMAPPED_JAR
-import io.papermc.mache.constants.REPO_URL
-import io.papermc.mache.constants.SERVER_JAR
-import io.papermc.mache.constants.SERVER_MAPPINGS
+import io.papermc.mache.constants.*
 import io.papermc.mache.tasks.ApplyPatches
 import io.papermc.mache.tasks.ApplyPatchesFuzzy
 import io.papermc.mache.tasks.DecompileJar
@@ -58,7 +51,7 @@ val remapJar by tasks.registering(RemapJar::class) {
     paramMappings.from(configurations.named("paramMappings"))
     constants.from(configurations.named("constants"))
 
-    logMissingLvtSuggestions.set(providers.gradleProperty("logMissingLvt").map { it.toBoolean() })
+    reportsDir.set(layout.dotGradleDirectory.dir(REPORTS_DIR))
 
     outputJar.set(layout.buildDirectory.file(REMAPPED_JAR))
 }
