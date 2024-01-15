@@ -1,6 +1,6 @@
 --- a/net/minecraft/core/RegistrySetBuilder.java
 +++ b/net/minecraft/core/RegistrySetBuilder.java
-@@ -264,7 +264,7 @@
+@@ -269,7 +269,7 @@
          }
  
          public <T> HolderOwner<T> cast() {
@@ -9,7 +9,7 @@
          }
      }
  
-@@ -379,7 +379,7 @@
+@@ -375,7 +375,7 @@
  
          <T> Holder.Reference<T> getOrCreate(ResourceKey<T> key) {
              return (Holder.Reference<T>)this.holders

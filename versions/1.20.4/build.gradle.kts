@@ -14,7 +14,7 @@ dependencies {
     codebook("1.0.7")
     remapper(art("1.0.7"))
     decompiler(vineflower("1.10.0-SNAPSHOT"))
-    parchment("1.20.1", "2023.09.03")
+    parchment("1.20.3", "2023.12.31")
 }
 
 dependencies {

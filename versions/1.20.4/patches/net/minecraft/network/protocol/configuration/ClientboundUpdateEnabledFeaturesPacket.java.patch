@@ -3,9 +3,9 @@
 @@ -8,7 +8,7 @@
  
  public record ClientboundUpdateEnabledFeaturesPacket(Set<ResourceLocation> features) implements Packet<ClientConfigurationPacketListener> {
-     public ClientboundUpdateEnabledFeaturesPacket(FriendlyByteBuf friendlyByteBuf) {
--        this(friendlyByteBuf.readCollection(HashSet::new, FriendlyByteBuf::readResourceLocation));
-+        this(friendlyByteBuf.<ResourceLocation, Set<ResourceLocation>>readCollection(HashSet::new, FriendlyByteBuf::readResourceLocation));
+     public ClientboundUpdateEnabledFeaturesPacket(FriendlyByteBuf buffer) {
+-        this(buffer.readCollection(HashSet::new, FriendlyByteBuf::readResourceLocation));
++        this(buffer.<ResourceLocation, Set<ResourceLocation>>readCollection(HashSet::new, FriendlyByteBuf::readResourceLocation));
      }
  
      @Override
