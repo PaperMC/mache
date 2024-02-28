@@ -1,0 +1,11 @@
+--- a/net/minecraft/util/datafix/FixWolfHealth.java
++++ b/net/minecraft/util/datafix/FixWolfHealth.java
+@@ -23,7 +23,7 @@
+             DSL.remainderFinder(),
+             dynamic -> {
+                 MutableBoolean mutableBoolean = new MutableBoolean(false);
+-                Dynamic var2 = dynamic.update(
++                Dynamic<?> var2 = dynamic.update(
+                     "Attributes",
+                     dynamic1 -> dynamic1.createList(
+                             dynamic1.asStream()
