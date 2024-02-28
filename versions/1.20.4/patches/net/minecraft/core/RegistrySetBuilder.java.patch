@@ -9,7 +9,7 @@
          }
      }
  
-@@ -375,7 +375,7 @@
+@@ -384,7 +384,7 @@
  
          <T> Holder.Reference<T> getOrCreate(ResourceKey<T> key) {
              return (Holder.Reference<T>)this.holders

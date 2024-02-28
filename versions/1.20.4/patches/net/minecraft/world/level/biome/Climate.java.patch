@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/biome/Climate.java
 +++ b/net/minecraft/world/level/biome/Climate.java
-@@ -263,7 +263,7 @@
+@@ -262,7 +262,7 @@
                      throw new IllegalStateException("Expecting parameter space to be 7, got " + size);
                  } else {
                      List<Climate.RTree.Leaf<T>> list = nodes.stream()

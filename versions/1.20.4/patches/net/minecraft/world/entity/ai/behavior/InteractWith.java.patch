@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/behavior/InteractWith.java
 +++ b/net/minecraft/world/entity/ai/behavior/InteractWith.java
-@@ -45,7 +45,7 @@
+@@ -43,7 +43,7 @@
                                          testEntity -> testEntity.distanceToSqr(entity) <= (double)i && predicate.test(testEntity)
                                      );
                                      optional.ifPresent(target -> {
