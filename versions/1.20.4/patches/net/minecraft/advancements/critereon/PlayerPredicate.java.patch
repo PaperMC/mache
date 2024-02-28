@@ -1,6 +1,6 @@
 --- a/net/minecraft/advancements/critereon/PlayerPredicate.java
 +++ b/net/minecraft/advancements/critereon/PlayerPredicate.java
-@@ -240,11 +240,11 @@
+@@ -239,11 +239,11 @@
          private static <T> Codec<PlayerPredicate.StatMatcher<T>> createTypedCodec(StatType<T> type) {
              return RecordCodecBuilder.create(
                  instance -> instance.group(

@@ -4,8 +4,8 @@
  
      private static <E> DataResult<? extends Codec<E>> getNetworkCodec(ResourceKey<? extends Registry<E>> registryKey) {
          return Optional.ofNullable(NETWORKABLE_REGISTRIES.get(registryKey))
--            .map(networkedRegistryData -> networkedRegistryData.networkCodec())
-+            .map(networkedRegistryData -> (Codec<E>) networkedRegistryData.networkCodec())
+-            .map(registryData -> registryData.networkCodec())
++            .map(registryData -> (Codec<E>) registryData.networkCodec())
              .map(DataResult::success)
              .orElseGet(() -> DataResult.error(() -> "Unknown or not serializable registry: " + registryKey));
      }

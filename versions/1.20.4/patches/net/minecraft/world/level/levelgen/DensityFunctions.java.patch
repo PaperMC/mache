@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/levelgen/DensityFunctions.java
 +++ b/net/minecraft/world/level/levelgen/DensityFunctions.java
-@@ -295,7 +295,7 @@
+@@ -294,7 +294,7 @@
                      }
                      break;
                  case MIN:

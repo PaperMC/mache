@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/datafix/fixes/ChunkHeightAndBiomeFix.java
 +++ b/net/minecraft/util/datafix/fixes/ChunkHeightAndBiomeFix.java
-@@ -223,7 +223,8 @@
+@@ -222,7 +222,8 @@
          } else if (ints != null && ints.length == 1024) {
              for (int i1 = 0; i1 < 16; i1++) {
                  int i2 = i1 - i;

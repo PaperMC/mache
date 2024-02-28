@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/Brain.java
 +++ b/net/minecraft/world/entity/ai/Brain.java
-@@ -196,14 +196,14 @@
+@@ -195,14 +195,14 @@
          if (optional == null) {
              throw new IllegalStateException("Unregistered memory fetched: " + type);
          } else {

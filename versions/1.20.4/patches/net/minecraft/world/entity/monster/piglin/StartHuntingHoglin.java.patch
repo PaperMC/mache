@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/monster/piglin/StartHuntingHoglin.java
 +++ b/net/minecraft/world/entity/monster/piglin/StartHuntingHoglin.java
-@@ -21,14 +21,14 @@
+@@ -19,14 +19,14 @@
                          instance,
                          (nearestVisibleHuntableHoglin, angryAt, huntedRecently, nearestVisibleAdultPiglins) -> (level, piglin, gameTime) -> {
                                  if (!piglin.isBaby()

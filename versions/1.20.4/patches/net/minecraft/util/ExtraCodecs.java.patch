@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/ExtraCodecs.java
 +++ b/net/minecraft/util/ExtraCodecs.java
-@@ -222,7 +222,7 @@
+@@ -220,7 +220,7 @@
                  P object1 = list1.get(1);
                  return factory.apply(object, object1);
              }), object -> ImmutableList.of(minGetter.apply((I)object), maxGetter.apply((I)object)));
