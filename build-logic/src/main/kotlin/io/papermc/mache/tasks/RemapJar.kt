@@ -7,6 +7,7 @@ import javax.inject.Inject
 import kotlin.io.path.name
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.ProjectLayout
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
@@ -14,9 +15,11 @@ import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.CompileClasspath
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.Optional
+import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
@@ -26,10 +29,6 @@ import org.gradle.workers.WorkerExecutor
 
 @CacheableTask
 abstract class RemapJar : DefaultTask() {
-
-    @get:Input
-    @get:Optional
-    abstract val logMissingLvtSuggestions: Property<Boolean>
 
     @get:PathSensitive(PathSensitivity.NONE)
     @get:InputFile
@@ -57,6 +56,10 @@ abstract class RemapJar : DefaultTask() {
 
     @get:OutputFile
     abstract val outputJar: RegularFileProperty
+
+    @get:OutputDirectory
+    @get:Optional
+    abstract val reportsDir: DirectoryProperty
 
     @get:Inject
     abstract val worker: WorkerExecutor
@@ -87,7 +90,7 @@ abstract class RemapJar : DefaultTask() {
             constants.from(this@RemapJar.constants)
             outputJar.set(this@RemapJar.outputJar)
             logs.set(logFile.toFile())
-            logMissingLvtSuggestions.set(this@RemapJar.logMissingLvtSuggestions)
+            reportsDir.set(this@RemapJar.reportsDir)
         }
     }
 }

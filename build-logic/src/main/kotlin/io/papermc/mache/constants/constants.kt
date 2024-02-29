@@ -15,6 +15,8 @@ const val SERVER_JAR = "$SERVER_DIR/server.jar"
 const val SERVER_MAPPINGS = "$SERVER_DIR/server_mappings.txt"
 const val SERVER_LIBRARIES_LIST = "$SERVER_DIR/server_libraries.json"
 
+const val REPORTS_DIR = "$MACHE_DIR/reports"
+
 const val REMAPPED_JAR = "$SERVER_DIR/remapped.jar"
 const val DECOMP_JAR = "$SERVER_DIR/decomp.jar"
 const val DECOMP_CFG = "$SERVER_DIR/decomp.cfg"

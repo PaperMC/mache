@@ -5,18 +5,18 @@ import io.papermc.codebook.config.CodeBookContext
 import io.papermc.codebook.config.CodeBookInput
 import io.papermc.codebook.config.CodeBookRemapper
 import io.papermc.codebook.config.CodeBookResource
+import io.papermc.codebook.report.ReportType
+import io.papermc.codebook.report.Reports
 import java.io.PrintStream
 import java.nio.file.Path
 import kotlin.io.path.absolute
 import kotlin.io.path.createDirectories
 import kotlin.io.path.deleteIfExists
-import kotlin.io.path.deleteRecursively
 import kotlin.io.path.exists
 import kotlin.io.path.outputStream
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
-import org.gradle.api.provider.Property
 import org.gradle.workers.WorkAction
 import org.gradle.workers.WorkParameters
 
@@ -32,7 +32,7 @@ abstract class RunCodeBookWorker : WorkAction<RunCodeBookWorker.RunCodebookParam
         val unpickDefinitions: ConfigurableFileCollection
         val outputJar: RegularFileProperty
         val logs: RegularFileProperty
-        val logMissingLvtSuggestions: Property<Boolean>
+        val reportsDir: DirectoryProperty
     }
 
     override fun execute() {
@@ -80,7 +80,7 @@ abstract class RunCodeBookWorker : WorkAction<RunCodeBookWorker.RunCodebookParam
                         .classpathJars(parameters.classpath.files.map { it.toPath().absolute() })
                         .build(),
                 )
-                .logMissingLvtSuggestions(parameters.logMissingLvtSuggestions.getOrElse(false))
+                .reports(parameters.reportsDir.map { Reports(parameters.reportsDir.get().asFile.toPath(), setOf(*ReportType.values())) }.orNull)
                 .build()
 
             CodeBook(ctx).exec()
