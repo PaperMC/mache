@@ -1,6 +1,6 @@
 --- a/net/minecraft/nbt/NbtUtils.java
 +++ b/net/minecraft/nbt/NbtUtils.java
-@@ -379,7 +379,7 @@
+@@ -310,7 +310,7 @@
                      indent(indentLevel + 1, stringBuilder);
                  }
  
@@ -9,7 +9,7 @@
                  String stringx = Strings.repeat(" ", ix);
  
                  for (int i2 = 0; i2 < list3.size(); i2++) {
-@@ -406,7 +406,7 @@
+@@ -337,7 +337,7 @@
              case 11:
                  IntArrayTag list2 = (IntArrayTag)tag;
                  int[] asIntArray = list2.getAsIntArray();

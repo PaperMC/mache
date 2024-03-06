@@ -3,7 +3,7 @@ plugins {
 }
 
 mache {
-    minecraftVersion = "24w09a"
+    minecraftVersion = "24w10a"
     repositories.register("sonatype snapshots") {
         url.set("https://s01.oss.sonatype.org/content/repositories/snapshots/")
         includeGroups.set(listOf("org.vineflower"))
