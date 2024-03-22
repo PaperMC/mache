@@ -1,8 +1,10 @@
-pluginManagement {
-    includeBuild("build-logic")
-}
-
 rootProject.name = "mache"
+
+pluginManagement {
+    repositories {
+        maven("https://repo.papermc.io/repository/maven-snapshots/");
+    }
+}
 
 file("versions").listFiles()
     ?.forEach { version ->
