@@ -14,6 +14,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-      - run: ./gradlew autoUpdate
+      - uses: gradle/gradle-build-action@v2
+        name: Deploy Mache Artifact
+        with:
+          arguments: 'autoUpdate'
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
