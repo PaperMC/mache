@@ -1,5 +1,9 @@
 pluginManagement {
-    includeBuild("build-logic")
+    repositories {
+        maven("https://repo.papermc.io/repository/maven-snapshots/")
+        mavenCentral()
+        gradlePluginPortal()
+    }
 }
 
 rootProject.name = "mache"
