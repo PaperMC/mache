@@ -15,7 +15,6 @@ jobs:
           distribution: 'temurin'
           java-version: 17
       - uses: gradle/gradle-build-action@v2
-        name: Deploy Mache Artifact
         with:
           arguments: 'autoUpdate'
         env:
