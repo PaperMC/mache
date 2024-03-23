@@ -23,12 +23,15 @@ jobs:
       - name: Version Name
         id: version
         shell: bash
-        run: echo "name=${GITHUB_REF_NAME##*/}" >> $GITHUB_OUTPUT
+        run: |
+          version="${GITHUB_REF_NAME##*/}"
+          formatted_version=$(echo "v${version}" | sed 's/\./_/g')
+          echo "name=${version}" >> $GITHUB_OUTPUT
       - name: Verify Dependencies
         id: verify_deps
         shell: bash
         run: |
-          if [[ "$(grep -i -- '-SNAPSHOT' versions/${GITHUB_REF_NAME##*/}/build.gradle.kts | wc -l)" -eq "0" ]] ; then
+          if [[ "$(grep -i -- '-SNAPSHOT' versions/${{ steps.version.outputs.name }}/build.gradle.kts | wc -l)" -eq "0" ]] ; then
             echo "all_release=true" >> $GITHUB_OUTPUT
           else
             echo "all_release=false" >> $GITHUB_OUTPUT
@@ -53,7 +56,7 @@ jobs:
         with:
           arguments: ':versions:${{ needs.verify.outputs.version_name  }}:setup'
       - name: Tar sources
-        run: tar --exclude '*/.git*' -cf sources.tar versions/${GITHUB_REF_NAME##*/}/src/
+        run: tar --exclude '*/.git*' -cf sources.tar versions/${{ needs.verify.outputs.version_name }}/src/
       - uses: actions/upload-artifact@v3
         name: Archive patched sources
         with:
@@ -78,7 +81,7 @@ jobs:
           name: patched-sources
           path: sources
       - name: Extract sources
-        run: tar -xf sources/sources.tar versions/${GITHUB_REF_NAME##*/}/src/ && rm -r sources/
+        run: tar -xf sources/sources.tar versions/${{ needs.verify.outputs.version_name }}/src/ && rm -r sources/
       - uses: gradle/gradle-build-action@v2
         name: Build
         with:
