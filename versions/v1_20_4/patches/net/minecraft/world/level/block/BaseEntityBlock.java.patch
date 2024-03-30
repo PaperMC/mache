@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/block/BaseEntityBlock.java
 +++ b/net/minecraft/world/level/block/BaseEntityBlock.java
-@@ -42,6 +42,6 @@
+@@ -42,6 +_,6 @@
      protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(
          BlockEntityType<A> serverType, BlockEntityType<E> clientType, BlockEntityTicker<? super E> ticker
      ) {

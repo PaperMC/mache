@@ -1,6 +1,6 @@
 --- a/net/minecraft/commands/execution/tasks/BuildContexts.java
 +++ b/net/minecraft/commands/execution/tasks/BuildContexts.java
-@@ -52,7 +52,7 @@
+@@ -52,7 +_,7 @@
                      }
  
                      RedirectModifier<T> redirectModifier = topContext.getRedirectModifier();
@@ -9,7 +9,7 @@
                          customModifierExecutor.apply(originalSource, list, contextChain, chainModifiers1, ExecutionControl.create(context, frame));
                          return;
                      }
-@@ -90,11 +90,11 @@
+@@ -90,11 +_,11 @@
  
          if (list.isEmpty()) {
              if (chainModifiers1.isReturn()) {

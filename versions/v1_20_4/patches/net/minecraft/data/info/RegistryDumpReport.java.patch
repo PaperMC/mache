@@ -1,6 +1,6 @@
 --- a/net/minecraft/data/info/RegistryDumpReport.java
 +++ b/net/minecraft/data/info/RegistryDumpReport.java
-@@ -34,7 +34,7 @@
+@@ -34,7 +_,7 @@
              jsonObject.addProperty("default", defaultKey.toString());
          }
  

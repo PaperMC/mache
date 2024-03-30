@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/StringDecomposer.java
 +++ b/net/minecraft/util/StringDecomposer.java
-@@ -6,7 +6,7 @@
+@@ -6,7 +_,7 @@
  import net.minecraft.network.chat.Style;
  
  public class StringDecomposer {

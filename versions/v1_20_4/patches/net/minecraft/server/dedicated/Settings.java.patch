@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/dedicated/Settings.java
 +++ b/net/minecraft/server/dedicated/Settings.java
-@@ -119,7 +119,7 @@
+@@ -119,7 +_,7 @@
          String stringRaw = this.getStringRaw(key);
          V object = MoreObjects.firstNonNull(stringRaw != null ? mapper.apply(stringRaw) : null, value);
          this.properties.put(key, toString.apply(object));

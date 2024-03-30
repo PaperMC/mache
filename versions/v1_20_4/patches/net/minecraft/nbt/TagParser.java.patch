@@ -1,6 +1,6 @@
 --- a/net/minecraft/nbt/TagParser.java
 +++ b/net/minecraft/nbt/TagParser.java
-@@ -252,11 +252,11 @@
+@@ -252,11 +_,11 @@
              }
  
              if (elementType == ByteTag.TYPE) {

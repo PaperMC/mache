@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/datafix/fixes/ChunkBedBlockEntityInjecterFix.java
 +++ b/net/minecraft/util/datafix/fixes/ChunkBedBlockEntityInjecterFix.java
-@@ -11,6 +11,7 @@
+@@ -11,6 +_,7 @@
  import com.mojang.datafixers.schemas.Schema;
  import com.mojang.datafixers.types.Type;
  import com.mojang.datafixers.types.templates.List.ListType;
@@ -8,7 +8,7 @@
  import com.mojang.serialization.Dynamic;
  import java.util.List;
  import java.util.Map;
-@@ -40,8 +41,8 @@
+@@ -40,8 +_,8 @@
          return TypeRewriteRule.seq(
              this.fixTypeEverywhere(
                  "InjectBedBlockEntityType",

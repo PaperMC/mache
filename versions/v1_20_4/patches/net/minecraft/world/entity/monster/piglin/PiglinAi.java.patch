@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/monster/piglin/PiglinAi.java
 +++ b/net/minecraft/world/entity/monster/piglin/PiglinAi.java
-@@ -169,7 +169,7 @@
+@@ -169,7 +_,7 @@
          brain.addActivityAndRemoveMemoryWhenStopped(
              Activity.FIGHT,
              10,
@@ -9,7 +9,7 @@
                  StopAttackingIfTargetInvalid.create(entity -> !isNearestValidAttackTarget(piglin, entity)),
                  BehaviorBuilder.triggerIf(PiglinAi::hasCrossbow, BackUpIfTooClose.create(5, 0.75F)),
                  SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
-@@ -192,7 +192,7 @@
+@@ -192,7 +_,7 @@
                  StartAttacking.<Piglin>create(AbstractPiglin::isAdult, PiglinAi::findNearestValidAttackTarget),
                  BehaviorBuilder.triggerIf(piglin -> !piglin.isDancing(), GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 2, 1.0F)),
                  BehaviorBuilder.triggerIf(Piglin::isDancing, GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 4, 0.6F)),
@@ -18,7 +18,7 @@
                      ImmutableList.of(
                          Pair.of(SetEntityLookTarget.create(EntityType.PIGLIN, 8.0F), 1),
                          Pair.of(RandomStroll.stroll(0.6F, 2, 1), 1),
-@@ -225,7 +225,7 @@
+@@ -225,7 +_,7 @@
                  SetWalkTargetAwayFrom.entity(MemoryModuleType.AVOID_TARGET, 1.0F, 12, true),
                  createIdleLookBehaviors(),
                  createIdleMovementBehaviors(),
@@ -27,7 +27,7 @@
              ),
              MemoryModuleType.AVOID_TARGET
          );
-@@ -247,7 +247,7 @@
+@@ -247,7 +_,7 @@
                              .build()
                      )
                  ),

@@ -1,6 +1,6 @@
 --- a/net/minecraft/commands/arguments/item/ItemInput.java
 +++ b/net/minecraft/commands/arguments/item/ItemInput.java
-@@ -57,6 +57,6 @@
+@@ -57,6 +_,6 @@
      }
  
      private String getItemName() {

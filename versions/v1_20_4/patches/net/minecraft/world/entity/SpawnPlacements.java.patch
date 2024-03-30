@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/SpawnPlacements.java
 +++ b/net/minecraft/world/entity/SpawnPlacements.java
-@@ -67,7 +67,7 @@
+@@ -67,7 +_,7 @@
          EntityType<T> entityType, ServerLevelAccessor serverLevel, MobSpawnType spawnType, BlockPos pos, RandomSource random
      ) {
          SpawnPlacements.Data data = DATA_BY_TYPE.get(entityType);

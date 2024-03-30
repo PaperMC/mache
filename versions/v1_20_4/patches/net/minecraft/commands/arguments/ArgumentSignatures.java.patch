@@ -1,6 +1,6 @@
 --- a/net/minecraft/commands/arguments/ArgumentSignatures.java
 +++ b/net/minecraft/commands/arguments/ArgumentSignatures.java
-@@ -14,7 +14,7 @@
+@@ -14,7 +_,7 @@
      private static final int MAX_ARGUMENT_NAME_LENGTH = 16;
  
      public ArgumentSignatures(FriendlyByteBuf buffer) {
