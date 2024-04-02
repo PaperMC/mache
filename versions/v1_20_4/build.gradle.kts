@@ -1,5 +1,5 @@
 plugins {
-    id("io.papermc.sculptor.version") version "1.0.2-SNAPSHOT"
+    id("io.papermc.sculptor.version") version "1.0.2"
 }
 
 mache {

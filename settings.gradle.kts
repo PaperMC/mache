@@ -1,8 +1,14 @@
 pluginManagement {
     repositories {
-        maven("https://repo.papermc.io/repository/maven-snapshots/")
+        maven("https://repo.papermc.io/repository/maven-releases/")
         mavenCentral()
-        gradlePluginPortal()
+        maven("https://maven.neoforged.net/releases") {
+            name = "Neoforged"
+            mavenContent {
+                includeGroupAndSubgroups("codechicken")
+                includeGroupAndSubgroups("net.covers1624")
+            }
+        }
     }
 }
 
