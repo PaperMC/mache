@@ -14,9 +14,16 @@ pluginManagement {
 
 rootProject.name = "mache"
 
+fun formatVersion(version: String): String {
+    val replaced = version.replace(".", "_")
+    return if (version.first().isLetter()) replaced else "v$replaced"
+}
+
 file("versions").listFiles()
     ?.forEach { version ->
         if (version.resolve("build.gradle.kts").exists()) {
-            include(":versions:${version.name}")
+            val projectPath = ":versions:${formatVersion(version.name)}"
+            include(projectPath)
+            findProject(projectPath)!!.projectDir = version
         }
     }
