@@ -23,10 +23,7 @@ jobs:
       - name: Version Name
         id: version
         shell: bash
-        run: |
-          version="${GITHUB_REF_NAME##*/}"
-          formatted_version=$(echo "v${version}" | sed 's/\./_/g')
-          echo "name=${formatted_version}" >> $GITHUB_OUTPUT
+        run: echo "name=${GITHUB_REF_NAME##*/}" >> $GITHUB_OUTPUT
       - name: Verify Dependencies
         id: verify_deps
         shell: bash
