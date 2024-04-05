@@ -20,6 +20,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: gradle/wrapper-validation-action@v1
+      - name: Check Automated
+        id: automated
+        shell: bash
+        run: |
+          if [[ "$(git log -1 --format=format:%ae)" == "sculptor@automated.papermc.io" ]]; then
+              echo "was_automated=true" >> $GITHUB_OUTPUT
+          else
+              echo "was_automated=false" >> $GITHUB_OUTPUT
+          fi
       - name: Version Name
         id: version
         shell: bash
@@ -42,6 +51,7 @@ jobs:
       folder_name: ${{ steps.version.outputs.folder_name }}
       project_name: ${{ steps.version.outputs.project_name }}
       deps_all_release: ${{ steps.verify_deps.outputs.all_release }}
+      was_automated: ${{ steps.automated.outputs.was_automated }}
   applyPatches:
     name: Apply Patches
     runs-on: ubuntu-latest
@@ -57,6 +67,13 @@ jobs:
         name: Apply Patches
         with:
           arguments: ':versions:${{ needs.verify.outputs.project_name  }}:setup'
+      - name: Create Failure Issue
+        if: needs.verify.outputs.was_automated && failure()
+        run: |
+          gh issue create \
+            --title "Failed to apply patches for ${{ needs.verify.outputs.folder_name }}" \
+            --body "Failed to apply patches for ${{ needs.verify.outputs.folder_name }}. Please check the [logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job }}) for more information." \
+            --label bug
       - name: Tar sources
         run: tar --exclude '*/.git*' -cf sources.tar versions/${{ needs.verify.outputs.folder_name }}/src/
       - uses: actions/upload-artifact@v3
@@ -88,6 +105,13 @@ jobs:
         name: Build
         with:
           arguments: ':versions:${{ needs.verify.outputs.project_name }}:build'
+      - name: Create Failure Issue
+        if: needs.verify.outputs.was_automated && failure()
+        run: |
+          gh issue create \
+            --title "Failed to build ${{ needs.verify.outputs.folder_name }}" \
+            --body "Failed to build ${{ needs.verify.outputs.folder_name }}. Please check the [logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job }}) for more information." \
+            --label bug
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
