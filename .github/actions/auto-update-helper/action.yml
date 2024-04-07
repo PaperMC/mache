@@ -1,0 +1,41 @@
+name: auto-update-helper
+description: Internal action for auto-updating
+inputs:
+  cmd:
+    description: The command to run. Captures the exitcode to determine success
+    required: true
+  version:
+    description: The version of Minecraft
+    required: true
+  create-issue:
+    description: Only create failure issue if true
+    required: true
+  job-name:
+    description: The name of the job to link in the failure issue
+    required: true
+  action:
+    description: The action to take
+    required: true
+  github-token:
+    description: Elevated github token
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Run Command and Capture Exit Code
+      shell: bash
+      id: run-cmd
+      run: ${{ github.action_path }}/run_cmd.sh "${{ inputs.cmd }}"
+    - name: Get Job URL
+      uses: Tiryoh/gha-jobid-action@v1
+      id: jobs
+      if: inputs.create-issue && failure() && steps.run-cmd.outputs.exitcode != 0
+      with:
+        github_token: ${{ inputs.github-token }}
+        job_name: ${{ inputs.job-name }}
+    - name: Create Failure Issue
+      if: inputs.create-issue && failure() && steps.run-cmd.outputs.exitcode != 0
+      shell: bash
+      run: ${{ github.action_path }}/create_issue.sh "${{ inputs.version }}" "${{ inputs.action }}" "${{ steps.jobs.outputs.html_url }}"
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}

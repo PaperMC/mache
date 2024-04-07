@@ -9,6 +9,9 @@ on:
       - 'versions/*/build.gradle.kts'
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.ref_name }}-update
+
 jobs:
   # Only run if all dependencies are release versions
   # SNAPSHOT versions are unstable, which would make our published artifact unstable
@@ -67,33 +70,14 @@ jobs:
       - uses: gradle/actions/setup-gradle@v3
         name: Setup Gradle
       - name: Apply Patches
-        id: apply_patches
-        run: |
-          set +e
-          ./gradlew ':versions:${{ needs.verify.outputs.project_name }}:applyPatches' --no-daemon
-          exitcode="$?"
-          echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
-          exit "$exitcode"
-      - uses: Tiryoh/gha-jobid-action@v1
-        id: jobs
-        if: needs.verify.outputs.was_automated && failure() && steps.apply_patches.outputs.exitcode != 0
+        uses: ./.github/actions/auto-update-helper
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          job_name: "Apply Patches"
-      - name: Create Failure Issue
-        if: needs.verify.outputs.was_automated && failure() && steps.apply_patches.outputs.exitcode != 0
-        run: |
-          set +e
-          gh issue list --state open --label update --json title | jq '.[].title' | cut -c2- | rev | cut -c2- | rev | cut -d' ' -f4 | grep "${{ needs.verify.outputs.folder_name }}"
-          if [[ "$?" -ne "0" ]]; then
-            set -e
-            gh issue create \
-              --title "Failed to apply patches for ${{ needs.verify.outputs.folder_name }}" \
-              --body "Failed to apply patches for ${{ needs.verify.outputs.folder_name }}. Please check the [logs](${{ steps.jobs.outputs.html_url }}) for more information." \
-              --label update
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          cmd: ./gradlew ':versions:${{ needs.verify.outputs.project_name }}:applyPatches' --no-daemon
+          version: ${{ needs.verify.outputs.folder_name }}
+          create-issue: ${{ needs.verify.outputs.was_automated }}
+          job-name: "Apply Patches"
+          action: "apply patches"
+          github-token: ${{ secrets.GH_TOKEN }}
       - name: Tar sources
         run: tar --exclude '*/.git*' -cf sources.tar versions/${{ needs.verify.outputs.folder_name }}/src/
       - uses: actions/upload-artifact@v4
@@ -126,33 +110,14 @@ jobs:
       - uses: gradle/actions/setup-gradle@v3
         name: Setup Gradle
       - name: Build Server
-        id: build_server
-        run: |
-          set +e
-          ./gradlew ':versions:${{ needs.verify.outputs.project_name }}:build' --no-daemon
-          exitcode="$?"
-          echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
-          exit "$exitcode"
-      - uses: Tiryoh/gha-jobid-action@v1
-        id: jobs
-        if: needs.verify.outputs.was_automated && failure() && steps.build_server.outputs.exitcode != 0
+        uses: ./.github/actions/auto-update-helper
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          job_name: Build
-      - name: Create Failure Issue
-        if: needs.verify.outputs.was_automated && failure() && steps.build_server.outputs.exitcode != 0
-        run: |
-          set +e
-          gh issue list --state open --label update --json title | jq '.[].title' | cut -c2- | rev | cut -c2- | rev | cut -d' ' -f4 | grep ${{ needs.verify.outputs.folder_name }}
-          if [[ "$?" -ne "0" ]]; then
-            set -e
-            gh issue create \
-            --title "Failed to build ${{ needs.verify.outputs.folder_name }}" \
-            --body "Failed to build ${{ needs.verify.outputs.folder_name }}. Please check the [logs](${{ steps.jobs.outputs.html_url }}) for more information." \
-            --label update
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          cmd: ./gradlew ':versions:${{ needs.verify.outputs.project_name }}:build' --no-daemon
+          version: ${{ needs.verify.outputs.folder_name }}
+          create-issue: ${{ needs.verify.outputs.was_automated }}
+          job-name: Build
+          action: "build"
+          github-token: ${{ secrets.GH_TOKEN }}
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
