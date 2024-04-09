@@ -1,5 +1,5 @@
 plugins {
-    id("io.papermc.sculptor.version") version "1.0.4"
+    id("io.papermc.sculptor.version") version "1.0.5"
 }
 
 mache {
@@ -27,7 +27,7 @@ mache {
 dependencies {
     codebook("1.0.10")
     remapper(art("1.0.14"))
-    decompiler(vineflower("1.10.0-20240212.003104-88"))
+    decompiler(vineflower("1.11.0-20240409.005036-7"))
     parchment("1.20.4", "2024.02.25")
 }
 
