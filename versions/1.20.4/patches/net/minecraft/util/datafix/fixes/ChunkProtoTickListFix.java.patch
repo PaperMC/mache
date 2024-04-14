@@ -1,33 +1,14 @@
 --- a/net/minecraft/util/datafix/fixes/ChunkProtoTickListFix.java
 +++ b/net/minecraft/util/datafix/fixes/ChunkProtoTickListFix.java
-@@ -103,22 +_,22 @@
+@@ -103,7 +_,7 @@
                                          )
                              );
                          byte b = mutableInt.getValue().byteValue();
 -                        Typed var18 = typed1.update(DSL.remainderFinder(), dynamic3 -> dynamic3.update("yPos", dynamic4 -> dynamic4.createByte(b)));
--                        if (!var18.getOptionalTyped(opticFinder6).isPresent() && !dynamic.get("fluid_ticks").result().isPresent()) {
-+                        typed1 = typed1.update(DSL.remainderFinder(), dynamic3 -> dynamic3.update("yPos", dynamic4 -> dynamic4.createByte(b)));
-+                        if (!typed1.getOptionalTyped(opticFinder6).isPresent() && !dynamic.get("fluid_ticks").result().isPresent()) {
++                        Typed<?> var18 = typed1.update(DSL.remainderFinder(), dynamic3 -> dynamic3.update("yPos", dynamic4 -> dynamic4.createByte(b)));
+                         if (!var18.getOptionalTyped(opticFinder6).isPresent() && !dynamic.get("fluid_ticks").result().isPresent()) {
                              int _int = dynamic.get("xPos").asInt(0);
                              int _int1 = dynamic.get("zPos").asInt(0);
-                             Dynamic<?> dynamic1 = this.makeTickList(dynamic, map, b, _int, _int1, "LiquidsToBeTicked", ChunkProtoTickListFix::getLiquid);
-                             Dynamic<?> dynamic2 = this.makeTickList(dynamic, map, b, _int, _int1, "ToBeTicked", ChunkProtoTickListFix::getBlock);
-                             Optional<? extends Pair<? extends Typed<?>, ?>> optional = opticFinder6.type().readTyped(dynamic2).result();
-                             if (optional.isPresent()) {
--                                var18 = var18.set(opticFinder6, (Typed<?>)optional.get().getFirst());
-+                                typed1 = typed1.set(opticFinder6, (Typed<?>)optional.get().getFirst());
-                             }
-         
--                            return var18.update(
-+                            return typed1.update(
-                                 DSL.remainderFinder(), dynamic3 -> dynamic3.remove("ToBeTicked").remove("LiquidsToBeTicked").set("fluid_ticks", dynamic1)
-                             );
-                         } else {
--                            return var18;
-+                            return typed1;
-                         }
-                     }
-                 )
 @@ -186,7 +_,7 @@
          int i3 = i >>> 8 & 15;
          String string = function.apply(supplier != null ? supplier.get().get(i1, i2, i3) : null);
