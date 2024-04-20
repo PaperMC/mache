@@ -2,6 +2,7 @@ plugins {
     id("io.papermc.sculptor.version") version "1.0.7-SNAPSHOT"
 }
 
+val generateReportsProperty = providers.gradleProperty("generateReports")
 mache {
     minecraftVersion = "1.20.4"
 
@@ -20,13 +21,14 @@ mache {
         "--input={input}",
         "--input-classpath={inputClasspath}",
     )
-    val reportArgs = listOf(
-        "--reports-dir={reportsDir}",
-        "--all-reports",
-    )
+    if (generateReportsProperty.getOrElse("false").toBooleanStrict()) {
+        args.addAll(listOf(
+            "--reports-dir={reportsDir}",
+            "--all-reports",
+        ))
+    }
 
-    val generateReportsProperty = providers.gradleProperty("generateReports")
-    remapperArgs.set(generateReportsProperty.orElse("false").map { generateReports -> if (generateReports.toBooleanStrict()) args + reportArgs else args })
+    remapperArgs.set(args)
 }
 
 dependencies {
