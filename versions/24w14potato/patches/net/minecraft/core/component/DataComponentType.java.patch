@@ -1,6 +1,6 @@
 --- a/net/minecraft/core/component/DataComponentType.java
 +++ b/net/minecraft/core/component/DataComponentType.java
-@@ -93,7 +_,7 @@
+@@ -86,7 +_,7 @@
  
              @Override
              public String toString() {

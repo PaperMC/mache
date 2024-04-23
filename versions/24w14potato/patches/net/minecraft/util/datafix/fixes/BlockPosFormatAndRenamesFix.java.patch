@@ -1,0 +1,16 @@
+--- a/net/minecraft/util/datafix/fixes/BlockPosFormatAndRenamesFix.java
++++ b/net/minecraft/util/datafix/fixes/BlockPosFormatAndRenamesFix.java
+@@ -36,11 +_,11 @@
+ 
+     private <T> Dynamic<T> fixMapSavedData(Dynamic<T> dynamic) {
+         return dynamic.update("frames", dynamic1 -> dynamic1.createList(dynamic1.asStream().map(dynamic2 -> {
+-                dynamic2 = ExtraDataFixUtils.renameAndFixField((Dynamic<?>)dynamic2, "Pos", "pos", ExtraDataFixUtils::fixBlockPos);
++                dynamic2 = ExtraDataFixUtils.renameAndFixField(dynamic2, "Pos", "pos", ExtraDataFixUtils::fixBlockPos);
+                 dynamic2 = ExtraDataFixUtils.renameField(dynamic2, "Rotation", "rotation");
+                 return ExtraDataFixUtils.renameField(dynamic2, "EntityId", "entity_id");
+             }))).update("banners", dynamic1 -> dynamic1.createList(dynamic1.asStream().map(dynamic2 -> {
+-                dynamic2 = ExtraDataFixUtils.renameField((Dynamic<?>)dynamic2, "Pos", "pos");
++                dynamic2 = ExtraDataFixUtils.renameField(dynamic2, "Pos", "pos");
+                 dynamic2 = ExtraDataFixUtils.renameField(dynamic2, "Color", "color");
+                 return ExtraDataFixUtils.renameField(dynamic2, "Name", "name");
+             })));
