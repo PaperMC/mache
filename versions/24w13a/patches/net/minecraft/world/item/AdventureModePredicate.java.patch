@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/item/AdventureModePredicate.java
 +++ b/net/minecraft/world/item/AdventureModePredicate.java
-@@ -105,7 +_,7 @@
+@@ -115,7 +_,7 @@
          return list.stream()
              .flatMap(blockPredicate1 -> blockPredicate1.blocks().orElseThrow().stream())
              .distinct()

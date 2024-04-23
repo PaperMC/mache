@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/datafix/DataFixers.java
 +++ b/net/minecraft/util/datafix/DataFixers.java
-@@ -1063,7 +_,7 @@
+@@ -1067,7 +_,7 @@
          Schema schema161 = builder.addSchema(3086, SAME_NAMESPACED);
          builder.addFixer(
              new EntityVariantFix(
@@ -9,7 +9,7 @@
                      map5.defaultReturnValue("minecraft:tabby");
                      map5.put(0, "minecraft:tabby");
                      map5.put(1, "minecraft:black");
-@@ -1100,7 +_,7 @@
+@@ -1104,7 +_,7 @@
          Schema schema162 = builder.addSchema(3087, SAME_NAMESPACED);
          builder.addFixer(
              new EntityVariantFix(
