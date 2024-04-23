@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/Mob.java
++++ b/net/minecraft/world/entity/Mob.java
+@@ -481,7 +_,7 @@
+         if (compound.contains("leash", 10)) {
+             this.delayedLeashInfo = Either.left(compound.getCompound("leash").getUUID("UUID"));
+         } else if (compound.contains("leash", 11)) {
+-            this.delayedLeashInfo = NbtUtils.readBlockPos(compound, "leash").map(Either::right).orElse(null);
++            this.delayedLeashInfo = NbtUtils.readBlockPos(compound, "leash").<Either<UUID, BlockPos>>map(Either::right).orElse(null);
+         } else {
+             this.delayedLeashInfo = null;
+         }

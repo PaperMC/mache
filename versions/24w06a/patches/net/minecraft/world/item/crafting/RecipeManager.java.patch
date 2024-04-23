@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/item/crafting/RecipeManager.java
 +++ b/net/minecraft/world/item/crafting/RecipeManager.java
-@@ -107,7 +_,7 @@
+@@ -115,7 +_,7 @@
      }
  
      private <C extends Container, T extends Recipe<C>> Map<ResourceLocation, RecipeHolder<T>> byType(RecipeType<T> recipeType) {
