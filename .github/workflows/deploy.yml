@@ -16,7 +16,7 @@ jobs:
     name: Verify
     runs-on: ubuntu-latest
     # Guard against manual runs on the wrong branch
-    if: startsWith(github.ref, 'refs/heads/ver/') || startsWith(github.ref, 'refs/heads/snap/')
+    if: startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/snapshot/')
     steps:
       - uses: actions/checkout@v4
       - uses: gradle/actions/wrapper-validation@v3
