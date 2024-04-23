@@ -8,4 +8,4 @@
 +        this(buffer.readCollection(FriendlyByteBuf.<List<ArgumentSignatures.Entry>>limitValue(ArrayList::new, 8), ArgumentSignatures.Entry::new));
      }
  
-     @Nullable
+     public void write(FriendlyByteBuf buffer) {

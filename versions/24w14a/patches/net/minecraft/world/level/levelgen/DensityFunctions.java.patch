@@ -1,11 +1,11 @@
 --- a/net/minecraft/world/level/levelgen/DensityFunctions.java
 +++ b/net/minecraft/world/level/levelgen/DensityFunctions.java
-@@ -294,7 +_,7 @@
+@@ -300,7 +_,7 @@
                      }
                      break;
-                 case MIN:
--                    double d1 = this.argument2.minValue();
-+                    d1 = this.argument2.minValue();
+                 case MAX:
+-                    double d1 = this.argument2.maxValue();
++                    d1 = this.argument2.maxValue();
  
                      for (int i2 = 0; i2 < array.length; i2++) {
                          double d2 = array[i2];
