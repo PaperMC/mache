@@ -1,7 +1,8 @@
 plugins {
-    id("io.papermc.sculptor.version") version "1.0.6"
+    id("io.papermc.sculptor.version") version "1.0.7"
 }
 
+val generateReportsProperty = providers.gradleProperty("generateReports")
 mache {
     minecraftVersion = "23w51a"
 
@@ -10,18 +11,24 @@ mache {
         includeGroups.add("org.vineflower")
     }
 
-    remapperArgs.set(
-        listOf(
-            "--temp-dir={tempDir}",
-            "--remapper-file={remapperFile}",
-            "--mappings-file={mappingsFile}",
-            "--params-file={paramsFile}",
-            // "--constants-file={constantsFile}",
-            "--output={output}",
-            "--input={input}",
-            "--input-classpath={inputClasspath}",
-        )
+    val args = mutableListOf(
+        "--temp-dir={tempDir}",
+        "--remapper-file={remapperFile}",
+        "--mappings-file={mappingsFile}",
+        "--params-file={paramsFile}",
+        // "--constants-file={constantsFile}",
+        "--output={output}",
+        "--input={input}",
+        "--input-classpath={inputClasspath}",
     )
+    if (generateReportsProperty.getOrElse("false").toBooleanStrict()) {
+        args.addAll(listOf(
+            "--reports-dir={reportsDir}",
+            "--all-reports",
+        ))
+    }
+
+    remapperArgs.set(args)
 }
 
 dependencies {

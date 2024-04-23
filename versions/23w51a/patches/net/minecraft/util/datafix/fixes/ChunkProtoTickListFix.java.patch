@@ -1,14 +1,5 @@
 --- a/net/minecraft/util/datafix/fixes/ChunkProtoTickListFix.java
 +++ b/net/minecraft/util/datafix/fixes/ChunkProtoTickListFix.java
-@@ -103,7 +_,7 @@
-                                         )
-                             );
-                         byte b = mutableInt.getValue().byteValue();
--                        Typed var18 = typed1.update(DSL.remainderFinder(), dynamic3 -> dynamic3.update("yPos", dynamic4 -> dynamic4.createByte(b)));
-+                        Typed<?> var18 = typed1.update(DSL.remainderFinder(), dynamic3 -> dynamic3.update("yPos", dynamic4 -> dynamic4.createByte(b)));
-                         if (!var18.getOptionalTyped(opticFinder6).isPresent() && !dynamic.get("fluid_ticks").result().isPresent()) {
-                             int _int = dynamic.get("xPos").asInt(0);
-                             int _int1 = dynamic.get("zPos").asInt(0);
 @@ -186,7 +_,7 @@
          int i3 = i >>> 8 & 15;
          String string = function.apply(supplier != null ? supplier.get().get(i1, i2, i3) : null);
