@@ -1,0 +1,11 @@
+--- a/net/minecraft/core/component/DataComponentPatch.java
++++ b/net/minecraft/core/component/DataComponentPatch.java
+@@ -18,7 +_,7 @@
+ 
+ public final class DataComponentPatch {
+     public static final DataComponentPatch EMPTY = new DataComponentPatch(Reference2ObjectMaps.emptyMap());
+-    public static final Codec<DataComponentPatch> CODEC = ExtraCodecs.unboundedDispatchMap(
++    public static final Codec<DataComponentPatch> CODEC = ExtraCodecs.<PatchKey, Object>unboundedDispatchMap(
+             DataComponentPatch.PatchKey.CODEC, DataComponentPatch.PatchKey::valueCodec
+         )
+         .xmap(map -> {

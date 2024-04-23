@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/item/AdventureModePredicate.java
++++ b/net/minecraft/world/item/AdventureModePredicate.java
+@@ -105,7 +_,7 @@
+         return list.stream()
+             .flatMap(blockPredicate1 -> blockPredicate1.blocks().orElseThrow().stream())
+             .distinct()
+-            .map(holder -> holder.value().getName().withStyle(ChatFormatting.DARK_GRAY))
++            .<Component>map(holder -> holder.value().getName().withStyle(ChatFormatting.DARK_GRAY))
+             .toList();
+     }
+ 
