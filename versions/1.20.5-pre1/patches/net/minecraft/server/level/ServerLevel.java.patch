@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
-@@ -1569,7 +_,7 @@
+@@ -1570,7 +_,7 @@
  
              return map.object2IntEntrySet()
                  .stream()
