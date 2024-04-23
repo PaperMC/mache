@@ -2,8 +2,8 @@ name: Deploy
 on:
   push:
     branches:
-      - 'ver/*'
-      - 'snap/*'
+      - 'release/*'
+      - 'snapshot/*'
     paths:
       - 'versions/*/patches/**'
       - 'versions/*/build.gradle.kts'
