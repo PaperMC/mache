@@ -1,20 +1,18 @@
 --- a/net/minecraft/core/RegistrySetBuilder.java
 +++ b/net/minecraft/core/RegistrySetBuilder.java
-@@ -269,7 +_,7 @@
-         }
- 
-         public <T> HolderOwner<T> cast() {
--            return this;
-+            return (HolderOwner<T>) this;
-         }
-     }
- 
-@@ -384,7 +_,7 @@
+@@ -425,13 +_,13 @@
  
          <T> Holder.Reference<T> getOrCreate(ResourceKey<T> key) {
              return (Holder.Reference<T>)this.holders
 -                .computeIfAbsent(key, resourceKey -> Holder.Reference.createStandAlone(this.owner, (ResourceKey<Object>)resourceKey));
 +                .computeIfAbsent((ResourceKey<Object>) key, resourceKey -> Holder.Reference.createStandAlone(this.owner, (ResourceKey<Object>)resourceKey));
+         }
+     }
+ 
+     static class UniversalOwner implements HolderOwner<Object> {
+         public <T> HolderOwner<T> cast() {
+-            return this;
++            return (HolderOwner<T>) this;
          }
      }
  
