@@ -1,6 +1,5 @@
 pluginManagement {
     repositories {
-        maven("https://repo.papermc.io/repository/maven-snapshots/")
         maven("https://repo.papermc.io/repository/maven-releases/")
         mavenCentral()
         maven("https://maven.neoforged.net/releases") {
