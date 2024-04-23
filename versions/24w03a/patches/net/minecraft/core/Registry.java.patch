@@ -8,4 +8,4 @@
 +        return DataFixUtils.orElse(this.getTag(key), List.of());
      }
  
-     HolderSet.Named<T> getOrCreateTag(TagKey<T> key);
+     default Optional<Holder<T>> getRandomElementOf(TagKey<T> tagKey, RandomSource randomSource) {
