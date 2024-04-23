@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/datafix/fixes/ItemSpawnEggFix.java
 +++ b/net/minecraft/util/datafix/fixes/ItemSpawnEggFix.java
-@@ -115,7 +_,8 @@
+@@ -113,7 +_,8 @@
                      Typed<?> typed2 = typed.getOrCreateTyped(opticFinder2);
                      Typed<?> typed3 = typed2.getOrCreateTyped(opticFinder3);
                      Typed<?> typed4 = typed3.getOrCreateTyped(opticFinder4);

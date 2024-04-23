@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-@@ -786,7 +_,7 @@
+@@ -785,7 +_,7 @@
          if (item.is(Items.WRITABLE_BOOK)) {
              ItemStack itemStack = item.transmuteCopy(Items.WRITTEN_BOOK, 1);
              itemStack.remove(DataComponents.WRITABLE_BOOK_CONTENT);
