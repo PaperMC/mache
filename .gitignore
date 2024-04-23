@@ -44,4 +44,4 @@ versions/**/run
 # Ignore all versions by default
 versions/*
 # Don't ignore the current version
-!versions/1.20.5-pre3
+!versions/1.20.5-pre4
