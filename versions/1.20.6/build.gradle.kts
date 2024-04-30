@@ -35,7 +35,7 @@ dependencies {
     codebook("1.0.10")
     remapper(art("1.0.14"))
     decompiler(vineflower("1.11.0-20240414.025732-15"))
-    parchment("1.20.4", "2024.02.25")
+    parchment("1.20.5", "BLEEDING-SNAPSHOT")
 }
 
 dependencies {

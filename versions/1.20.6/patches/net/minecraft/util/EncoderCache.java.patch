@@ -1,11 +1,11 @@
 --- a/net/minecraft/util/EncoderCache.java
 +++ b/net/minecraft/util/EncoderCache.java
-@@ -32,7 +_,7 @@
-             public <T> DataResult<T> encode(A object, DynamicOps<T> dynamicOps, T object1) {
+@@ -36,7 +_,7 @@
+             public <T> DataResult<T> encode(A input, DynamicOps<T> ops, T value) {
                  return EncoderCache.this.cache
-                     .getUnchecked(new EncoderCache.Key<>(codec, object, dynamicOps))
--                    .map(object2 -> object2 instanceof Tag tag ? tag.copy() : object2);
-+                    .map(object2 -> (T) (object2 instanceof Tag tag ? tag.copy() : object2));
+                     .getUnchecked(new EncoderCache.Key<>(codec, input, ops))
+-                    .map(object -> object instanceof Tag tag ? tag.copy() : object);
++                    .map(object -> (T) (object instanceof Tag tag ? tag.copy() : object));
              }
          };
      }

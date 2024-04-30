@@ -3,9 +3,9 @@
 @@ -105,7 +_,7 @@
      }
  
-     private <C extends Container, T extends Recipe<C>> Collection<RecipeHolder<T>> byType(RecipeType<T> recipeType) {
--        return (Collection<RecipeHolder<T>>)this.byType.get(recipeType);
-+        return (Collection)this.byType.get(recipeType);
+     private <C extends Container, T extends Recipe<C>> Collection<RecipeHolder<T>> byType(RecipeType<T> type) {
+-        return (Collection<RecipeHolder<T>>)this.byType.get(type);
++        return (Collection)this.byType.get(type);
      }
  
      public <C extends Container, T extends Recipe<C>> NonNullList<ItemStack> getRemainingItemsFor(RecipeType<T> recipeType, C inventory, Level level) {

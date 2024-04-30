@@ -1,7 +1,7 @@
 --- a/net/minecraft/world/item/AdventureModePredicate.java
 +++ b/net/minecraft/world/item/AdventureModePredicate.java
 @@ -115,7 +_,7 @@
-         return list.stream()
+         return predicates.stream()
              .flatMap(blockPredicate1 -> blockPredicate1.blocks().orElseThrow().stream())
              .distinct()
 -            .map(holder -> holder.value().getName().withStyle(ChatFormatting.DARK_GRAY))
