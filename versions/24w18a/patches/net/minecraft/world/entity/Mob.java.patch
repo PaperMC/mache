@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/Mob.java
 +++ b/net/minecraft/world/entity/Mob.java
-@@ -498,7 +_,7 @@
+@@ -499,7 +_,7 @@
          if (compound.contains("leash", 10)) {
              this.delayedLeashInfo = Either.left(compound.getCompound("leash").getUUID("UUID"));
          } else if (compound.contains("leash", 11)) {

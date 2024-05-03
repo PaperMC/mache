@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/item/enchantment/ConditionalEffect.java
++++ b/net/minecraft/world/item/enchantment/ConditionalEffect.java
+@@ -17,7 +_,7 @@
+                     ProblemReporter.Collector collector = new ProblemReporter.Collector();
+                     lootContextParamSet.validateUser(collector, lootItemCondition);
+                     return collector.getReport()
+-                        .map(string -> DataResult.error(() -> "Validation error in enchantment effect condition: " + string))
++                        .map(string -> DataResult.<LootItemCondition>error(() -> "Validation error in enchantment effect condition: " + string))
+                         .orElseGet(() -> DataResult.success(lootItemCondition));
+                 }
+             );
