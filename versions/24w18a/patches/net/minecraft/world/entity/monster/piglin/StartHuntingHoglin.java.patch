@@ -1,19 +1,19 @@
 --- a/net/minecraft/world/entity/monster/piglin/StartHuntingHoglin.java
 +++ b/net/minecraft/world/entity/monster/piglin/StartHuntingHoglin.java
 @@ -19,14 +_,14 @@
-                         instance,
-                         (nearestVisibleHuntableHoglin, angryAt, huntedRecently, nearestVisibleAdultPiglins) -> (level, piglin, gameTime) -> {
-                                 if (!piglin.isBaby()
--                                    && !instance.<List>tryGet(nearestVisibleAdultPiglins)
-+                                    && !instance.tryGet(nearestVisibleAdultPiglins)
-                                         .map(adultPiglin -> adultPiglin.stream().anyMatch(StartHuntingHoglin::hasHuntedRecently))
-                                         .isPresent()) {
-                                     Hoglin hoglin = instance.get(nearestVisibleHuntableHoglin);
-                                     PiglinAi.setAngerTarget(piglin, hoglin);
-                                     PiglinAi.dontKillAnyMoreHoglinsForAWhile(piglin);
-                                     PiglinAi.broadcastAngerTarget(piglin, hoglin);
--                                    instance.<List>tryGet(nearestVisibleAdultPiglins)
-+                                    instance.tryGet(nearestVisibleAdultPiglins)
-                                         .ifPresent(adultPiglin -> adultPiglin.forEach(PiglinAi::dontKillAnyMoreHoglinsForAWhile));
-                                     return true;
-                                 } else {
+                     instance,
+                     (nearestVisibleHuntableHoglin, angryAt, huntedRecently, nearestVisibleAdultPiglins) -> (level, piglin, gameTime) -> {
+                         if (!piglin.isBaby()
+-                            && !instance.<List>tryGet(nearestVisibleAdultPiglins)
++                            && !instance.tryGet(nearestVisibleAdultPiglins)
+                                 .map(adultPiglin -> adultPiglin.stream().anyMatch(StartHuntingHoglin::hasHuntedRecently))
+                                 .isPresent()) {
+                             Hoglin hoglin = instance.get(nearestVisibleHuntableHoglin);
+                             PiglinAi.setAngerTarget(piglin, hoglin);
+                             PiglinAi.dontKillAnyMoreHoglinsForAWhile(piglin);
+                             PiglinAi.broadcastAngerTarget(piglin, hoglin);
+-                            instance.<List>tryGet(nearestVisibleAdultPiglins)
++                            instance.tryGet(nearestVisibleAdultPiglins)
+                                 .ifPresent(adultPiglin -> adultPiglin.forEach(PiglinAi::dontKillAnyMoreHoglinsForAWhile));
+                             return true;
+                         } else {
