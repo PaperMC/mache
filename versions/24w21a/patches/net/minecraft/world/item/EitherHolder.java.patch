@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/item/EitherHolder.java
++++ b/net/minecraft/world/item/EitherHolder.java
+@@ -38,7 +_,7 @@
+     }
+ 
+     public Either<Holder<T>, ResourceKey<T>> asEither() {
+-        return this.holder.map(Either::left).orElseGet(() -> Either.right(this.key));
++        return this.holder.<Either<Holder<T>, ResourceKey<T>>>map(Either::left).orElseGet(() -> Either.right(this.key));
+     }
+ 
+     public static <T> EitherHolder<T> fromEither(Either<Holder<T>, ResourceKey<T>> either) {

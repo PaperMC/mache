@@ -1,11 +1,11 @@
 --- a/net/minecraft/world/entity/animal/Sheep.java
 +++ b/net/minecraft/world/entity/animal/Sheep.java
-@@ -79,7 +_,7 @@
+@@ -80,7 +_,7 @@
          map.put(DyeColor.RED, Blocks.RED_WOOL);
          map.put(DyeColor.BLACK, Blocks.BLACK_WOOL);
      });
--    private static final Map<DyeColor, float[]> COLORARRAY_BY_COLOR = Maps.newEnumMap(
-+    private static final Map<DyeColor, float[]> COLORARRAY_BY_COLOR = Maps.<DyeColor, float[]>newEnumMap(
+-    private static final Map<DyeColor, Integer> COLOR_BY_DYE = Maps.newEnumMap(
++    private static final Map<DyeColor, Integer> COLOR_BY_DYE = Maps.<DyeColor, Integer>newEnumMap(
          Arrays.stream(DyeColor.values()).collect(Collectors.toMap(color -> (DyeColor)color, Sheep::createSheepColor))
      );
      private int eatAnimationTick;
