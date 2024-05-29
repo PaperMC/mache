@@ -1,7 +1,7 @@
 --- a/net/minecraft/data/tags/ItemTagsProvider.java
 +++ b/net/minecraft/data/tags/ItemTagsProvider.java
 @@ -42,7 +_,7 @@
-         return super.createContentsProvider().thenCombineAsync(this.blockTags, (provider, tagLookup) -> {
+         return super.createContentsProvider().thenCombine(this.blockTags, (provider, tagLookup) -> {
              this.tagsToCopy.forEach((tagKey, tagKey1) -> {
                  TagBuilder rawBuilder = this.getOrCreateRawBuilder((TagKey<Item>)tagKey1);
 -                Optional<TagBuilder> optional = tagLookup.apply((TagKey<? super TagKey<Block>>)tagKey);
