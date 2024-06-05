@@ -1,11 +1,11 @@
 --- a/net/minecraft/world/entity/ai/behavior/InteractWith.java
 +++ b/net/minecraft/world/entity/ai/behavior/InteractWith.java
 @@ -43,7 +_,7 @@
-                                         testEntity -> testEntity.distanceToSqr(entity) <= i && predicate.test(testEntity)
-                                     );
-                                     optional.ifPresent(target -> {
--                                        interact.set(target);
-+                                        interact.set((T) target);
-                                         lookTarget.set(new EntityTracker(target, true));
-                                         walkTarget.set(new WalkTarget(new EntityTracker(target, false), speedModifier, maxDist));
-                                     });
+                                 testEntity -> testEntity.distanceToSqr(entity) <= i && predicate.test(testEntity)
+                             );
+                             optional.ifPresent(target -> {
+-                                interact.set(target);
++                                interact.set((T) target);
+                                 lookTarget.set(new EntityTracker(target, true));
+                                 walkTarget.set(new WalkTarget(new EntityTracker(target, false), speedModifier, maxDist));
+                             });

@@ -9,11 +9,11 @@
  import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
  import java.util.stream.Collectors;
 @@ -160,7 +_,7 @@
-                             } else {
-                                 return Pair.of(entry.getKey(), entry.getValue());
-                             }
--                        }).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)))).result().orElse(dynamic))
-+                        }).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)))).result().orElse((Dynamic) dynamic))
+                 } else {
+                     return Pair.of(entry.getKey(), entry.getValue());
+                 }
+-            }).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)))).result().orElse(dynamic))
++            }).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)))).result().orElse((Dynamic) dynamic))
          );
      }
  }

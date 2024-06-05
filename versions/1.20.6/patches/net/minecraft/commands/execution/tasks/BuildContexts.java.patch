@@ -9,7 +9,7 @@
                          customModifierExecutor.apply(originalSource, list, contextChain, chainModifiers1, ExecutionControl.create(context, frame));
                          return;
                      }
-@@ -90,11 +_,11 @@
+@@ -91,11 +_,11 @@
  
          if (list.isEmpty()) {
              if (chainModifiers1.isReturn()) {
