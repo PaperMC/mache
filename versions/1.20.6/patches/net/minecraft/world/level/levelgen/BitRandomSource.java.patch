@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/levelgen/BitRandomSource.java
++++ b/net/minecraft/world/level/levelgen/BitRandomSource.java
+@@ -18,7 +_,7 @@
+         if (bound <= 0) {
+             throw new IllegalArgumentException("Bound must be positive");
+         } else if ((bound & bound - 1) == 0) {
+-            return (int)(bound * this.next(31) >> 31);
++            return (int)((long) bound * (long) this.next(31) >> 31);
+         } else {
+             int i;
+             int i1;
