@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/Leashable.java
 +++ b/net/minecraft/world/entity/Leashable.java
-@@ -40,7 +_,7 @@
+@@ -41,7 +_,7 @@
  
      default void setDelayedLeashHolderId(int i) {
          this.setLeashData(new Leashable.LeashData(i));
@@ -9,7 +9,7 @@
      }
  
      @Nullable
-@@ -49,7 +_,7 @@
+@@ -50,7 +_,7 @@
              return new Leashable.LeashData(Either.left(compoundTag.getCompound("leash").getUUID("UUID")));
          } else {
              if (compoundTag.contains("leash", 11)) {
@@ -18,7 +18,7 @@
                  if (either != null) {
                      return new Leashable.LeashData(either);
                  }
-@@ -101,7 +_,7 @@
+@@ -102,7 +_,7 @@
      }
  
      default void dropLeash(boolean flag, boolean flag1) {
@@ -27,7 +27,7 @@
      }
  
      private static <E extends Entity & Leashable> void dropLeash(E entity, boolean flag, boolean flag1) {
-@@ -160,7 +_,7 @@
+@@ -161,7 +_,7 @@
      }
  
      default void elasticRangeLeashBehaviour(Entity entity, float f) {
@@ -36,7 +36,7 @@
      }
  
      private static <E extends Entity & Leashable> void legacyElasticRangeLeashBehaviour(E entity, Entity entity1, float f) {
-@@ -173,7 +_,7 @@
+@@ -174,7 +_,7 @@
      }
  
      default void setLeashedTo(Entity entity, boolean flag) {
@@ -45,7 +45,7 @@
      }
  
      private static <E extends Entity & Leashable> void setLeashedTo(E entity, Entity entity1, boolean flag) {
-@@ -196,7 +_,7 @@
+@@ -197,7 +_,7 @@
  
      @Nullable
      default Entity getLeashHolder() {

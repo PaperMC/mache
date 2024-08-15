@@ -1,11 +1,11 @@
 --- a/net/minecraft/world/entity/animal/Sheep.java
 +++ b/net/minecraft/world/entity/animal/Sheep.java
-@@ -80,7 +_,7 @@
-         map.put(DyeColor.RED, Blocks.RED_WOOL);
-         map.put(DyeColor.BLACK, Blocks.BLACK_WOOL);
-     });
+@@ -58,7 +_,7 @@
+ public class Sheep extends Animal implements Shearable {
+     private static final int EAT_ANIMATION_TICKS = 40;
+     private static final EntityDataAccessor<Byte> DATA_WOOL_ID = SynchedEntityData.defineId(Sheep.class, EntityDataSerializers.BYTE);
 -    private static final Map<DyeColor, Integer> COLOR_BY_DYE = Maps.newEnumMap(
 +    private static final Map<DyeColor, Integer> COLOR_BY_DYE = Maps.<DyeColor, Integer>newEnumMap(
-         Arrays.stream(DyeColor.values()).collect(Collectors.toMap(color -> (DyeColor)color, Sheep::createSheepColor))
+         Arrays.stream(DyeColor.values()).collect(Collectors.toMap(dyeColor -> (DyeColor)dyeColor, Sheep::createSheepColor))
      );
      private int eatAnimationTick;

@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/level/ServerChunkCache.java
 +++ b/net/minecraft/server/level/ServerChunkCache.java
-@@ -548,7 +_,8 @@
+@@ -593,7 +_,8 @@
              super.doRunTask(task);
          }
  

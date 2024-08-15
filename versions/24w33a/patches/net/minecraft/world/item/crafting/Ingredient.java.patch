@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/item/crafting/Ingredient.java
++++ b/net/minecraft/world/item/crafting/Ingredient.java
+@@ -28,7 +_,7 @@
+     public static final StreamCodec<RegistryFriendlyByteBuf, Optional<Ingredient>> OPTIONAL_CONTENTS_STREAM_CODEC = ByteBufCodecs.holderSet(Registries.ITEM)
+         .map(
+             holderSet -> holderSet.size() == 0 ? Optional.empty() : Optional.of(new Ingredient((HolderSet<Item>)holderSet)),
+-            optional -> optional.<HolderSet.Direct<Item>>map(ingredient -> ingredient.values).orElse(HolderSet.direct())
++            optional -> optional.map(ingredient -> ingredient.values).orElse(HolderSet.direct())
+         );
+     public static final Codec<HolderSet<Item>> NON_AIR_HOLDER_SET_CODEC = HolderSetCodec.create(Registries.ITEM, ItemStack.ITEM_NON_AIR_CODEC, false);
+     public static final Codec<Ingredient> CODEC = ExtraCodecs.nonEmptyHolderSet(NON_AIR_HOLDER_SET_CODEC)
