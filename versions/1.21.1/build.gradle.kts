@@ -34,8 +34,8 @@ mache {
 dependencies {
     codebook("1.0.10")
     remapper(art("1.0.14"))
-    decompiler(vineflower("1.11.0-20240522.034251-27"))
-    parchment("1.20.6", "BLEEDING-SNAPSHOT")
+    decompiler(vineflower("1.11.0-20240829.184116-48"))
+    parchment("1.21", "2024.07.28")
 }
 
 dependencies {
