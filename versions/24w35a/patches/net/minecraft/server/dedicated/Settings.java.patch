@@ -2,10 +2,10 @@
 +++ b/net/minecraft/server/dedicated/Settings.java
 @@ -119,7 +_,7 @@
          String stringRaw = this.getStringRaw(key);
-         V object = MoreObjects.firstNonNull(stringRaw != null ? mapper.apply(stringRaw) : null, value);
-         this.properties.put(key, toString.apply(object));
--        return new Settings.MutableValue<>(key, object, toString);
-+        return new Settings<T>.MutableValue<>(key, object, toString);
+         V object = MoreObjects.firstNonNull(stringRaw != null ? serializer.apply(stringRaw) : null, defaultValue);
+         this.properties.put(key, deserializer.apply(object));
+-        return new Settings.MutableValue<>(key, object, deserializer);
++        return new Settings<T>.MutableValue<>(key, object, deserializer);
      }
  
-     protected <V> V get(String key, Function<String, V> mapper, UnaryOperator<V> unaryOperator, Function<V, String> toString, V value) {
+     protected <V> V get(String key, Function<String, V> serializer, UnaryOperator<V> modifier, Function<V, String> deserializer, V defaultValue) {

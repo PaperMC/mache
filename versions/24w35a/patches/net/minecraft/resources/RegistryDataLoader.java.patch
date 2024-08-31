@@ -1,6 +1,6 @@
 --- a/net/minecraft/resources/RegistryDataLoader.java
 +++ b/net/minecraft/resources/RegistryDataLoader.java
-@@ -73,7 +_,7 @@
+@@ -74,7 +_,7 @@
  
  public class RegistryDataLoader {
      private static final Logger LOGGER = LogUtils.getLogger();

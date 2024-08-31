@@ -8,4 +8,4 @@
 +        return (Collection)this.byType.get(type);
      }
  
-     public <I extends RecipeInput, T extends Recipe<I>> NonNullList<ItemStack> getRemainingItemsFor(RecipeType<T> recipeType, I recipeInput, Level level) {
+     public <I extends RecipeInput, T extends Recipe<I>> NonNullList<ItemStack> getRemainingItemsFor(RecipeType<T> recipeType, I input, Level lvel) {

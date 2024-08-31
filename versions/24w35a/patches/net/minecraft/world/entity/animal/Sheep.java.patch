@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/animal/Sheep.java
 +++ b/net/minecraft/world/entity/animal/Sheep.java
-@@ -58,7 +_,7 @@
+@@ -56,7 +_,7 @@
  public class Sheep extends Animal implements Shearable {
      private static final int EAT_ANIMATION_TICKS = 40;
      private static final EntityDataAccessor<Byte> DATA_WOOL_ID = SynchedEntityData.defineId(Sheep.class, EntityDataSerializers.BYTE);
