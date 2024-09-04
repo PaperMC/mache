@@ -4,7 +4,7 @@ plugins {
 
 val generateReportsProperty = providers.gradleProperty("generateReports")
 mache {
-    minecraftVersion = "24w35a"
+    minecraftVersion = "24w36a"
 
     repositories.register("sonatype snapshots") {
         url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
