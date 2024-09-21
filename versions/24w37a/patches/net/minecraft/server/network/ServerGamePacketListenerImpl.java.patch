@@ -1,7 +1,7 @@
 --- a/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 @@ -792,7 +_,7 @@
-         if (item.is(Items.WRITABLE_BOOK)) {
+         if (item.has(DataComponents.WRITABLE_BOOK_CONTENT)) {
              ItemStack itemStack = item.transmuteCopy(Items.WRITTEN_BOOK);
              itemStack.remove(DataComponents.WRITABLE_BOOK_CONTENT);
 -            List<Filterable<Component>> list = pages.stream().map(filteredText -> this.filterableFromOutgoing(filteredText).map(Component::literal)).toList();

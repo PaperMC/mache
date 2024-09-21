@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/block/state/StateHolder.java
++++ b/net/minecraft/world/level/block/state/StateHolder.java
+@@ -136,7 +_,7 @@
+                 Property<?> property = entry.getKey();
+                 map.put(
+                     property,
+-                    property.getPossibleValues().stream().map(comparable -> possibleStateMap.get(this.makeNeighbourValues(property, comparable))).toArray()
++                    (S[]) property.getPossibleValues().stream().map(comparable -> possibleStateMap.get(this.makeNeighbourValues(property, comparable))).toArray()
+                 );
+             }
+ 
