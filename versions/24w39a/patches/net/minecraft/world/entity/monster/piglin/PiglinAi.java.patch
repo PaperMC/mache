@@ -6,11 +6,11 @@
              10,
 -            ImmutableList.of(
 +            ImmutableList.<BehaviorControl<? super Piglin>>of(
-                 StopAttackingIfTargetInvalid.create(entity -> !isNearestValidAttackTarget(piglin, entity)),
+                 StopAttackingIfTargetInvalid.create((serverLevel, livingEntity) -> !isNearestValidAttackTarget(serverLevel, piglin, livingEntity)),
                  BehaviorBuilder.triggerIf(PiglinAi::hasCrossbow, BackUpIfTooClose.create(5, 0.75F)),
                  SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
 @@ -190,7 +_,7 @@
-                 StartAttacking.<Piglin>create(AbstractPiglin::isAdult, PiglinAi::findNearestValidAttackTarget),
+                 StartAttacking.<Piglin>create((serverLevel, piglin) -> piglin.isAdult(), PiglinAi::findNearestValidAttackTarget),
                  BehaviorBuilder.triggerIf(piglin -> !piglin.isDancing(), GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 2, 1.0F)),
                  BehaviorBuilder.triggerIf(Piglin::isDancing, GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 4, 0.6F)),
 -                new RunOne<LivingEntity>(

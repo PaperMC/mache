@@ -9,9 +9,9 @@
                                  .map(adultPiglin -> adultPiglin.stream().anyMatch(StartHuntingHoglin::hasHuntedRecently))
                                  .isPresent()) {
                              Hoglin hoglin = instance.get(nearestVisibleHuntableHoglin);
-                             PiglinAi.setAngerTarget(piglin, hoglin);
+                             PiglinAi.setAngerTarget(level, piglin, hoglin);
                              PiglinAi.dontKillAnyMoreHoglinsForAWhile(piglin);
-                             PiglinAi.broadcastAngerTarget(piglin, hoglin);
+                             PiglinAi.broadcastAngerTarget(level, piglin, hoglin);
 -                            instance.<List>tryGet(nearestVisibleAdultPiglins)
 +                            instance.tryGet(nearestVisibleAdultPiglins)
                                  .ifPresent(adultPiglin -> adultPiglin.forEach(PiglinAi::dontKillAnyMoreHoglinsForAWhile));
