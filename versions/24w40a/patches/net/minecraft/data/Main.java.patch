@@ -1,0 +1,20 @@
+--- a/net/minecraft/data/Main.java
++++ b/net/minecraft/data/Main.java
+@@ -200,13 +_,14 @@
+             bindRegistries(RegistriesDatapackGenerator::new, completableFuture1x.thenApply(RegistrySetBuilder.PatchedRegistries::patches))
+         );
+         builtinDatapack.addProvider(bindRegistries(WinterDropRecipeProvider.Runner::new, completableFuture2));
++        CompletableFuture<HolderLookup.Provider> finalCompletableFuture = completableFuture2;
+         TagsProvider<Block> tagsProvider5 = builtinDatapack.addProvider(
+-            output -> new WinterDropBlockTagsProvider(output, completableFuture2, tagsProvider.contentsGetter())
++            output -> new WinterDropBlockTagsProvider(output, finalCompletableFuture, tagsProvider.contentsGetter())
+         );
+         builtinDatapack.addProvider(
+-            output -> new WinterDropItemTagsProvider(output, completableFuture2, tagsProvider1.contentsGetter(), tagsProvider5.contentsGetter())
++            output -> new WinterDropItemTagsProvider(output, finalCompletableFuture, tagsProvider1.contentsGetter(), tagsProvider5.contentsGetter())
+         );
+-        builtinDatapack.addProvider(output -> new WinterDropBiomeTagsProvider(output, completableFuture2, tagsProvider2.contentsGetter()));
++        builtinDatapack.addProvider(output -> new WinterDropBiomeTagsProvider(output, finalCompletableFuture, tagsProvider2.contentsGetter()));
+         builtinDatapack.addProvider(bindRegistries(WinterDropLootTableProvider::create, completableFuture2));
+         builtinDatapack.addProvider(
+             output -> PackMetadataGenerator.forFeaturePack(

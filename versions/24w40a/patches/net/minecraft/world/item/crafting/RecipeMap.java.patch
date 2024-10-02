@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/item/crafting/RecipeMap.java
++++ b/net/minecraft/world/item/crafting/RecipeMap.java
+@@ -34,7 +_,7 @@
+     }
+ 
+     public <I extends RecipeInput, T extends Recipe<I>> Collection<RecipeHolder<T>> byType(RecipeType<T> recipeType) {
+-        return (Collection<RecipeHolder<T>>)this.byType.get(recipeType);
++        return (Collection) this.byType.get(recipeType);
+     }
+ 
+     public Collection<RecipeHolder<?>> values() {

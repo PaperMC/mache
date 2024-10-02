@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/item/crafting/Ingredient.java
 +++ b/net/minecraft/world/item/crafting/Ingredient.java
-@@ -28,7 +_,7 @@
+@@ -30,7 +_,7 @@
      public static final StreamCodec<RegistryFriendlyByteBuf, Optional<Ingredient>> OPTIONAL_CONTENTS_STREAM_CODEC = ByteBufCodecs.holderSet(Registries.ITEM)
          .map(
              holderSet -> holderSet.size() == 0 ? Optional.empty() : Optional.of(new Ingredient((HolderSet<Item>)holderSet)),
