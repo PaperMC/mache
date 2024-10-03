@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/datafix/fixes/ChunkProtoTickListFix.java
 +++ b/net/minecraft/util/datafix/fixes/ChunkProtoTickListFix.java
-@@ -186,7 +_,7 @@
+@@ -181,7 +_,7 @@
          int i3 = i >>> 8 & 15;
          String string = function.apply(supplier != null ? supplier.get().get(i1, i2, i3) : null);
          return dynamic.createMap(
