@@ -1,5 +1,5 @@
 plugins {
-    id("io.papermc.sculptor.version") version "1.0.7"
+    id("io.papermc.sculptor.version") version "1.0.8"
 }
 
 val generateReportsProperty = providers.gradleProperty("generateReports")
