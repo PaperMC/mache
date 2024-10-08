@@ -1,11 +1,11 @@
 --- a/net/minecraft/world/item/enchantment/ConditionalEffect.java
 +++ b/net/minecraft/world/item/enchantment/ConditionalEffect.java
 @@ -19,7 +_,7 @@
-                     ValidationContext validationContext = new ValidationContext(collector, params);
-                     condition.validate(validationContext);
+                     ValidationContext validationContext = new ValidationContext(collector, contextKeySet);
+                     lootItemCondition.validate(validationContext);
                      return collector.getReport()
 -                        .map(string -> DataResult.error(() -> "Validation error in enchantment effect condition: " + string))
 +                        .map(string -> DataResult.<LootItemCondition>error(() -> "Validation error in enchantment effect condition: " + string))
-                         .orElseGet(() -> DataResult.success(condition));
+                         .orElseGet(() -> DataResult.success(lootItemCondition));
                  }
              );
