@@ -40,7 +40,8 @@ bin/
 
 # Never includes the src or run directories
 versions/**/src
-versions/**/run
+versions/**/runServer
+versions/**/runClient
 # Ignore all versions by default
 versions/*
 # Don't ignore the current version
