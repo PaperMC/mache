@@ -10,7 +10,7 @@ mache {
     minecraftJarType = MinecraftJarType.SERVER
 
     repositories.register("sonatype snapshots") {
-        url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+        url = "https://repo.papermc.io/repository/maven-public/"
         includeGroups.add("org.vineflower")
     }
 
@@ -37,7 +37,7 @@ mache {
 dependencies {
     codebook("1.0.10")
     remapper(art("1.0.14"))
-    decompiler(vineflower("1.11.0-20240829.184116-48"))
+    decompiler(vineflower("1.11.0-20241204.173358-53"))
     parchment("1.21", "2024.07.28")
 }
 
