@@ -1,0 +1,11 @@
+--- a/net/minecraft/network/protocol/configuration/ClientboundUpdateEnabledFeaturesPacket.java
++++ b/net/minecraft/network/protocol/configuration/ClientboundUpdateEnabledFeaturesPacket.java
+@@ -14,7 +_,7 @@
+     );
+ 
+     private ClientboundUpdateEnabledFeaturesPacket(FriendlyByteBuf buffer) {
+-        this(buffer.readCollection(HashSet::new, FriendlyByteBuf::readResourceLocation));
++        this(buffer.<ResourceLocation, Set<ResourceLocation>>readCollection(HashSet::new, FriendlyByteBuf::readResourceLocation));
+     }
+ 
+     private void write(FriendlyByteBuf buffer) {

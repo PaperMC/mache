@@ -1,0 +1,19 @@
+--- a/net/minecraft/world/entity/monster/piglin/StartHuntingHoglin.java
++++ b/net/minecraft/world/entity/monster/piglin/StartHuntingHoglin.java
+@@ -18,14 +_,14 @@
+                     )
+                     .apply(instance, (nearestVisibleHuntableHoglin, angryAt, huntedRecently, nearestVisibleAdultPiglins) -> {
+                         return (level, piglin, gameTime) -> {
+-                            if (!piglin.isBaby() && !instance.<List>tryGet(nearestVisibleAdultPiglins).map(adultPiglin -> {
++                            if (!piglin.isBaby() && !instance.tryGet(nearestVisibleAdultPiglins).map(adultPiglin -> {
+                                 return adultPiglin.stream().anyMatch(StartHuntingHoglin::hasHuntedRecently);
+                             }).isPresent()) {
+                                 Hoglin hoglin = instance.get(nearestVisibleHuntableHoglin);
+                                 PiglinAi.setAngerTarget(level, piglin, hoglin);
+                                 PiglinAi.dontKillAnyMoreHoglinsForAWhile(piglin);
+                                 PiglinAi.broadcastAngerTarget(level, piglin, hoglin);
+-                                instance.<List>tryGet(nearestVisibleAdultPiglins).ifPresent(adultPiglin -> {
++                                instance.tryGet(nearestVisibleAdultPiglins).ifPresent(adultPiglin -> {
+                                     adultPiglin.forEach(PiglinAi::dontKillAnyMoreHoglinsForAWhile);
+                                 });
+                                 return true;

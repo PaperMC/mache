@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/storage/loot/predicates/LootItemBlockStatePropertyCondition.java
++++ b/net/minecraft/world/level/storage/loot/predicates/LootItemBlockStatePropertyCondition.java
+@@ -30,7 +_,7 @@
+         return condition.properties().flatMap(statePropertiesPredicate -> {
+             return statePropertiesPredicate.checkState(condition.block().value().getStateDefinition());
+         }).map(string -> {
+-            return DataResult.error(() -> {
++            return DataResult.<LootItemBlockStatePropertyCondition>error(() -> {
+                 return "Block " + condition.block() + " has no property" + string;
+             });
+         }).orElse(DataResult.success(condition));

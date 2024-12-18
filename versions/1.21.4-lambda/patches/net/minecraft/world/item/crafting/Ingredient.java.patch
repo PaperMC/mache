@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/item/crafting/Ingredient.java
++++ b/net/minecraft/world/item/crafting/Ingredient.java
+@@ -30,7 +_,7 @@
+         .map(items -> {
+             return items.size() == 0 ? Optional.empty() : Optional.of(new Ingredient((HolderSet<Item>)items));
+         }, optional -> {
+-            return optional.<HolderSet.Direct<Item>>map(ingredient -> {
++            return optional.map(ingredient -> {
+                 return ingredient.values;
+             }).orElse(HolderSet.direct());
+         });

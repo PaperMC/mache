@@ -1,0 +1,19 @@
+--- a/net/minecraft/util/datafix/fixes/OptionsKeyLwjgl3Fix.java
++++ b/net/minecraft/util/datafix/fixes/OptionsKeyLwjgl3Fix.java
+@@ -6,6 +_,7 @@
+ import com.mojang.datafixers.TypeRewriteRule;
+ import com.mojang.datafixers.schemas.Schema;
+ import com.mojang.datafixers.util.Pair;
++import com.mojang.serialization.Dynamic;
+ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+ import java.util.stream.Collectors;
+@@ -161,7 +_,7 @@
+                             return Pair.of(entry.getKey(), entry.getValue());
+                         }
+                     }).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)));
+-                }).result().orElse(dynamic);
++                }).result().orElse((Dynamic) dynamic);
+             });
+         });
+     }

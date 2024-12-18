@@ -1,0 +1,38 @@
+--- a/net/minecraft/world/entity/monster/piglin/PiglinAi.java
++++ b/net/minecraft/world/entity/monster/piglin/PiglinAi.java
+@@ -169,7 +_,7 @@
+         brain.addActivityAndRemoveMemoryWhenStopped(
+             Activity.FIGHT,
+             10,
+-            ImmutableList.of(
++            ImmutableList.<BehaviorControl<? super Piglin>>of(
+                 StopAttackingIfTargetInvalid.create((level, entity) -> {
+                     return !isNearestValidAttackTarget(level, piglin, entity);
+                 }),
+@@ -198,7 +_,7 @@
+                     return !level.isDancing();
+                 }, GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 2, 1.0F)),
+                 BehaviorBuilder.triggerIf(Piglin::isDancing, GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 4, 0.6F)),
+-                new RunOne<LivingEntity>(
++                new RunOne<>(
+                     ImmutableList.of(
+                         Pair.of(SetEntityLookTarget.create(EntityType.PIGLIN, 8.0F), 1),
+                         Pair.of(RandomStroll.stroll(0.6F, 2, 1), 1),
+@@ -231,7 +_,7 @@
+                 SetWalkTargetAwayFrom.entity(MemoryModuleType.AVOID_TARGET, 1.0F, 12, true),
+                 createIdleLookBehaviors(),
+                 createIdleMovementBehaviors(),
+-                EraseMemoryIf.<PathfinderMob>create(PiglinAi::wantsToStopFleeing, MemoryModuleType.AVOID_TARGET)
++                EraseMemoryIf.create(PiglinAi::wantsToStopFleeing, MemoryModuleType.AVOID_TARGET)
+             ),
+             MemoryModuleType.AVOID_TARGET
+         );
+@@ -255,7 +_,7 @@
+                             .build()
+                     )
+                 ),
+-                DismountOrSkipMounting.<LivingEntity>create(8, PiglinAi::wantsToStopRiding)
++                DismountOrSkipMounting.create(8, PiglinAi::wantsToStopRiding)
+             ),
+             MemoryModuleType.RIDE_TARGET
+         );

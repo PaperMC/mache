@@ -1,0 +1,20 @@
+--- a/net/minecraft/core/component/TypedDataComponent.java
++++ b/net/minecraft/core/component/TypedDataComponent.java
+@@ -12,7 +_,7 @@
+         @Override
+         public TypedDataComponent<?> decode(RegistryFriendlyByteBuf buffer) {
+             DataComponentType<?> dataComponentType = DataComponentType.STREAM_CODEC.decode(buffer);
+-            return decodeTyped(buffer, (DataComponentType<T>)dataComponentType);
++            return decodeTyped(buffer, dataComponentType);
+         }
+ 
+         private static <T> TypedDataComponent<T> decodeTyped(RegistryFriendlyByteBuf buffer, DataComponentType<T> component) {
+@@ -21,7 +_,7 @@
+ 
+         @Override
+         public void encode(RegistryFriendlyByteBuf buffer, TypedDataComponent<?> value) {
+-            encodeCap(buffer, (TypedDataComponent<T>)value);
++            encodeCap(buffer, value);
+         }
+ 
+         private static <T> void encodeCap(RegistryFriendlyByteBuf buffer, TypedDataComponent<T> component) {

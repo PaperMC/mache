@@ -1,0 +1,11 @@
+--- a/net/minecraft/data/info/RegistryDumpReport.java
++++ b/net/minecraft/data/info/RegistryDumpReport.java
+@@ -36,7 +_,7 @@
+             jsonObject.addProperty("default", defaultKey.toString());
+         }
+ 
+-        int id = BuiltInRegistries.REGISTRY.getId(registry);
++        int id = ((Registry) BuiltInRegistries.REGISTRY).getId(registry);
+         jsonObject.addProperty("protocol_id", id);
+         JsonObject jsonObject1 = new JsonObject();
+         registry.listElements().forEach(holder -> {

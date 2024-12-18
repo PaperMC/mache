@@ -1,0 +1,13 @@
+--- a/net/minecraft/util/datafix/fixes/ChunkHeightAndBiomeFix.java
++++ b/net/minecraft/util/datafix/fixes/ChunkHeightAndBiomeFix.java
+@@ -232,8 +_,9 @@
+         } else if (ints != null && ints.length == 1024) {
+             for (int i = 0; i < 16; i++) {
+                 int i1 = i - lowestY;
++                final int f_i = i;
+                 dynamics[i1] = makeBiomeContainer(data, i3 -> {
+-                    return getOldBiome(ints, i * 64 + i3);
++                    return getOldBiome(ints, f_i * 64 + i3);
+                 });
+             }
+ 

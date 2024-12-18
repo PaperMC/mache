@@ -1,0 +1,11 @@
+--- a/net/minecraft/network/chat/LastSeenMessages.java
++++ b/net/minecraft/network/chat/LastSeenMessages.java
+@@ -33,7 +_,7 @@
+         public static final LastSeenMessages.Packed EMPTY = new LastSeenMessages.Packed(List.of());
+ 
+         public Packed(FriendlyByteBuf buffer) {
+-            this(buffer.readCollection(FriendlyByteBuf.limitValue(ArrayList::new, 20), MessageSignature.Packed::read));
++            this(buffer.readCollection(FriendlyByteBuf.<List<MessageSignature.Packed>>limitValue(ArrayList::new, 20), MessageSignature.Packed::read));
+         }
+ 
+         public void write(FriendlyByteBuf buffer) {

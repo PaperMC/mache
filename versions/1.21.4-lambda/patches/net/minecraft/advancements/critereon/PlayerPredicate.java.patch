@@ -1,0 +1,16 @@
+--- a/net/minecraft/advancements/critereon/PlayerPredicate.java
++++ b/net/minecraft/advancements/critereon/PlayerPredicate.java
+@@ -253,11 +_,11 @@
+             return RecordCodecBuilder.mapCodec(
+                 instance -> {
+                     return instance.group(
+-                            (App<Mu<? extends PlayerPredicate.StatMatcher<?>>, Holder<T>>)statType.getRegistry()
++                            statType.getRegistry()
+                                 .holderByNameCodec()
+                                 .fieldOf("stat")
+                                 .forGetter(PlayerPredicate.StatMatcher::value),
+-                            (App<Mu<? extends PlayerPredicate.StatMatcher<?>>, MinMaxBounds.Ints>)MinMaxBounds.Ints.CODEC
++                            MinMaxBounds.Ints.CODEC
+                                 .optionalFieldOf("value", MinMaxBounds.Ints.ANY)
+                                 .forGetter(PlayerPredicate.StatMatcher::range)
+                         )

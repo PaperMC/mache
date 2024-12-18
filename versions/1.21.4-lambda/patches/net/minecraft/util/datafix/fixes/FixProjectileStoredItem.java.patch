@@ -1,0 +1,11 @@
+--- a/net/minecraft/util/datafix/fixes/FixProjectileStoredItem.java
++++ b/net/minecraft/util/datafix/fixes/FixProjectileStoredItem.java
+@@ -46,7 +_,7 @@
+         OpticFinder<?> opticFinder = DSL.namedChoice(itemId, oldType);
+         return typed -> {
+             return typed.updateTyped(opticFinder, newType, typed1 -> {
+-                return fixer.fix(typed1, newType);
++                return fixer.fix(typed1, (Type) newType);
+             });
+         };
+     }

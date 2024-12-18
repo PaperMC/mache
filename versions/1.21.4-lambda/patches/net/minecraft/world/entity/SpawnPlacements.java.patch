@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/SpawnPlacements.java
++++ b/net/minecraft/world/entity/SpawnPlacements.java
+@@ -74,7 +_,7 @@
+         EntityType<T> entityType, ServerLevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random
+     ) {
+         SpawnPlacements.Data data = DATA_BY_TYPE.get(entityType);
+-        return data == null || data.predicate.test(entityType, level, spawnReason, pos, random);
++        return data == null || data.predicate.test((EntityType) entityType, level, spawnReason, pos, random);
+     }
+ 
+     static {

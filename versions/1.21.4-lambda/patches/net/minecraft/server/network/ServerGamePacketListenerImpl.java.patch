@@ -1,0 +1,11 @@
+--- a/net/minecraft/server/network/ServerGamePacketListenerImpl.java
++++ b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
+@@ -855,7 +_,7 @@
+             ItemStack itemStack = item.transmuteCopy(Items.WRITTEN_BOOK);
+             itemStack.remove(DataComponents.WRITABLE_BOOK_CONTENT);
+             List<Filterable<Component>> list = pages.stream().map(filteredText -> {
+-                return this.filterableFromOutgoing(filteredText).map(Component::literal);
++                return this.filterableFromOutgoing(filteredText).<Component>map(Component::literal);
+             }).toList();
+             itemStack.set(
+                 DataComponents.WRITTEN_BOOK_CONTENT,

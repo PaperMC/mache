@@ -1,0 +1,11 @@
+--- a/net/minecraft/util/datafix/fixes/LeavesFix.java
++++ b/net/minecraft/util/datafix/fixes/LeavesFix.java
+@@ -355,7 +_,7 @@
+         public Typed<?> write(Typed<?> data) {
+             return this.isSkippable() ? data : data.update(DSL.remainderFinder(), dynamic -> {
+                 return dynamic.set("BlockStates", dynamic.createLongList(Arrays.stream(this.storage.getRaw())));
+-            }).set(this.paletteFinder, this.palette.stream().map(dynamic -> {
++            }).set(this.paletteFinder, this.palette.stream().<Pair<String, Dynamic<?>>>map(dynamic -> {
+                 return Pair.of(References.BLOCK_STATE.typeName(), dynamic);
+             }).collect(Collectors.toList()));
+         }

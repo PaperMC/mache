@@ -1,0 +1,11 @@
+--- a/net/minecraft/util/EncoderCache.java
++++ b/net/minecraft/util/EncoderCache.java
+@@ -35,7 +_,7 @@
+             @Override
+             public <T> DataResult<T> encode(A input, DynamicOps<T> ops, T value) {
+                 return EncoderCache.this.cache.getUnchecked(new EncoderCache.Key<>(codec, input, ops)).map(object -> {
+-                    return object instanceof Tag tag ? tag.copy() : object;
++                    return (T) (object instanceof Tag tag ? tag.copy() : object);
+                 });
+             }
+         };

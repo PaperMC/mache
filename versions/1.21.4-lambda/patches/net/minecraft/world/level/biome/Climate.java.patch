@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/biome/Climate.java
++++ b/net/minecraft/world/level/biome/Climate.java
+@@ -268,7 +_,7 @@
+                     throw new IllegalStateException("Expecting parameter space to be 7, got " + size);
+                 } else {
+                     List<Climate.RTree.Leaf<T>> list = nodes.stream().map(node -> {
+-                        return new Climate.RTree.Leaf(node.getFirst(), node.getSecond());
++                        return new Climate.RTree.Leaf<>(node.getFirst(), node.getSecond());
+                     }).collect(Collectors.toCollection(ArrayList::new));
+                     return new Climate.RTree<>(build(size, list));
+                 }
