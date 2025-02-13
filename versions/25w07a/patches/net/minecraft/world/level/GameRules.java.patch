@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/GameRules.java
 +++ b/net/minecraft/world/level/GameRules.java
-@@ -230,7 +_,7 @@
+@@ -233,7 +_,7 @@
                      .filter(entry -> entry.getValue().valueClass == clazz)
                      .map(Entry::getKey)
                      .filter(key -> key.getId().equals(string))
@@ -9,7 +9,7 @@
                      .findFirst()
                      .map(DataResult::success)
                      .orElseGet(() -> DataResult.error(() -> "Invalid game rule ID for type: " + string)),
-@@ -303,8 +_,8 @@
+@@ -306,8 +_,8 @@
  
      private <T extends GameRules.Value<T>> void callVisitorCap(GameRules.GameRuleTypeVisitor visitor, GameRules.Key<?> key, GameRules.Type<?> type) {
          if (type.requiredFeatures.isSubsetOf(this.enabledFeatures)) {
