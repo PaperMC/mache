@@ -1,0 +1,18 @@
+--- a/net/minecraft/nbt/SnbtGrammar.java
++++ b/net/minecraft/nbt/SnbtGrammar.java
+@@ -219,12 +_,9 @@
+             String string2 = stringBuilder.toString();
+ 
+             return (T)(switch (typeSuffix) {
+-                case Object var13 -> {
+-                }
+-                case Object var12 -> {
+-                }
+-                case Object var10000 -> {
+-                }
++                case FLOAT -> dynamicOps.createFloat(Float.parseFloat(string2));
++                case DOUBLE -> dynamicOps.createDouble(Double.parseDouble(string2));
++                case null -> dynamicOps.createDouble(Double.parseDouble(string2));
+                 default -> {
+                     parseState.errorCollector().store(parseState.mark(), ERROR_EXPECTED_FLOAT_TYPE);
+                     yield null;

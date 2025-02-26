@@ -1,6 +1,6 @@
 --- a/net/minecraft/Util.java
 +++ b/net/minecraft/Util.java
-@@ -553,7 +_,7 @@
+@@ -557,7 +_,7 @@
      public static <K extends Enum<K>, V> Map<K, V> makeEnumMap(Class<K> clazz, Function<K, V> function) {
          EnumMap<K, V> map = new EnumMap<>(clazz);
  

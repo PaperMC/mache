@@ -9,3 +9,12 @@
      }
  
      @Nullable
+@@ -98,7 +_,7 @@
+             ? new EntityReference<>(optional.get())
+             : compoundTag.getString(string)
+                 .map(string1 -> OldUsersConverter.convertMobOwnerIfNecessary(level.getServer(), string1))
+-                .map(EntityReference::new)
++                .<EntityReference<StoredEntityType>>map(EntityReference::new)
+                 .orElse(null);
+     }
+ }
