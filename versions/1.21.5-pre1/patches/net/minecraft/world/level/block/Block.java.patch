@@ -3,9 +3,9 @@
 @@ -525,7 +_,7 @@
      }
  
-     private static <S extends StateHolder<?, S>, T extends Comparable<T>> S setValueHelper(S stateHolder, Property<T> property, Object object) {
--        return stateHolder.setValue(property, (Comparable)object);
-+        return stateHolder.setValue(property, (T) object);
+     private static <S extends StateHolder<?, S>, T extends Comparable<T>> S setValueHelper(S stateHolder, Property<T> property, Object value) {
+-        return stateHolder.setValue(property, (Comparable)value);
++        return stateHolder.setValue(property, (T) value);
      }
  
      @Deprecated

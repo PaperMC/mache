@@ -3,18 +3,17 @@
 @@ -86,7 +_,7 @@
  
      @Nullable
-     public static <StoredEntityType extends UniquelyIdentifyable> EntityReference<StoredEntityType> read(CompoundTag compoundTag, String string) {
--        return compoundTag.read(string, codec()).orElse(null);
-+        return compoundTag.read(string, EntityReference.<StoredEntityType>codec()).orElse(null);
+     public static <StoredEntityType extends UniquelyIdentifyable> EntityReference<StoredEntityType> read(CompoundTag tag, String key) {
+-        return tag.read(key, codec()).orElse(null);
++        return tag.read(key, EntityReference.<StoredEntityType>codec()).orElse(null);
      }
  
      @Nullable
-@@ -98,7 +_,7 @@
+@@ -96,6 +_,6 @@
+         Optional<UUID> optional = tag.read(key, UUIDUtil.CODEC);
+         return optional.isPresent()
              ? new EntityReference<>(optional.get())
-             : compoundTag.getString(string)
-                 .map(string1 -> OldUsersConverter.convertMobOwnerIfNecessary(level.getServer(), string1))
--                .map(EntityReference::new)
-+                .<EntityReference<StoredEntityType>>map(EntityReference::new)
-                 .orElse(null);
+-            : tag.getString(key).map(string -> OldUsersConverter.convertMobOwnerIfNecessary(level.getServer(), string)).map(EntityReference::new).orElse(null);
++            : tag.getString(key).map(string -> OldUsersConverter.convertMobOwnerIfNecessary(level.getServer(), string)).map(EntityReference<StoredEntityType>::new).orElse(null);
      }
  }

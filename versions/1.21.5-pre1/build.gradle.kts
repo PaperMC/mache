@@ -39,7 +39,7 @@ dependencies {
     codebook("1.0.13")
     remapper(art("2.0.5"))
     decompiler(vineflower("1.11.1-20250226.202807-3"))
-    parchment("1.21.4", "2024.12.07")
+    paramMappings("io.papermc.parchment.data:parchment-25w10a:2025.03.11-staging-SNAPSHOT")
 }
 
 dependencies {

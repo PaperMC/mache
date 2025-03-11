@@ -8,4 +8,4 @@
 +            map -> map.entrySet().stream().<DataComponentPredicate.Single<?>>map(DataComponentPredicate.Single::fromEntry).toList()
          );
  
-     static MapCodec<DataComponentPredicate.Single<?>> singleCodec(String string) {
+     static MapCodec<DataComponentPredicate.Single<?>> singleCodec(String name) {
