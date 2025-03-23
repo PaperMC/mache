@@ -9,11 +9,6 @@ mache {
     minecraftVersion = "1.21.5-rc1"
     minecraftJarType = MinecraftJarType.SERVER
 
-    repositories.register("sonatype snapshots") {
-        url = "https://repo.papermc.io/repository/maven-public/"
-        includeGroups.add("org.vineflower")
-    }
-
     val args = mutableListOf(
         "--temp-dir={tempDir}",
         "--remapper-file={remapperFile}",
@@ -38,8 +33,8 @@ mache {
 dependencies {
     codebook("1.0.13")
     remapper(art("2.0.5"))
-    decompiler(vineflower("1.11.1-20250226.202807-3"))
-    paramMappings("io.papermc.parchment.data:parchment-25w10a:2025.03.11")
+    decompiler(vineflower("1.11.1"))
+    paramMappings("io.papermc.parchment.data:parchment-1.21.5-rc1:2025.03.23")
 }
 
 dependencies {
