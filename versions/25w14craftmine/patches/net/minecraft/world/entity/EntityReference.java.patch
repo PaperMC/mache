@@ -13,7 +13,7 @@
          Optional<UUID> optional = tag.read(key, UUIDUtil.CODEC);
          return optional.isPresent()
              ? new EntityReference<>(optional.get())
--            : tag.getString(key).map(string -> OldUsersConverter.convertMobOwnerIfNecessary(level.getServer(), string)).map(EntityReference::new).orElse(null);
-+            : tag.getString(key).map(string -> OldUsersConverter.convertMobOwnerIfNecessary(level.getServer(), string)).map(EntityReference<StoredEntityType>::new).orElse(null);
+-            : tag.getString(key).map(string -> OldUsersConverter.convertMobOwnerIfNecessary(level.theGame(), string)).map(EntityReference::new).orElse(null);
++            : tag.getString(key).map(string -> OldUsersConverter.convertMobOwnerIfNecessary(level.theGame(), string)).map(EntityReference<StoredEntityType>::new).orElse(null);
      }
  }

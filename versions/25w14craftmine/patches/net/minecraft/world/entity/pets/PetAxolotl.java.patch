@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/pets/PetAxolotl.java
++++ b/net/minecraft/world/entity/pets/PetAxolotl.java
+@@ -142,7 +_,7 @@
+             return spawnGroupData;
+         } else {
+             RandomSource random = level.getRandom();
+-            SpawnGroupData var6 = new PetAxolotl.AxolotlGroupData(Axolotl.Variant.getCommonSpawnVariant(random), Axolotl.Variant.getCommonSpawnVariant(random));
++            AxolotlGroupData var6 = new PetAxolotl.AxolotlGroupData(Axolotl.Variant.getCommonSpawnVariant(random), Axolotl.Variant.getCommonSpawnVariant(random));
+             this.setVariant(var6.getVariant(random));
+             return super.finalizeSpawn(level, difficulty, spawnReason, var6);
+         }

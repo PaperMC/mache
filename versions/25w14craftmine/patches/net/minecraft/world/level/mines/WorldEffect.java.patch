@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/level/mines/WorldEffect.java
++++ b/net/minecraft/world/level/mines/WorldEffect.java
+@@ -177,7 +_,7 @@
+         }
+ 
+         public final WorldEffect.Builder modifyingWorldGen(Consumer<WorldGenBuilder> consumer) {
+-            this.components.add(consumer::accept);
++            this.components.add((WorldGenEffect) consumer::accept);
+             return this;
+         }
+ 
