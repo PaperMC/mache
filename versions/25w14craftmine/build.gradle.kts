@@ -6,7 +6,7 @@ plugins {
 
 val generateReportsProperty = providers.gradleProperty("generateReports")
 mache {
-    minecraftVersion = "1.21.5"
+    minecraftVersion = "25w14craftmine"
     minecraftJarType = MinecraftJarType.SERVER
 
     val args = mutableListOf(
