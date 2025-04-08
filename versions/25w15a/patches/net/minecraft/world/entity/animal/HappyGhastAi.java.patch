@@ -1,0 +1,20 @@
+--- a/net/minecraft/world/entity/animal/HappyGhastAi.java
++++ b/net/minecraft/world/entity/animal/HappyGhastAi.java
+@@ -7,6 +_,8 @@
+ import net.minecraft.world.entity.ai.Brain;
+ import net.minecraft.world.entity.ai.behavior.AnimalPanic;
+ import net.minecraft.world.entity.ai.behavior.BabyFollowAdult;
++import net.minecraft.world.entity.ai.behavior.Behavior;
++import net.minecraft.world.entity.ai.behavior.BehaviorControl;
+ import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
+ import net.minecraft.world.entity.ai.behavior.FollowTemptation;
+ import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
+@@ -71,7 +_,7 @@
+         brain.addActivity(
+             Activity.CORE,
+             0,
+-            ImmutableList.of(
++            ImmutableList.<Behavior<? super HappyGhast>>of(
+                 new Swim<>(0.8F),
+                 new AnimalPanic(2.0F, 0),
+                 new LookAtTargetSink(45, 90),
