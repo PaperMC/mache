@@ -1,19 +1,20 @@
 --- a/net/minecraft/world/entity/EntityReference.java
 +++ b/net/minecraft/world/entity/EntityReference.java
-@@ -86,7 +_,7 @@
+@@ -87,7 +_,7 @@
  
      @Nullable
-     public static <StoredEntityType extends UniquelyIdentifyable> EntityReference<StoredEntityType> read(CompoundTag tag, String key) {
--        return tag.read(key, codec()).orElse(null);
-+        return tag.read(key, EntityReference.<StoredEntityType>codec()).orElse(null);
+     public static <StoredEntityType extends UniquelyIdentifyable> EntityReference<StoredEntityType> read(ValueInput valueInput, String string) {
+-        return valueInput.read(string, codec()).orElse(null);
++        return valueInput.read(string, EntityReference.<StoredEntityType>codec()).orElse(null);
      }
  
      @Nullable
-@@ -96,6 +_,6 @@
-         Optional<UUID> optional = tag.read(key, UUIDUtil.CODEC);
-         return optional.isPresent()
+@@ -99,7 +_,7 @@
              ? new EntityReference<>(optional.get())
--            : tag.getString(key).map(string -> OldUsersConverter.convertMobOwnerIfNecessary(level.getServer(), string)).map(EntityReference::new).orElse(null);
-+            : tag.getString(key).map(string -> OldUsersConverter.convertMobOwnerIfNecessary(level.getServer(), string)).map(EntityReference<StoredEntityType>::new).orElse(null);
+             : valueInput.getString(string)
+                 .map(string1 -> OldUsersConverter.convertMobOwnerIfNecessary(level.getServer(), string1))
+-                .map(EntityReference::new)
++                .map(EntityReference<StoredEntityType>::new)
+                 .orElse(null);
      }
  }

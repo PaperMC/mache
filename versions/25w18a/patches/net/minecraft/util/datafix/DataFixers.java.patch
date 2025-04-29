@@ -1,20 +1,20 @@
 --- a/net/minecraft/util/datafix/DataFixers.java
 +++ b/net/minecraft/util/datafix/DataFixers.java
-@@ -1135,7 +_,7 @@
-         Schema schema162 = builder.addSchema(3086, SAME_NAMESPACED);
+@@ -1138,7 +_,7 @@
+         Schema schema163 = builder.addSchema(3086, SAME_NAMESPACED);
          builder.addFixer(
              new EntityVariantFix(
--                schema162, "Change cat variant type", References.ENTITY, "minecraft:cat", "CatType", Util.make(new Int2ObjectOpenHashMap(), map5 -> {
-+                schema162, "Change cat variant type", References.ENTITY, "minecraft:cat", "CatType", Util.make(new Int2ObjectOpenHashMap<String>(), map5 -> {
+-                schema163, "Change cat variant type", References.ENTITY, "minecraft:cat", "CatType", Util.make(new Int2ObjectOpenHashMap(), map5 -> {
++                schema163, "Change cat variant type", References.ENTITY, "minecraft:cat", "CatType", Util.make(new Int2ObjectOpenHashMap<String>(), map5 -> {
                      map5.defaultReturnValue("minecraft:tabby");
                      map5.put(0, "minecraft:tabby");
                      map5.put(1, "minecraft:black");
-@@ -1172,7 +_,7 @@
-         Schema schema163 = builder.addSchema(3087, SAME_NAMESPACED);
+@@ -1175,7 +_,7 @@
+         Schema schema164 = builder.addSchema(3087, SAME_NAMESPACED);
          builder.addFixer(
              new EntityVariantFix(
--                schema163, "Change frog variant type", References.ENTITY, "minecraft:frog", "Variant", Util.make(new Int2ObjectOpenHashMap(), map5 -> {
-+                schema163, "Change frog variant type", References.ENTITY, "minecraft:frog", "Variant", Util.make(new Int2ObjectOpenHashMap<String>(), map5 -> {
+-                schema164, "Change frog variant type", References.ENTITY, "minecraft:frog", "Variant", Util.make(new Int2ObjectOpenHashMap(), map5 -> {
++                schema164, "Change frog variant type", References.ENTITY, "minecraft:frog", "Variant", Util.make(new Int2ObjectOpenHashMap<String>(), map5 -> {
                      map5.put(0, "minecraft:temperate");
                      map5.put(1, "minecraft:warm");
                      map5.put(2, "minecraft:cold");
