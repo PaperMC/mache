@@ -31,7 +31,7 @@ mache {
 }
 
 dependencies {
-    codebook("1.0.13")
+    codebook("1.0.14")
     remapper(art("2.0.5"))
     decompiler(vineflower("1.11.1"))
     paramMappings("io.papermc.parchment.data:parchment-1.21.5-rc1:2025.03.23")
