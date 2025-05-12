@@ -1,5 +1,22 @@
 --- a/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
+@@ -447,6 +_,7 @@
+                 }
+ 
+                 rootVehicle.move(MoverType.PLAYER, new Vec3(d3, d4, d5));
++                double verticalDelta = d4;
+                 d3 = d - rootVehicle.getX();
+                 d4 = d1 - rootVehicle.getY();
+                 if (d4 > -0.5 || d4 < 0.5) {
+@@ -476,7 +_,7 @@
+                 rootVehicle.setOnGroundWithMovement(packet.onGround(), vec3);
+                 rootVehicle.doCheckFallDamage(vec3.x, vec3.y, vec3.z, packet.onGround());
+                 this.player.checkMovementStatistics(vec3.x, vec3.y, vec3.z);
+-                this.clientVehicleIsFloating = d4 >= -0.03125
++                this.clientVehicleIsFloating = verticalDelta >= -0.03125
+                     && !flag
+                     && !this.server.isFlightAllowed()
+                     && !rootVehicle.isFlyingVehicle()
 @@ -937,7 +_,7 @@
          if (item.has(DataComponents.WRITABLE_BOOK_CONTENT)) {
              ItemStack itemStack = item.transmuteCopy(Items.WRITTEN_BOOK);
@@ -9,3 +26,20 @@
              itemStack.set(
                  DataComponents.WRITTEN_BOOK_CONTENT,
                  new WrittenBookContent(this.filterableFromOutgoing(title), this.player.getName().getString(), 0, list, true)
+@@ -1058,6 +_,7 @@
+ 
+                                 boolean flag1 = this.player.verticalCollisionBelow;
+                                 this.player.move(MoverType.PLAYER, new Vec3(d3, d4, d5));
++                                double verticalDelta = d4;
+                                 d3 = d - this.player.getX();
+                                 d4 = d1 - this.player.getY();
+                                 if (d4 > -0.5 || d4 < 0.5) {
+@@ -1082,7 +_,7 @@
+                                         && !this.isEntityCollidingWithAnythingNew(serverLevel, this.player, boundingBox, d, d1, d2)) {
+                                     this.player.absSnapTo(d, d1, d2, f, f1);
+                                     boolean isAutoSpinAttack = this.player.isAutoSpinAttack();
+-                                    this.clientIsFloating = d4 >= -0.03125
++                                    this.clientIsFloating = verticalDelta >= -0.03125
+                                         && !flag1
+                                         && !this.player.isSpectator()
+                                         && !this.server.isFlightAllowed()
