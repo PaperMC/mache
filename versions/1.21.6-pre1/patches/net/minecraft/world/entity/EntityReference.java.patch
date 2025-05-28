@@ -3,16 +3,16 @@
 @@ -93,7 +_,7 @@
  
      @Nullable
-     public static <StoredEntityType extends UniquelyIdentifyable> EntityReference<StoredEntityType> read(ValueInput valueInput, String string) {
--        return valueInput.read(string, codec()).orElse(null);
-+        return valueInput.read(string, EntityReference.<StoredEntityType>codec()).orElse(null);
+     public static <StoredEntityType extends UniquelyIdentifyable> EntityReference<StoredEntityType> read(ValueInput input, String key) {
+-        return input.read(key, codec()).orElse(null);
++        return input.read(key, EntityReference.<StoredEntityType>codec()).orElse(null);
      }
  
      @Nullable
 @@ -105,7 +_,7 @@
              ? new EntityReference<>(optional.get())
-             : valueInput.getString(string)
-                 .map(string1 -> OldUsersConverter.convertMobOwnerIfNecessary(level.getServer(), string1))
+             : input.getString(key)
+                 .map(string -> OldUsersConverter.convertMobOwnerIfNecessary(level.getServer(), string))
 -                .map(EntityReference::new)
 +                .map(EntityReference<StoredEntityType>::new)
                  .orElse(null);
