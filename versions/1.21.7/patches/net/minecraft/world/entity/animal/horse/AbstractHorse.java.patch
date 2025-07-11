@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/animal/horse/AbstractHorse.java
++++ b/net/minecraft/world/entity/animal/horse/AbstractHorse.java
+@@ -981,7 +_,7 @@
+                 }
+ 
+                 mutableBlockPos.move(Direction.UP);
+-            } while (!(mutableBlockPos.getY() < d3));
++            } while (mutableBlockPos.getY() < d3);
+         }
+ 
+         return null;
