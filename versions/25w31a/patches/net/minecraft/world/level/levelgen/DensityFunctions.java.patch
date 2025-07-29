@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/levelgen/DensityFunctions.java
 +++ b/net/minecraft/world/level/levelgen/DensityFunctions.java
-@@ -300,7 +_,7 @@
+@@ -306,7 +_,7 @@
                      }
                      break;
                  case MAX:
