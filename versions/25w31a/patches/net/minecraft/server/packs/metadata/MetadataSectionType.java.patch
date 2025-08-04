@@ -3,9 +3,9 @@
 @@ -10,7 +_,7 @@
  
      public record WithValue<T>(MetadataSectionType<T> type, T value) {
-         public <U> Optional<U> unwrapToType(MetadataSectionType<U> metadataSectionType) {
--            return metadataSectionType == this.type ? Optional.of(this.value) : Optional.empty();
-+            return metadataSectionType == this.type ? Optional.of((U) this.value) : Optional.empty();
+         public <U> Optional<U> unwrapToType(MetadataSectionType<U> type) {
+-            return type == this.type ? Optional.of(this.value) : Optional.empty();
++			return type == this.type ? Optional.of((U) this.value) : Optional.empty();
          }
      }
  }
