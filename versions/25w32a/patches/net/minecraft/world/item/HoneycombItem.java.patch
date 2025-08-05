@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/item/HoneycombItem.java
 +++ b/net/minecraft/world/item/HoneycombItem.java
-@@ -83,7 +_,7 @@
+@@ -86,7 +_,7 @@
          Level level = context.getLevel();
          BlockPos clickedPos = context.getClickedPos();
          BlockState blockState = level.getBlockState(clickedPos);
