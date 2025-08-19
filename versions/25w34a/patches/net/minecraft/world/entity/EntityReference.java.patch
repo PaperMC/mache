@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/EntityReference.java
 +++ b/net/minecraft/world/entity/EntityReference.java
-@@ -93,7 +_,7 @@
+@@ -125,7 +_,7 @@
  
      @Nullable
      public static <StoredEntityType extends UniquelyIdentifyable> EntityReference<StoredEntityType> read(ValueInput input, String key) {
@@ -9,8 +9,8 @@
      }
  
      @Nullable
-@@ -105,7 +_,7 @@
-             ? new EntityReference<>(optional.get())
+@@ -137,7 +_,7 @@
+             ? of(optional.get())
              : input.getString(key)
                  .map(string -> OldUsersConverter.convertMobOwnerIfNecessary(level.getServer(), string))
 -                .map(EntityReference::new)

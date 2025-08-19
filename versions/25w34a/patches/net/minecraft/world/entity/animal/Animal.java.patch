@@ -8,12 +8,3 @@
  import net.minecraft.world.level.pathfinder.PathType;
  import net.minecraft.world.level.storage.ValueInput;
  import net.minecraft.world.level.storage.ValueOutput;
-@@ -183,7 +_,7 @@
- 
-     @Nullable
-     public ServerPlayer getLoveCause() {
--        return EntityReference.get(this.loveCause, this.level()::getPlayerByUUID, ServerPlayer.class);
-+        return EntityReference.get(this.loveCause, (UUIDLookup<Player>) this.level()::getPlayerByUUID, ServerPlayer.class);
-     }
- 
-     public boolean isInLove() {
