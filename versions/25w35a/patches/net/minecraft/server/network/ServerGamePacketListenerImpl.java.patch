@@ -15,7 +15,7 @@
 -                this.clientVehicleIsFloating = d4 >= -0.03125
 +                this.clientVehicleIsFloating = verticalDelta >= -0.03125
                      && !flag
-                     && !this.server.isFlightAllowed()
+                     && !this.server.allowFlight()
                      && !rootVehicle.isFlyingVehicle()
 @@ -945,7 +_,7 @@
          if (item.has(DataComponents.WRITABLE_BOOK_CONTENT)) {
@@ -42,4 +42,4 @@
 +                                    this.clientIsFloating = verticalDelta >= -0.03125
                                          && !flag1
                                          && !this.player.isSpectator()
-                                         && !this.server.isFlightAllowed()
+                                         && !this.server.allowFlight()

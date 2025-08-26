@@ -1,0 +1,10 @@
+--- a/net/minecraft/server/jsonrpc/internalapi/MinecraftGameRuleService.java
++++ b/net/minecraft/server/jsonrpc/internalapi/MinecraftGameRuleService.java
+@@ -67,6 +_,6 @@
+ 
+     private GameRules.Value<?> getRuleValue(String string) {
+         GameRules.Key<?> key = this.getRuleKey(string).orElseThrow(() -> new InvalidParameterJsonRpcException("Game rule '" + string + "' does not exist"));
+-        return this.server.getGameRules().getRule((GameRules.Key<GameRules.Value<?>>)key);
++        return this.server.getGameRules().getRule((GameRules.Key<?>)key);
+     }
+ }
