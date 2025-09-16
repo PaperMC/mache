@@ -46,4 +46,4 @@ versions/**/runClient
 # Ignore all versions by default
 versions/*
 # Don't ignore the current version
-!versions/25w37a
+!versions/1.21.9-pre1
