@@ -2,9 +2,9 @@
 +++ b/net/minecraft/world/level/block/BaseEntityBlock.java
 @@ -37,6 +_,6 @@
      protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(
-         BlockEntityType<A> serverType, BlockEntityType<E> clientType, BlockEntityTicker<? super E> ticker
+         BlockEntityType<A> actualType, BlockEntityType<E> expectedType, BlockEntityTicker<? super E> ticker
      ) {
--        return clientType == serverType ? ticker : null;
-+        return clientType == serverType ? (BlockEntityTicker<A>) ticker : null;
+-        return expectedType == actualType ? ticker : null;
++        return expectedType == actualType ? (BlockEntityTicker<A>) ticker : null;
      }
  }

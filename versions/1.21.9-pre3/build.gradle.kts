@@ -34,7 +34,7 @@ dependencies {
     codebook("1.0.15")
     remapper(art("2.0.5"))
     decompiler(vineflower("1.11.1"))
-    paramMappings("io.papermc.parchment.data:parchment-1.21.9-pre2:2025.09.19")
+    paramMappings("io.papermc.parchment.data:parchment-1.21.9-pre3:2025.09.23")
 }
 
 dependencies {

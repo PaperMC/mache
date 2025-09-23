@@ -4,8 +4,8 @@
          List<GameRulesService.TypedRule> list1 = new ArrayList<>();
  
          for (GameRules.Key<?> key : list) {
--            GameRules.Value<?> rule = minecraftApi.gameRuleService().getRule((GameRules.Key<GameRules.Value<?>>)key);
-+            GameRules.Value<?> rule = minecraftApi.gameRuleService().getRule((GameRules.Key<?>)key);
-             list1.add(getTypedRule(minecraftApi, key.getId(), rule));
+-            GameRules.Value<?> rule = api.gameRuleService().getRule((GameRules.Key<GameRules.Value<?>>)key);
++            GameRules.Value<?> rule = api.gameRuleService().getRule((GameRules.Key<?>)key);
+             list1.add(getTypedRule(api, key.getId(), rule));
          }
  
