@@ -1,10 +1,15 @@
 pluginManagement {
     repositories {
-        maven("https://repo.papermc.io/repository/maven-releases/")
-        mavenCentral()
+        mavenCentral() {
+            mavenContent { releasesOnly() }
+        }
+        maven("https://repo.papermc.io/repository/maven-releases/") {
+            mavenContent { releasesOnly() }
+        }
         maven("https://maven.neoforged.net/releases") {
             name = "Neoforged"
             mavenContent {
+                releasesOnly()
                 includeGroupAndSubgroups("codechicken")
                 includeGroupAndSubgroups("net.covers1624")
             }

@@ -1,3 +1,3 @@
 plugins {
-    id("io.papermc.sculptor.root") version "1.0.12"
+    id("io.papermc.sculptor.root") version "1.0.13"
 }
