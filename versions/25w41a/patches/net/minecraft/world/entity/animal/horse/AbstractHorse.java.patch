@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/animal/horse/AbstractHorse.java
 +++ b/net/minecraft/world/entity/animal/horse/AbstractHorse.java
-@@ -987,7 +_,7 @@
+@@ -991,7 +_,7 @@
                  }
  
                  mutableBlockPos.move(Direction.UP);
