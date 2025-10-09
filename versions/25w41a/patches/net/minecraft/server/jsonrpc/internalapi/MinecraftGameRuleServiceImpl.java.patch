@@ -4,7 +4,7 @@
      private net.minecraft.world.level.GameRules.Value<?> getRuleValue(String gamerule) {
          net.minecraft.world.level.GameRules.Key<?> key = this.getRuleKey(gamerule)
              .orElseThrow(() -> new InvalidParameterJsonRpcException("Game rule '" + gamerule + "' does not exist"));
--        return this.server.getGameRules().getRule((net.minecraft.world.level.GameRules.Key<net.minecraft.world.level.GameRules.Value<?>>)key);
-+        return this.server.getGameRules().getRule((net.minecraft.world.level.GameRules.Key<?>)key);
+-        return this.gameRules.getRule((net.minecraft.world.level.GameRules.Key<net.minecraft.world.level.GameRules.Value<?>>)key);
++        return this.gameRules.getRule((net.minecraft.world.level.GameRules.Key<?>)key);
      }
  }
