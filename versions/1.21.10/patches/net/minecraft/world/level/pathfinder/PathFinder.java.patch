@@ -8,4 +8,4 @@
 +        Set<Node> set1 = asBoolean ? new HashSet<>() : Set.of();
          int i = 0;
          Set<Target> set2 = Sets.newHashSetWithExpectedSize(set.size());
-         int i1 = (int)(this.maxVisitedNodes * searchDepthMultiplier);
+         int i1 = (int)(this.maxVisitedNodes * maxVisitedNodesMultiplier);
