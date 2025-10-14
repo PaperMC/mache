@@ -5,6 +5,6 @@
          net.minecraft.world.level.GameRules.Key<?> key = this.getRuleKey(id)
              .orElseThrow(() -> new InvalidParameterJsonRpcException("Game rule '" + id + "' does not exist"));
 -        return this.gameRules.getRule((net.minecraft.world.level.GameRules.Key<net.minecraft.world.level.GameRules.Value<?>>)key);
-+        return this.server.getGameRules().getRule((net.minecraft.world.level.GameRules.Key<?>)key);
++        return this.gameRules.getRule((net.minecraft.world.level.GameRules.Key<?>)key);
      }
  }

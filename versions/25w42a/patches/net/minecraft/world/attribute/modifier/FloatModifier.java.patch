@@ -1,0 +1,17 @@
+--- a/net/minecraft/world/attribute/modifier/FloatModifier.java
++++ b/net/minecraft/world/attribute/modifier/FloatModifier.java
+@@ -16,11 +_,11 @@
+             return FloatWithAlpha.CODEC;
+         }
+     };
+-    FloatModifier<Float> ADD = Float::sum;
++    FloatModifier<Float> ADD = (FloatModifier.Simple) Float::sum;
+     FloatModifier<Float> SUBTRACT = (FloatModifier.Simple)(_float, _float1) -> _float - _float1;
+     FloatModifier<Float> MULTIPLY = (FloatModifier.Simple)(_float, _float1) -> _float * _float1;
+-    FloatModifier<Float> MINIMUM = Math::min;
+-    FloatModifier<Float> MAXIMUM = Math::max;
++    FloatModifier<Float> MINIMUM = (FloatModifier.Simple) Math::min;
++    FloatModifier<Float> MAXIMUM = (FloatModifier.Simple) Math::max;
+ 
+     @FunctionalInterface
+     public interface Simple extends FloatModifier<Float> {
