@@ -8,4 +8,4 @@
 +        return (AttributeModifier<Value, Value>) OverrideModifier.INSTANCE;
      }
  
-     Subject apply(Subject object, Argument object1);
+     Subject apply(Subject subject, Argument argument);
