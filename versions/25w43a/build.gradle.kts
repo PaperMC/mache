@@ -14,7 +14,7 @@ mache {
         "--remapper-file={remapperFile}",
         "--mappings-file={mappingsFile}",
         "--params-file={paramsFile}",
-        // "--constants-file={constantsFile}",
+        "--unpick-file={constantsFile}",
         "--output={output}",
         "--input={input}",
         "--input-classpath={inputClasspath}",
@@ -31,10 +31,12 @@ mache {
 }
 
 dependencies {
-    codebook("1.0.16")
+    codebook("1.0.17")
     remapper(art("2.0.5"))
     decompiler(vineflower("1.11.1"))
-    paramMappings("io.papermc.parchment.data:parchment:25w43a+build.2")
+    val parchment = "io.papermc.parchment.data:parchment:25w43a+build.10"
+    paramMappings(parchment)
+    constants(parchment)
 }
 
 dependencies {
