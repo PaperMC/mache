@@ -34,7 +34,7 @@ dependencies {
     codebook("1.0.17")
     remapper(art("2.0.5"))
     decompiler(vineflower("1.11.1"))
-    val parchment = "io.papermc.parchment.data:parchment:25w43a+build.10"
+    val parchment = "io.papermc.parchment.data:parchment:25w43a+build.13"
     paramMappings(parchment)
     constants(parchment)
 }
