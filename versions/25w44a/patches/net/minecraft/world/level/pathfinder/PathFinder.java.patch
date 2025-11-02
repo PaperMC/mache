@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/pathfinder/PathFinder.java
 +++ b/net/minecraft/world/level/pathfinder/PathFinder.java
-@@ -68,7 +_,7 @@
+@@ -66,7 +_,7 @@
          this.openSet.clear();
          this.openSet.insert(node);
          boolean asBoolean = this.captureDebug.getAsBoolean();

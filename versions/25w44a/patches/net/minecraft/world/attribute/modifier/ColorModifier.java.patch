@@ -1,15 +1,17 @@
 --- a/net/minecraft/world/attribute/modifier/ColorModifier.java
 +++ b/net/minecraft/world/attribute/modifier/ColorModifier.java
-@@ -22,9 +_,9 @@
+@@ -18,10 +_,10 @@
              return ExtraCodecs.STRING_ARGB_COLOR;
          }
      };
 -    ColorModifier<Integer> ADD = ARGB::addRgb;
 -    ColorModifier<Integer> SUBTRACT = ARGB::subtractRgb;
 -    ColorModifier<Integer> MULTIPLY = ARGB::multiply;
+-    ColorModifier<Integer> MULTIPLY_ARGB = ARGB::multiply;
 +    ColorModifier<Integer> ADD = (RgbModifier) ARGB::addRgb;
 +    ColorModifier<Integer> SUBTRACT = (RgbModifier) ARGB::subtractRgb;
 +    ColorModifier<Integer> MULTIPLY = (RgbModifier) ARGB::multiply;
++    ColorModifier<Integer> MULTIPLY_ARGB = (ArgbModifier) ARGB::multiply;
  
      @FunctionalInterface
-     public interface RgbModifier extends ColorModifier<Integer> {
+     public interface ArgbModifier extends ColorModifier<Integer> {

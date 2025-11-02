@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/ai/Brain.java
 +++ b/net/minecraft/world/entity/ai/Brain.java
-@@ -195,14 +_,14 @@
+@@ -195,13 +_,13 @@
          if (optional == null) {
              throw new IllegalStateException("Unregistered memory fetched: " + type);
          } else {
@@ -9,8 +9,7 @@
          }
      }
  
-     @Nullable
-     public <U> Optional<U> getMemoryInternal(MemoryModuleType<U> type) {
+     public <U> @Nullable Optional<U> getMemoryInternal(MemoryModuleType<U> type) {
          Optional<? extends ExpirableValue<?>> optional = this.memories.get(type);
 -        return optional == null ? null : optional.map(ExpirableValue::getValue);
 +        return optional == null ? null : (Optional<U>) optional.map(ExpirableValue::getValue);

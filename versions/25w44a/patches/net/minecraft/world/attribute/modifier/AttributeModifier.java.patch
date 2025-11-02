@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/attribute/modifier/AttributeModifier.java
 +++ b/net/minecraft/world/attribute/modifier/AttributeModifier.java
-@@ -46,7 +_,7 @@
+@@ -56,7 +_,7 @@
      );
  
      static <Value> AttributeModifier<Value, Value> override() {

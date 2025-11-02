@@ -30,10 +30,14 @@ mache {
     remapperArgs.set(args)
 }
 
+repositories {
+    maven("https://central.sonatype.com/repository/maven-snapshots/")
+}
+
 dependencies {
     codebook("1.0.17")
     remapper(art("2.0.5"))
-    decompiler(vineflower("1.11.1"))
+    decompiler(vineflower("1.11.2-SNAPSHOT"))
     val parchment = "io.papermc.parchment.data:parchment:25w43a+build.13"
     paramMappings(parchment)
     constants(parchment)

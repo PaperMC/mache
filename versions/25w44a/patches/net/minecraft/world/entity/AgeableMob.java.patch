@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/AgeableMob.java
 +++ b/net/minecraft/world/entity/AgeableMob.java
-@@ -71,12 +_,13 @@
+@@ -69,12 +_,13 @@
  
      public void ageUp(int amount, boolean forced) {
          int age = this.getAge();

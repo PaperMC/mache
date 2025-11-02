@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/jsonrpc/api/Schema.java
 +++ b/net/minecraft/server/jsonrpc/api/Schema.java
-@@ -34,19 +_,19 @@
+@@ -36,19 +_,19 @@
  public record Schema<T>(
      Optional<URI> reference, List<String> type, Optional<Schema<?>> items, Map<String, Schema<?>> properties, List<String> enumValues, Codec<T> codec
  ) {

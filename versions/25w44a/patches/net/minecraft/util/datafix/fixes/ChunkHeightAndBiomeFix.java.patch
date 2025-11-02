@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/datafix/fixes/ChunkHeightAndBiomeFix.java
 +++ b/net/minecraft/util/datafix/fixes/ChunkHeightAndBiomeFix.java
-@@ -221,7 +_,8 @@
+@@ -222,7 +_,8 @@
          } else if (ints != null && ints.length == 1024) {
              for (int i = 0; i < 16; i++) {
                  int i1 = i - lowestY;

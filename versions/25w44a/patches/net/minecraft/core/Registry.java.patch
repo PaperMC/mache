@@ -1,6 +1,6 @@
 --- a/net/minecraft/core/Registry.java
 +++ b/net/minecraft/core/Registry.java
-@@ -140,7 +_,7 @@
+@@ -137,7 +_,7 @@
      Holder<T> wrapAsHolder(T value);
  
      default Iterable<Holder<T>> getTagOrEmpty(TagKey<T> key) {
