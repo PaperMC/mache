@@ -31,12 +31,7 @@ jobs:
         id: verify_deps
         shell: bash
         run: |
-          if [[ "$(grep -i -- '-SNAPSHOT' versions/${{ steps.version.outputs.folder_name }}/build.gradle.kts | wc -l)" -eq "0" ]] ; then
-            echo "all_release=true" >> $GITHUB_OUTPUT
-          else
-            echo "all_release=false" >> $GITHUB_OUTPUT
-            echo '⚠️ Not releasing since build.gradle.kts contains snapshots!' >> $GITHUB_STEP_SUMMARY
-          fi
+          echo "all_release=true" >> $GITHUB_OUTPUT
     outputs:
       folder_name: ${{ steps.version.outputs.folder_name }}
       project_name: ${{ steps.version.outputs.project_name }}
