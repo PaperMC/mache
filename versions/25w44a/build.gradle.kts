@@ -35,10 +35,10 @@ repositories {
 }
 
 dependencies {
-    codebook("1.0.17")
+    codebook("1.0.18")
     remapper(art("2.0.5"))
     decompiler(vineflower("1.11.2-SNAPSHOT"))
-    val parchment = "io.papermc.parchment.data:parchment:25w43a+build.13"
+    val parchment = "io.papermc.parchment.data:parchment:25w44a+build.2"
     paramMappings(parchment)
     constants(parchment)
 }

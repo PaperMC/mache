@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/jsonrpc/methods/GameRulesService.java
 +++ b/net/minecraft/server/jsonrpc/methods/GameRulesService.java
-@@ -53,10 +_,10 @@
+@@ -51,10 +_,10 @@
          private static <T> MapCodec<? extends GameRulesService.GameRuleUpdate<T>> getValueAndTypeCodec(GameRule<T> gameRule) {
              return RecordCodecBuilder.mapCodec(
                  instance -> instance.group(
