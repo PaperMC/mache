@@ -1,7 +1,7 @@
 import io.papermc.sculptor.shared.util.MinecraftJarType
 
 plugins {
-    id("io.papermc.sculptor.version") version "1.0.14"
+    id("io.papermc.sculptor.version") version "1.0.15"
 }
 
 val generateReportsProperty = providers.gradleProperty("generateReports")
