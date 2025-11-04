@@ -4,8 +4,8 @@
      }
  
      public Component getTestName() {
--        return this.test().map(resourceKey -> Component.literal(resourceKey.location().toString())).orElse(INVALID_TEST_NAME);
-+        return this.test().<Component>map(resourceKey -> Component.literal(resourceKey.location().toString())).orElse(INVALID_TEST_NAME);
+-        return this.test().map(resourceKey -> Component.literal(resourceKey.identifier().toString())).orElse(INVALID_TEST_NAME);
++        return this.test().<Component>map(resourceKey -> Component.literal(resourceKey.identifier().toString())).orElse(INVALID_TEST_NAME);
      }
  
      private Optional<Holder.Reference<GameTestInstance>> getTestHolder() {

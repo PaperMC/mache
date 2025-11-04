@@ -6,6 +6,6 @@
          return input.get(tagKey)
 -            .map(DataResult::success)
 +            .map(DataResult::<HolderSet<E>>success)
-             .orElseGet(() -> DataResult.error(() -> "Missing tag: '" + tagKey.location() + "' in '" + tagKey.registry().location() + "'"));
+             .orElseGet(() -> DataResult.error(() -> "Missing tag: '" + tagKey.location() + "' in '" + tagKey.registry().identifier() + "'"));
      }
  

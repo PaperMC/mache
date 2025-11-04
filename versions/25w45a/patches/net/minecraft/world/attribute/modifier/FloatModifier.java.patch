@@ -1,7 +1,7 @@
 --- a/net/minecraft/world/attribute/modifier/FloatModifier.java
 +++ b/net/minecraft/world/attribute/modifier/FloatModifier.java
-@@ -16,11 +_,11 @@
-             return FloatWithAlpha.CODEC;
+@@ -22,11 +_,11 @@
+             return (delta, start, end) -> new FloatWithAlpha(Mth.lerp(delta, start.value(), end.value()), Mth.lerp(delta, start.alpha(), end.alpha()));
          }
      };
 -    FloatModifier<Float> ADD = Float::sum;

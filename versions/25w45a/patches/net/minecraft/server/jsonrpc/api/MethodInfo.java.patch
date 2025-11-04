@@ -12,7 +12,7 @@
 @@ -41,7 +_,7 @@
      }
  
-     public record Named<Params, Result>(ResourceLocation name, MethodInfo<Params, Result> contents) {
+     public record Named<Params, Result>(Identifier name, MethodInfo<Params, Result> contents) {
 -        public static final Codec<MethodInfo.Named<?, ?>> CODEC = typedCodec();
 +        public static final Codec<MethodInfo.Named<?, ?>> CODEC = (Codec<MethodInfo.Named<?, ?>>) (Object) typedCodec();
  
