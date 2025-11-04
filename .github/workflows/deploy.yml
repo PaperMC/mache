@@ -94,12 +94,40 @@ jobs:
           java-version: 21
       - uses: gradle/actions/setup-gradle@v4
         name: Setup Gradle
+      - name: "Get Version"
+        run: |
+          MACHE_VERSION=$(./gradlew printVersion --console=plain --quiet)
+          echo "MACHE_VERSION=$MACHE_VERSION" >> $GITHUB_ENV
+      - uses: neoforged/action-github-status@v1
+        name: Set Publication Pending Status
+        if: always()
+        with:
+          authToken: ${{ secrets.GITHUB_TOKEN }}
+          context: 'Publishing'
+          state: 'pending'
+          description: "Version: ${{ env.MACHE_VERSION }}"
+          target_url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
       - name: Deploy Mache Artifact
-        run: ./gradlew ':versions:${{ needs.verify.outputs.project_name }}:publishMachePublicationToPaperMCRepository'
+        run: |
+          ./gradlew ':versions:${{ needs.verify.outputs.project_name }}:publishMachePublicationToPaperMCRepository'
+          if [ $? -eq 0 ]; then
+            echo "GRADLE_SUCCESS=success" >> $GITHUB_ENV
+          else
+            echo "GRADLE_SUCCESS=failure" >> $GITHUB_ENV
+          fi
         env:
           BUILD_ID: ${{ env.GITHUB_RUN_NUMBER }}
           ORG_GRADLE_PROJECT_PaperMCUsername: ${{ secrets.NEXUS_USERNAME }}
           ORG_GRADLE_PROJECT_PaperMCPassword: ${{ secrets.NEXUS_PASSWORD }}
+      - uses: neoforged/action-github-status@v1
+        name: Set Publication Completion Status
+        if: always()
+        with:
+          authToken: ${{ secrets.GITHUB_TOKEN }}
+          context: 'Publishing'
+          state: ${{ env.GRADLE_SUCCESS || 'failure' }}
+          description: "Version: ${{ env.MACHE_VERSION }}"
+          target_url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
   cleanup:
     name: Cleanup
     runs-on: ubuntu-latest
