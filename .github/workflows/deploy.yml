@@ -18,7 +18,7 @@ jobs:
     # Guard against manual runs on the wrong branch
     if: startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/snapshot/')
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Version Name
         id: version
         shell: bash
@@ -42,12 +42,12 @@ jobs:
     needs: verify
     if: needs.verify.outputs.deps_all_release == 'true'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: 21
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
         name: Setup Gradle
       - name: Apply Patches
         run: ./gradlew ':versions:${{ needs.verify.outputs.project_name }}:setup'
@@ -67,8 +67,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [verify, applyPatches]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: 21
@@ -78,7 +78,7 @@ jobs:
           path: sources
       - name: Extract sources
         run: tar -xf sources/sources.tar versions/${{ needs.verify.outputs.folder_name }}/src/ && rm -r sources/
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
         name: Setup Gradle
       - name: Build
         run: ./gradlew ':versions:${{ needs.verify.outputs.project_name }}:build'
@@ -87,13 +87,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: [verify, build]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: 21
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
         name: Setup Gradle
+        # Ensure we don't get our version output polluted by wrapper download or etc.
+      - name: "Prime Gradle"
+        run: ./gradlew printVersion --console=plain --quiet
       - name: "Get Version"
         run: |
           MACHE_VERSION=$(./gradlew printVersion --console=plain --quiet)
