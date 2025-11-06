@@ -1,5 +1,22 @@
 --- a/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
+@@ -463,6 +_,7 @@
+                 }
+ 
+                 vehicle.move(MoverType.PLAYER, new Vec3(xDist, yDist, zDist));
++                double oyDist = yDist;
+                 xDist = targetX - vehicle.getX();
+                 yDist = targetY - vehicle.getY();
+                 if (yDist > -0.5 || yDist < 0.5) {
+@@ -491,7 +_,7 @@
+                 vehicle.setOnGroundWithMovement(packet.onGround(), clientDeltaMovement);
+                 vehicle.doCheckFallDamage(clientDeltaMovement.x, clientDeltaMovement.y, clientDeltaMovement.z, packet.onGround());
+                 this.player.checkMovementStatistics(clientDeltaMovement.x, clientDeltaMovement.y, clientDeltaMovement.z);
+-                this.clientVehicleIsFloating = yDist >= -0.03125
++                this.clientVehicleIsFloating = oyDist >= -0.03125
+                     && !vehicleRestsOnSomething
+                     && !this.server.allowFlight()
+                     && !vehicle.isFlyingVehicle()
 @@ -956,7 +_,7 @@
          if (carried.has(DataComponents.WRITABLE_BOOK_CONTENT)) {
              ItemStack writtenBook = carried.transmuteCopy(Items.WRITTEN_BOOK);
