@@ -1,11 +1,11 @@
 --- a/net/minecraft/world/level/storage/loot/predicates/LootItemBlockStatePropertyCondition.java
 +++ b/net/minecraft/world/level/storage/loot/predicates/LootItemBlockStatePropertyCondition.java
 @@ -27,7 +_,7 @@
-     private static DataResult<LootItemBlockStatePropertyCondition> validate(LootItemBlockStatePropertyCondition condition) {
+     private static DataResult<LootItemBlockStatePropertyCondition> validate(final LootItemBlockStatePropertyCondition condition) {
          return condition.properties()
-             .flatMap(statePropertiesPredicate -> statePropertiesPredicate.checkState(condition.block().value().getStateDefinition()))
--            .map(string -> DataResult.error(() -> "Block " + condition.block() + " has no property" + string))
-+            .map(string -> DataResult.<LootItemBlockStatePropertyCondition>error(() -> "Block " + condition.block() + " has no property" + string))
+             .flatMap(properties -> properties.checkState(condition.block().value().getStateDefinition()))
+-            .map(name -> DataResult.error(() -> "Block " + condition.block() + " has no property" + name))
++            .map(name -> DataResult.<LootItemBlockStatePropertyCondition>error(() -> "Block " + condition.block() + " has no property" + name))
              .orElse(DataResult.success(condition));
      }
  

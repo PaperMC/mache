@@ -8,4 +8,4 @@
 +        NumberProviders.CODEC, ExtraCodecs.RGB_COLOR_CODEC, f -> new ConstantValue(f)
      );
      public static final MapCodec<SetCustomModelDataFunction> CODEC = RecordCodecBuilder.mapCodec(
-         instance -> commonFields(instance)
+         i -> commonFields(i)

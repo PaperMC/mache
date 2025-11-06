@@ -2,10 +2,10 @@
 +++ b/net/minecraft/world/item/AdventureModePredicate.java
 @@ -113,7 +_,7 @@
          return predicates.stream()
-             .flatMap(predicate -> predicate.blocks().orElseThrow().stream())
+             .flatMap(predicatex -> predicatex.blocks().orElseThrow().stream())
              .distinct()
--            .map(holder -> holder.value().getName().withStyle(ChatFormatting.DARK_GRAY))
-+            .<Component>map(holder -> holder.value().getName().withStyle(ChatFormatting.DARK_GRAY))
+-            .map(block -> block.value().getName().withStyle(ChatFormatting.DARK_GRAY))
++            .<Component>map(block -> block.value().getName().withStyle(ChatFormatting.DARK_GRAY))
              .toList();
      }
  

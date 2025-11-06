@@ -6,6 +6,6 @@
      public static final Codec<EnvironmentAttributeMap> CODEC = Codec.lazyInitialized(
 -        () -> Codec.dispatchedMap(EnvironmentAttributes.CODEC, Util.memoize(EnvironmentAttributeMap.Entry::createCodec))
 +        () -> Codec.dispatchedMap(EnvironmentAttributes.CODEC, Util.memoize((java.util.function.Function<EnvironmentAttribute<?>, Codec<? extends Entry<?, ?>>>) EnvironmentAttributeMap.Entry::createCodec))
-             .xmap(EnvironmentAttributeMap::new, environmentAttributeMap -> environmentAttributeMap.entries)
+             .xmap(EnvironmentAttributeMap::new, v -> v.entries)
      );
      public static final Codec<EnvironmentAttributeMap> NETWORK_CODEC = CODEC.xmap(

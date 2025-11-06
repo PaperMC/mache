@@ -1,7 +1,7 @@
 import io.papermc.sculptor.shared.util.MinecraftJarType
 
 plugins {
-    id("io.papermc.sculptor.version") version "1.0.15"
+    id("io.papermc.sculptor.version") version "2.0.0-SNAPSHOT"
 }
 
 val generateReportsProperty = providers.gradleProperty("generateReports")
@@ -11,9 +11,6 @@ mache {
 
     val args = mutableListOf(
         "--temp-dir={tempDir}",
-        "--remapper-file={remapperFile}",
-        "--mappings-file={mappingsFile}",
-        "--params-file={paramsFile}",
         "--unpick-file={constantsFile}",
         "--output={output}",
         "--input={input}",
@@ -27,16 +24,18 @@ mache {
         ))
     }
 
-    remapperArgs.set(args)
+    codebookArgs = args
+    serverJarOverrideUrl = "https://piston-data.mojang.com/v1/objects/2d3568cd561daad8e80fdc605e64270ae8dd8aba/server.jar"
+}
+
+tasks.withType<JavaCompile>().configureEach {
+    options.compilerArgs.add("-parameters")
 }
 
 dependencies {
-    codebook("1.0.18")
-    remapper(art("2.0.5"))
+    codebook("2.0.0-SNAPSHOT")
     decompiler(vineflower("1.11.2"))
-    val parchment = "io.papermc.parchment.data:parchment:25w45a+build.3"
-    paramMappings(parchment)
-    constants(parchment)
+    constants("io.papermc.parchment.data:parchment:25w45a+build.3")
 }
 
 dependencies {

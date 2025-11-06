@@ -1,17 +1,17 @@
 --- a/net/minecraft/world/attribute/modifier/FloatModifier.java
 +++ b/net/minecraft/world/attribute/modifier/FloatModifier.java
 @@ -22,11 +_,11 @@
-             return (delta, start, end) -> new FloatWithAlpha(Mth.lerp(delta, start.value(), end.value()), Mth.lerp(delta, start.alpha(), end.alpha()));
+             return (alpha, from, to) -> new FloatWithAlpha(Mth.lerp(alpha, from.value(), to.value()), Mth.lerp(alpha, from.alpha(), to.alpha()));
          }
      };
 -    FloatModifier<Float> ADD = Float::sum;
-+    FloatModifier<Float> ADD = (FloatModifier.Simple) Float::sum;
-     FloatModifier<Float> SUBTRACT = (FloatModifier.Simple)(_float, _float1) -> _float - _float1;
-     FloatModifier<Float> MULTIPLY = (FloatModifier.Simple)(_float, _float1) -> _float * _float1;
++    FloatModifier<Float> ADD = (Simple) Float::sum;
+     FloatModifier<Float> SUBTRACT = (FloatModifier.Simple)(a, b) -> a - b;
+     FloatModifier<Float> MULTIPLY = (FloatModifier.Simple)(a, b) -> a * b;
 -    FloatModifier<Float> MINIMUM = Math::min;
 -    FloatModifier<Float> MAXIMUM = Math::max;
-+    FloatModifier<Float> MINIMUM = (FloatModifier.Simple) Math::min;
-+    FloatModifier<Float> MAXIMUM = (FloatModifier.Simple) Math::max;
++    FloatModifier<Float> MINIMUM = (Simple) Math::min;
++    FloatModifier<Float> MAXIMUM = (Simple) Math::max;
  
      @FunctionalInterface
      public interface Simple extends FloatModifier<Float> {

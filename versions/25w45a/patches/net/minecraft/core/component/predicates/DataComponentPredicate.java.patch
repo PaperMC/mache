@@ -3,9 +3,9 @@
 @@ -26,7 +_,7 @@
          )
          .map(
-             list -> list.stream().collect(Collectors.toMap(DataComponentPredicate.Single::type, DataComponentPredicate.Single::predicate)),
+             singles -> singles.stream().collect(Collectors.toMap(DataComponentPredicate.Single::type, DataComponentPredicate.Single::predicate)),
 -            map -> map.entrySet().stream().map(DataComponentPredicate.Single::fromEntry).toList()
 +            map -> map.entrySet().stream().<DataComponentPredicate.Single<?>>map(DataComponentPredicate.Single::fromEntry).toList()
          );
  
-     static MapCodec<DataComponentPredicate.Single<?>> singleCodec(String name) {
+     static MapCodec<DataComponentPredicate.Single<?>> singleCodec(final String name) {

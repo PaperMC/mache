@@ -3,25 +3,25 @@
 @@ -1169,6 +_,7 @@
              }
  
-             ItemStack useItem = this.getUseItem();
-+            float originAmount = amount;
-             float f1 = this.applyItemBlocking(level, damageSource, amount);
-             amount -= f1;
-             boolean flag = f1 > 0.0F;
+             ItemStack itemInUse = this.getUseItem();
++            float originalDamage = damage;
+             float damageBlocked = this.applyItemBlocking(level, source, damage);
+             damage -= damageBlocked;
+             boolean blocked = damageBlocked > 0.0F;
 @@ -1260,14 +_,14 @@
              }
  
              if (this instanceof ServerPlayer serverPlayer) {
--                CriteriaTriggers.ENTITY_HURT_PLAYER.trigger(serverPlayer, damageSource, amount, amount, flag);
-+                CriteriaTriggers.ENTITY_HURT_PLAYER.trigger(serverPlayer, damageSource, originAmount, amount, flag);
-                 if (f1 > 0.0F && f1 < 3.4028235E37F) {
-                     serverPlayer.awardStat(Stats.DAMAGE_BLOCKED_BY_SHIELD, Math.round(f1 * 10.0F));
+-                CriteriaTriggers.ENTITY_HURT_PLAYER.trigger(serverPlayer, source, damage, damage, blocked);
++                CriteriaTriggers.ENTITY_HURT_PLAYER.trigger(serverPlayer, source, originalDamage, damage, blocked);
+                 if (damageBlocked > 0.0F && damageBlocked < 3.4028235E37F) {
+                     serverPlayer.awardStat(Stats.DAMAGE_BLOCKED_BY_SHIELD, Math.round(damageBlocked * 10.0F));
                  }
              }
  
-             if (damageSource.getEntity() instanceof ServerPlayer serverPlayerx) {
--                CriteriaTriggers.PLAYER_HURT_ENTITY.trigger(serverPlayerx, this, damageSource, amount, amount, flag);
-+                CriteriaTriggers.PLAYER_HURT_ENTITY.trigger(serverPlayerx, this, damageSource, originAmount, amount, flag);
+             if (source.getEntity() instanceof ServerPlayer sourcePlayer) {
+-                CriteriaTriggers.PLAYER_HURT_ENTITY.trigger(sourcePlayer, this, source, damage, damage, blocked);
++                CriteriaTriggers.PLAYER_HURT_ENTITY.trigger(sourcePlayer, this, source, originalDamage, damage, blocked);
              }
  
-             return flag2;
+             return success;

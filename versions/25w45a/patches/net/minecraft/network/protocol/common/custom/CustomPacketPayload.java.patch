@@ -2,10 +2,10 @@
 +++ b/net/minecraft/network/protocol/common/custom/CustomPacketPayload.java
 @@ -34,7 +_,7 @@
  
-             private <T extends CustomPacketPayload> void writeCap(B buffer, CustomPacketPayload.Type<T> type, CustomPacketPayload payload) {
-                 buffer.writeIdentifier(type.id());
--                StreamCodec<B, T> streamCodec = this.findCodec(type.id);
-+                StreamCodec<B, T> streamCodec = (StreamCodec<B, T>) this.findCodec(type.id);
-                 streamCodec.encode(buffer, (T)payload);
+             private <T extends CustomPacketPayload> void writeCap(final B output, final CustomPacketPayload.Type<T> type, final CustomPacketPayload payload) {
+                 output.writeIdentifier(type.id());
+-                StreamCodec<B, T> codec = this.findCodec(type.id);
++                StreamCodec<B, T> codec = (StreamCodec<B, T>) this.findCodec(type.id);
+                 codec.encode(output, (T)payload);
              }
  

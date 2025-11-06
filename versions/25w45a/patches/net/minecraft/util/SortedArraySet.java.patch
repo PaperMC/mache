@@ -3,9 +3,9 @@
 @@ -28,7 +_,7 @@
      }
  
-     public static <T extends Comparable<T>> SortedArraySet<T> create(int initialCapacity) {
+     public static <T extends Comparable<T>> SortedArraySet<T> create(final int initialCapacity) {
 -        return new SortedArraySet<>(initialCapacity, Comparator.naturalOrder());
-+        return new SortedArraySet<>(initialCapacity, Comparator.<T>naturalOrder());
++        return new SortedArraySet<T>(initialCapacity, Comparator.naturalOrder());
      }
  
-     public static <T> SortedArraySet<T> create(Comparator<T> comparator) {
+     public static <T> SortedArraySet<T> create(final Comparator<T> comparator) {

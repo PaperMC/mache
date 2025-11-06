@@ -1,11 +1,11 @@
 --- a/net/minecraft/util/ExtraCodecs.java
 +++ b/net/minecraft/util/ExtraCodecs.java
-@@ -285,7 +_,7 @@
-             P object1 = list1.get(1);
-             return factory.apply(object, object1);
-         }), object -> ImmutableList.of(minGetter.apply((I)object), maxGetter.apply((I)object)));
--        Codec<I> codec2 = RecordCodecBuilder.<Pair>create(
-+        Codec<I> codec2 = RecordCodecBuilder.<Pair<P, P>>create(
-                 instance -> instance.group(codec.fieldOf(minFieldName).forGetter(Pair::getFirst), codec.fieldOf(maxFieldName).forGetter(Pair::getSecond))
-                     .apply(instance, Pair::of)
+@@ -276,7 +_,7 @@
+             P max = l.get(1);
+             return makeInterval.apply(min, max);
+         }), p -> ImmutableList.of(getMin.apply((I)p), getMax.apply((I)p)));
+-        Codec<I> objectCodec = RecordCodecBuilder.<Pair>create(
++        Codec<I> objectCodec = RecordCodecBuilder.<Pair<P, P>>create(
+                 i -> i.group(pointCodec.fieldOf(lowerBoundName).forGetter(Pair::getFirst), pointCodec.fieldOf(upperBoundName).forGetter(Pair::getSecond))
+                     .apply(i, Pair::of)
              )

@@ -14,4 +14,4 @@
 +    ColorModifier<Integer> MULTIPLY_ARGB = (ArgbModifier) ARGB::multiply;
      ColorModifier<ColorModifier.BlendToGray> BLEND_TO_GRAY = new ColorModifier<ColorModifier.BlendToGray>() {
          @Override
-         public Integer apply(Integer subject, ColorModifier.BlendToGray argument) {
+         public Integer apply(final Integer subject, final ColorModifier.BlendToGray argument) {

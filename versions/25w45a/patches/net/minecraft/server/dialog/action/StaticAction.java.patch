@@ -6,6 +6,6 @@
              if (action.isAllowedFromServer()) {
 -                MapCodec<ClickEvent> mapCodec = action.valueCodec();
 +                MapCodec<ClickEvent> mapCodec = (MapCodec<ClickEvent>) action.valueCodec();
-                 map.put(action, mapCodec.xmap(StaticAction::new, StaticAction::value));
+                 result.put(action, mapCodec.xmap(StaticAction::new, StaticAction::value));
              }
          }

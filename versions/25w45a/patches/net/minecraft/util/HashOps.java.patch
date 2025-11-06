@@ -8,4 +8,4 @@
 +    private static final Comparator<Pair<HashCode, HashCode>> MAPLIKE_ENTRY_ORDER = Comparator.<Pair<HashCode, HashCode>, HashCode>comparing(Pair::getFirst, HASH_COMPARATOR)
          .thenComparing(Pair::getSecond, HASH_COMPARATOR);
      public static final HashOps CRC32C_INSTANCE = new HashOps(Hashing.crc32c());
-     final HashFunction hashFunction;
+     private final HashFunction hashFunction;

@@ -3,7 +3,7 @@
 @@ -354,7 +_,7 @@
              .description("Get the available game rule keys and their current values")
              .response("gamerules", Schema.TYPED_GAME_RULE_SCHEMA.asRef().asArray())
-             .register(registry, "gamerules");
+             .register(methodRegistry, "gamerules");
 -        IncomingRpcMethod.method(GameRulesService::update)
 +        IncomingRpcMethod.<GameRulesService.GameRuleUpdate<?>,GameRulesService.GameRuleUpdate<?>>method(GameRulesService::update)
              .description("Update game rule value")

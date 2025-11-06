@@ -8,4 +8,4 @@
 +            return new MinMaxBounds.Bounds<T>(Optional.empty(), Optional.empty());
          }
  
-         public static <T extends Number & Comparable<T>> MinMaxBounds.Bounds<T> exactly(T value) {
+         public static <T extends Number & Comparable<T>> MinMaxBounds.Bounds<T> exactly(final T value) {

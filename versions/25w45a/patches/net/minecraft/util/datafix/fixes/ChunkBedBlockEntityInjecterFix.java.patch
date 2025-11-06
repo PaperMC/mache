@@ -16,6 +16,6 @@
 -                this.getOutputSchema().findChoiceType(References.BLOCK_ENTITY),
 +                (TaggedChoice.TaggedChoiceType<String>) this.getInputSchema().findChoiceType(References.BLOCK_ENTITY),
 +                (TaggedChoice.TaggedChoiceType<String>) this.getOutputSchema().findChoiceType(References.BLOCK_ENTITY),
-                 dynamicOps -> pair -> pair
+                 ops -> v -> v
              ),
              this.fixTypeEverywhereTyped(

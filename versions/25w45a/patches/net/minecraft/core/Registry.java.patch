@@ -1,11 +1,11 @@
 --- a/net/minecraft/core/Registry.java
 +++ b/net/minecraft/core/Registry.java
-@@ -137,7 +_,7 @@
+@@ -135,7 +_,7 @@
      Holder<T> wrapAsHolder(T value);
  
-     default Iterable<Holder<T>> getTagOrEmpty(TagKey<T> key) {
--        return DataFixUtils.orElse(this.get(key), List.<T>of());
-+        return DataFixUtils.orElse(this.get(key), List.of());
+     default Iterable<Holder<T>> getTagOrEmpty(final TagKey<T> id) {
+-        return DataFixUtils.orElse(this.get(id), List.<T>of());
++        return DataFixUtils.orElse(this.get(id), List.of());
      }
  
      Stream<HolderSet.Named<T>> getTags();

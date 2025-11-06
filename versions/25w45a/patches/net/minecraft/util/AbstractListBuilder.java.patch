@@ -3,9 +3,9 @@
 @@ -27,7 +_,7 @@
  
      @Override
-     public ListBuilder<T> add(T value) {
--        this.builder = this.builder.map(object -> (T)this.append((B)object, value));
-+        this.builder = this.builder.map(object -> this.append((B)object, value));
+     public ListBuilder<T> add(final T value) {
+-        this.builder = this.builder.map(b -> (T)this.append((B)b, value));
++        this.builder = this.builder.map(b -> this.append((B)b, value));
          return this;
      }
  

@@ -1,11 +1,11 @@
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
-@@ -1679,7 +_,7 @@
+@@ -1723,7 +_,7 @@
  
-             return map.object2IntEntrySet()
+             return countByType.object2IntEntrySet()
                  .stream()
 -                .sorted(Comparator.comparing(Entry::getIntValue).reversed())
 +                .sorted(Comparator.<Entry<String>, Integer>comparing(Entry::getIntValue).reversed())
                  .limit(5L)
-                 .map(entry -> entry.getKey() + ":" + entry.getIntValue())
+                 .map(ex -> (String)ex.getKey() + ":" + ex.getIntValue())
                  .collect(Collectors.joining(","));

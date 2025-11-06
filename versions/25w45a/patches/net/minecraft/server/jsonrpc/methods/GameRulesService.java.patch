@@ -1,13 +1,13 @@
 --- a/net/minecraft/server/jsonrpc/methods/GameRulesService.java
 +++ b/net/minecraft/server/jsonrpc/methods/GameRulesService.java
-@@ -51,10 +_,10 @@
-         private static <T> MapCodec<? extends GameRulesService.GameRuleUpdate<T>> getValueAndTypeCodec(GameRule<T> gameRule) {
+@@ -53,10 +_,10 @@
+         private static <T> MapCodec<? extends GameRulesService.GameRuleUpdate<T>> getValueAndTypeCodec(final GameRule<T> gameRule) {
              return RecordCodecBuilder.mapCodec(
-                 instance -> instance.group(
+                 i -> i.group(
 -                        (App<Mu<? extends GameRulesService.GameRuleUpdate<?>>, GameRuleType>)StringRepresentable.fromEnum(GameRuleType::values)
 +                        StringRepresentable.fromEnum(GameRuleType::values)
                              .fieldOf("type")
-                             .forGetter(gameRuleUpdate -> gameRuleUpdate.gameRule.gameRuleType()),
+                             .forGetter(r -> r.gameRule.gameRuleType()),
 -                        (App<Mu<? extends GameRulesService.GameRuleUpdate<?>>, T>)gameRule.valueCodec()
 +                        gameRule.valueCodec()
                              .fieldOf("value")

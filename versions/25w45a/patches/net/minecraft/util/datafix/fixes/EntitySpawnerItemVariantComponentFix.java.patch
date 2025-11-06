@@ -1,15 +1,15 @@
 --- a/net/minecraft/util/datafix/fixes/EntitySpawnerItemVariantComponentFix.java
 +++ b/net/minecraft/util/datafix/fixes/EntitySpawnerItemVariantComponentFix.java
 @@ -32,9 +_,9 @@
-                 String string = typed.getOptional(opticFinder).map(Pair::getSecond).orElse("");
+                 String id = input.getOptional(idFinder).map(Pair::getSecond).orElse("");
  
-                 return switch (string) {
--                    case "minecraft:salmon_bucket" -> typed.updateTyped(opticFinder1, EntitySpawnerItemVariantComponentFix::fixSalmonBucket);
--                    case "minecraft:axolotl_bucket" -> typed.updateTyped(opticFinder1, EntitySpawnerItemVariantComponentFix::fixAxolotlBucket);
--                    case "minecraft:tropical_fish_bucket" -> typed.updateTyped(opticFinder1, EntitySpawnerItemVariantComponentFix::fixTropicalFishBucket);
-+                    case "minecraft:salmon_bucket" -> typed.updateTyped(opticFinder1, (Fixer) EntitySpawnerItemVariantComponentFix::fixSalmonBucket);
-+                    case "minecraft:axolotl_bucket" -> typed.updateTyped(opticFinder1, (Fixer) EntitySpawnerItemVariantComponentFix::fixAxolotlBucket);
-+                    case "minecraft:tropical_fish_bucket" -> typed.updateTyped(opticFinder1, (Fixer) EntitySpawnerItemVariantComponentFix::fixTropicalFishBucket);
-                     case "minecraft:painting" -> typed.updateTyped(
-                         opticFinder1, typed1 -> Util.writeAndReadTypedOrThrow(typed1, typed1.getType(), EntitySpawnerItemVariantComponentFix::fixPainting)
-                     );
+                 return switch (id) {
+-                    case "minecraft:salmon_bucket" -> input.updateTyped(componentsFinder, EntitySpawnerItemVariantComponentFix::fixSalmonBucket);
+-                    case "minecraft:axolotl_bucket" -> input.updateTyped(componentsFinder, EntitySpawnerItemVariantComponentFix::fixAxolotlBucket);
+-                    case "minecraft:tropical_fish_bucket" -> input.updateTyped(componentsFinder, EntitySpawnerItemVariantComponentFix::fixTropicalFishBucket);
++                    case "minecraft:salmon_bucket" -> input.updateTyped(componentsFinder, (Fixer) EntitySpawnerItemVariantComponentFix::fixSalmonBucket);
++                    case "minecraft:axolotl_bucket" -> input.updateTyped(componentsFinder, (Fixer) EntitySpawnerItemVariantComponentFix::fixAxolotlBucket);
++                    case "minecraft:tropical_fish_bucket" -> input.updateTyped(componentsFinder, (Fixer) EntitySpawnerItemVariantComponentFix::fixTropicalFishBucket);
+                     case "minecraft:painting" -> input.updateTyped(
+                         componentsFinder,
+                         components -> Util.writeAndReadTypedOrThrow(components, components.getType(), EntitySpawnerItemVariantComponentFix::fixPainting)
