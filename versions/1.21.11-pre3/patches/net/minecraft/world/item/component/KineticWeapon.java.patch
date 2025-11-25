@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/item/component/KineticWeapon.java
 +++ b/net/minecraft/world/item/component/KineticWeapon.java
-@@ -117,7 +_,7 @@
+@@ -114,7 +_,7 @@
              for (EntityHitResult entityHitResult : ProjectileUtil.getHitEntitiesAlong(
                      entity, attackRange, entity2 -> PiercingWeapon.canHitEntity(entity, entity2), ClipContext.Block.COLLIDER
                  )
