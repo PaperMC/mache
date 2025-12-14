@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/StringDecomposer.java
 +++ b/net/minecraft/util/StringDecomposer.java
-@@ -6,11 +_,11 @@
+@@ -6,7 +_,7 @@
  import net.minecraft.network.chat.Style;
  
  public class StringDecomposer {
@@ -9,62 +9,3 @@
      private static final Optional<Object> STOP_ITERATION = Optional.of(Unit.INSTANCE);
  
      private static boolean feedChar(final Style style, final FormattedCharSink output, final int pos, final char ch) {
--        return Character.isSurrogate(ch) ? output.accept(pos, style, 65533) : output.accept(pos, style, ch);
-+        return Character.isSurrogate(ch) ? output.accept(pos, style, REPLACEMENT_CHAR) : output.accept(pos, style, ch);
-     }
- 
-     public static boolean iterate(final String string, final Style style, final FormattedCharSink output) {
-@@ -20,7 +_,7 @@
-             char ch = string.charAt(i);
-             if (Character.isHighSurrogate(ch)) {
-                 if (i + 1 >= size) {
--                    if (!output.accept(i, style, 65533)) {
-+                    if (!output.accept(i, style, REPLACEMENT_CHAR)) {
-                         return false;
-                     }
-                     break;
-@@ -33,7 +_,7 @@
-                     }
- 
-                     i++;
--                } else if (!output.accept(i, style, 65533)) {
-+                } else if (!output.accept(i, style, REPLACEMENT_CHAR)) {
-                     return false;
-                 }
-             } else if (!feedChar(style, output, i, ch)) {
-@@ -51,7 +_,7 @@
-             char ch = string.charAt(i);
-             if (Character.isLowSurrogate(ch)) {
-                 if (i - 1 < 0) {
--                    if (!output.accept(0, style, 65533)) {
-+                    if (!output.accept(0, style, REPLACEMENT_CHAR)) {
-                         return false;
-                     }
-                     break;
-@@ -62,7 +_,7 @@
-                     if (!output.accept(--i, style, Character.toCodePoint(high, ch))) {
-                         return false;
-                     }
--                } else if (!output.accept(i, style, 65533)) {
-+                } else if (!output.accept(i, style, REPLACEMENT_CHAR)) {
-                     return false;
-                 }
-             } else if (!feedChar(style, output, i, ch)) {
-@@ -103,7 +_,7 @@
-                 i++;
-             } else if (Character.isHighSurrogate(ch)) {
-                 if (i + 1 >= size) {
--                    if (!output.accept(i, style, 65533)) {
-+                    if (!output.accept(i, style, REPLACEMENT_CHAR)) {
-                         return false;
-                     }
-                     break;
-@@ -116,7 +_,7 @@
-                     }
- 
-                     i++;
--                } else if (!output.accept(i, style, 65533)) {
-+                } else if (!output.accept(i, style, REPLACEMENT_CHAR)) {
-                     return false;
-                 }
-             } else if (!feedChar(style, output, i, ch)) {

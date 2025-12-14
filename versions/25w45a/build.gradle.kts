@@ -35,7 +35,7 @@ tasks.withType<JavaCompile>().configureEach {
 dependencies {
     codebook("2.0.0-SNAPSHOT")
     decompiler(vineflower("1.11.2"))
-    constants("io.papermc.parchment.data:parchment:25w45a+build.3")
+    constants("io.papermc.parchment.data:parchment:25w45a+build.4")
 }
 
 dependencies {

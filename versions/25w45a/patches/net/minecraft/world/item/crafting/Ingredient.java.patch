@@ -5,7 +5,7 @@
          .map(
              ingredient -> ingredient.size() == 0 ? Optional.empty() : Optional.of(new Ingredient((HolderSet<Item>)ingredient)),
 -            ingredient -> ingredient.<HolderSet.Direct<Item>>map(i -> i.values).orElse(HolderSet.direct())
-+            ingredient -> ingredient.<HolderSet.Direct<Item>>map(i -> (HolderSet.Direct<Item>) i.values).orElse(HolderSet.direct())
++            ingredient -> ingredient.map(i -> i.values).orElse(HolderSet.direct())
          );
      public static final Codec<HolderSet<Item>> NON_AIR_HOLDER_SET_CODEC = HolderSetCodec.create(Registries.ITEM, Item.CODEC, false);
      public static final Codec<Ingredient> CODEC = ExtraCodecs.nonEmptyHolderSet(NON_AIR_HOLDER_SET_CODEC).xmap(Ingredient::new, i -> i.values);
