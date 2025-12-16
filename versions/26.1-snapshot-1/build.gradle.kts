@@ -6,7 +6,7 @@ plugins {
 
 val generateReportsProperty = providers.gradleProperty("generateReports")
 mache {
-    minecraftVersion = "25w45a"
+    minecraftVersion = "26.1-snapshot-1"
     minecraftJarType = MinecraftJarType.SERVER
 
     val args = mutableListOf(
@@ -25,7 +25,6 @@ mache {
     }
 
     codebookArgs = args
-    serverJarOverrideUrl = "https://piston-data.mojang.com/v1/objects/2d3568cd561daad8e80fdc605e64270ae8dd8aba/server.jar"
 }
 
 tasks.withType<JavaCompile>().configureEach {
@@ -35,7 +34,7 @@ tasks.withType<JavaCompile>().configureEach {
 dependencies {
     codebook("2.0.0-SNAPSHOT")
     decompiler(vineflower("1.11.2"))
-    constants("io.papermc.parchment.data:parchment:25w45a+build.4")
+    constants("io.papermc.parchment.data:parchment:1.21.11+build.3")
 }
 
 dependencies {
