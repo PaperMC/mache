@@ -4,8 +4,8 @@
      public static final StreamCodec<RegistryFriendlyByteBuf, Optional<Ingredient>> OPTIONAL_CONTENTS_STREAM_CODEC = ByteBufCodecs.holderSet(Registries.ITEM)
          .map(
              ingredient -> ingredient.size() == 0 ? Optional.empty() : Optional.of(new Ingredient((HolderSet<Item>)ingredient)),
--            ingredient -> ingredient.<HolderSet.Direct<Item>>map(i -> i.values).orElse(HolderSet.direct())
-+            ingredient -> ingredient.map(i -> i.values).orElse(HolderSet.direct())
+-            ingredient -> ingredient.<HolderSet<Item>>map(i -> i.values).orElse(HolderSet.empty())
++            ingredient -> ingredient.map(i -> i.values).orElse(HolderSet.empty())
          );
      public static final Codec<HolderSet<Item>> NON_AIR_HOLDER_SET_CODEC = HolderSetCodec.create(Registries.ITEM, Item.CODEC, false);
      public static final Codec<Ingredient> CODEC = ExtraCodecs.nonEmptyHolderSet(NON_AIR_HOLDER_SET_CODEC).xmap(Ingredient::new, i -> i.values);

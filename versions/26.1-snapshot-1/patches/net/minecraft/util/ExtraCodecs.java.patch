@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/ExtraCodecs.java
 +++ b/net/minecraft/util/ExtraCodecs.java
-@@ -276,7 +_,7 @@
+@@ -280,7 +_,7 @@
              P max = l.get(1);
              return makeInterval.apply(min, max);
          }), p -> ImmutableList.of(getMin.apply((I)p), getMax.apply((I)p)));

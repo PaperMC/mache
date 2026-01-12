@@ -1,11 +1,11 @@
 --- a/net/minecraft/world/level/block/state/StateHolder.java
 +++ b/net/minecraft/world/level/block/state/StateHolder.java
-@@ -142,7 +_,7 @@
-             for (Entry<Property<?>, Comparable<?>> entry : this.values.entrySet()) {
-                 Property<?> property = entry.getKey();
-                 neighbours.put(
--                    property, property.getPossibleValues().stream().map(value -> statesByValues.get(this.makeNeighbourValues(property, value))).toArray()
+@@ -143,7 +_,7 @@
+         for (Entry<Property<?>, Comparable<?>> entry : this.values.entrySet()) {
+             Property<?> property = entry.getKey();
+             neighbours.put(
+-                property, property.getPossibleValues().stream().map(value -> statesByValues.get(this.makeNeighbourValues(property, value))).toArray()
 +                    property, (S[]) property.getPossibleValues().stream().map(value -> statesByValues.get(this.makeNeighbourValues(property, value))).toArray()
-                 );
-             }
+             );
+         }
  

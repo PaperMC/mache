@@ -1,0 +1,785 @@
+--- a/net/minecraft/data/loot/packs/VanillaBlockLoot.java
++++ b/net/minecraft/data/loot/packs/VanillaBlockLoot.java
+@@ -316,8 +_,7 @@
+         this.dropSelf(Blocks.CRACKED_STONE_BRICKS);
+         this.dropSelf(Blocks.CHISELED_STONE_BRICKS);
+         this.dropSelf(Blocks.IRON_BARS);
+-        VanillaBlockLoot isBeetrootMaxAge = this;
+-        Blocks.COPPER_BARS.forEach(x$0 -> isBeetrootMaxAge.dropSelf(x$0));
++        Blocks.COPPER_BARS.forEach(this::dropSelf);
+         this.dropSelf(Blocks.OAK_FENCE_GATE);
+         this.dropSelf(Blocks.MANGROVE_FENCE_GATE);
+         this.dropSelf(Blocks.BAMBOO_FENCE_GATE);
+@@ -580,8 +_,7 @@
+         this.dropSelf(Blocks.CRACKED_NETHER_BRICKS);
+         this.dropSelf(Blocks.QUARTZ_BRICKS);
+         this.dropSelf(Blocks.IRON_CHAIN);
+-        isBeetrootMaxAge = this;
+-        Blocks.COPPER_CHAIN.forEach(x$0 -> isBeetrootMaxAge.dropSelf(x$0));
++        Blocks.COPPER_CHAIN.forEach(this::dropSelf);
+         this.dropSelf(Blocks.WARPED_ROOTS);
+         this.dropSelf(Blocks.CRIMSON_ROOTS);
+         this.dropSelf(Blocks.MUD_BRICKS);
+@@ -641,10 +_,8 @@
+         this.add(Blocks.LEAF_LITTER, this.createSegmentedBlockDrops(Blocks.LEAF_LITTER));
+         this.dropSelf(Blocks.BIG_DRIPLEAF);
+         this.dropSelf(Blocks.MOSS_BLOCK);
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.PALE_MOSS_CARPET, x$0 -> isBeetrootMaxAge.createMossyCarpetBlockDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.PALE_HANGING_MOSS, x$0 -> isBeetrootMaxAge.createShearsOrSilkTouchOnlyDrop(x$0));
++        this.add(Blocks.PALE_MOSS_CARPET, this::createMossyCarpetBlockDrops);
++        this.add(Blocks.PALE_HANGING_MOSS, this::createShearsOrSilkTouchOnlyDrop);
+         this.dropSelf(Blocks.PALE_MOSS_BLOCK);
+         this.dropSelf(Blocks.ROOTED_DIRT);
+         this.dropSelf(Blocks.COBBLED_DEEPSLATE);
+@@ -683,12 +_,9 @@
+         this.dropSelf(Blocks.TUFF_BRICK_STAIRS);
+         this.dropSelf(Blocks.TUFF_BRICK_WALL);
+         this.dropSelf(Blocks.CHISELED_TUFF_BRICKS);
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.TUFF_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.TUFF_BRICK_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.POLISHED_TUFF_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
++        this.add(Blocks.TUFF_SLAB, this::createSlabItemTable);
++        this.add(Blocks.TUFF_BRICK_SLAB, this::createSlabItemTable);
++        this.add(Blocks.POLISHED_TUFF_SLAB, this::createSlabItemTable);
+         this.dropSelf(Blocks.CHISELED_COPPER);
+         this.dropSelf(Blocks.EXPOSED_CHISELED_COPPER);
+         this.dropSelf(Blocks.WEATHERED_CHISELED_COPPER);
+@@ -713,22 +_,14 @@
+         this.dropSelf(Blocks.WAXED_EXPOSED_COPPER_BULB);
+         this.dropSelf(Blocks.WAXED_WEATHERED_COPPER_BULB);
+         this.dropSelf(Blocks.WAXED_OXIDIZED_COPPER_BULB);
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.COPPER_GOLEM_STATUE, x$0 -> isBeetrootMaxAge.createCopperGolemStatueBlock(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.EXPOSED_COPPER_GOLEM_STATUE, x$0 -> isBeetrootMaxAge.createCopperGolemStatueBlock(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WEATHERED_COPPER_GOLEM_STATUE, x$0 -> isBeetrootMaxAge.createCopperGolemStatueBlock(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.OXIDIZED_COPPER_GOLEM_STATUE, x$0 -> isBeetrootMaxAge.createCopperGolemStatueBlock(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WAXED_COPPER_GOLEM_STATUE, x$0 -> isBeetrootMaxAge.createCopperGolemStatueBlock(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WAXED_EXPOSED_COPPER_GOLEM_STATUE, x$0 -> isBeetrootMaxAge.createCopperGolemStatueBlock(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE, x$0 -> isBeetrootMaxAge.createCopperGolemStatueBlock(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE, x$0 -> isBeetrootMaxAge.createCopperGolemStatueBlock(x$0));
++        this.add(Blocks.COPPER_GOLEM_STATUE, this::createCopperGolemStatueBlock);
++        this.add(Blocks.EXPOSED_COPPER_GOLEM_STATUE, this::createCopperGolemStatueBlock);
++        this.add(Blocks.WEATHERED_COPPER_GOLEM_STATUE, this::createCopperGolemStatueBlock);
++        this.add(Blocks.OXIDIZED_COPPER_GOLEM_STATUE, this::createCopperGolemStatueBlock);
++        this.add(Blocks.WAXED_COPPER_GOLEM_STATUE, this::createCopperGolemStatueBlock);
++        this.add(Blocks.WAXED_EXPOSED_COPPER_GOLEM_STATUE, this::createCopperGolemStatueBlock);
++        this.add(Blocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE, this::createCopperGolemStatueBlock);
++        this.add(Blocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE, this::createCopperGolemStatueBlock);
+         this.dropSelf(Blocks.HEAVY_CORE);
+         this.dropSelf(Blocks.FIREFLY_BUSH);
+         this.dropSelf(Blocks.CACTUS_FLOWER);
+@@ -795,166 +_,86 @@
+         this.dropPottedContents(Blocks.POTTED_AZALEA);
+         this.dropPottedContents(Blocks.POTTED_FLOWERING_AZALEA);
+         this.dropPottedContents(Blocks.POTTED_TORCHFLOWER);
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.OAK_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.PETRIFIED_OAK_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.SPRUCE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BIRCH_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.JUNGLE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.ACACIA_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.DARK_OAK_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.PALE_OAK_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.MANGROVE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.CHERRY_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BAMBOO_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BAMBOO_MOSAIC_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BRICK_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.COBBLESTONE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.DARK_PRISMARINE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.NETHER_BRICK_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.PRISMARINE_BRICK_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.PRISMARINE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.PURPUR_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.QUARTZ_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.RED_SANDSTONE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.SANDSTONE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.CUT_RED_SANDSTONE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.CUT_SANDSTONE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.STONE_BRICK_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.STONE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.SMOOTH_STONE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.POLISHED_GRANITE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.SMOOTH_RED_SANDSTONE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.MOSSY_STONE_BRICK_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.POLISHED_DIORITE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.MOSSY_COBBLESTONE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.END_STONE_BRICK_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.SMOOTH_SANDSTONE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.SMOOTH_QUARTZ_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.GRANITE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.ANDESITE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.RED_NETHER_BRICK_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.POLISHED_ANDESITE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.DIORITE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.CRIMSON_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WARPED_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BLACKSTONE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.POLISHED_BLACKSTONE_BRICK_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.POLISHED_BLACKSTONE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.OXIDIZED_CUT_COPPER_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WEATHERED_CUT_COPPER_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.EXPOSED_CUT_COPPER_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.CUT_COPPER_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WAXED_CUT_COPPER_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.COBBLED_DEEPSLATE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.POLISHED_DEEPSLATE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.DEEPSLATE_TILE_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.DEEPSLATE_BRICK_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.MUD_BRICK_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.RESIN_BRICK_SLAB, x$0 -> isBeetrootMaxAge.createSlabItemTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.OAK_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.SPRUCE_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BIRCH_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.JUNGLE_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.ACACIA_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.DARK_OAK_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.PALE_OAK_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.MANGROVE_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.CHERRY_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BAMBOO_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WARPED_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.CRIMSON_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.IRON_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.COPPER_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.EXPOSED_COPPER_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WEATHERED_COPPER_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.OXIDIZED_COPPER_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WAXED_COPPER_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WAXED_EXPOSED_COPPER_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WAXED_WEATHERED_COPPER_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WAXED_OXIDIZED_COPPER_DOOR, x$0 -> isBeetrootMaxAge.createDoorTable(x$0));
++        this.add(Blocks.OAK_SLAB, this::createSlabItemTable);
++        this.add(Blocks.PETRIFIED_OAK_SLAB, this::createSlabItemTable);
++        this.add(Blocks.SPRUCE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.BIRCH_SLAB, this::createSlabItemTable);
++        this.add(Blocks.JUNGLE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.ACACIA_SLAB, this::createSlabItemTable);
++        this.add(Blocks.DARK_OAK_SLAB, this::createSlabItemTable);
++        this.add(Blocks.PALE_OAK_SLAB, this::createSlabItemTable);
++        this.add(Blocks.MANGROVE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.CHERRY_SLAB, this::createSlabItemTable);
++        this.add(Blocks.BAMBOO_SLAB, this::createSlabItemTable);
++        this.add(Blocks.BAMBOO_MOSAIC_SLAB, this::createSlabItemTable);
++        this.add(Blocks.BRICK_SLAB, this::createSlabItemTable);
++        this.add(Blocks.COBBLESTONE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.DARK_PRISMARINE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.NETHER_BRICK_SLAB, this::createSlabItemTable);
++        this.add(Blocks.PRISMARINE_BRICK_SLAB, this::createSlabItemTable);
++        this.add(Blocks.PRISMARINE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.PURPUR_SLAB, this::createSlabItemTable);
++        this.add(Blocks.QUARTZ_SLAB, this::createSlabItemTable);
++        this.add(Blocks.RED_SANDSTONE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.SANDSTONE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.CUT_RED_SANDSTONE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.CUT_SANDSTONE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.STONE_BRICK_SLAB, this::createSlabItemTable);
++        this.add(Blocks.STONE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.SMOOTH_STONE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.POLISHED_GRANITE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.SMOOTH_RED_SANDSTONE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.MOSSY_STONE_BRICK_SLAB, this::createSlabItemTable);
++        this.add(Blocks.POLISHED_DIORITE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.MOSSY_COBBLESTONE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.END_STONE_BRICK_SLAB, this::createSlabItemTable);
++        this.add(Blocks.SMOOTH_SANDSTONE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.SMOOTH_QUARTZ_SLAB, this::createSlabItemTable);
++        this.add(Blocks.GRANITE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.ANDESITE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.RED_NETHER_BRICK_SLAB, this::createSlabItemTable);
++        this.add(Blocks.POLISHED_ANDESITE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.DIORITE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.CRIMSON_SLAB, this::createSlabItemTable);
++        this.add(Blocks.WARPED_SLAB, this::createSlabItemTable);
++        this.add(Blocks.BLACKSTONE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.POLISHED_BLACKSTONE_BRICK_SLAB, this::createSlabItemTable);
++        this.add(Blocks.POLISHED_BLACKSTONE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.OXIDIZED_CUT_COPPER_SLAB, this::createSlabItemTable);
++        this.add(Blocks.WEATHERED_CUT_COPPER_SLAB, this::createSlabItemTable);
++        this.add(Blocks.EXPOSED_CUT_COPPER_SLAB, this::createSlabItemTable);
++        this.add(Blocks.CUT_COPPER_SLAB, this::createSlabItemTable);
++        this.add(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB, this::createSlabItemTable);
++        this.add(Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB, this::createSlabItemTable);
++        this.add(Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB, this::createSlabItemTable);
++        this.add(Blocks.WAXED_CUT_COPPER_SLAB, this::createSlabItemTable);
++        this.add(Blocks.COBBLED_DEEPSLATE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.POLISHED_DEEPSLATE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.DEEPSLATE_TILE_SLAB, this::createSlabItemTable);
++        this.add(Blocks.DEEPSLATE_BRICK_SLAB, this::createSlabItemTable);
++        this.add(Blocks.MUD_BRICK_SLAB, this::createSlabItemTable);
++        this.add(Blocks.RESIN_BRICK_SLAB, this::createSlabItemTable);
++        this.add(Blocks.OAK_DOOR, this::createDoorTable);
++        this.add(Blocks.SPRUCE_DOOR, this::createDoorTable);
++        this.add(Blocks.BIRCH_DOOR, this::createDoorTable);
++        this.add(Blocks.JUNGLE_DOOR, this::createDoorTable);
++        this.add(Blocks.ACACIA_DOOR, this::createDoorTable);
++        this.add(Blocks.DARK_OAK_DOOR, this::createDoorTable);
++        this.add(Blocks.PALE_OAK_DOOR, this::createDoorTable);
++        this.add(Blocks.MANGROVE_DOOR, this::createDoorTable);
++        this.add(Blocks.CHERRY_DOOR, this::createDoorTable);
++        this.add(Blocks.BAMBOO_DOOR, this::createDoorTable);
++        this.add(Blocks.WARPED_DOOR, this::createDoorTable);
++        this.add(Blocks.CRIMSON_DOOR, this::createDoorTable);
++        this.add(Blocks.IRON_DOOR, this::createDoorTable);
++        this.add(Blocks.COPPER_DOOR, this::createDoorTable);
++        this.add(Blocks.EXPOSED_COPPER_DOOR, this::createDoorTable);
++        this.add(Blocks.WEATHERED_COPPER_DOOR, this::createDoorTable);
++        this.add(Blocks.OXIDIZED_COPPER_DOOR, this::createDoorTable);
++        this.add(Blocks.WAXED_COPPER_DOOR, this::createDoorTable);
++        this.add(Blocks.WAXED_EXPOSED_COPPER_DOOR, this::createDoorTable);
++        this.add(Blocks.WAXED_WEATHERED_COPPER_DOOR, this::createDoorTable);
++        this.add(Blocks.WAXED_OXIDIZED_COPPER_DOOR, this::createDoorTable);
+         this.add(Blocks.BLACK_BED, block -> this.createSinglePropConditionTable(block, BedBlock.PART, BedPart.HEAD));
+         this.add(Blocks.BLUE_BED, block -> this.createSinglePropConditionTable(block, BedBlock.PART, BedPart.HEAD));
+         this.add(Blocks.BROWN_BED, block -> this.createSinglePropConditionTable(block, BedBlock.PART, BedPart.HEAD));
+@@ -1026,11 +_,11 @@
+                                 LootItem.lootTableItem(block)
+                                     .apply(
+                                         List.of(2, 3, 4),
+-                                        count -> SetItemCountFunction.setCount(ConstantValue.exactly(count.intValue()))
++                                        count -> SetItemCountFunction.setCount(ConstantValue.exactly(count))
+                                             .when(
+                                                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                                     .setProperties(
+-                                                        StatePropertiesPredicate.Builder.properties().hasProperty(SeaPickleBlock.PICKLES, count.intValue())
++                                                        StatePropertiesPredicate.Builder.properties().hasProperty(SeaPickleBlock.PICKLES, count)
+                                                     )
+                                             )
+                                     )
+@@ -1051,84 +_,45 @@
+                         )
+                 )
+         );
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.CAVE_VINES, x$0 -> isBeetrootMaxAge.createCaveVinesDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.CAVE_VINES_PLANT, x$0 -> isBeetrootMaxAge.createCaveVinesDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WHITE_CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.ORANGE_CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.MAGENTA_CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.LIGHT_BLUE_CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.YELLOW_CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.LIME_CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.PINK_CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.GRAY_CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.LIGHT_GRAY_CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.CYAN_CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.PURPLE_CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BLUE_CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BROWN_CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.GREEN_CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.RED_CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BLACK_CANDLE, x$0 -> isBeetrootMaxAge.createCandleDrops(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BEACON, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BREWING_STAND, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.CHEST, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.COPPER_CHEST, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.EXPOSED_COPPER_CHEST, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WEATHERED_COPPER_CHEST, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.OXIDIZED_COPPER_CHEST, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WAXED_COPPER_CHEST, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WAXED_EXPOSED_COPPER_CHEST, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WAXED_WEATHERED_COPPER_CHEST, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WAXED_OXIDIZED_COPPER_CHEST, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.DISPENSER, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.DROPPER, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.ENCHANTING_TABLE, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.FURNACE, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.HOPPER, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.TRAPPED_CHEST, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.SMOKER, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BLAST_FURNACE, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BARREL, x$0 -> isBeetrootMaxAge.createNameableBlockEntityTable(x$0));
++        this.add(Blocks.CAVE_VINES, this::createCaveVinesDrop);
++        this.add(Blocks.CAVE_VINES_PLANT, this::createCaveVinesDrop);
++        this.add(Blocks.CANDLE, this::createCandleDrops);
++        this.add(Blocks.WHITE_CANDLE, this::createCandleDrops);
++        this.add(Blocks.ORANGE_CANDLE, this::createCandleDrops);
++        this.add(Blocks.MAGENTA_CANDLE, this::createCandleDrops);
++        this.add(Blocks.LIGHT_BLUE_CANDLE, this::createCandleDrops);
++        this.add(Blocks.YELLOW_CANDLE, this::createCandleDrops);
++        this.add(Blocks.LIME_CANDLE, this::createCandleDrops);
++        this.add(Blocks.PINK_CANDLE, this::createCandleDrops);
++        this.add(Blocks.GRAY_CANDLE, this::createCandleDrops);
++        this.add(Blocks.LIGHT_GRAY_CANDLE, this::createCandleDrops);
++        this.add(Blocks.CYAN_CANDLE, this::createCandleDrops);
++        this.add(Blocks.PURPLE_CANDLE, this::createCandleDrops);
++        this.add(Blocks.BLUE_CANDLE, this::createCandleDrops);
++        this.add(Blocks.BROWN_CANDLE, this::createCandleDrops);
++        this.add(Blocks.GREEN_CANDLE, this::createCandleDrops);
++        this.add(Blocks.RED_CANDLE, this::createCandleDrops);
++        this.add(Blocks.BLACK_CANDLE, this::createCandleDrops);
++        this.add(Blocks.BEACON, this::createNameableBlockEntityTable);
++        this.add(Blocks.BREWING_STAND, this::createNameableBlockEntityTable);
++        this.add(Blocks.CHEST, this::createNameableBlockEntityTable);
++        this.add(Blocks.COPPER_CHEST, this::createNameableBlockEntityTable);
++        this.add(Blocks.EXPOSED_COPPER_CHEST, this::createNameableBlockEntityTable);
++        this.add(Blocks.WEATHERED_COPPER_CHEST, this::createNameableBlockEntityTable);
++        this.add(Blocks.OXIDIZED_COPPER_CHEST, this::createNameableBlockEntityTable);
++        this.add(Blocks.WAXED_COPPER_CHEST, this::createNameableBlockEntityTable);
++        this.add(Blocks.WAXED_EXPOSED_COPPER_CHEST, this::createNameableBlockEntityTable);
++        this.add(Blocks.WAXED_WEATHERED_COPPER_CHEST, this::createNameableBlockEntityTable);
++        this.add(Blocks.WAXED_OXIDIZED_COPPER_CHEST, this::createNameableBlockEntityTable);
++        this.add(Blocks.DISPENSER, this::createNameableBlockEntityTable);
++        this.add(Blocks.DROPPER, this::createNameableBlockEntityTable);
++        this.add(Blocks.ENCHANTING_TABLE, this::createNameableBlockEntityTable);
++        this.add(Blocks.FURNACE, this::createNameableBlockEntityTable);
++        this.add(Blocks.HOPPER, this::createNameableBlockEntityTable);
++        this.add(Blocks.TRAPPED_CHEST, this::createNameableBlockEntityTable);
++        this.add(Blocks.SMOKER, this::createNameableBlockEntityTable);
++        this.add(Blocks.BLAST_FURNACE, this::createNameableBlockEntityTable);
++        this.add(Blocks.BARREL, this::createNameableBlockEntityTable);
+         this.dropSelf(Blocks.CARTOGRAPHY_TABLE);
+         this.dropSelf(Blocks.FLETCHING_TABLE);
+         this.dropSelf(Blocks.GRINDSTONE);
+@@ -1151,72 +_,39 @@
+         this.add(Blocks.LANTERN, this::createSingleItemTable);
+         this.add(Blocks.SOUL_LANTERN, this::createSingleItemTable);
+         Blocks.COPPER_LANTERN.forEach(block -> this.add(block, this::createSingleItemTable));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BLACK_SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BLUE_SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BROWN_SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.CYAN_SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.GRAY_SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.GREEN_SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.LIGHT_BLUE_SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.LIGHT_GRAY_SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.LIME_SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.MAGENTA_SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.ORANGE_SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.PINK_SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.PURPLE_SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.RED_SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WHITE_SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.YELLOW_SHULKER_BOX, x$0 -> isBeetrootMaxAge.createShulkerBoxDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BLACK_BANNER, x$0 -> isBeetrootMaxAge.createBannerDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BLUE_BANNER, x$0 -> isBeetrootMaxAge.createBannerDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BROWN_BANNER, x$0 -> isBeetrootMaxAge.createBannerDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.CYAN_BANNER, x$0 -> isBeetrootMaxAge.createBannerDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.GRAY_BANNER, x$0 -> isBeetrootMaxAge.createBannerDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.GREEN_BANNER, x$0 -> isBeetrootMaxAge.createBannerDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.LIGHT_BLUE_BANNER, x$0 -> isBeetrootMaxAge.createBannerDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.LIGHT_GRAY_BANNER, x$0 -> isBeetrootMaxAge.createBannerDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.LIME_BANNER, x$0 -> isBeetrootMaxAge.createBannerDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.MAGENTA_BANNER, x$0 -> isBeetrootMaxAge.createBannerDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.ORANGE_BANNER, x$0 -> isBeetrootMaxAge.createBannerDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.PINK_BANNER, x$0 -> isBeetrootMaxAge.createBannerDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.PURPLE_BANNER, x$0 -> isBeetrootMaxAge.createBannerDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.RED_BANNER, x$0 -> isBeetrootMaxAge.createBannerDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.WHITE_BANNER, x$0 -> isBeetrootMaxAge.createBannerDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.YELLOW_BANNER, x$0 -> isBeetrootMaxAge.createBannerDrop(x$0));
++        this.add(Blocks.SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.BLACK_SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.BLUE_SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.BROWN_SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.CYAN_SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.GRAY_SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.GREEN_SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.LIGHT_BLUE_SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.LIGHT_GRAY_SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.LIME_SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.MAGENTA_SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.ORANGE_SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.PINK_SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.PURPLE_SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.RED_SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.WHITE_SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.YELLOW_SHULKER_BOX, this::createShulkerBoxDrop);
++        this.add(Blocks.BLACK_BANNER, this::createBannerDrop);
++        this.add(Blocks.BLUE_BANNER, this::createBannerDrop);
++        this.add(Blocks.BROWN_BANNER, this::createBannerDrop);
++        this.add(Blocks.CYAN_BANNER, this::createBannerDrop);
++        this.add(Blocks.GRAY_BANNER, this::createBannerDrop);
++        this.add(Blocks.GREEN_BANNER, this::createBannerDrop);
++        this.add(Blocks.LIGHT_BLUE_BANNER, this::createBannerDrop);
++        this.add(Blocks.LIGHT_GRAY_BANNER, this::createBannerDrop);
++        this.add(Blocks.LIME_BANNER, this::createBannerDrop);
++        this.add(Blocks.MAGENTA_BANNER, this::createBannerDrop);
++        this.add(Blocks.ORANGE_BANNER, this::createBannerDrop);
++        this.add(Blocks.PINK_BANNER, this::createBannerDrop);
++        this.add(Blocks.PURPLE_BANNER, this::createBannerDrop);
++        this.add(Blocks.RED_BANNER, this::createBannerDrop);
++        this.add(Blocks.WHITE_BANNER, this::createBannerDrop);
++        this.add(Blocks.YELLOW_BANNER, this::createBannerDrop);
+         this.add(
+             Blocks.PLAYER_HEAD,
+             block -> LootTable.lootTable()
+@@ -1243,10 +_,8 @@
+         this.add(Blocks.CREEPER_HEAD, this::createMobSkullDrop);
+         this.add(Blocks.PIGLIN_HEAD, this::createMobSkullDrop);
+         this.add(Blocks.DRAGON_HEAD, this::createMobSkullDrop);
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BEE_NEST, x$0 -> isBeetrootMaxAge.createBeeNestDrop(x$0));
+-        isBeetrootMaxAge = this;
+-        this.add(Blocks.BEEHIVE, x$0 -> isBeetrootMaxAge.createBeeHiveDrop(x$0));
++        this.add(Blocks.BEE_NEST, this::createBeeNestDrop);
++        this.add(Blocks.BEEHIVE, this::createBeeHiveDrop);
+         this.add(Blocks.OAK_LEAVES, block -> this.createOakLeavesDrops(block, Blocks.OAK_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
+         this.add(Blocks.SPRUCE_LEAVES, block -> this.createLeavesDrops(block, Blocks.SPRUCE_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
+         this.add(Blocks.BIRCH_LEAVES, block -> this.createLeavesDrops(block, Blocks.BIRCH_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
+@@ -1378,10 +_,8 @@
+         this.add(Blocks.NETHER_QUARTZ_ORE, block -> this.createOreDrop(block, Items.QUARTZ));
+         this.add(Blocks.DIAMOND_ORE, block -> this.createOreDrop(block, Items.DIAMOND));
+         this.add(Blocks.DEEPSLATE_DIAMOND_ORE, block -> this.createOreDrop(block, Items.DIAMOND));
+-        VanillaBlockLoot var8 = this;
+-        this.add(Blocks.COPPER_ORE, x$0 -> var8.createCopperOreDrops(x$0));
+-        var8 = this;
+-        this.add(Blocks.DEEPSLATE_COPPER_ORE, x$0 -> var8.createCopperOreDrops(x$0));
++        this.add(Blocks.COPPER_ORE, this::createCopperOreDrops);
++        this.add(Blocks.DEEPSLATE_COPPER_ORE, this::createCopperOreDrops);
+         this.add(Blocks.IRON_ORE, block -> this.createOreDrop(block, Items.RAW_IRON));
+         this.add(Blocks.DEEPSLATE_IRON_ORE, block -> this.createOreDrop(block, Items.RAW_IRON));
+         this.add(Blocks.GOLD_ORE, block -> this.createOreDrop(block, Items.RAW_GOLD));
+@@ -1390,7 +_,7 @@
+             Blocks.NETHER_GOLD_ORE,
+             block -> this.createSilkTouchDispatchTable(
+                 block,
+-                (LootPoolEntryContainer.Builder<?>)this.applyExplosionDecay(
++                this.applyExplosionDecay(
+                     block,
+                     LootItem.lootTableItem(Items.GOLD_NUGGET)
+                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 6.0F)))
+@@ -1398,46 +_,34 @@
+                 )
+             )
+         );
+-        var8 = this;
+-        this.add(Blocks.LAPIS_ORE, x$0 -> var8.createLapisOreDrops(x$0));
+-        var8 = this;
+-        this.add(Blocks.DEEPSLATE_LAPIS_ORE, x$0 -> var8.createLapisOreDrops(x$0));
++        this.add(Blocks.LAPIS_ORE, this::createLapisOreDrops);
++        this.add(Blocks.DEEPSLATE_LAPIS_ORE, this::createLapisOreDrops);
+         this.add(
+             Blocks.COBWEB,
+             block -> this.createSilkTouchOrShearsDispatchTable(
+-                block, (LootPoolEntryContainer.Builder<?>)this.applyExplosionCondition(block, LootItem.lootTableItem(Items.STRING))
++                block, this.applyExplosionCondition(block, LootItem.lootTableItem(Items.STRING))
+             )
+         );
+         this.add(
+             Blocks.DEAD_BUSH,
+             block -> this.createShearsDispatchTable(
+                 block,
+-                (LootPoolEntryContainer.Builder<?>)this.applyExplosionDecay(
++                this.applyExplosionDecay(
+                     block, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+                 )
+             )
+         );
+-        var8 = this;
+-        this.add(Blocks.SHORT_DRY_GRASS, x$0 -> var8.createShearsOrSilkTouchOnlyDrop(x$0));
+-        var8 = this;
+-        this.add(Blocks.TALL_DRY_GRASS, x$0 -> var8.createShearsOrSilkTouchOnlyDrop(x$0));
+-        var8 = this;
+-        this.add(Blocks.BUSH, x$0 -> var8.createShearsOrSilkTouchOnlyDrop(x$0));
+-        var8 = this;
+-        this.add(Blocks.NETHER_SPROUTS, x$0 -> var8.createShearsOnlyDrop(x$0));
+-        var8 = this;
+-        this.add(Blocks.SEAGRASS, x$0 -> var8.createShearsOnlyDrop(x$0));
+-        var8 = this;
+-        this.add(Blocks.VINE, x$0 -> var8.createShearsOnlyDrop(x$0));
++        this.add(Blocks.SHORT_DRY_GRASS, this::createShearsOrSilkTouchOnlyDrop);
++        this.add(Blocks.TALL_DRY_GRASS, this::createShearsOrSilkTouchOnlyDrop);
++        this.add(Blocks.BUSH, this::createShearsOrSilkTouchOnlyDrop);
++        this.add(Blocks.NETHER_SPROUTS, this::createShearsOnlyDrop);
++        this.add(Blocks.SEAGRASS, this::createShearsOnlyDrop);
++        this.add(Blocks.VINE, this::createShearsOnlyDrop);
+         this.add(Blocks.GLOW_LICHEN, block -> this.createMultifaceBlockDrops(block, this.hasShears()));
+-        var8 = this;
+-        this.add(Blocks.RESIN_CLUMP, x$0 -> var8.createMultifaceBlockDrops(x$0));
+-        var8 = this;
+-        this.add(Blocks.HANGING_ROOTS, x$0 -> var8.createShearsOnlyDrop(x$0));
+-        var8 = this;
+-        this.add(Blocks.SMALL_DRIPLEAF, x$0 -> var8.createShearsOnlyDrop(x$0));
+-        var8 = this;
+-        this.add(Blocks.MANGROVE_LEAVES, x$0 -> var8.createMangroveLeavesDrops(x$0));
++        this.add(Blocks.RESIN_CLUMP, this::createMultifaceBlockDrops);
++        this.add(Blocks.HANGING_ROOTS, this::createShearsOnlyDrop);
++        this.add(Blocks.SMALL_DRIPLEAF, this::createShearsOnlyDrop);
++        this.add(Blocks.MANGROVE_LEAVES, this::createShearsOnlyDrop);
+         this.add(Blocks.TALL_SEAGRASS, this.createDoublePlantShearsDrop(Blocks.SEAGRASS));
+         this.add(Blocks.LARGE_FERN, block -> this.createDoublePlantWithSeedDrops(block, Blocks.FERN));
+         this.add(Blocks.TALL_GRASS, block -> this.createDoublePlantWithSeedDrops(block, Blocks.SHORT_GRASS));
+@@ -1452,20 +_,18 @@
+                     LootPool.lootPool()
+                         .setRolls(ConstantValue.exactly(1.0F))
+                         .add(
+-                            ((LootPoolSingletonContainer.Builder)this.applyExplosionCondition(block, LootItem.lootTableItem(block)))
++                            ((LootPoolSingletonContainer.Builder<?>)this.applyExplosionCondition(block, LootItem.lootTableItem(block)))
+                                 .when(LootItemEntityPropertyCondition.entityPresent(LootContext.EntityTarget.THIS))
+                         )
+                 )
+         );
+-        var8 = this;
+-        this.add(Blocks.FERN, x$0 -> var8.createGrassDrops(x$0));
+-        var8 = this;
+-        this.add(Blocks.SHORT_GRASS, x$0 -> var8.createGrassDrops(x$0));
++        this.add(Blocks.FERN, this::createGrassDrops);
++        this.add(Blocks.SHORT_GRASS, this::createGrassDrops);
+         this.add(
+             Blocks.GLOWSTONE,
+             block -> this.createSilkTouchDispatchTable(
+                 block,
+-                (LootPoolEntryContainer.Builder<?>)this.applyExplosionDecay(
++                this.applyExplosionDecay(
+                     block,
+                     LootItem.lootTableItem(Items.GLOWSTONE_DUST)
+                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
+@@ -1478,7 +_,7 @@
+             Blocks.MELON,
+             block -> this.createSilkTouchDispatchTable(
+                 block,
+-                (LootPoolEntryContainer.Builder<?>)this.applyExplosionDecay(
++                this.applyExplosionDecay(
+                     block,
+                     LootItem.lootTableItem(Items.MELON_SLICE)
+                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(3.0F, 7.0F)))
+@@ -1487,15 +_,13 @@
+                 )
+             )
+         );
+-        var8 = this;
+-        this.add(Blocks.REDSTONE_ORE, x$0 -> var8.createRedstoneOreDrops(x$0));
+-        var8 = this;
+-        this.add(Blocks.DEEPSLATE_REDSTONE_ORE, x$0 -> var8.createRedstoneOreDrops(x$0));
++        this.add(Blocks.REDSTONE_ORE, this::createRedstoneOreDrops);
++        this.add(Blocks.DEEPSLATE_REDSTONE_ORE, this::createRedstoneOreDrops);
+         this.add(
+             Blocks.SEA_LANTERN,
+             block -> this.createSilkTouchDispatchTable(
+                 block,
+-                (LootPoolEntryContainer.Builder<?>)this.applyExplosionDecay(
++                this.applyExplosionDecay(
+                     block,
+                     LootItem.lootTableItem(Items.PRISMARINE_CRYSTALS)
+                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F)))
+@@ -1508,7 +_,7 @@
+             Blocks.CREAKING_HEART,
+             block -> this.createSilkTouchDispatchTable(
+                 block,
+-                (LootPoolEntryContainer.Builder<?>)this.applyExplosionDecay(
++                this.applyExplosionDecay(
+                     block,
+                     LootItem.lootTableItem(Items.RESIN_CLUMP)
+                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
+@@ -1559,10 +_,10 @@
+                                             .when(
+                                                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                                     .setProperties(
+-                                                        StatePropertiesPredicate.Builder.properties().hasProperty(SnowLayerBlock.LAYERS, layers.intValue())
++                                                        StatePropertiesPredicate.Builder.properties().hasProperty(SnowLayerBlock.LAYERS, layers)
+                                                     )
+                                             )
+-                                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(layers.intValue())))
++                                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(layers)))
+                                     )
+                                     .when(this.doesNotHaveSilkTouch()),
+                                 AlternativesEntry.alternatives(
+@@ -1570,11 +_,11 @@
+                                     layers -> layers == 8
+                                         ? LootItem.lootTableItem(Blocks.SNOW_BLOCK)
+                                         : LootItem.lootTableItem(Blocks.SNOW)
+-                                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(layers.intValue())))
++                                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(layers)))
+                                             .when(
+                                                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                                     .setProperties(
+-                                                        StatePropertiesPredicate.Builder.properties().hasProperty(SnowLayerBlock.LAYERS, layers.intValue())
++                                                        StatePropertiesPredicate.Builder.properties().hasProperty(SnowLayerBlock.LAYERS, layers)
+                                                     )
+                                             )
+                                 )
+@@ -1620,7 +_,7 @@
+             Blocks.SOUL_CAMPFIRE,
+             block -> this.createSilkTouchDispatchTable(
+                 block,
+-                (LootPoolEntryContainer.Builder<?>)this.applyExplosionCondition(
++                this.applyExplosionCondition(
+                     block, LootItem.lootTableItem(Items.SOUL_SOIL).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+                 )
+             )
+@@ -1634,7 +_,7 @@
+                     .apply(ApplyBonusCount.addOreBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
+                     .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ItemTags.CLUSTER_MAX_HARVESTABLES)))
+                     .otherwise(
+-                        (LootPoolEntryContainer.Builder<?>)this.applyExplosionDecay(
++                        this.applyExplosionDecay(
+                             block, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))
+                         )
+                     )
+@@ -1783,7 +_,7 @@
+                                     LootItemBlockStatePropertyCondition.Builder isAge = LootItemBlockStatePropertyCondition.hasBlockStateProperties(
+                                             Blocks.PITCHER_CROP
+                                         )
+-                                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(PitcherCropBlock.AGE, age.intValue()));
++                                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(PitcherCropBlock.AGE, age));
+                                     return age == 4
+                                         ? LootItem.lootTableItem(Items.PITCHER_PLANT)
+                                             .when(isAge)

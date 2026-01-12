@@ -1,0 +1,25 @@
+--- a/net/minecraft/server/ServerScoreboard.java
++++ b/net/minecraft/server/ServerScoreboard.java
+@@ -34,19 +_,13 @@
+     }
+ 
+     public void load(final ScoreboardSaveData.Packed data) {
+-        List var10000 = data.objectives();
+-        ServerScoreboard var2 = this;
+-        var10000.forEach(x$0 -> var2.loadObjective(x$0));
+-        var10000 = data.scores();
+-        var2 = this;
+-        var10000.forEach(x$0 -> var2.loadPlayerScore(x$0));
++        data.objectives().forEach(this::loadObjective);
++        data.scores().forEach(this::loadPlayerScore);
+         data.displaySlots().forEach((slot, name) -> {
+             Objective objective = this.getObjective(name);
+             this.setDisplayObjective(slot, objective);
+         });
+-        var10000 = data.teams();
+-        var2 = this;
+-        var10000.forEach(x$0 -> var2.loadPlayerTeam(x$0));
++        data.teams().forEach(this::loadPlayerTeam);
+     }
+ 
+     private ScoreboardSaveData.Packed store() {

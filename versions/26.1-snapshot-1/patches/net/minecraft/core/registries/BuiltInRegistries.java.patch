@@ -1,6 +1,6 @@
 --- a/net/minecraft/core/registries/BuiltInRegistries.java
 +++ b/net/minecraft/core/registries/BuiltInRegistries.java
-@@ -385,7 +_,7 @@
+@@ -387,7 +_,7 @@
          Bootstrap.checkBootstrapCalled(() -> "registry " + name.identifier());
          Identifier key = name.identifier();
          LOADERS.put(key, () -> loader.run(registry));
