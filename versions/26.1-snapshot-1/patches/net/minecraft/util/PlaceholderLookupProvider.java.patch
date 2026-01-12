@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/PlaceholderLookupProvider.java
 +++ b/net/minecraft/util/PlaceholderLookupProvider.java
-@@ -100,11 +_,11 @@
+@@ -114,11 +_,11 @@
          }
  
          public <T> HolderGetter<T> castAsLookup() {

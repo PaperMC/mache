@@ -1,0 +1,11 @@
+--- a/net/minecraft/server/level/ServerPlayer.java
++++ b/net/minecraft/server/level/ServerPlayer.java
+@@ -283,7 +_,7 @@
+                         private final DynamicOps<HashCode> registryHashOps;
+ 
+                         {
+-                            Objects.requireNonNull(<VAR_NAMELESS_ENCLOSURE>);
++                            Objects.requireNonNull(ServerPlayer.this.registryAccess());
+                             this.registryHashOps = ServerPlayer.this.registryAccess().createSerializationContext(HashOps.CRC32C_INSTANCE);
+                         }
+ 

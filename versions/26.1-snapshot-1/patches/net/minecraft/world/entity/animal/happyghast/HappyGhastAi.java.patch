@@ -1,5 +1,5 @@
---- a/net/minecraft/world/entity/animal/HappyGhastAi.java
-+++ b/net/minecraft/world/entity/animal/HappyGhastAi.java
+--- a/net/minecraft/world/entity/animal/happyghast/HappyGhastAi.java
++++ b/net/minecraft/world/entity/animal/happyghast/HappyGhastAi.java
 @@ -69,7 +_,7 @@
              0,
              ImmutableList.of(

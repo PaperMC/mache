@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/entity/monster/warden/Warden.java
++++ b/net/minecraft/world/entity/monster/warden/Warden.java
+@@ -543,7 +_,7 @@
+                 this.nodeEvaluator = new WalkNodeEvaluator();
+                 return new PathFinder(this.nodeEvaluator, maxVisitedNodes) {
+                     {
+-                        Objects.requireNonNull(<VAR_NAMELESS_ENCLOSURE>);
++                        Objects.requireNonNull(nodeEvaluator);
+                     }
+ 
+                     @Override

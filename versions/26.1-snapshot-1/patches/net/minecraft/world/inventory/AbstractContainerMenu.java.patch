@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/inventory/AbstractContainerMenu.java
 +++ b/net/minecraft/world/inventory/AbstractContainerMenu.java
-@@ -446,7 +_,7 @@
+@@ -447,7 +_,7 @@
                              Optional<ItemStack> newCarried = slotx.tryRemove(amount, Integer.MAX_VALUE, player);
                              newCarried.ifPresent(itemsTaken -> {
                                  this.setCarried(itemsTaken);
@@ -9,7 +9,7 @@
                              });
                          } else if (slotx.mayPlace(carried)) {
                              if (ItemStack.isSameItemSameComponents(clicked, carried)) {
-@@ -460,7 +_,7 @@
+@@ -461,7 +_,7 @@
                              Optional<ItemStack> newCarried = slotx.tryRemove(clicked.getCount(), carried.getMaxStackSize() - carried.getCount(), player);
                              newCarried.ifPresent(itemsTaken -> {
                                  carried.grow(itemsTaken.getCount());
