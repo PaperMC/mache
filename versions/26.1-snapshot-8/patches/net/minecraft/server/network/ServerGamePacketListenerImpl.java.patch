@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-@@ -473,6 +_,7 @@
+@@ -475,6 +_,7 @@
                  }
  
                  vehicle.move(MoverType.PLAYER, new Vec3(xDist, yDist, zDist));
@@ -8,7 +8,7 @@
                  xDist = targetX - vehicle.getX();
                  yDist = targetY - vehicle.getY();
                  if (yDist > -0.5 || yDist < 0.5) {
-@@ -501,7 +_,7 @@
+@@ -503,7 +_,7 @@
                  vehicle.setOnGroundWithMovement(packet.onGround(), clientDeltaMovement);
                  vehicle.doCheckFallDamage(clientDeltaMovement.x, clientDeltaMovement.y, clientDeltaMovement.z, packet.onGround());
                  this.player.checkMovementStatistics(clientDeltaMovement.x, clientDeltaMovement.y, clientDeltaMovement.z);
@@ -17,7 +17,7 @@
                      && !vehicleRestsOnSomething
                      && !this.server.allowFlight()
                      && !vehicle.isFlyingVehicle()
-@@ -998,7 +_,7 @@
+@@ -1004,7 +_,7 @@
          if (carried.has(DataComponents.WRITABLE_BOOK_CONTENT)) {
              ItemStack writtenBook = carried.transmuteCopy(Items.WRITTEN_BOOK);
              writtenBook.remove(DataComponents.WRITABLE_BOOK_CONTENT);
@@ -26,7 +26,7 @@
              writtenBook.set(
                  DataComponents.WRITTEN_BOOK_CONTENT, new WrittenBookContent(this.filterableFromOutgoing(title), this.player.getPlainTextName(), 0, pages, true)
              );
-@@ -1120,6 +_,7 @@
+@@ -1126,6 +_,7 @@
  
                                  boolean playerStandsOnSomething = this.player.verticalCollisionBelow;
                                  this.player.move(MoverType.PLAYER, new Vec3(xDist, yDist, zDist));
@@ -34,7 +34,7 @@
                                  xDist = targetX - this.player.getX();
                                  yDist = targetY - this.player.getY();
                                  if (yDist > -0.5 || yDist < 0.5) {
-@@ -1145,7 +_,7 @@
+@@ -1151,7 +_,7 @@
                                          && !this.isEntityCollidingWithAnythingNew(level, this.player, oldAABB, targetX, targetY, targetZ)) {
                                      this.player.absSnapTo(targetX, targetY, targetZ, targetYRot, targetXRot);
                                      boolean isAutoSpinAttack = this.player.isAutoSpinAttack();
