@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/animal/frog/Tadpole.java
 +++ b/net/minecraft/world/entity/animal/frog/Tadpole.java
-@@ -68,7 +_,7 @@
+@@ -73,7 +_,7 @@
  
      @Override
      public Brain<Tadpole> getBrain() {
