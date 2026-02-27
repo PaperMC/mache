@@ -1,14 +1,6 @@
 --- a/net/minecraft/world/entity/animal/allay/AllayAi.java
 +++ b/net/minecraft/world/entity/animal/allay/AllayAi.java
-@@ -18,6 +_,7 @@
- import net.minecraft.world.entity.LivingEntity;
- import net.minecraft.world.entity.ai.Brain;
- import net.minecraft.world.entity.ai.behavior.AnimalPanic;
-+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
- import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
- import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
- import net.minecraft.world.entity.ai.behavior.DoNothing;
-@@ -68,7 +_,7 @@
+@@ -64,7 +_,7 @@
              0,
              ImmutableList.of(
                  new Swim<>(0.8F),
@@ -17,7 +9,7 @@
                  new LookAtTargetSink(45, 90),
                  new MoveToTargetSink(),
                  new CountDownCooldownTicks(MemoryModuleType.LIKED_NOTEBLOCK_COOLDOWN_TICKS),
-@@ -86,7 +_,7 @@
+@@ -82,7 +_,7 @@
                  new GoAndGiveItemsToTarget<>(AllayAi::getItemDepositPosition, 2.25F, 20, AllayAi::onItemThrown),
                  StayCloseToTarget.create(AllayAi::getItemDepositPosition, Predicate.not(AllayAi::hasWantedItem), 4, 16, 2.25F),
                  SetEntityLookTargetSometimes.create(6.0F, UniformInt.of(30, 60)),

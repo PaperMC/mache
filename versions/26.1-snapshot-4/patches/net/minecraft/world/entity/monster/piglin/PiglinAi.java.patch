@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/monster/piglin/PiglinAi.java
 +++ b/net/minecraft/world/entity/monster/piglin/PiglinAi.java
-@@ -181,7 +_,7 @@
+@@ -180,7 +_,7 @@
                  new SpearAttack(1.0, 1.0, 2.0F),
                  new SpearRetreat(1.0),
                  MeleeAttack.create(20),
@@ -9,16 +9,16 @@
                  RememberIfHoglinWasKilled.create(),
                  EraseMemoryIf.create(PiglinAi::isNearZombified, MemoryModuleType.ATTACK_TARGET)
              ),
-@@ -199,7 +_,7 @@
-                 StartAttacking.<Piglin>create((level, piglin) -> piglin.isAdult(), PiglinAi::findNearestValidAttackTarget),
-                 BehaviorBuilder.triggerIf(body -> !body.isDancing(), GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 2, 1.0F)),
+@@ -200,7 +_,7 @@
+                     body -> body instanceof Piglin && !body.isDancing(), GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 2, 1.0F)
+                 ),
                  BehaviorBuilder.triggerIf(Piglin::isDancing, GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 4, 0.6F)),
 -                new RunOne<LivingEntity>(
-+                new RunOne<>(
++                new RunOne<Piglin>(
                      ImmutableList.of(
                          Pair.of(SetEntityLookTarget.create(EntityType.PIGLIN, 8.0F), 1),
                          Pair.of(RandomStroll.stroll(0.6F, 2, 1), 1),
-@@ -232,7 +_,7 @@
+@@ -233,7 +_,7 @@
                  SetWalkTargetAwayFrom.entity(MemoryModuleType.AVOID_TARGET, 1.0F, 12, true),
                  createIdleLookBehaviors(),
                  createIdleMovementBehaviors(),
@@ -27,7 +27,7 @@
              ),
              MemoryModuleType.AVOID_TARGET
          );
-@@ -254,7 +_,7 @@
+@@ -255,7 +_,7 @@
                              .build()
                      )
                  ),

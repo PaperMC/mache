@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/animal/goat/GoatAi.java
 +++ b/net/minecraft/world/entity/animal/goat/GoatAi.java
-@@ -79,7 +_,7 @@
+@@ -73,7 +_,7 @@
              0,
              ImmutableList.of(
                  new Swim<>(0.8F),

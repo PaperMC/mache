@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/animal/happyghast/HappyGhastAi.java
 +++ b/net/minecraft/world/entity/animal/happyghast/HappyGhastAi.java
-@@ -51,7 +_,7 @@
+@@ -37,7 +_,7 @@
              0,
              ImmutableList.of(
                  new Swim<>(0.8F),
