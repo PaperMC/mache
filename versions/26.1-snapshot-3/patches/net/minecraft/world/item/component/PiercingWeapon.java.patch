@@ -8,7 +8,7 @@
  import net.minecraft.core.Holder;
  import net.minecraft.network.RegistryFriendlyByteBuf;
  import net.minecraft.network.codec.ByteBufCodecs;
-@@ -74,7 +_,7 @@
+@@ -76,7 +_,7 @@
          boolean hitSomething = false;
  
          for (EntityHitResult hitResult : ProjectileUtil.getHitEntitiesAlong(attacker, attackRange, e1 -> canHitEntity(attacker, e1), ClipContext.Block.COLLIDER)
