@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/level/ServerPlayer.java
 +++ b/net/minecraft/server/level/ServerPlayer.java
-@@ -283,7 +_,7 @@
+@@ -284,7 +_,7 @@
                          private final DynamicOps<HashCode> registryHashOps;
  
                          {
