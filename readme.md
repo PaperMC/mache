@@ -15,14 +15,9 @@ Goal
 
 The current goal of this project is to provide the Minecraft source set as un-modified as possible. The patches present
 are only for allowing the decompiled code to be re-compilable. We may still end up publishing additional builds for a
-single Minecraft version, however, as we bring in updates from [codebook](https://github.com/PaperMC/codebook),
-[VineFlower](https://github.com/Vineflower/vineflower),
-[AutoRenamingTool](https://github.com/neoforged/AutoRenamingTool) or
-[Parchment](https://github.com/ParchmentMC/Parchment).
-
-The Minecraft sources generated here use Mojang's official mappings, and we use Parchment mappings for parameter name
-mappings. Local variable mappings are generated at remap time via
-[codebook](https://github.com/PaperMC/codebook).
+single Minecraft version, however, as we bring in updates from [Vineflower](https://github.com/Vineflower/vineflower),
+[codebook](https://github.com/PaperMC/codebook) or
+[unpick-definitions](https://github.com/PaperMC/unpick-definitions).
 
 Documentation
 -------------
