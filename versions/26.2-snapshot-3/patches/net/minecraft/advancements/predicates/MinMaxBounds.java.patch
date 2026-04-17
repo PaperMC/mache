@@ -1,5 +1,5 @@
---- a/net/minecraft/advancements/criterion/MinMaxBounds.java
-+++ b/net/minecraft/advancements/criterion/MinMaxBounds.java
+--- a/net/minecraft/advancements/predicates/MinMaxBounds.java
++++ b/net/minecraft/advancements/predicates/MinMaxBounds.java
 @@ -76,7 +_,7 @@
          }
  

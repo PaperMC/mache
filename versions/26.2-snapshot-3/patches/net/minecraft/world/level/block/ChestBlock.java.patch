@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/block/ChestBlock.java
 +++ b/net/minecraft/world/level/block/ChestBlock.java
-@@ -99,7 +_,7 @@
+@@ -100,7 +_,7 @@
              final Container container = new CompoundContainer(first, second);
              return Optional.of(new MenuProvider() {
                  {

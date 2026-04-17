@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/monster/warden/Warden.java
 +++ b/net/minecraft/world/entity/monster/warden/Warden.java
-@@ -379,7 +_,7 @@
+@@ -380,7 +_,7 @@
  
      @Override
      public Brain<Warden> getBrain() {
@@ -9,7 +9,7 @@
      }
  
      @Override
-@@ -551,7 +_,7 @@
+@@ -552,7 +_,7 @@
                  this.nodeEvaluator = new WalkNodeEvaluator();
                  return new PathFinder(this.nodeEvaluator, maxVisitedNodes) {
                      {

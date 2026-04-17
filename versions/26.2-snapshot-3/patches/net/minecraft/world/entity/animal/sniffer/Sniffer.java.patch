@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/animal/sniffer/Sniffer.java
 +++ b/net/minecraft/world/entity/animal/sniffer/Sniffer.java
-@@ -448,7 +_,7 @@
+@@ -449,7 +_,7 @@
  
      @Override
      public Brain<Sniffer> getBrain() {

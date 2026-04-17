@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/animal/allay/Allay.java
 +++ b/net/minecraft/world/entity/animal/allay/Allay.java
-@@ -119,7 +_,7 @@
+@@ -120,7 +_,7 @@
  
      @Override
      public Brain<Allay> getBrain() {
