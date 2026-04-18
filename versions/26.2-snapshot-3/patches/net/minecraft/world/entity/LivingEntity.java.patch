@@ -1,13 +1,13 @@
 --- a/net/minecraft/world/entity/LivingEntity.java
 +++ b/net/minecraft/world/entity/LivingEntity.java
-@@ -1175,6 +_,7 @@
+@@ -1174,6 +_,7 @@
+                 damage = 0.0F;
              }
  
-             ItemStack itemInUse = this.getUseItem();
 +            float originalDamage = damage;
+             ItemStack itemInUse = this.getUseItem();
              float damageBlocked = this.applyItemBlocking(level, source, damage);
              damage -= damageBlocked;
-             boolean blocked = damageBlocked > 0.0F;
 @@ -1266,14 +_,14 @@
              }
  

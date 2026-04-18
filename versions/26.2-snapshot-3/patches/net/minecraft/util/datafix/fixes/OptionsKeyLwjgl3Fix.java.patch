@@ -13,7 +13,7 @@
                      return Pair.of(entry.getKey(), entry.getValue());
                  }
 -            }).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)))).result().orElse(tag))
-+            }).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)))).result().orElse((Dynamic) tag))
++            }).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)))).result().orElse((Dynamic)tag))
          );
      }
  }

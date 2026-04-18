@@ -5,7 +5,7 @@
      @Override
      public Brain<Hoglin> getBrain() {
 -        return super.getBrain();
-+        return (Brain<Hoglin>) super.getBrain();
++        return (Brain<Hoglin>)super.getBrain();
      }
  
      @Override

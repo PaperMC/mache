@@ -5,7 +5,7 @@
              .map(ownerTag -> tag.remove("Owner").set("SkullOwner", (Dynamic<?>)ownerTag))
              .result()
 -            .orElse(tag);
-+            .orElse((Dynamic) tag);
++            .orElse((Dynamic)tag);
      }
  
      private Dynamic<?> updateConduit(final Dynamic<?> tag) {

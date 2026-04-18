@@ -9,11 +9,11 @@
 -    IntegerModifier<Integer> MULTIPLY = (a, b) -> a * b;
 -    IntegerModifier<Integer> MINIMUM = Math::min;
 -    IntegerModifier<Integer> MAXIMUM = Math::max;
-+    IntegerModifier<Integer> ADD = (Simple) Integer::sum;
-+    IntegerModifier<Integer> SUBTRACT = (Simple) (a, b) -> a - b;
-+    IntegerModifier<Integer> MULTIPLY = (Simple) (a, b) -> a * b;
-+    IntegerModifier<Integer> MINIMUM = (Simple) Math::min;
-+    IntegerModifier<Integer> MAXIMUM = (Simple) Math::max;
++    IntegerModifier<Integer> ADD = (IntegerModifier.Simple)Integer::sum;
++    IntegerModifier<Integer> SUBTRACT = (IntegerModifier.Simple)(a, b) -> a - b;
++    IntegerModifier<Integer> MULTIPLY = (IntegerModifier.Simple)(a, b) -> a * b;
++    IntegerModifier<Integer> MINIMUM = (IntegerModifier.Simple)Math::min;
++    IntegerModifier<Integer> MAXIMUM = (IntegerModifier.Simple)Math::max;
  
      @Override
      Integer apply(Integer integer, Argument argument);

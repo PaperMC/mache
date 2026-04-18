@@ -5,7 +5,7 @@
      @Override
      public Brain<Armadillo> getBrain() {
 -        return super.getBrain();
-+        return (Brain<Armadillo>) super.getBrain();
++        return (Brain<Armadillo>)super.getBrain();
      }
  
      @Override

@@ -5,7 +5,7 @@
  
      default <S extends B> StreamCodec<S, V> cast() {
 -        return this;
-+        return (StreamCodec<S, V>) this;
++        return (StreamCodec<S, V>)this;
      }
  
      @FunctionalInterface

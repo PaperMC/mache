@@ -5,7 +5,7 @@
          }
  
 -        int registryId = BuiltInRegistries.REGISTRY.getId(registry);
-+        int registryId = ((Registry) BuiltInRegistries.REGISTRY).getId(registry);
++        int registryId = ((Registry)BuiltInRegistries.REGISTRY).getId(registry);
          result.addProperty("protocol_id", registryId);
          JsonObject entries = new JsonObject();
          registry.listElements().forEach(holder -> {

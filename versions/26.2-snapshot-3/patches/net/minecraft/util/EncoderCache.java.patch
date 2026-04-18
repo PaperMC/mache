@@ -5,7 +5,7 @@
                  return EncoderCache.this.cache
                      .getUnchecked(new EncoderCache.Key<>(codec, input, ops))
 -                    .map(value -> value instanceof Tag tag ? tag.copy() : value);
-+                    .map(value -> (T) (value instanceof Tag tag ? tag.copy() : value));
++                    .map(value -> (T)(value instanceof Tag tag ? tag.copy() : value));
              }
          };
      }

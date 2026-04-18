@@ -5,7 +5,7 @@
  
      static <T> EntityDataSerializer<T> forValueType(final StreamCodec<? super RegistryFriendlyByteBuf, T> codec) {
 -        return () -> codec;
-+        return (ForValueType<T>) () -> codec;
++        return (ForValueType<T>)() -> codec;
      }
  
      public interface ForValueType<T> extends EntityDataSerializer<T> {

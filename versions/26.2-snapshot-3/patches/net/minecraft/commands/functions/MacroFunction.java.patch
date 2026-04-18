@@ -44,11 +44,11 @@
 -
 -                byte var2 = 5;
 -            }
-+            case FloatTag(float floatValue) -> DECIMAL_FORMAT.format(floatValue);
-+            case DoubleTag(double doubleValue) -> DECIMAL_FORMAT.format(doubleValue);
-+            case ByteTag(byte byteValue) -> String.valueOf(byteValue);
-+            case ShortTag(short shortValue) -> String.valueOf(shortValue);
-+            case LongTag(long longValue) -> String.valueOf(longValue);
++            case FloatTag(float value) -> DECIMAL_FORMAT.format(value);
++            case DoubleTag(double value) -> DECIMAL_FORMAT.format(value);
++            case ByteTag(byte value) -> String.valueOf(value);
++            case ShortTag(short value) -> String.valueOf(value);
++            case LongTag(long value) -> String.valueOf(value);
              case StringTag(String var17) -> var17;
              default -> tag.toString();
          };

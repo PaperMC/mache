@@ -5,7 +5,7 @@
      ) {
          SpawnPlacements.Data data = DATA_BY_TYPE.get(type);
 -        return data == null || data.predicate.test(type, level, spawnReason, pos, random);
-+        return data == null || data.predicate.test((EntityType) type, level, spawnReason, pos, random);
++        return data == null || data.predicate.test((EntityType)type, level, spawnReason, pos, random);
      }
  
      static {

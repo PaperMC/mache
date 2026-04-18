@@ -5,12 +5,12 @@
  
          public <T> HolderGetter<T> castAsLookup() {
 -            return this;
-+            return (HolderGetter<T>) this;
++            return (HolderGetter<T>)this;
          }
  
          public <T> HolderOwner<T> castAsOwner() {
 -            return this;
-+            return (HolderOwner<T>) this;
++            return (HolderOwner<T>)this;
          }
      }
  }

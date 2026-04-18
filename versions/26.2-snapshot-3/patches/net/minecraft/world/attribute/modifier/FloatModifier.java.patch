@@ -5,13 +5,13 @@
          }
      };
 -    FloatModifier<Float> ADD = Float::sum;
-+    FloatModifier<Float> ADD = (Simple) Float::sum;
++    FloatModifier<Float> ADD = (FloatModifier.Simple)Float::sum;
      FloatModifier<Float> SUBTRACT = (FloatModifier.Simple)(a, b) -> a - b;
      FloatModifier<Float> MULTIPLY = (FloatModifier.Simple)(a, b) -> a * b;
 -    FloatModifier<Float> MINIMUM = Math::min;
 -    FloatModifier<Float> MAXIMUM = Math::max;
-+    FloatModifier<Float> MINIMUM = (Simple) Math::min;
-+    FloatModifier<Float> MAXIMUM = (Simple) Math::max;
++    FloatModifier<Float> MINIMUM = (FloatModifier.Simple)Math::min;
++    FloatModifier<Float> MAXIMUM = (FloatModifier.Simple)Math::max;
  
      @FunctionalInterface
      public interface Simple extends FloatModifier<Float> {
