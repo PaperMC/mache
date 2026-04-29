@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/animal/camel/Camel.java
 +++ b/net/minecraft/world/entity/animal/camel/Camel.java
-@@ -151,7 +_,7 @@
+@@ -155,7 +_,7 @@
  
      @Override
      public Brain<Camel> getBrain() {

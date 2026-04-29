@@ -1,8 +1,8 @@
 --- a/net/minecraft/world/level/block/BaseEntityBlock.java
 +++ b/net/minecraft/world/level/block/BaseEntityBlock.java
-@@ -35,6 +_,6 @@
+@@ -34,6 +_,6 @@
      protected static <E extends BlockEntity, A extends BlockEntity> @Nullable BlockEntityTicker<A> createTickerHelper(
-         final BlockEntityType<A> actual, final BlockEntityType<E> expected, final BlockEntityTicker<? super E> ticker
+         final BlockEntityType<A> actual, final BlockEntityType<E> expected, final @Nullable BlockEntityTicker<? super E> ticker
      ) {
 -        return expected == actual ? ticker : null;
 +        return expected == actual ? (BlockEntityTicker<A>)ticker : null;

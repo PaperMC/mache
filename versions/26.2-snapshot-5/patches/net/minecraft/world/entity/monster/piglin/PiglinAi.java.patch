@@ -9,16 +9,16 @@
                  RememberIfHoglinWasKilled.create(),
                  EraseMemoryIf.create(PiglinAi::isNearZombified, MemoryModuleType.ATTACK_TARGET)
              ),
-@@ -200,7 +_,7 @@
-                     body -> body instanceof Piglin && !body.isDancing(), GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 2, 1.0F)
-                 ),
+@@ -198,7 +_,7 @@
+                 StartAttacking.<Piglin>create((level, piglin) -> piglin.isAdult(), PiglinAi::findNearestValidAttackTarget),
+                 BehaviorBuilder.triggerIf(piglin -> !piglin.isDancing(), GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 2, 1.0F)),
                  BehaviorBuilder.triggerIf(Piglin::isDancing, GoToTargetLocation.create(MemoryModuleType.CELEBRATE_LOCATION, 4, 0.6F)),
 -                new RunOne<LivingEntity>(
 +                new RunOne<>(
                      ImmutableList.of(
                          Pair.of(SetEntityLookTarget.create(EntityTypes.PIGLIN, 8.0F), 1),
                          Pair.of(RandomStroll.stroll(0.6F, 2, 1), 1),
-@@ -233,7 +_,7 @@
+@@ -231,7 +_,7 @@
                  SetWalkTargetAwayFrom.entity(MemoryModuleType.AVOID_TARGET, 1.0F, 12, true),
                  createIdleLookBehaviors(),
                  createIdleMovementBehaviors(),
@@ -27,7 +27,7 @@
              ),
              MemoryModuleType.AVOID_TARGET
          );
-@@ -255,7 +_,7 @@
+@@ -253,7 +_,7 @@
                              .build()
                      )
                  ),
