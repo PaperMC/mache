@@ -1,11 +1,11 @@
 --- a/net/minecraft/server/level/ServerPlayer.java
 +++ b/net/minecraft/server/level/ServerPlayer.java
-@@ -287,7 +_,7 @@
-                         private final DynamicOps<HashCode> registryHashOps;
+@@ -981,7 +_,7 @@
  
-                         {
--                            Objects.requireNonNull(<VAR_NAMELESS_ENCLOSURE>);
-+                            Objects.requireNonNull(ServerPlayer.this.registryAccess());
-                             this.registryHashOps = ServerPlayer.this.registryAccess().createSerializationContext(HashOps.CRC32C_INSTANCE);
-                         }
+         Entity entity = source.getEntity();
+         return !(entity instanceof Player player && !this.canHarmPlayer(player))
+-            && !(entity instanceof AbstractArrow arrow && arrow.getOwner() instanceof Player player && !this.canHarmPlayer(player))
++            && !(entity instanceof AbstractArrow arrow && arrow.getOwner() instanceof Player playerx && !this.canHarmPlayer(playerx))
+             && super.hurtServer(level, source, damage);
+     }
  

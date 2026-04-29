@@ -1,22 +1,39 @@
 --- a/net/minecraft/util/filefix/FileFixerUpper.java
 +++ b/net/minecraft/util/filefix/FileFixerUpper.java
-@@ -314,7 +_,7 @@
-                         try {
-                             Files.deleteIfExists(movesFile);
-                         } catch (IOException var15) {
--                            LOGGER.warn("Failed to delete {}", movesFile, var23);
-+                            LOGGER.warn("Failed to delete {}", movesFile, var15);
-                         }
+@@ -312,7 +_,7 @@
+                     try {
+                         Files.deleteIfExists(movesFile);
+                     } catch (IOException e2) {
+-                        LOGGER.warn("Failed to delete {}", movesFile, e);
++                        LOGGER.warn("Failed to delete {}", movesFile, e2);
                      }
+                 }
  
-@@ -353,8 +_,8 @@
-                         try {
-                             deleteDirectory(worldFolder);
-                         } catch (Exception var9x) {
--                            LOGGER.warn("Failed to delete outdated world folder: ", (Throwable)var10x);
--                            throw new FailedCleanupFileFixException(var10x, tempWorldTopLevel.getFileName().toString(), fileSystemCapabilities);
-+                            LOGGER.warn("Failed to delete outdated world folder: ", (Throwable)var9x);
-+                            throw new FailedCleanupFileFixException(var9x, tempWorldTopLevel.getFileName().toString(), fileSystemCapabilities);
-                         }
+@@ -346,13 +_,13 @@
+                 try {
+                     Files.move(worldFolder, oldWorldFolder, moveOptions);
+                 } catch (Exception e) {
+-                    LOGGER.warn("Failed to move outdated world folder out of the way; will try to delete instead: ", ex);
++                    LOGGER.warn("Failed to move outdated world folder out of the way; will try to delete instead: ", e);
+ 
+                     try {
+                         deleteDirectory(worldFolder);
+                     } catch (Exception e2) {
+-                        LOGGER.warn("Failed to delete outdated world folder: ", ex);
+-                        throw new FailedCleanupFileFixException(ex, tempWorldTopLevel.getFileName().toString(), fileSystemCapabilities);
++                        LOGGER.warn("Failed to delete outdated world folder: ", e2);
++                        throw new FailedCleanupFileFixException(e2, tempWorldTopLevel.getFileName().toString(), fileSystemCapabilities);
                      }
+                 }
  
+@@ -361,8 +_,8 @@
+                 try {
+                     Files.move(tempWorldTopLevel, worldFolder, moveOptions);
+                 } catch (Exception e) {
+-                    LOGGER.warn("Failed to move in new world folder: ", exx);
+-                    throw new FailedCleanupFileFixException(exx, tempWorldTopLevel.getFileName().toString(), fileSystemCapabilities);
++                    LOGGER.warn("Failed to move in new world folder: ", e);
++                    throw new FailedCleanupFileFixException(e, tempWorldTopLevel.getFileName().toString(), fileSystemCapabilities);
+                 }
+ 
+                 succeeded.setTrue();

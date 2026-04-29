@@ -8,4 +8,4 @@
 +            List<Direction> var14 = config.getShuffledDirections(random);
              if (placeGrowthIfPossible(placerBlock, level, origin, level.getBlockState(origin), config, random, var14)) {
                  return true;
-             } else {
+             }
