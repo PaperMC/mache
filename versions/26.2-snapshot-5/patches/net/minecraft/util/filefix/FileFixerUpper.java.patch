@@ -1,0 +1,22 @@
+--- a/net/minecraft/util/filefix/FileFixerUpper.java
++++ b/net/minecraft/util/filefix/FileFixerUpper.java
+@@ -314,7 +_,7 @@
+                         try {
+                             Files.deleteIfExists(movesFile);
+                         } catch (IOException var15) {
+-                            LOGGER.warn("Failed to delete {}", movesFile, var23);
++                            LOGGER.warn("Failed to delete {}", movesFile, var15);
+                         }
+                     }
+ 
+@@ -353,8 +_,8 @@
+                         try {
+                             deleteDirectory(worldFolder);
+                         } catch (Exception var9x) {
+-                            LOGGER.warn("Failed to delete outdated world folder: ", (Throwable)var10x);
+-                            throw new FailedCleanupFileFixException(var10x, tempWorldTopLevel.getFileName().toString(), fileSystemCapabilities);
++                            LOGGER.warn("Failed to delete outdated world folder: ", (Throwable)var9x);
++                            throw new FailedCleanupFileFixException(var9x, tempWorldTopLevel.getFileName().toString(), fileSystemCapabilities);
+                         }
+                     }
+ 
