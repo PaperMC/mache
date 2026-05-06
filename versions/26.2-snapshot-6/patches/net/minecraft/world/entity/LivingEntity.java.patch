@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/LivingEntity.java
 +++ b/net/minecraft/world/entity/LivingEntity.java
-@@ -1176,6 +_,7 @@
+@@ -1173,6 +_,7 @@
                  damage = 0.0F;
              }
  
@@ -8,7 +8,7 @@
              ItemStack itemInUse = this.getUseItem();
              float damageBlocked = this.applyItemBlocking(level, source, damage);
              damage -= damageBlocked;
-@@ -1268,14 +_,14 @@
+@@ -1251,14 +_,14 @@
              }
  
              if (this instanceof ServerPlayer serverPlayer) {
