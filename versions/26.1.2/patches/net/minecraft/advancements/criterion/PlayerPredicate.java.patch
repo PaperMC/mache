@@ -1,6 +1,6 @@
 --- a/net/minecraft/advancements/criterion/PlayerPredicate.java
 +++ b/net/minecraft/advancements/criterion/PlayerPredicate.java
-@@ -253,11 +_,11 @@
+@@ -259,11 +_,11 @@
          private static <T> MapCodec<PlayerPredicate.StatMatcher<T>> createTypedCodec(final StatType<T> type) {
              return RecordCodecBuilder.mapCodec(
                  i -> i.group(
