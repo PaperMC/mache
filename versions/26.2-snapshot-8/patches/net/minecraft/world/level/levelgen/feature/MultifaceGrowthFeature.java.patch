@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/levelgen/feature/MultifaceGrowthFeature.java
 +++ b/net/minecraft/world/level/levelgen/feature/MultifaceGrowthFeature.java
-@@ -28,7 +_,7 @@
+@@ -27,7 +_,7 @@
          } else if (!(config.placeBlock instanceof MultifaceSpreadeableBlock placerBlock)) {
              return false;
          } else {
@@ -8,4 +8,4 @@
 +            List<Direction> var14 = config.getShuffledDirections(random);
              if (placeGrowthIfPossible(placerBlock, level, origin, level.getBlockState(origin), config, random, var14)) {
                  return true;
-             } else {
+             }

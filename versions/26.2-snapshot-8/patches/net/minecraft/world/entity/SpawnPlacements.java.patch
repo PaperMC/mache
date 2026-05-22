@@ -1,11 +1,11 @@
 --- a/net/minecraft/world/entity/SpawnPlacements.java
 +++ b/net/minecraft/world/entity/SpawnPlacements.java
-@@ -83,7 +_,7 @@
-             return false;
-         } else {
-             SpawnPlacements.Data data = DATA_BY_TYPE.get(type);
--            return data == null || data.predicate.test(type, level, spawnReason, pos, random);
-+            return data == null || ((SpawnPlacements.SpawnPredicate<T>)data.predicate).test(type, level, spawnReason, pos, random);
+@@ -84,7 +_,7 @@
          }
+ 
+         SpawnPlacements.Data data = DATA_BY_TYPE.get(type);
+-        return data == null || data.predicate.test(type, level, spawnReason, pos, random);
++        return data == null || ((SpawnPredicate<T>) data.predicate).test(type, level, spawnReason, pos, random);
      }
  
+     static {

@@ -1,6 +1,6 @@
 --- a/net/minecraft/locale/Language.java
 +++ b/net/minecraft/locale/Language.java
-@@ -57,7 +_,7 @@
+@@ -58,7 +_,7 @@
              @Override
              public FormattedCharSequence getVisualOrder(final FormattedText logicalOrderText) {
                  return outputx -> logicalOrderText.visit(
