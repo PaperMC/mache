@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/animal/golem/CopperGolem.java
 +++ b/net/minecraft/world/entity/animal/golem/CopperGolem.java
-@@ -154,7 +_,7 @@
+@@ -155,7 +_,7 @@
  
      @Override
      public Brain<CopperGolem> getBrain() {

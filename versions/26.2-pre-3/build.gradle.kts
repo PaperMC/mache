@@ -32,7 +32,7 @@ tasks.withType<JavaCompile>().configureEach {
 }
 
 dependencies {
-    codebook("2.0.0")
+    codebook("2.0.1-SNAPSHOT")
     decompiler(vineflower("1.12.0"))
     constants("io.papermc.unpick-definitions:unpick-definitions:26.2-snapshot-6+build.3") // todo bump once https://github.com/FabricMC/unpick/issues/46 is fixed
 }
