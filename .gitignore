@@ -46,4 +46,4 @@ versions/**/runClient
 # Ignore all versions by default
 versions/*
 # Don't ignore the current version
-!versions/26.2-pre-2
+!versions/26.2-pre-3
