@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/level/ServerPlayer.java
 +++ b/net/minecraft/server/level/ServerPlayer.java
-@@ -988,7 +_,7 @@
+@@ -991,7 +_,7 @@
  
          Entity entity = source.getEntity();
          return !(entity instanceof Player player && !this.canHarmPlayer(player))
