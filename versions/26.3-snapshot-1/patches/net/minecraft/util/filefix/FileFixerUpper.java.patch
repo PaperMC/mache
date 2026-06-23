@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/filefix/FileFixerUpper.java
 +++ b/net/minecraft/util/filefix/FileFixerUpper.java
-@@ -346,13 +_,13 @@
+@@ -357,13 +_,13 @@
                  try {
                      Files.move(worldFolder, oldWorldFolder, moveOptions);
                  } catch (Exception e) {
@@ -17,7 +17,7 @@
                      }
                  }
  
-@@ -361,8 +_,8 @@
+@@ -372,8 +_,8 @@
                  try {
                      Files.move(tempWorldTopLevel, worldFolder, moveOptions);
                  } catch (Exception e) {
