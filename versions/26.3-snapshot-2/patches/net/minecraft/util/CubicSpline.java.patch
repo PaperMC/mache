@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/CubicSpline.java
 +++ b/net/minecraft/util/CubicSpline.java
-@@ -63,11 +_,11 @@
+@@ -56,11 +_,11 @@
              "CubicSpline",
              subSplineCodec -> Codec.either(Codec.FLOAT, CubicSpline.Multipoint.codec(coordinateCodec, subSplineCodec))
                  .xmap(
