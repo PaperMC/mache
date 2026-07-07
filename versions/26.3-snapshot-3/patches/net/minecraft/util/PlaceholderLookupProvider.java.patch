@@ -1,16 +1,11 @@
 --- a/net/minecraft/util/PlaceholderLookupProvider.java
 +++ b/net/minecraft/util/PlaceholderLookupProvider.java
-@@ -100,11 +_,11 @@
+@@ -85,7 +_,7 @@
          }
  
          public <T> HolderGetter<T> castAsLookup() {
 -            return this;
 +            return (HolderGetter<T>)this;
-         }
- 
-         public <T> HolderOwner<T> castAsOwner() {
--            return this;
-+            return (HolderOwner<T>)this;
          }
      }
  }

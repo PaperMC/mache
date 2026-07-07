@@ -1,0 +1,12 @@
+--- a/net/minecraft/network/protocol/game/VecDelta.java
++++ b/net/minecraft/network/protocol/game/VecDelta.java
+@@ -56,8 +_,7 @@
+                     output.writeShort(ya);
+                     output.writeShort(za);
+                     break;
+-                case VecDelta.Stepped(List var20):
+-                    List var10 = var20;
++                case VecDelta.Stepped(List<VecDelta.Stepped.DeltaStep> var10):
+ 
+                     for (VecDelta.Stepped.DeltaStep step : var10) {
+                         output.writeVarInt(step.ticks);

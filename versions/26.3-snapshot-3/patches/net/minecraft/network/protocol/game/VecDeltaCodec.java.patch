@@ -1,0 +1,31 @@
+--- a/net/minecraft/network/protocol/game/VecDeltaCodec.java
++++ b/net/minecraft/network/protocol/game/VecDeltaCodec.java
+@@ -43,27 +_,7 @@
+     public @Nullable VecDelta tryEncode(final PositionPath position) {
+         return switch (position) {
+             case PositionPath.Linear(Vec3 pos) -> this.tryEncode(pos);
+-            case PositionPath.Stepped var6 -> {
+-                PositionPath.Stepped var10000 = var6;
+-
+-                try {
+-                    var10000.endPosition();
+-                } catch (Throwable var10) {
+-                    throw new MatchException(var10.toString(), var10);
+-                }
+-
+-                var10000 = var6;
+-
+-                try {
+-                    var14 = var10000.steps();
+-                } catch (Throwable var9) {
+-                    throw new MatchException(var9.toString(), var9);
+-                }
+-
+-                List var8 = var14;
+-                List<PositionStep> steps = var8;
+-                yield VecDelta.Stepped.tryEncode(this, steps);
+-            }
++            case PositionPath.Stepped(Vec3 _, List<PositionStep> steps) -> VecDelta.Stepped.tryEncode(this, steps);
+             default -> throw new MatchException(null, null);
+         };
+     }

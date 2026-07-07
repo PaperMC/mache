@@ -1,0 +1,11 @@
+--- a/net/minecraft/server/commands/PlaceCommand.java
++++ b/net/minecraft/server/commands/PlaceCommand.java
+@@ -71,7 +_,7 @@
+                 .then(
+                     Commands.literal("feature")
+                         .then(
+-                            ((RequiredArgumentBuilder)Commands.argument("feature", ResourceOrIdArgument.feature(context))
++                            (Commands.argument("feature", ResourceOrIdArgument.feature(context))
+                                     .executes(
+                                         c -> placeFeature(
+                                             (CommandSourceStack)c.getSource(),

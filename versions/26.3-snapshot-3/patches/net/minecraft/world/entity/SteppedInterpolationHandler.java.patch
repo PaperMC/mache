@@ -1,0 +1,56 @@
+--- a/net/minecraft/world/entity/SteppedInterpolationHandler.java
++++ b/net/minecraft/world/entity/SteppedInterpolationHandler.java
+@@ -34,25 +_,7 @@
+         }
+ 
+         int rotationSteps = this.interpolationSteps;
+-        if (position instanceof PositionPath.Stepped var6) {
+-            PositionPath.Stepped var10000 = var6;
+-
+-            try {
+-                var10000.endPosition();
+-            } catch (Throwable var11) {
+-                throw new MatchException(var11.toString(), var11);
+-            }
+-
+-            var10000 = var6;
+-
+-            try {
+-                var14 = var10000.steps();
+-            } catch (Throwable var10) {
+-                throw new MatchException(var10.toString(), var10);
+-            }
+-
+-            List var8 = var14;
+-            List<PositionStep> steps = var8;
++        if (position instanceof PositionPath.Stepped(Vec3 _, List<PositionStep> steps)) {
+             rotationSteps = 0;
+ 
+             for (PositionStep step : steps) {
+@@ -119,25 +_,7 @@
+                 case PositionPath.Linear(Vec3 pos):
+                     this.remainingSteps.add(new PositionStep(pos, interpolationSteps));
+                     break;
+-                case PositionPath.Stepped var8:
+-                    PositionPath.Stepped var10000 = var8;
+-
+-                    try {
+-                        var10000.endPosition();
+-                    } catch (Throwable var12) {
+-                        throw new MatchException(var12.toString(), var12);
+-                    }
+-
+-                    var10000 = var8;
+-
+-                    try {
+-                        var16 = var10000.steps();
+-                    } catch (Throwable var11) {
+-                        throw new MatchException(var11.toString(), var11);
+-                    }
+-
+-                    List var10 = var16;
+-                    List<PositionStep> steps = var10;
++                case PositionPath.Stepped(Vec3 _, List<PositionStep> steps):
+                     this.remainingSteps.addAll(steps);
+                     break;
+                 default:
