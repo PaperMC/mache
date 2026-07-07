@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/monster/piglin/Piglin.java
 +++ b/net/minecraft/world/entity/monster/piglin/Piglin.java
-@@ -218,7 +_,7 @@
+@@ -213,7 +_,7 @@
  
      @Override
      public Brain<Piglin> getBrain() {
