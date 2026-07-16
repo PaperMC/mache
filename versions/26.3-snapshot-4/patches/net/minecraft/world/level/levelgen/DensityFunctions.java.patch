@@ -1,0 +1,19 @@
+--- a/net/minecraft/world/level/levelgen/DensityFunctions.java
++++ b/net/minecraft/world/level/levelgen/DensityFunctions.java
+@@ -295,7 +_,7 @@
+         public void fillArray(final double[] output, final DensityFunction.ContextProvider contextProvider) {
+             this.left.fillArray(output, contextProvider);
+             switch (this.type) {
+-                case ADD:
++                case ADD: {
+                     double[] right = new double[output.length];
+                     this.right.fillArray(right, contextProvider);
+ 
+@@ -303,6 +_,7 @@
+                         output[i] += right[i];
+                     }
+                     break;
++                }
+                 case SUB:
+                     double[] right = new double[output.length];
+                     this.right.fillArray(right, contextProvider);

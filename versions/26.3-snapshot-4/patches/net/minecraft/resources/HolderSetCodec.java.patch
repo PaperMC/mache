@@ -1,6 +1,6 @@
 --- a/net/minecraft/resources/HolderSetCodec.java
 +++ b/net/minecraft/resources/HolderSetCodec.java
-@@ -66,7 +_,7 @@
+@@ -62,7 +_,7 @@
  
      private static <E> DataResult<HolderSet<E>> lookupTag(final HolderGetter<E> registry, final TagKey<E> key) {
          return registry.get(key)
@@ -9,3 +9,12 @@
              .orElseGet(() -> DataResult.error(() -> "Missing tag: '" + key.location() + "' in '" + key.registry().identifier() + "'"));
      }
  
+@@ -73,7 +_,7 @@
+             if (!maybeOwner.isPresent()) {
+                 return DataResult.error(() -> "Registry " + this.registryKey.identifier() + " is not available in this context");
+             } else {
+-                return !named.canSerializeIn((HolderOwner<T>)maybeOwner.get())
++                return !named.canSerializeIn(maybeOwner.get())
+                     ? DataResult.error(() -> "HolderSet " + named + " is not valid in current registry set")
+                     : this.tagKeyOrValuesCodec.encode(Either.left(named.key()), ops, prefix);
+             }

@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/attribute/modifier/AttributeModifier.java
 +++ b/net/minecraft/world/attribute/modifier/AttributeModifier.java
-@@ -73,7 +_,7 @@
+@@ -78,7 +_,7 @@
      );
  
      static <Value> AttributeModifier<Value, Value> override() {
@@ -8,4 +8,4 @@
 +        return (AttributeModifier<Value, Value>)AttributeModifier.OverrideModifier.INSTANCE;
      }
  
-     Subject apply(Subject subject, Argument argument);
+     static <Element> Map<AttributeModifier.OperationId, AttributeModifier<List<Element>, ?>> listLibrary() {

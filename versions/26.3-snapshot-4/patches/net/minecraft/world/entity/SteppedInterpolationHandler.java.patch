@@ -1,56 +1,37 @@
 --- a/net/minecraft/world/entity/SteppedInterpolationHandler.java
 +++ b/net/minecraft/world/entity/SteppedInterpolationHandler.java
-@@ -34,25 +_,7 @@
-         }
- 
-         int rotationSteps = this.interpolationSteps;
--        if (position instanceof PositionPath.Stepped var6) {
--            PositionPath.Stepped var10000 = var6;
--
--            try {
--                var10000.endPosition();
--            } catch (Throwable var11) {
--                throw new MatchException(var11.toString(), var11);
--            }
--
--            var10000 = var6;
--
--            try {
--                var14 = var10000.steps();
--            } catch (Throwable var10) {
--                throw new MatchException(var10.toString(), var10);
--            }
--
--            List var8 = var14;
--            List<PositionStep> steps = var8;
-+        if (position instanceof PositionPath.Stepped(Vec3 _, List<PositionStep> steps)) {
-             rotationSteps = 0;
- 
-             for (PositionStep step : steps) {
-@@ -119,25 +_,7 @@
+@@ -133,25 +_,7 @@
                  case PositionPath.Linear(Vec3 pos):
-                     this.remainingSteps.add(new PositionStep(pos, interpolationSteps));
+                     this.addStep(pos, yRot, xRot, interpolationSteps);
                      break;
--                case PositionPath.Stepped var8:
--                    PositionPath.Stepped var10000 = var8;
+-                case PositionPath.Stepped var9: {
+-                    PositionPath.Stepped var10000 = var9;
 -
 -                    try {
 -                        var10000.endPosition();
--                    } catch (Throwable var12) {
--                        throw new MatchException(var12.toString(), var12);
+-                    } catch (Throwable var17) {
+-                        throw new MatchException(var17.toString(), var17);
 -                    }
 -
--                    var10000 = var8;
+-                    var10000 = var9;
 -
 -                    try {
--                        var16 = var10000.steps();
--                    } catch (Throwable var11) {
--                        throw new MatchException(var11.toString(), var11);
+-                        var24 = var10000.steps();
+-                    } catch (Throwable var16) {
+-                        throw new MatchException(var16.toString(), var16);
 -                    }
 -
--                    List var10 = var16;
--                    List<PositionStep> steps = var10;
+-                    List totalInterpolationTicks = var24;
+-                    List<PositionStep> steps = totalInterpolationTicks;
 +                case PositionPath.Stepped(Vec3 _, List<PositionStep> steps):
-                     this.remainingSteps.addAll(steps);
+                     if (yRot == this.yRot() && xRot == this.xRot()) {
+                         for (PositionStep step : steps) {
+                             this.addStep(step.position(), yRot, xRot, step.tickOffset());
+@@ -169,7 +_,6 @@
+                         this.addStep(step.position(), Mth.rotLerp(a, this.yRot(), yRot), Mth.lerp(a, this.xRot(), xRot), step.tickOffset());
+                     }
                      break;
+-                }
                  default:
+                     throw new MatchException(null, null);
+             }
