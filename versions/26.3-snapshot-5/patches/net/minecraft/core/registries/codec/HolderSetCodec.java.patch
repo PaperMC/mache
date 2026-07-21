@@ -1,6 +1,6 @@
---- a/net/minecraft/resources/HolderSetCodec.java
-+++ b/net/minecraft/resources/HolderSetCodec.java
-@@ -62,7 +_,7 @@
+--- a/net/minecraft/core/registries/codec/HolderSetCodec.java
++++ b/net/minecraft/core/registries/codec/HolderSetCodec.java
+@@ -64,7 +_,7 @@
  
      private static <E> DataResult<HolderSet<E>> lookupTag(final HolderGetter<E> registry, final TagKey<E> key) {
          return registry.get(key)
@@ -9,7 +9,7 @@
              .orElseGet(() -> DataResult.error(() -> "Missing tag: '" + key.location() + "' in '" + key.registry().identifier() + "'"));
      }
  
-@@ -73,7 +_,7 @@
+@@ -75,7 +_,7 @@
              if (!maybeOwner.isPresent()) {
                  return DataResult.error(() -> "Registry " + this.registryKey.identifier() + " is not available in this context");
              } else {
