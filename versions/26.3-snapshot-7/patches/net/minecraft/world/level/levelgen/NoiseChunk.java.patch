@@ -1,0 +1,160 @@
+--- a/net/minecraft/world/level/levelgen/NoiseChunk.java
++++ b/net/minecraft/world/level/levelgen/NoiseChunk.java
+@@ -361,141 +_,22 @@
+     }
+ 
+     private DensityFunction wrapNew(final DensityFunction function) {
+-        // $VF: Couldn't be decompiled
+-        // Please report this to the Vineflower issue tracker, at https://github.com/Vineflower/vineflower/issues with a copy of the class file (if you have the rights to distribute it!)
+-        // java.lang.IllegalStateException: Invalid switch case set: [[var1_1 instanceof MarkerFunction(type, wrapped)], [var1_1 instanceof DensityFunctions.HolderHolder(holder)], [const(2)], [const(3)], [const(4)], [null]] for selector of type Lnet/minecraft/world/level/levelgen/DensityFunction;
+-        //   at org.jetbrains.java.decompiler.modules.decompiler.exps.SwitchHeadExprent.checkExprTypeBounds(SwitchHeadExprent.java:63)
+-        //   at org.jetbrains.java.decompiler.modules.decompiler.vars.VarTypeProcessor.checkTypeExpr(VarTypeProcessor.java:156)
+-        //   at org.jetbrains.java.decompiler.modules.decompiler.vars.VarTypeProcessor.checkTypeExprent(VarTypeProcessor.java:137)
+-        //   at org.jetbrains.java.decompiler.modules.decompiler.vars.VarTypeProcessor.lambda$processVarTypes$2(VarTypeProcessor.java:125)
+-        //   at org.jetbrains.java.decompiler.modules.decompiler.flow.DirectGraph.iterateExprents(DirectGraph.java:114)
+-        //   at org.jetbrains.java.decompiler.modules.decompiler.vars.VarTypeProcessor.processVarTypes(VarTypeProcessor.java:125)
+-        //   at org.jetbrains.java.decompiler.modules.decompiler.vars.VarTypeProcessor.calculateVarTypes(VarTypeProcessor.java:44)
+-        //   at org.jetbrains.java.decompiler.modules.decompiler.vars.VarVersionsProcessor.setVarVersions(VarVersionsProcessor.java:68)
+-        //   at org.jetbrains.java.decompiler.modules.decompiler.vars.VarProcessor.setVarVersions(VarProcessor.java:47)
+-        //   at org.jetbrains.java.decompiler.main.rels.MethodProcessor.codeToJava(MethodProcessor.java:320)
+-        //
+-        // Bytecode:
+-        // 000: aload 1
+-        // 001: dup
+-        // 002: invokestatic java/util/Objects.requireNonNull (Ljava/lang/Object;)Ljava/lang/Object;
+-        // 005: pop
+-        // 006: astore 2
+-        // 007: bipush 0
+-        // 008: istore 3
+-        // 009: aload 2
+-        // 00a: iload 3
+-        // 00b: invokedynamic typeSwitch (Lnet/minecraft/world/level/levelgen/DensityFunction;I)I bsm=java/lang/runtime/SwitchBootstraps.typeSwitch (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite; args=[ net/minecraft/world/level/levelgen/densityfunction/op/MarkerFunction, net/minecraft/world/level/levelgen/DensityFunctions$HolderHolder, null.invoke Ljava/lang/Enum$EnumDesc;, null.invoke Ljava/lang/Enum$EnumDesc;, null.invoke Ljava/lang/Enum$EnumDesc; ]
+-        // 010: tableswitch 287 0 4 36 215 245 259 273
+-        // 034: aload 2
+-        // 035: checkcast net/minecraft/world/level/levelgen/densityfunction/op/MarkerFunction
+-        // 038: astore 4
+-        // 03a: aload 4
+-        // 03c: invokevirtual net/minecraft/world/level/levelgen/densityfunction/op/MarkerFunction.type ()Lnet/minecraft/world/level/levelgen/densityfunction/op/MarkerFunction$Type;
+-        // 03f: astore 7
+-        // 041: aload 7
+-        // 043: astore 5
+-        // 045: aload 4
+-        // 047: invokevirtual net/minecraft/world/level/levelgen/densityfunction/op/MarkerFunction.wrapped ()Lnet/minecraft/world/level/levelgen/DensityFunction;
+-        // 04a: astore 7
+-        // 04c: aload 7
+-        // 04e: astore 6
+-        // 050: getstatic net/minecraft/world/level/levelgen/NoiseChunk$2.$SwitchMap$net$minecraft$world$level$levelgen$densityfunction$op$MarkerFunction$Type [I
+-        // 053: aload 5
+-        // 055: invokevirtual net/minecraft/world/level/levelgen/densityfunction/op/MarkerFunction$Type.ordinal ()I
+-        // 058: iaload
+-        // 059: tableswitch 39 1 6 49 62 76 88 101 114
+-        // 080: new java/lang/MatchException
+-        // 083: dup
+-        // 084: aconst_null
+-        // 085: aconst_null
+-        // 086: invokespecial java/lang/MatchException.<init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+-        // 089: athrow
+-        // 08a: new net/minecraft/world/level/levelgen/NoiseChunk$NoiseInterpolator
+-        // 08d: dup
+-        // 08e: aload 0
+-        // 08f: aload 6
+-        // 091: invokespecial net/minecraft/world/level/levelgen/NoiseChunk$NoiseInterpolator.<init> (Lnet/minecraft/world/level/levelgen/NoiseChunk;Lnet/minecraft/world/level/levelgen/DensityFunction;)V
+-        // 094: goto 130
+-        // 097: new net/minecraft/world/level/levelgen/NoiseChunk$FlatCache
+-        // 09a: dup
+-        // 09b: aload 0
+-        // 09c: aload 6
+-        // 09e: bipush 1
+-        // 09f: invokespecial net/minecraft/world/level/levelgen/NoiseChunk$FlatCache.<init> (Lnet/minecraft/world/level/levelgen/NoiseChunk;Lnet/minecraft/world/level/levelgen/DensityFunction;Z)V
+-        // 0a2: goto 130
+-        // 0a5: new net/minecraft/world/level/levelgen/NoiseChunk$Cache2D
+-        // 0a8: dup
+-        // 0a9: aload 6
+-        // 0ab: invokespecial net/minecraft/world/level/levelgen/NoiseChunk$Cache2D.<init> (Lnet/minecraft/world/level/levelgen/DensityFunction;)V
+-        // 0ae: goto 130
+-        // 0b1: new net/minecraft/world/level/levelgen/NoiseChunk$CacheOnce
+-        // 0b4: dup
+-        // 0b5: aload 0
+-        // 0b6: aload 6
+-        // 0b8: invokespecial net/minecraft/world/level/levelgen/NoiseChunk$CacheOnce.<init> (Lnet/minecraft/world/level/levelgen/NoiseChunk;Lnet/minecraft/world/level/levelgen/DensityFunction;)V
+-        // 0bb: goto 130
+-        // 0be: new net/minecraft/world/level/levelgen/NoiseChunk$CacheAllInCell
+-        // 0c1: dup
+-        // 0c2: aload 0
+-        // 0c3: aload 6
+-        // 0c5: invokespecial net/minecraft/world/level/levelgen/NoiseChunk$CacheAllInCell.<init> (Lnet/minecraft/world/level/levelgen/NoiseChunk;Lnet/minecraft/world/level/levelgen/DensityFunction;)V
+-        // 0c8: goto 130
+-        // 0cb: aload 0
+-        // 0cc: getfield net/minecraft/world/level/levelgen/NoiseChunk.blender Lnet/minecraft/world/level/levelgen/blending/Blender;
+-        // 0cf: invokevirtual net/minecraft/world/level/levelgen/blending/Blender.isEmpty ()Z
+-        // 0d2: ifne 0e2
+-        // 0d5: new net/minecraft/world/level/levelgen/NoiseChunk$BlendDensity
+-        // 0d8: dup
+-        // 0d9: aload 0
+-        // 0da: aload 6
+-        // 0dc: invokespecial net/minecraft/world/level/levelgen/NoiseChunk$BlendDensity.<init> (Lnet/minecraft/world/level/levelgen/NoiseChunk;Lnet/minecraft/world/level/levelgen/DensityFunction;)V
+-        // 0df: goto 130
+-        // 0e2: aload 6
+-        // 0e4: goto 130
+-        // 0e7: aload 2
+-        // 0e8: checkcast net/minecraft/world/level/levelgen/DensityFunctions$HolderHolder
+-        // 0eb: astore 7
+-        // 0ed: aload 7
+-        // 0ef: invokevirtual net/minecraft/world/level/levelgen/DensityFunctions$HolderHolder.function ()Lnet/minecraft/core/Holder;
+-        // 0f2: astore 9
+-        // 0f4: aload 9
+-        // 0f6: astore 8
+-        // 0f8: aload 8
+-        // 0fa: invokeinterface net/minecraft/core/Holder.value ()Ljava/lang/Object; 1
+-        // 0ff: checkcast net/minecraft/world/level/levelgen/DensityFunction
+-        // 102: goto 130
+-        // 105: aload 0
+-        // 106: getfield net/minecraft/world/level/levelgen/NoiseChunk.blendAlpha Lnet/minecraft/world/level/levelgen/NoiseChunk$FlatCache;
+-        // 109: aload 1
+-        // 10a: invokestatic java/util/Objects.requireNonNullElse (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+-        // 10d: checkcast net/minecraft/world/level/levelgen/DensityFunction
+-        // 110: goto 130
+-        // 113: aload 0
+-        // 114: getfield net/minecraft/world/level/levelgen/NoiseChunk.blendOffset Lnet/minecraft/world/level/levelgen/NoiseChunk$FlatCache;
+-        // 117: aload 1
+-        // 118: invokestatic java/util/Objects.requireNonNullElse (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+-        // 11b: checkcast net/minecraft/world/level/levelgen/DensityFunction
+-        // 11e: goto 130
+-        // 121: aload 0
+-        // 122: getfield net/minecraft/world/level/levelgen/NoiseChunk.beardifier Lnet/minecraft/world/level/levelgen/Beardifier;
+-        // 125: aload 1
+-        // 126: invokestatic java/util/Objects.requireNonNullElse (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+-        // 129: checkcast net/minecraft/world/level/levelgen/DensityFunction
+-        // 12c: goto 130
+-        // 12f: aload 1
+-        // 130: areturn
+-        // 131: astore 2
+-        // 132: new java/lang/MatchException
+-        // 135: dup
+-        // 136: aload 2
+-        // 137: invokevirtual java/lang/Throwable.toString ()Ljava/lang/String;
+-        // 13a: aload 2
+-        // 13b: invokespecial java/lang/MatchException.<init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+-        // 13e: athrow
+-        // try (15 -> 16): 109 java/lang/Throwable
+-        // try (20 -> 21): 109 java/lang/Throwable
+-        // try (81 -> 82): 109 java/lang/Throwable
++        return switch (function) {
++            case MarkerFunction(MarkerFunction.Type type, DensityFunction wrapped) ->
++                switch (type) {
++                    case Interpolated -> new NoiseInterpolator(wrapped);
++                    case FlatCache -> new FlatCache(wrapped, true);
++                    case Cache2D -> new Cache2D(wrapped);
++                    case CacheOnce -> new CacheOnce(wrapped);
++                    case CacheAllInCell -> new CacheAllInCell(wrapped);
++                    case BlendDensity -> !this.blender.isEmpty() ? new BlendDensity(wrapped) : wrapped;
++                };
++            case DensityFunctions.HolderHolder(net.minecraft.core.Holder<DensityFunction> holder) -> holder.value();
++            case SimpleDensityFunction.BLEND_ALPHA -> this.blendAlpha;
++            case SimpleDensityFunction.BLEND_OFFSET -> this.blendOffset;
++            case SimpleDensityFunction.BEARDIFIER -> this.beardifier;
++            default -> function;
++        };
+     }
+ 
+     private class BlendAlpha implements NoiseChunk.NoiseChunkDensityFunction {

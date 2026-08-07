@@ -1,0 +1,60 @@
+--- a/net/minecraft/world/level/levelgen/densityfunction/op/BinaryFunction.java
++++ b/net/minecraft/world/level/levelgen/densityfunction/op/BinaryFunction.java
+@@ -57,45 +_,46 @@
+     public void fillArray(final float[] output, final DensityFunction.ContextProvider contextProvider) {
+         this.left.fillArray(output, contextProvider);
+         switch (this.type) {
+-            case ADD:
++            case ADD -> {
+                 float[] right = new float[output.length];
+                 this.right.fillArray(right, contextProvider);
+ 
+                 for (int i = 0; i < output.length; i++) {
+                     output[i] += right[i];
+                 }
+-                break;
+-            case SUB:
++            }
++            case SUB -> {
+                 float[] right = new float[output.length];
+                 this.right.fillArray(right, contextProvider);
+ 
+                 for (int i = 0; i < output.length; i++) {
+                     output[i] -= right[i];
+                 }
+-                break;
+-            case MUL:
++            }
++            case MUL -> {
+                 for (int i = 0; i < output.length; i++) {
+                     float left = output[i];
+                     output[i] = left == 0.0F ? 0.0F : left * this.right.compute(contextProvider.forIndex(i));
+                 }
+-                break;
+-            case DIV:
++            }
++            case DIV -> {
+                 for (int i = 0; i < output.length; i++) {
+                     float left = output[i];
+                     output[i] = left == 0.0F ? 0.0F : left / this.right.compute(contextProvider.forIndex(i));
+                 }
+-                break;
+-            case MIN:
++            }
++            case MIN -> {
+                 for (int i = 0; i < output.length; i++) {
+                     float left = output[i];
+                     output[i] = left < this.rightMinValue ? left : Math.min(left, this.right.compute(contextProvider.forIndex(i)));
+                 }
+-                break;
+-            case MAX:
++            }
++            case MAX -> {
+                 for (int i = 0; i < output.length; i++) {
+                     float left = output[i];
+                     output[i] = left > this.rightMaxValue ? left : Math.max(left, this.right.compute(contextProvider.forIndex(i)));
+                 }
++            }
+         }
+     }
+ 

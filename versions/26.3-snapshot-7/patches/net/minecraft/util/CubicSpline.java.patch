@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/CubicSpline.java
 +++ b/net/minecraft/util/CubicSpline.java
-@@ -61,11 +_,11 @@
+@@ -60,11 +_,11 @@
              "CubicSpline",
              subSplineCodec -> Codec.either(Codec.FLOAT, CubicSpline.Multipoint.codec(coordinateCodec, subSplineCodec))
                  .xmap(
@@ -15,3 +15,12 @@
                              default -> throw new MatchException(null, null);
                          };
                      }
+@@ -150,7 +_,7 @@
+ 
+         @Override
+         public <R extends BoundedFloatFunction<?>> CubicSpline<R> mapCoordinates(final Function<I, R> mapper) {
+-            return this;
++            return (CubicSpline<R>)this;
+         }
+     }
+ 

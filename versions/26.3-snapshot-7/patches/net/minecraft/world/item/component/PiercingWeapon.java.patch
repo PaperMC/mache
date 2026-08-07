@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/item/component/PiercingWeapon.java
 +++ b/net/minecraft/world/item/component/PiercingWeapon.java
-@@ -76,7 +_,7 @@
+@@ -77,7 +_,7 @@
          boolean hitSomething = false;
  
          for (EntityHitResult hitResult : ProjectileUtil.getHitEntitiesAlong(attacker, attackRange, e1 -> canHitEntity(attacker, e1), ClipContext.Block.COLLIDER)
