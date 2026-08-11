@@ -5,7 +5,7 @@
  
      static <R> LootContextArg<R> of(final ContextKey<? extends R> contextParam) {
 -        return () -> contextParam;
-+        return (SimpleGetter<R>) () -> contextParam;
++        return (LootContextArg.SimpleGetter<R>)() -> contextParam;
      }
  
      static <R> Codec<LootContextArg<R>> createArgCodec(final UnaryOperator<LootContextArg.ArgCodecBuilder<R>> consumer) {

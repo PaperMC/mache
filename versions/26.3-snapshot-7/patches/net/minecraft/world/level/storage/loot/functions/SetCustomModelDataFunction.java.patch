@@ -5,7 +5,7 @@
  public class SetCustomModelDataFunction extends LootItemConditionalFunction {
      private static final Codec<Holder<NumberProvider>> COLOR_PROVIDER_CODEC = Codec.withAlternative(
 -        NumberProviders.CODEC, ExtraCodecs.RGB_COLOR_CODEC, ConstantValue::exactly
-+        NumberProviders.CODEC, ExtraCodecs.RGB_COLOR_CODEC, f -> ConstantValue.exactly(f)
++        NumberProviders.CODEC, ExtraCodecs.RGB_COLOR_CODEC, (Function<Integer, Holder<NumberProvider>>)ConstantValue::exactly
      );
      public static final MapCodec<SetCustomModelDataFunction> MAP_CODEC = RecordCodecBuilder.mapCodec(
          i -> commonFields(i)

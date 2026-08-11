@@ -1,5 +1,15 @@
 --- a/net/minecraft/world/level/levelgen/NoiseChunk.java
 +++ b/net/minecraft/world/level/levelgen/NoiseChunk.java
+@@ -6,7 +_,9 @@
+ import java.util.HashMap;
+ import java.util.List;
+ import java.util.Map;
++import java.util.Objects;
+ import net.minecraft.SharedConstants;
++import net.minecraft.core.Holder;
+ import net.minecraft.core.QuartPos;
+ import net.minecraft.core.SectionPos;
+ import net.minecraft.resources.Identifier;
 @@ -361,141 +_,22 @@
      }
  
@@ -149,7 +159,7 @@
 +                    case CacheAllInCell -> new CacheAllInCell(wrapped);
 +                    case BlendDensity -> !this.blender.isEmpty() ? new BlendDensity(wrapped) : wrapped;
 +                };
-+            case DensityFunctions.HolderHolder(net.minecraft.core.Holder<DensityFunction> holder) -> holder.value();
++            case DensityFunctions.HolderHolder(Holder<DensityFunction> holder) -> holder.value();
 +            case SimpleDensityFunction.BLEND_ALPHA -> this.blendAlpha;
 +            case SimpleDensityFunction.BLEND_OFFSET -> this.blendOffset;
 +            case SimpleDensityFunction.BEARDIFIER -> this.beardifier;
