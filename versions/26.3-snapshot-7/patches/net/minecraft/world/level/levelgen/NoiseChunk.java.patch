@@ -10,7 +10,7 @@
  import net.minecraft.core.QuartPos;
  import net.minecraft.core.SectionPos;
  import net.minecraft.resources.Identifier;
-@@ -361,141 +_,22 @@
+@@ -361,141 +_,21 @@
      }
  
      private DensityFunction wrapNew(final DensityFunction function) {
@@ -150,19 +150,18 @@
 -        // try (20 -> 21): 109 java/lang/Throwable
 -        // try (81 -> 82): 109 java/lang/Throwable
 +        return switch (function) {
-+            case MarkerFunction(MarkerFunction.Type type, DensityFunction wrapped) ->
-+                switch (type) {
-+                    case Interpolated -> new NoiseInterpolator(wrapped);
-+                    case FlatCache -> new FlatCache(wrapped, true);
-+                    case Cache2D -> new Cache2D(wrapped);
-+                    case CacheOnce -> new CacheOnce(wrapped);
-+                    case CacheAllInCell -> new CacheAllInCell(wrapped);
-+                    case BlendDensity -> !this.blender.isEmpty() ? new BlendDensity(wrapped) : wrapped;
-+                };
++            case MarkerFunction(MarkerFunction.Type type, DensityFunction wrapped) -> switch (type) {
++                case Interpolated -> new NoiseInterpolator(wrapped);
++                case FlatCache -> new FlatCache(wrapped, true);
++                case Cache2D -> new Cache2D(wrapped);
++                case CacheOnce -> new CacheOnce(wrapped);
++                case CacheAllInCell -> new CacheAllInCell(wrapped);
++                case BlendDensity -> !this.blender.isEmpty() ? new BlendDensity(wrapped) : wrapped;
++            };
 +            case DensityFunctions.HolderHolder(Holder<DensityFunction> holder) -> holder.value();
-+            case SimpleDensityFunction.BLEND_ALPHA -> this.blendAlpha;
-+            case SimpleDensityFunction.BLEND_OFFSET -> this.blendOffset;
-+            case SimpleDensityFunction.BEARDIFIER -> this.beardifier;
++            case SimpleDensityFunction.BLEND_ALPHA -> Objects.requireNonNullElse(this.blendAlpha, function);
++            case SimpleDensityFunction.BLEND_OFFSET -> Objects.requireNonNullElse(this.blendOffset, function);
++            case SimpleDensityFunction.BEARDIFIER -> Objects.requireNonNullElse(this.beardifier, function);
 +            default -> function;
 +        };
      }
