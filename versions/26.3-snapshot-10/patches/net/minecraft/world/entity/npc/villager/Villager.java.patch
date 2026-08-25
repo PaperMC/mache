@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/npc/villager/Villager.java
 +++ b/net/minecraft/world/entity/npc/villager/Villager.java
-@@ -190,7 +_,7 @@
+@@ -188,7 +_,7 @@
  
      @Override
      public Brain<Villager> getBrain() {
