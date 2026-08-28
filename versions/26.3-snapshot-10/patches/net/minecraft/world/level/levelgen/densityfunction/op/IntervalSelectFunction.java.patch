@@ -1,0 +1,26 @@
+--- a/net/minecraft/world/level/levelgen/densityfunction/op/IntervalSelectFunction.java
++++ b/net/minecraft/world/level/levelgen/densityfunction/op/IntervalSelectFunction.java
+@@ -114,20 +_,9 @@
+                     outputBuffer.set(i, buffers[samplerIndex].get(i));
+                 }
+             } finally {
+-                ScopedDensityBuffer[] var10 = buffers;
+-                int var11 = var10.length;
+-                int var12 = 0;
+-
+-                while (true) {
+-                    if (var12 >= var11) {
+-                        ;
+-                    } else {
+-                        ScopedDensityBuffer buffer = var10[var12];
+-                        if (buffer != null) {
+-                            buffer.close();
+-                        }
+-
+-                        var12++;
++                for (ScopedDensityBuffer buffer : buffers) {
++                    if (buffer != null) {
++                        buffer.close();
+                     }
+                 }
+             }
