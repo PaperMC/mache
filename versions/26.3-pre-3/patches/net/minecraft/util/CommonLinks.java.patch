@@ -1,0 +1,10 @@
+--- a/net/minecraft/util/CommonLinks.java
++++ b/net/minecraft/util/CommonLinks.java
+@@ -41,6 +_,7 @@
+         return URI.create(switch (reference) {
+             case EXPIRED_TRIAL -> uri + "&ref=expiredTrial";
+             case EXPIRED_REALM -> uri + "&ref=expiredRealm";
++            case NONE -> uri;
+         });
+     }
+ 
