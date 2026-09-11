@@ -126,8 +126,8 @@ jobs:
           fi
         env:
           BUILD_ID: ${{ env.GITHUB_RUN_NUMBER }}
-          ORG_GRADLE_PROJECT_PaperMCUsername: ${{ secrets.NEXUS_USERNAME }}
-          ORG_GRADLE_PROJECT_PaperMCPassword: ${{ secrets.NEXUS_PASSWORD }}
+          ORG_GRADLE_PROJECT_PaperMCUsername: ${{ secrets.ARTIFACTORY_USERNAME }}
+          ORG_GRADLE_PROJECT_PaperMCPassword: ${{ secrets.ARTIFACTORY_PASSWORD }}
       - uses: neoforged/action-github-status@v1
         name: Set Publication Completion Status
         if: always()
