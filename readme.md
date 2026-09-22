@@ -30,4 +30,4 @@ License
 The code in this repository, as well as the patches, are licensed under [LGPL-3.0-only](license.txt). The decompiled
 code is Mojang's proprietary code and not part of the licensed work.
 
-<img src="https://papermc.io/assets/misc/namespace-oss-badge.svg?project=mache" alt="CI powered by namespace badge" />
+[![CI powered by namespace badge](https://papermc.io/assets/misc/namespace-oss-badge.svg?project=mache)](https://namespace.so/github-actions/?utm_source=oss&utm_campaign=papermc)
