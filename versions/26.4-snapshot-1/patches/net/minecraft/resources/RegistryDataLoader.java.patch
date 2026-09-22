@@ -8,4 +8,4 @@
 +    private static final Comparator<ResourceKey<?>> ERROR_KEY_COMPARATOR = Comparator.<ResourceKey<?>, Identifier>comparing(ResourceKey::registry).thenComparing(ResourceKey::identifier);
      public static final List<RegistryDataLoader.RegistryData<?>> WORLD_REGISTRIES = List.of(
          new RegistryDataLoader.RegistryData<>(Registries.DIMENSION_TYPE, DimensionType.DIRECT_CODEC),
-         new RegistryDataLoader.RegistryData<>(Registries.BIOME, Biome.DIRECT_CODEC),
+         new RegistryDataLoader.RegistryData<>(Registries.BIOME, Biome.DIRECT_CODEC, Biome::validateRegistry),
