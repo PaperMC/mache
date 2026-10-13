@@ -1,0 +1,11 @@
+--- a/net/minecraft/core/registries/BuiltinRegistryBuilder.java
++++ b/net/minecraft/core/registries/BuiltinRegistryBuilder.java
+@@ -55,7 +_,7 @@
+         Bootstrap.checkBootstrapCalled(() -> "registry " + name.identifier());
+         Identifier key = name.identifier();
+         this.loaders.put(key, () -> loader.run(registry));
+-        this.registry.register((ResourceKey<WritableRegistry<?>>)name, registry, RegistrationInfo.BUILT_IN);
++        this.registry.register((ResourceKey)name, registry, RegistrationInfo.BUILT_IN);
+         return registry;
+     }
+ 
