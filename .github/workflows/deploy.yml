@@ -67,6 +67,18 @@ jobs:
           cache-disabled: true # namespace handles this
       - name: Apply Patches
         run: ./gradlew --init-script=/tmp/init.gradle ':versions:${{ needs.verify.outputs.project_name }}:setup'
+      - name: Check for decompiler errors
+        shell: bash
+        run: |
+          matches=$(grep -rn --include='*.java' -F "\$VF: Couldn't be decompiled" "versions/${{ needs.verify.outputs.folder_name }}/src/" || true)
+          if [[ -n "$matches" ]]; then
+            echo 'Found methods that failed to decompile:' >> $GITHUB_STEP_SUMMARY
+            while IFS=: read -r file line _; do
+              echo "::error file=${file},line=${line}::Vineflower couldn't decompile this method, it needs to be fixed with a patch"
+              echo "- \`${file}:${line}\`" >> $GITHUB_STEP_SUMMARY
+            done <<< "$matches"
+            exit 1
+          fi
       - name: Tar sources
         run: tar --exclude '*/.git*' -cf sources.tar versions/${{ needs.verify.outputs.folder_name }}/src/
       - uses: actions/upload-artifact@v7
