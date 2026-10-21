@@ -1,0 +1,165 @@
+--- a/net/minecraft/util/monomorphizer/MonomorphicDelegateTemplate.java
++++ b/net/minecraft/util/monomorphizer/MonomorphicDelegateTemplate.java
+@@ -150,52 +_,13 @@
+ 
+         @Override
+         public void accept(final ClassBuilder builder, final ClassElement element) {
+-            // $VF: Couldn't be decompiled
+-            // Please report this to the Vineflower issue tracker, at https://github.com/Vineflower/vineflower/issues with a copy of the class file (if you have the rights to distribute it!)
+-            // java.lang.IllegalStateException: Invalid switch case set: [[var2_1 instanceof var6_1, const(2)], [var2_1 instanceof var7_1], [var2_1 instanceof method], [null]] for selector of type Ljava/lang/classfile/ClassElement;
+-            //   at org.jetbrains.java.decompiler.modules.decompiler.exps.SwitchHeadExprent.checkExprTypeBounds(SwitchHeadExprent.java:63)
+-            //   at org.jetbrains.java.decompiler.modules.decompiler.vars.VarTypeProcessor.checkTypeExpr(VarTypeProcessor.java:156)
+-            //   at org.jetbrains.java.decompiler.modules.decompiler.vars.VarTypeProcessor.checkTypeExprent(VarTypeProcessor.java:137)
+-            //   at org.jetbrains.java.decompiler.modules.decompiler.vars.VarTypeProcessor.lambda$processVarTypes$2(VarTypeProcessor.java:125)
+-            //   at org.jetbrains.java.decompiler.modules.decompiler.flow.DirectGraph.iterateExprents(DirectGraph.java:114)
+-            //   at org.jetbrains.java.decompiler.modules.decompiler.vars.VarTypeProcessor.processVarTypes(VarTypeProcessor.java:125)
+-            //   at org.jetbrains.java.decompiler.modules.decompiler.vars.VarTypeProcessor.calculateVarTypes(VarTypeProcessor.java:44)
+-            //   at org.jetbrains.java.decompiler.modules.decompiler.vars.VarVersionsProcessor.setVarVersions(VarVersionsProcessor.java:68)
+-            //   at org.jetbrains.java.decompiler.modules.decompiler.vars.VarProcessor.setVarVersions(VarProcessor.java:47)
+-            //   at org.jetbrains.java.decompiler.main.rels.MethodProcessor.codeToJava(MethodProcessor.java:320)
+-            //
+-            // Bytecode:
+-            // 00: aload 2
+-            // 01: dup
+-            // 02: invokestatic java/util/Objects.requireNonNull (Ljava/lang/Object;)Ljava/lang/Object;
+-            // 05: pop
+-            // 06: astore 3
+-            // 07: bipush 0
+-            // 08: istore 4
+-            // 0a: aload 3
+-            // 0b: iload 4
+-            // 0d: invokedynamic typeSwitch (Ljava/lang/classfile/ClassElement;I)I bsm=java/lang/runtime/SwitchBootstraps.typeSwitch (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite; args=[ java/lang/classfile/attribute/RecordAttribute, java/lang/classfile/Superclass, java/lang/classfile/FieldModel, java/lang/classfile/MethodModel ]
+-            // 12: tableswitch 65 0 3 30 33 46 49
+-            // 30: goto 5b
+-            // 33: aload 1
+-            // 34: getstatic net/minecraft/util/monomorphizer/MonomorphicDelegateTemplate$DelegateClassTransform.CD_GENERATED_DELEGATE Ljava/lang/constant/ClassDesc;
+-            // 37: invokeinterface java/lang/classfile/ClassBuilder.withSuperclass (Ljava/lang/constant/ClassDesc;)Ljava/lang/classfile/ClassBuilder; 2
+-            // 3c: pop
+-            // 3d: goto 5b
+-            // 40: goto 5b
+-            // 43: aload 3
+-            // 44: checkcast java/lang/classfile/MethodModel
+-            // 47: astore 5
+-            // 49: aload 0
+-            // 4a: aload 1
+-            // 4b: aload 5
+-            // 4d: invokevirtual net/minecraft/util/monomorphizer/MonomorphicDelegateTemplate$DelegateClassTransform.acceptMethod (Ljava/lang/classfile/ClassBuilder;Ljava/lang/classfile/MethodModel;)V
+-            // 50: goto 5b
+-            // 53: aload 1
+-            // 54: aload 2
+-            // 55: invokeinterface java/lang/classfile/ClassBuilder.with (Ljava/lang/classfile/ClassFileElement;)Ljava/lang/classfile/ClassFileBuilder; 2
+-            // 5a: pop
+-            // 5b: return
++            switch (element) {
++                case java.lang.classfile.attribute.RecordAttribute _ -> {}
++                case java.lang.classfile.Superclass _ -> builder.withSuperclass(CD_GENERATED_DELEGATE);
++                case java.lang.classfile.FieldModel _ -> {}
++                case java.lang.classfile.MethodModel method -> acceptMethod(builder, method);
++                default -> builder.with(element);
++            }
+         }
+ 
+         private void acceptMethod(final ClassBuilder builder, final MethodModel method) {
+@@ -215,95 +_,13 @@
+         }
+ 
+         private void transformCodeElement(final CodeBuilder code, final CodeElement element) {
+-            // $VF: Couldn't be decompiled
+-            // Please report this to the Vineflower issue tracker, at https://github.com/Vineflower/vineflower/issues with a copy of the class file (if you have the rights to distribute it!)
+-            // java.lang.RuntimeException: invalid constant type: Ljava/lang/classfile/CodeElement; with value 4
+-            //   at org.jetbrains.java.decompiler.modules.decompiler.exps.ConstExprent.toJava(ConstExprent.java:364)
+-            //   at org.jetbrains.java.decompiler.modules.decompiler.stats.SwitchStatement.toJava(SwitchStatement.java:169)
+-            //   at org.jetbrains.java.decompiler.modules.decompiler.stats.RootStatement.toJava(RootStatement.java:36)
+-            //   at org.jetbrains.java.decompiler.main.ClassWriter.writeMethod(ClassWriter.java:1351)
+-            //
+-            // Bytecode:
+-            // 00: aload 2
+-            // 01: dup
+-            // 02: invokestatic java/util/Objects.requireNonNull (Ljava/lang/Object;)Ljava/lang/Object;
+-            // 05: pop
+-            // 06: astore 3
+-            // 07: bipush 0
+-            // 08: istore 4
+-            // 0a: aload 3
+-            // 0b: iload 4
+-            // 0d: invokedynamic typeSwitch (Ljava/lang/classfile/CodeElement;I)I bsm=java/lang/runtime/SwitchBootstraps.typeSwitch (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite; args=[ java/lang/classfile/instruction/LoadInstruction, java/lang/classfile/instruction/StoreInstruction, java/lang/classfile/instruction/InvokeInstruction, java/lang/classfile/instruction/LocalVariable, java/lang/classfile/instruction/LocalVariableType ]
+-            // 12: tableswitch 189 0 4 34 76 122 163 163
+-            // 34: aload 3
+-            // 35: checkcast java/lang/classfile/instruction/LoadInstruction
+-            // 38: astore 5
+-            // 3a: aload 5
+-            // 3c: invokeinterface java/lang/classfile/instruction/LoadInstruction.slot ()I 1
+-            // 41: aload 1
+-            // 42: invokeinterface java/lang/classfile/CodeBuilder.receiverSlot ()I 1
+-            // 47: if_icmpeq 50
+-            // 4a: bipush 1
+-            // 4b: istore 4
+-            // 4d: goto 0a
+-            // 50: aload 1
+-            // 51: aload 0
+-            // 52: getfield net/minecraft/util/monomorphizer/MonomorphicDelegateTemplate$DelegateClassTransform.targetInstanceCondy Ljava/lang/classfile/constantpool/ConstantDynamicEntry;
+-            // 55: invokeinterface java/lang/classfile/CodeBuilder.ldc (Ljava/lang/classfile/constantpool/LoadableConstantEntry;)Ljava/lang/classfile/CodeBuilder; 2
+-            // 5a: pop
+-            // 5b: goto da
+-            // 5e: aload 3
+-            // 5f: checkcast java/lang/classfile/instruction/StoreInstruction
+-            // 62: astore 6
+-            // 64: aload 6
+-            // 66: invokeinterface java/lang/classfile/instruction/StoreInstruction.slot ()I 1
+-            // 6b: aload 1
+-            // 6c: invokeinterface java/lang/classfile/CodeBuilder.receiverSlot ()I 1
+-            // 71: if_icmpeq 7a
+-            // 74: bipush 2
+-            // 75: istore 4
+-            // 77: goto 0a
+-            // 7a: new java/lang/IllegalStateException
+-            // 7d: dup
+-            // 7e: aload 6
+-            // 80: invokestatic java/lang/String.valueOf (Ljava/lang/Object;)Ljava/lang/String;
+-            // 83: invokedynamic makeConcatWithConstants (Ljava/lang/String;)Ljava/lang/String; bsm=java/lang/invoke/StringConcatFactory.makeConcatWithConstants (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite; args=[ "Encountered store to receiver slot (how?): \u0001" ]
+-            // 88: invokespecial java/lang/IllegalStateException.<init> (Ljava/lang/String;)V
+-            // 8b: athrow
+-            // 8c: aload 3
+-            // 8d: checkcast java/lang/classfile/instruction/InvokeInstruction
+-            // 90: astore 7
+-            // 92: aload 7
+-            // 94: invokeinterface java/lang/classfile/instruction/InvokeInstruction.owner ()Ljava/lang/classfile/constantpool/ClassEntry; 1
+-            // 99: aload 0
+-            // 9a: getfield net/minecraft/util/monomorphizer/MonomorphicDelegateTemplate$DelegateClassTransform.targetClassDesc Ljava/lang/constant/ClassDesc;
+-            // 9d: invokeinterface java/lang/classfile/constantpool/ClassEntry.matches (Ljava/lang/constant/ClassDesc;)Z 2
+-            // a2: ifne ab
+-            // a5: bipush 3
+-            // a6: istore 4
+-            // a8: goto 0a
+-            // ab: aload 0
+-            // ac: aload 1
+-            // ad: aload 7
+-            // af: invokevirtual net/minecraft/util/monomorphizer/MonomorphicDelegateTemplate$DelegateClassTransform.transformInvokeOnThisType (Ljava/lang/classfile/CodeBuilder;Ljava/lang/classfile/instruction/InvokeInstruction;)V
+-            // b2: goto da
+-            // b5: aload 3
+-            // b6: instanceof java/lang/classfile/instruction/LocalVariable
+-            // b9: ifeq bf
+-            // bc: goto da
+-            // bf: aload 3
+-            // c0: instanceof java/lang/classfile/instruction/LocalVariableType
+-            // c3: ifeq c9
+-            // c6: goto da
+-            // c9: bipush 5
+-            // ca: istore 4
+-            // cc: goto 0a
+-            // cf: aload 1
+-            // d0: aload 2
+-            // d1: invokeinterface java/lang/classfile/CodeBuilder.with (Ljava/lang/classfile/ClassFileElement;)Ljava/lang/classfile/ClassFileBuilder; 2
+-            // d6: pop
+-            // d7: goto da
+-            // da: return
++            switch (element) {
++                case LoadInstruction load when load.slot() == code.receiverSlot() -> code.ldc(targetInstanceCondy);
++                case StoreInstruction store when store.slot() == code.receiverSlot() -> throw new IllegalStateException("Encountered store to receiver slot (how?): " + store);
++                case InvokeInstruction invoke when invoke.owner().matches(targetClassDesc) -> transformInvokeOnThisType(code, invoke);
++                case LocalVariable _, LocalVariableType _ -> {}
++                default -> code.with(element);
++            }
+         }
+ 
+         private void transformInvokeOnThisType(final CodeBuilder code, final InvokeInstruction invoke) {
