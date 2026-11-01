@@ -6,6 +6,6 @@
  public class StringDecomposer {
 -    private static final char REPLACEMENT_CHAR = '�';
 +    private static final char REPLACEMENT_CHAR = '\uFFFD';
-     private static final Optional<Object> STOP_ITERATION = Optional.of(Unit.INSTANCE);
  
      private static boolean feedChar(final Style style, final FormattedCharSink output, final int pos, final char ch) {
+         return Character.isSurrogate(ch) ? output.accept(pos, style, REPLACEMENT_CHAR) : output.accept(pos, style, ch);
