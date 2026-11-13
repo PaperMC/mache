@@ -1,0 +1,19 @@
+--- a/net/minecraft/commands/suggestions/CustomSuggestion.java
++++ b/net/minecraft/commands/suggestions/CustomSuggestion.java
+@@ -28,14 +_,14 @@
+         @Override
+         public CompletableFuture<Suggestions> getSuggestions(final CommandContext<T> context, final SuggestionsBuilder builder) throws CommandSyntaxException {
+             if (context.getSource() instanceof SuggestionContext) {
+-                return this.suggestion.generate(context, builder);
++                return this.suggestion.generate((CommandContext<? extends SuggestionContext>)context, builder);
+             } else {
+                 throw new UnsupportedOperationException("Invalid context: " + context.getSource());
+             }
+         }
+ 
+         public <S extends SuggestionContext> CustomSuggestion.BrigadierWrapper<S> cast() {
+-            return this;
++            return (CustomSuggestion.BrigadierWrapper<S>)this;
+         }
+     }
+ }

@@ -1,0 +1,11 @@
+--- a/net/minecraft/commands/ParseBox.java
++++ b/net/minecraft/commands/ParseBox.java
+@@ -91,7 +_,7 @@
+         public ContextChain<CommandSourceStack> unpack() throws CommandSyntaxException {
+             Commands.validateParseResults(this.parseResults);
+             CommandContext<ParseContext> parsedContext = this.parseResults.getContext().build(this.commandString);
+-            CommandContext<CommandSourceStack> originalTypeContext = parsedContext;
++            CommandContext<CommandSourceStack> originalTypeContext = (CommandContext<CommandSourceStack>)(CommandContext<?>)parsedContext;
+             return ContextChain.tryFlatten(originalTypeContext)
+                 .orElseThrow(() -> CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownCommand().createWithContext(this.parseResults.getReader()));
+         }

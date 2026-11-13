@@ -1,0 +1,10 @@
+--- a/net/minecraft/server/permissions/PermissionProviderCheck.java
++++ b/net/minecraft/server/permissions/PermissionProviderCheck.java
+@@ -11,6 +_,6 @@
+     }
+ 
+     public <S extends PermissionSetSupplier> PermissionProviderCheck<S> cast() {
+-        return this;
++        return (PermissionProviderCheck<S>)this;
+     }
+ }

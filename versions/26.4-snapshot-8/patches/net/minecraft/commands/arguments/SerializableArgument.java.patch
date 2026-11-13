@@ -1,0 +1,11 @@
+--- a/net/minecraft/commands/arguments/SerializableArgument.java
++++ b/net/minecraft/commands/arguments/SerializableArgument.java
+@@ -57,7 +_,7 @@
+         default <S> CompletableFuture<Suggestions> listSuggestions(final CommandContext<S> context, final SuggestionsBuilder builder) {
+             if (context.getSource() instanceof SuggestionContext) {
+                 try {
+-                    return this.argument().listSuggestions(context, builder);
++                    return this.argument().listSuggestions((CommandContext<? extends SuggestionContext>)context, builder);
+                 } catch (CommandSyntaxException e) {
+                     return Suggestions.empty();
+                 }

@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/storage/loot/predicates/EnvironmentAttributeCheck.java
 +++ b/net/minecraft/world/level/storage/loot/predicates/EnvironmentAttributeCheck.java
-@@ -19,8 +_,8 @@
+@@ -20,8 +_,8 @@
      }
  
      @Override

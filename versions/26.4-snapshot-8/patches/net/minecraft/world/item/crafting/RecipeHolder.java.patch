@@ -1,0 +1,11 @@
+--- a/net/minecraft/world/item/crafting/RecipeHolder.java
++++ b/net/minecraft/world/item/crafting/RecipeHolder.java
+@@ -12,7 +_,7 @@
+     );
+ 
+     public static <T extends Recipe<?>> RecipeHolder<T> wrap(final Holder.Reference<T> holder) {
+-        ResourceKey<Recipe<?>> key = holder.key();
++        ResourceKey<Recipe<?>> key = (ResourceKey<Recipe<?>>)holder.key();
+         return new RecipeHolder<>(key, holder.value());
+     }
+ 
