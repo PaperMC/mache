@@ -34,7 +34,7 @@ tasks.withType<JavaCompile>().configureEach {
 dependencies {
     codebook("2.1.0")
     decompiler(vineflower("1.12.0"))
-    constants("io.papermc.unpick-definitions:unpick-definitions:26.3-pre-2+build.1")
+    constants("io.papermc.unpick-definitions:unpick-definitions:26.4-snapshot-9+build.1")
 }
 
 dependencies {
